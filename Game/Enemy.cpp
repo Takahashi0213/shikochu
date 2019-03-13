@@ -14,6 +14,7 @@ Enemy::~Enemy()
 
 bool Enemy::Start()
 {
+	//‚¤‚Ó‚Ó...‚ ‚Í‚ñ
 	m_skinModelRender=NewGO<prefab::CSkinModelRender>(0);
 	m_skinModelRender->Init(L"modelData/bunbo-gu0.cmo");
 
