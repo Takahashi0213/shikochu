@@ -6,6 +6,7 @@
 #include "Player_Status.h"
 #include "GameData.h"
 #include "Enemy.h"
+#include "Title.h"
 
 Game::Game()
 {
@@ -14,6 +15,12 @@ Game::Game()
 
 Game::~Game()
 {
+	DeleteGOs("GameData");
+	DeleteGOs("Bug");
+	DeleteGOs("Enemy");
+	DeleteGOs("Gamecamera");
+	DeleteGOs("Status");
+
 }
 bool Game::Start()
 {
@@ -22,7 +29,7 @@ bool Game::Start()
 
 	NewGO<Player>(0,"Bug");
 	NewGO<Enemy>(0, "Enemy");
-	NewGO<GameCamera>(0);
+	NewGO<GameCamera>(0,"Gamecamera");
 	NewGO<Player_Status>(0, "Status");
 
 	return true;
@@ -30,5 +37,8 @@ bool Game::Start()
 
 void Game::Update()
 {
-
+	if (Pad(0).IsPress(enButtonSelect)) {
+		NewGO<Title>(0, "title");
+		DeleteGO(this);
+	}
 }

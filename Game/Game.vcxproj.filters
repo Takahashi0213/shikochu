@@ -25,6 +25,7 @@
     <ClCompile Include="Player_Status.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameData.cpp" />
+    <ClCompile Include="attack1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -40,6 +41,7 @@
     </ClInclude>
     <ClInclude Include="Player_Status.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="attack1.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
@@ -54,6 +56,9 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\bunbo-gu0.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\attack1.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>

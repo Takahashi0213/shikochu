@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Title.h"
+#include "Game.h"
 
 
 Title::Title()
@@ -24,6 +25,8 @@ bool Title::Start() {
 }
 
 void Title::Update() {
-
-
+	if (Pad(0).IsPress(enButtonStart)) {
+		NewGO<Game>(0, "game");
+		DeleteGO(this);
+	}
 }
