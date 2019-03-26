@@ -22,12 +22,10 @@ bool Player::Start() {
 	//ゲームデータから最大寿命を引っ張ってくる
 	GameData * gamedata = FindGO<GameData>("GameData");
 	m_Life = gamedata->GetDEF_Life();
-
 	return true;
 }
 
 void Player::Update() {
-
 	//移動
 	if (Pad(0).IsPress(enButtonUp)) {
 		m_moveSpeed.z += moveCrossKey;
@@ -46,7 +44,7 @@ void Player::Update() {
 	stick.x = Pad(0).GetLStickXF();
 	stick.y = 0.0f;
 	stick.z = Pad(0).GetLStickYF();
-	m_moveSpeed += stick * 4.0f;
+	m_moveSpeed += stick * player;
 	//スティック入力されてなければ緩やかストップ
 	if (stick.x == 0.0f) {
 		m_moveSpeed.x /= 1.2f;

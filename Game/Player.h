@@ -15,8 +15,6 @@ public:
 		Estate_Death, //死亡
 	};
 
-	const float moveCrossKey = 10.0f; //十字キー入力時の最高速度
-	const float moveSpeedMAX = 200.0f; //普段の最高速度
 
 	Player();
 	~Player();
@@ -34,5 +32,8 @@ public:
 private:
 	//寿命
 	int m_Life = 0; //自分の寿命
+	const float moveCrossKey = 10.0f; //十字キー入力時の最高速度
+	const float moveSpeedMAX = 200.0f; //普段の最高速度
+	const float player = 4.0f;
 };
 

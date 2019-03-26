@@ -14,10 +14,15 @@ Enemy::~Enemy()
 
 bool Enemy::Start()
 {
-	
+	//アニメーションクリップをロードとループフラグ。
+	m_animClips[enAnimationClip_walk].Load(L"animData/walk.tka");
+	m_animClips[enAnimationClip_walk].SetLoopFlag(true);
+	m_animClips[enAnimationClip_attack1].Load(L"animData/attack1.tka");
+	//m_animClips[enAnimationClip_attack1].SetLoopFlag(true);
+	//スキンモデル
 	m_skinModelRender=NewGO<prefab::CSkinModelRender>(0);
-	m_skinModelRender->Init(L"modelData/bunbo-gu0.cmo");
-
+	m_skinModelRender->Init(L"modelData/bunbo-gu0.cmo", m_animClips, enAnimationClip_Num);
+	//m_skinModelRender->PlayAnimation(enAnimationClip_walk);
 	m_scale = { 2.0f,2.0f,2.0f };
 	m_charaCon.Init(
 		30.0f,  //キャラクターの半径。
@@ -31,7 +36,7 @@ bool Enemy::Start()
 }
 void Enemy::EnemyAttack()
 {
-	int com = rand() % 3;
+	/*int com = rand() % 3;
 	if (com == 0) {
 		m_attack = Eattack_1;
 	}
@@ -40,19 +45,27 @@ void Enemy::EnemyAttack()
 	}
 	else if (com == 2) {
 		m_attack = Eattack_3;
-	}
+	}*/
 }
 
 void Enemy::EnemyMove()
 {
+	timer++;
+	if (timer >= 300) {
+		m_skinModelRender->PlayAnimation(enAnimationClip_attack1);
+		if (timer >= 600) {
+			timer = 0;
+		}
+	}
+	else if(timer <= 300) {
+		m_skinModelRender->PlayAnimation(enAnimationClip_walk);
 
+	}
 }
 void Enemy::EnemyDeath()
 {
 
 }
-
-
 void Enemy::Update()
 	{
 		switch (m_stete) {
