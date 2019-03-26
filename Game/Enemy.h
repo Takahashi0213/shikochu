@@ -29,6 +29,7 @@ public:
 	void EnemyMove();
 	void EnemyDeath();
 
+private:
 	CAnimationClip m_animClips[enAnimationClip_Num];
 	prefab::CSkinModelRender* m_skinModelRender = nullptr;	//スキンモデルレンダラー。
 	CVector3 m_position = CVector3::Zero; // 座標。

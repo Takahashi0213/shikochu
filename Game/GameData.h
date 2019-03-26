@@ -4,11 +4,30 @@
 class GameData : public IGameObject
 {
 public:
-	int GetZanki();
-	int GetPoint();
-	int GetATK();
-	int GetDEF_Zanki();
-	int GetDEF_Life();
+	int GameData::GetZanki() {
+
+		return Zanki;
+	}
+
+	int GameData::GetPoint() {
+
+		return Point;
+	}
+
+	int GameData::GetATK() {
+
+		return ATK;
+	}
+
+	int GameData::GetDEF_Life() {
+
+		return DEF_Life;
+	}
+
+	int GameData::GetDEF_Zanki() {
+
+		return DEF_Zanki;
+	}
 
 private:
 	int Zanki = 50; //Žc‹@

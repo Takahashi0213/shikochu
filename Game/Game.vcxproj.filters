@@ -24,7 +24,6 @@
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="Player_Status.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="GameData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">

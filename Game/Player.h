@@ -15,7 +15,6 @@ public:
 		Estate_Death, //死亡
 	};
 
-
 	Player();
 	~Player();
 	bool Start();
@@ -30,10 +29,12 @@ public:
 	CCharacterController m_charaCon;		//キャラクターコントローラー。
 
 private:
+	//移動速度
+	const float moveCrossKey = 10.0f; //十字キー入力時の最高速度
+	const float moveSpeedMAX = 1000.0f; //普段の最高速度
+	const float playerMoveSpeed = 4.0f;//ここの数値をいじると移動速度変わる
 	//寿命
 	int m_Life = 0; //自分の寿命
-	const float moveCrossKey = 10.0f; //十字キー入力時の最高速度
-	const float moveSpeedMAX = 200.0f; //普段の最高速度
-	const float player = 4.0f;
+	int m_LifeCounter = 0; //寿命減少カウンター
 };
 
