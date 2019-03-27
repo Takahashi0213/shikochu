@@ -17,7 +17,11 @@ bool Enemy::Start()
 	//アニメーションクリップをロードとループフラグ。
 	m_animClips[enAnimationClip_walk].Load(L"animData/walk.tka");
 	m_animClips[enAnimationClip_walk].SetLoopFlag(true);
-	m_animClips[enAnimationClip_attack1].Load(L"animData/attack1.tka");
+	//予備
+	m_animClips[enAnimationClip_attack1].Load(L"animData/attack_1.tka");
+	//攻撃
+	m_animClips[enAnimationClip_attack01].Load(L"animData/attack_01.tka");
+
 	//m_animClips[enAnimationClip_attack1].SetLoopFlag(true);
 	//スキンモデル
 	m_skinModelRender=NewGO<prefab::CSkinModelRender>(0);
@@ -33,41 +37,70 @@ bool Enemy::Start()
 		m_position //キャラクターの初期座標。
 	);
 
-
 	
 	return true;
 }
 void Enemy::EnemyAttack()
 {
-	/*int com = rand() % 3;
-	if (com == 0) {
-		m_attack = Eattack_1;
+	m_skinModelRender->PlayAnimation(enAnimationClip_attack1);
+	timer++;
+	CVector3 diff = player->position - m_position;
+	 if(timer<=400){
+		m_skinModelRender->PlayAnimation(enAnimationClip_attack01);
+		attackk = 1;
 	}
-	else if (com == 1) {
-		m_attack = Eattack_2;
+	else if (attackk <= 1) {
+		m_stete = Estete_Move;
 	}
-	else if (com == 2) {
-		m_attack = Eattack_3;
-	}*/
 }
 
 void Enemy::EnemyMove()
 {
-	timer++;
-	if (timer >= 300) {
-		m_skinModelRender->PlayAnimation(enAnimationClip_attack1);
-		if (timer >= 600) {
-			timer = 0;
-		}
-	}
-	else if(timer <= 300) {
-		m_skinModelRender->PlayAnimation(enAnimationClip_walk);
+	//通常状態
+	CVector3 diff = player->position - m_position;
+	CVector3 df = m_position - m_oldposition;
 
+	moveVec.x = 50.0f * move;
+	moveVec.y = 0.0f;
+	moveVec.z = 0.0f;
+	m_position.x += moveVec.x;
+	if (m_position.x - m_oldposition.x > 200.0f) {
+		move = -1;
 	}
+	else if (m_position.x - m_oldposition.x < -200.0f) {
+		move = 1;
+	}
+	else if (diff.Length() < 600.0f) {
+		m_stete = Estete_Follow;
+	}
+	m_position = m_charaCon.Execute(moveVec);
+}
+void Enemy::EnemyFollow()
+{
+	//追尾状態	
+	CVector3 diff = player->position - m_position;
+	CVector3 df = m_position - m_oldposition;
+
+
+	enemyVec = diff;
+	if (diff.Length() < 600.0f) {
+		//近づく
+		enemyVec.Normalize();
+		enemyVec *= 150;
+	}
+	else if (diff.Length() > 400.0f) {
+		//その場で移動
+		m_stete = Estete_Move;
+	}
+	if (diff.Length() < 90.0f) {
+		//攻撃
+		m_stete = Estete_Attack;
+	}
+
 }
 void Enemy::EnemyDeath()
 {
-
+	DeleteGO(this);
 }
 void Enemy::Update()
 	{
@@ -78,19 +111,11 @@ void Enemy::Update()
 		case Estete_Move://移動
 			EnemyMove();
 			break;
+		case Estete_Follow://追尾
+			EnemyFollow();
+			break;
 		case Estete_Death:
 			EnemyDeath();//死
-			break;
-		}
-
-		switch (m_attack) {
-		case Eattack_0:
-			break;
-		case Eattack_1:
-			break;
-		case Eattack_2:
-			break;
-		case Eattack_3:
 			break;
 		}
 
