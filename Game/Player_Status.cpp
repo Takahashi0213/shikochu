@@ -19,10 +19,30 @@ Player_Status::~Player_Status()
 
 bool Player_Status::Start() {
 
-	//寿命土台
+	//流星ゲージ土台
 	prefab::CSpriteRender* r = NewGO<prefab::CSpriteRender>(0);
+	r->Init(L"sprite/StarBar_base.dds", 20.0f, 300.0f);
+	CVector3 Position = { -550.0f, -10.0f, 1.0f };//座標
+	r->SetPosition(Position);//座標を反映
+	m_spriteRender.push_back(r);
+	//流星ゲージ
+	r = NewGO<prefab::CSpriteRender>(0);
+	r->Init(L"sprite/StarBar.dds", 20.0f, 300.0f);
+	Position = { -550.0f, -10.0f, 1.0f };//座標
+	r->SetPosition(Position);//座標を反映
+	m_spriteRender.push_back(r);
+	//流星ゲージ上部分
+	r = NewGO<prefab::CSpriteRender>(0);
+	r->Init(L"sprite/StarBarUe.dds", 20.0f, 300.0f);
+	Position = { -550.0f, -10.0f, 1.0f };//座標
+	r->SetPosition(Position);//座標を反映
+	m_spriteRender.push_back(r);
+
+
+	//寿命土台
+	r = NewGO<prefab::CSpriteRender>(0);
 	r->Init(L"sprite/LifeBar_base.dds", 120.0f, 480.0f);
-	CVector3 Position = { -600.0f, -20.0f, 1.0f };//座標
+	Position = { -600.0f, -20.0f, 1.0f };//座標
 	r->SetPosition(Position);//座標を反映
 	m_spriteRender.push_back(r);
 	//バー
@@ -37,6 +57,7 @@ bool Player_Status::Start() {
 	Position = { -600.0f, -20.0f, 1.0f };//座標
 	r->SetPosition(Position);//座標を反映
 	m_spriteRender.push_back(r);
+
 	//ソウルアイコン
 	r = NewGO<prefab::CSpriteRender>(1);
 	r->Init(L"sprite/soulIC.dds", 100.0f, 100.0f);
@@ -50,6 +71,7 @@ bool Player_Status::Start() {
 	r->SetPosition(Position);//座標を反映
 	m_spriteRender.push_back(r);
 
+
 	m_fontRender = NewGO<prefab::CFontRender>(1);
 	return true;
 
@@ -58,9 +80,11 @@ bool Player_Status::Start() {
 void Player_Status::Update() {
 
 	CVector3 LifeScale = CVector3::Zero;
+	CVector3 StarScale = CVector3::Zero;
 	Player * player = FindGO<Player>("Bug");
 	GameData * gamedata = FindGO<GameData>("GameData");
 
+	//寿命ゲージを動かす
 	float DEF_Life = (float)gamedata->GetDEF_Life();
 	float NOW_Life = (float)player->GetLife();
 
@@ -77,10 +101,30 @@ void Player_Status::Update() {
 		LifeColor = { 1.0f,1.0f,1.0f,1.0f };
 	}
 
-	m_spriteRender[1]->SetPivot(LifePivot);
-	m_spriteRender[1]->SetScale(LifeScale);
-	m_spriteRender[1]->SetMulColor(LifeColor);
+	m_spriteRender[4]->SetPivot(LifePivot);
+	m_spriteRender[4]->SetScale(LifeScale);
+	m_spriteRender[4]->SetMulColor(LifeColor);
 
+	//流星ゲージを動かす
+	float NOW_StarPower = (float)gamedata->GetStar_Power();
+
+	//ゲージの拡大率を計算
+	float StarY = NOW_StarPower / DEF_StarPower;
+	StarScale = { 1.0f,StarY,1.0f };
+	//流星バーの色変え
+	if (NOW_StarPower == DEF_StarPower) {
+		StarColor = { 1.0f,1.0f,1.0f,1.0f };
+	}
+	else {
+		StarColor = { 0.5f,0.5f,255.0f,1.0f };
+	}
+
+	m_spriteRender[1]->SetPivot(StarPivot);
+	m_spriteRender[1]->SetScale(StarScale);
+	m_spriteRender[1]->SetMulColor(StarColor);
+
+
+	//残機を更新
 	wchar_t text[256];
 
 	swprintf(text, L"%d", gamedata->GetZanki());

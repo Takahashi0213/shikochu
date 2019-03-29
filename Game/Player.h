@@ -4,13 +4,14 @@
 #include "tkEngine/physics/tkPhysicsGhostObject.h"
 #include "tkEngine/character/tkCharacterController.h"
 
+#include "Enemy.h"
+
 class Player : public IGameObject
 {
 public:
 
 	enum Player_State {
 		Estate_Stay, //待機
-		Estate_Move, //移動
 		Estate_Dash, //ダッシュ
 		Estate_Death, //死亡
 	};
@@ -19,22 +20,40 @@ public:
 	~Player();
 	bool Start();
 	void Update();
-	int GetLife();
+	void PlayerReset();//死んだときに色々初期化します
+
+	int Player::GetLife() {
+
+		return m_Life;
+	}
+
+	//ポジションを返す関数
+	CVector3 Player::Getm_Position() {
+		return position;
+	}
+
+private:
 
 	prefab::CSkinModelRender* m_skinModelRender = nullptr;		//スキンモデルレンダラー。
 	CVector3 position = CVector3::Zero;
 	CQuaternion rotation = CQuaternion::Identity;
+	CVector3 m_scale = CVector3::One; // 拡大率。
 
 	CVector3 m_moveSpeed = CVector3::Zero;	//移動速度。
 	CCharacterController m_charaCon;		//キャラクターコントローラー。
-
-private:
+	
+	Player_State player_state = Estate_Stay;		 //状態
+	//距離算出用
+	CVector3 playerVec;
 	//移動速度
-	const float moveCrossKey = 10.0f; //十字キー入力時の最高速度
+	const float moveCrossKey = 20.0f; //十字キー入力時の最高速度
 	const float moveSpeedMAX = 1000.0f; //普段の最高速度
 	const float playerMoveSpeed = 4.0f;//ここの数値をいじると移動速度変わる
 	//寿命
 	int m_Life = 0; //自分の寿命
 	int m_LifeCounter = 0; //寿命減少カウンター
+	const int m_LifeSpeed = 5; //ここをいじると寿命減少速度変わる
+	//リセット用
+	int ResetTimer = 0;
 };
 

@@ -9,6 +9,7 @@ Player::Player()
 
 Player::~Player()
 {
+	DeleteGO(m_skinModelRender);
 }
 
 bool Player::Start() {
@@ -28,6 +29,9 @@ bool Player::Start() {
 
 void Player::Update() {
 
+	switch (player_state) {
+
+	case Estate_Stay://待機
 		//移動
 		if (Pad(0).IsPress(enButtonUp)) {
 			m_moveSpeed.z += moveCrossKey;
@@ -70,23 +74,29 @@ void Player::Update() {
 
 		}
 
-	//ダッシュ機能
-	if (Pad(0).IsTrigger(enButtonA)) {
+		//ダッシュ機能
+		if (Pad(0).IsTrigger(enButtonA)) {
 
-		CVector3 Dash_Speed = m_moveSpeed;
-		Dash_Speed.Normalize();
-		Dash_Speed *= 1000.0f;
-		m_moveSpeed += Dash_Speed;
+			CVector3 Dash_Speed = m_moveSpeed;
+			Dash_Speed.Normalize();
+			Dash_Speed *= 1000.0f;
+			m_moveSpeed += Dash_Speed;
 
-		m_Life -= 5;
-		if (m_Life < 0) {
-			m_Life = 0; //0より小さくしない
+			m_Life -= 5;
+			if (m_Life < 0) {
+				m_Life = 0; //0より小さくしない
+			}
 		}
+		break;
+	//case Estate_Dash://ダッシュ
+	//	break;
+	//case Estate_Death://死んでいる
+	//	break;
 	}
 
 	//寿命減少
 	m_LifeCounter++;
-	if (m_LifeCounter > 5) {
+	if (m_LifeCounter > m_LifeSpeed) {
 		m_LifeCounter = 0;
 		m_Life -= 1;
 		if (m_Life < 0) {
@@ -103,13 +113,57 @@ void Player::Update() {
 	float angle = atan2(m_moveSpeed.x, m_moveSpeed.z);
 	rotation.SetRotation(CVector3::AxisY, angle);
 
+	//敵との距離を計算
+	Enemy * enemy = FindGO<Enemy>("Enemy");
+	CVector3 enemy_position = enemy->Getm_Position();
+	CVector3 diff = enemy_position - position;
+	playerVec = diff;
+
+	if (diff.Length() < 80.0f) {
+		m_Life = 0;//敵にぶつかった
+		int EState = enemy->GetEState();
+		if (EState != 0) {//敵が攻撃中の時でない
+			enemy->SetDeath();
+		}
+	}
+
+	//寿命だ…
+	if (m_Life == 0) {
+		//ここで死ぬ
+		PlayerReset();
+	}
+
 	//反映
 	m_skinModelRender->SetPosition(position);
 	m_skinModelRender->SetRotation(rotation);
+	m_skinModelRender->SetScale(m_scale);
 
 }
 
-int Player::GetLife() {
+void Player::PlayerReset() {
 
-	return m_Life;
+	if (ResetTimer == 0) {
+		player_state = Estate_Death;
+		m_scale = CVector3::Zero;
+		m_skinModelRender->SetScale(m_scale);
+
+	}
+	if (ResetTimer == 120) {
+		//ゲームデータから最大寿命を引っ張ってくる
+		GameData * gamedata = FindGO<GameData>("GameData");
+		m_Life = gamedata->GetDEF_Life();
+		ResetTimer = -1;
+		gamedata->SetZanki(-1);
+		player_state = Estate_Stay;
+		//元に戻す
+		position = { 0.0f,0.0f,0.0f };
+		rotation = CQuaternion::Identity;
+		m_scale = CVector3::One;
+		m_moveSpeed = CVector3::Zero;
+		m_skinModelRender->SetPosition(position);
+		m_skinModelRender->SetRotation(rotation);
+		m_skinModelRender->SetScale(m_scale);
+	}
+	ResetTimer++;
+
 }

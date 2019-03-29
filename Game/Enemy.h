@@ -33,7 +33,7 @@ public:
 		return m_position;
 	}
 	//ステートを返す関数
-	int Enemy::GetEStete() {
+	int Enemy::GetEState() {
 		return m_stete;
 	}
 	//自分が死ぬ関数

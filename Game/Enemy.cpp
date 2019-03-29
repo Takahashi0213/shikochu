@@ -48,7 +48,8 @@ void Enemy::EnemyAttack()
 	if(timer <= attackwait){
 		//攻撃アニメーション
 		m_skinModelRender->PlayAnimation(enAnimationClip_attack01);
-		CVector3 diff = player->position - m_position;
+		CVector3 P_Position = player->Getm_Position();
+		CVector3 diff = P_Position - m_position;
 		diff.Normalize();
 		diff *= 50;
 		m_position = m_charaCon.Execute(diff);
@@ -65,8 +66,9 @@ void Enemy::EnemyMove()
 {
 	Player * player = FindGO<Player>("Bug");
 
-	//通常状態
-	CVector3 diff = player->position - m_position;
+	//通常状態]
+	CVector3 P_Position = player->Getm_Position();
+	CVector3 diff = P_Position - m_position;
 	CVector3 df = m_position - m_oldposition;
 
 	moveVec.x = 50.0f * move;
@@ -98,7 +100,8 @@ void Enemy::EnemyFollow()
 	Player * player = FindGO<Player>("Bug");
 
 	//追尾状態	
-	CVector3 diff = player->position - m_position;	
+	CVector3 P_Position = player->Getm_Position();
+	CVector3 diff = P_Position - m_position;
 	enemyVec = diff;
 
 	if (diff.Length() < 600.0f) {

@@ -1805,6 +1805,7 @@
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\bug.FBX" />
     <MeshContentTask Include="Assets\modelData\bunbo-gu0.FBX" />
+    <MeshContentTask Include="Assets\modelData\item.FBX" />
     <MeshContentTask Include="Assets\modelData\unityChan.fbx" />
   </ItemGroup>
   <ItemGroup>
@@ -1823,6 +1824,11 @@
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\Zanki.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\StarBar.png" />
+    <ImageContentTask Include="Assets\sprite\StarBarUe.png" />
+    <ImageContentTask Include="Assets\sprite\StarBar_base.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

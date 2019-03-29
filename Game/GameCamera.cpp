@@ -20,15 +20,16 @@ bool GameCamera::Start() {
 	MainCamera().SetViewAngle(CMath::DegToRad(80.0f));
 
 	Player * player = FindGO<Player>("Bug");
+	CVector3 P_Position = player->Getm_Position();
 	//注視点を動かす
-	cameraTarget.x = player->position.x;
-	cameraTarget.y = player->position.y;	//プレイヤーのちょっと上にする
-	cameraTarget.z = player->position.z;
+	cameraTarget.x = P_Position.x;
+	cameraTarget.y = P_Position.y;	//プレイヤーのちょっと上にする
+	cameraTarget.z = P_Position.z;
 
 	//視点をカメラに伝える
-	cameraPos.x = player->position.x;
-	cameraPos.y = player->position.y + 200.0f;	//プレイヤーのちょっと上にする
-	cameraPos.z = player->position.z - 5.0f;
+	cameraPos.x = P_Position.x;
+	cameraPos.y = P_Position.y + 200.0f;	//プレイヤーのちょっと上にする
+	cameraPos.z = P_Position.z - 5.0f;
 
 	//注視点をカメラに伝える
 	MainCamera().SetTarget(cameraTarget);
@@ -43,15 +44,17 @@ bool GameCamera::Start() {
 void GameCamera::Update() {
 
 	Player * player = FindGO<Player>("Bug");
+	CVector3 P_Position = player->Getm_Position();
+
 	//注視点を動かす
-	cameraTarget.x = player->position.x;
-	cameraTarget.y = player->position.y;	//プレイヤーのちょっと上にする
-	cameraTarget.z = player->position.z;
+	cameraTarget.x = P_Position.x;
+	cameraTarget.y = P_Position.y;	//プレイヤーのちょっと上にする
+	cameraTarget.z = P_Position.z;
 
 	//視点をカメラに伝える
-	cameraPos.x = player->position.x;
-	cameraPos.y = player->position.y + 200.0f;	//プレイヤーのちょっと上にする
-	cameraPos.z = player->position.z - 5.0f;
+	cameraPos.x = P_Position.x;
+	cameraPos.y = P_Position.y + 200.0f;	//プレイヤーのちょっと上にする
+	cameraPos.z = P_Position.z - 5.0f;
 
 	//注視点をカメラに伝える
 	MainCamera().SetTarget(cameraTarget);
