@@ -48,8 +48,10 @@ void Enemy::EnemyAttack()
 	if(timer <= attackwait){
 		//攻撃アニメーション
 		m_skinModelRender->PlayAnimation(enAnimationClip_attack01);
+
 		CVector3 P_Position = player->Getm_Position();
 		CVector3 diff = P_Position - m_position;
+
 		diff.Normalize();
 		diff *= 50;
 		m_position = m_charaCon.Execute(diff);
@@ -113,7 +115,7 @@ void Enemy::EnemyFollow()
 		//その場で移動
 		m_stete = Estete_Move;
 	}
-	 if (diff.Length() < 80.0f) {
+	 if (diff.Length() < 120.0f) {
 		//予備動作
 		m_stete = Estete_yobi;
 	}
@@ -123,9 +125,16 @@ void Enemy::EnemyFollow()
 		 //わからん
 		 return;
 	 }
-	 float angle = atan2(enemyVec.x, enemyVec.z);
-	 m_rotation.SetRotation(CVector3::AxisY, -angle);
-	 
+	 CVector3 enemyForward = { 1.0f, 0.0f, 0.0f };
+
+	 //②　向かせたい方向のベクトルを計算する。
+	 CVector3 targetVector = P_Position - m_position;
+	 //③　Y成分は除去して正規化する。Y成分を入れると空を向いたりするよ。
+	 targetVector.y = 0.0f;
+	 targetVector.Normalize();
+	 CQuaternion qRot;
+	 qRot.SetRotation(enemyForward, targetVector);
+	 m_rotation = qRot;
 	 m_position = m_charaCon.Execute(enemyVec);
 
 }
@@ -166,7 +175,6 @@ void Enemy::Update()
 
 	//移動
 	m_skinModelRender->SetPosition(m_position);
-
 	//回転
 	m_skinModelRender->SetRotation(m_rotation);
 	//拡大率
