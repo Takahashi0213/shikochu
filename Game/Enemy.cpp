@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Enemy.h"
-
+#include "GameData.h"
 
 Enemy::Enemy()
 {
@@ -52,7 +52,7 @@ void Enemy::EnemyAttack()
 		CVector3 diff = P_Position - m_position;
 
 		diff.Normalize();
-		diff *= 50;
+		diff *= attackMoveRange;
 		m_position = m_charaCon.Execute(diff);
 	}
 	else{
@@ -71,26 +71,20 @@ void Enemy::EnemyMove()
 	CVector3 diff = P_Position - m_position;
 
 	count++;
-	/*if (count == 0) {
-		random = rand() % 360;
-		count = 1;
-	}*/
 	
-	if(count == 60){
-		random = rand() % 360;
-		m_rotation.SetRotation(CVector3::AxisY, random);
+	if(count == randomCount){
+		random = rand() % 360;//ランダムで方向を決定
+		m_rotation.SetRotation(CVector3::AxisY, (float)random);
 		CVector3 musi_mae = { 1.0f, 0.0f,0.0f };
 		m_rotation.Multiply(musi_mae);
-		moveVec = musi_mae * 30.3f;
+		moveVec = musi_mae * randomSpeed;
 		count = 0;
 	}
-	/*else if () {
 
-	}*/
-	/*else if (diff.Length() < distancemove) {
+	else if (diff.Length() < followRange) {
 		//距離が近いので追尾する。
 		m_stete = Estete_Follow;
-	}*/
+	}
 	if (m_stete == Estete_Move) {
 		//steteがmoveのときは歩きアニメーション
 		m_skinModelRender->PlayAnimation(enAnimationClip_walk);
@@ -108,16 +102,17 @@ void Enemy::EnemyFollow()
 	CVector3 diff = P_Position - m_position;
 	enemyVec = diff;
 
-	if (diff.Length() < 600.0f) {
+	if (diff.Length() < followRange) {
 		//近づく
 		enemyVec.Normalize();
-		enemyVec *= 80;
+		enemyVec *= followSpeed;
 	}
-	else if (diff.Length() > 600.0f) {
+	else{
 		//その場で移動
 		m_stete = Estete_Move;
 	}
-	 if (diff.Length() < 120.0f) {
+
+	 if (diff.Length() < attackRange) {
 		//予備動作
 		m_stete = Estete_yobi;
 	}
@@ -127,6 +122,13 @@ void Enemy::EnemyFollow()
 		 //わからん
 		 return;
 	 }
+
+	 if (m_stete == Estete_Follow) {
+		 //steteがfollowのときは歩きアニメーション
+		 m_skinModelRender->PlayAnimation(enAnimationClip_walk);
+
+	 }
+
 	 CVector3 enemyForward = { 1.0f, 0.0f, 0.0f };
 
 	 //　向かせたい方向のベクトルを計算する。
@@ -143,6 +145,11 @@ void Enemy::EnemyFollow()
 void Enemy::EnemyDeath()
 {
 	//死
+	m_position = { 1000.0f,1000.0f,1000.0f };
+	//移動
+	m_skinModelRender->SetPosition(m_position);
+	GameData * gamedata = FindGO<GameData>("GameData");
+	gamedata->TestMessage();
 }
 void Enemy::Enemyyobi() {
 	//予備動作

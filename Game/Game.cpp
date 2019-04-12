@@ -7,6 +7,7 @@
 #include "GameData.h"
 #include "Enemy.h"
 #include "Title.h"
+#include "StarItem.h"
 
 Game::Game()
 {
@@ -20,6 +21,7 @@ Game::~Game()
 	DeleteGOs("Enemy");
 	DeleteGOs("Gamecamera");
 	DeleteGOs("Status");
+	DeleteGOs("item");
 
 }
 bool Game::Start()
@@ -29,6 +31,8 @@ bool Game::Start()
 	NewGO<Enemy>(0, "Enemy");
 	NewGO<GameCamera>(0,"Gamecamera");
 	NewGO<Player_Status>(0, "Status");
+
+	NewGO<StarItem>(0, "item");
 
 	GameData * gameData = FindGO<GameData>("GameData");
 	gameData->SetGameMode(GameData::Battle2D_Mode);

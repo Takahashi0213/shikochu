@@ -28,7 +28,7 @@ bool Player_Status::Start() {
 	//流星ゲージ
 	r = NewGO<prefab::CSpriteRender>(0);
 	r->Init(L"sprite/StarBar.dds", 20.0f, 300.0f);
-	Position = { -550.0f, -10.0f, 1.0f };//座標
+	Position = { -550.0f, -160.0f, 1.0f };//座標
 	r->SetPosition(Position);//座標を反映
 	m_spriteRender.push_back(r);
 	//流星ゲージ上部分
@@ -83,7 +83,7 @@ void Player_Status::Update() {
 	CVector3 StarScale = CVector3::Zero;
 	Player * player = FindGO<Player>("Bug");
 	GameData * gamedata = FindGO<GameData>("GameData");
-
+	
 	//寿命ゲージを動かす
 	float DEF_Life = (float)gamedata->GetDEF_Life();
 	float NOW_Life = (float)player->GetLife();
@@ -107,6 +107,7 @@ void Player_Status::Update() {
 
 	//流星ゲージを動かす
 	float NOW_StarPower = (float)gamedata->GetStar_Power();
+	float DEF_StarPower = (float)gamedata->GetMAXStar_Power();
 
 	//ゲージの拡大率を計算
 	float StarY = NOW_StarPower / DEF_StarPower;
@@ -128,6 +129,7 @@ void Player_Status::Update() {
 	wchar_t text[256];
 
 	swprintf(text, L"%d", gamedata->GetZanki());
+
 	m_fontRender->SetText(text);
 	m_fontRender->SetPosition(ZankiPos);
 	m_fontRender->SetScale(ZankiScale);

@@ -26,7 +26,8 @@ public:
 	bool Start();
 	void Update();
 	void PlayerReset();//死んだときに色々初期化します
-
+	
+	//寿命を返す関数
 	int Player::GetLife() {
 
 		return m_Life;
@@ -38,6 +39,11 @@ public:
 	}
 
 private:
+
+	//寿命減少速度リセット
+	void LifeSpeedReset() {
+		m_LifeSpeed = m_LifeSpeedDEF;
+	}
 
 	prefab::CSkinModelRender* m_skinModelRender = nullptr;		//スキンモデルレンダラー。
 	CVector3 position = CVector3::Zero;
@@ -59,7 +65,10 @@ private:
 	//寿命
 	int m_Life = 0; //自分の寿命
 	int m_LifeCounter = 0; //寿命減少カウンター
-	const int m_LifeSpeed = 5; //ここをいじると寿命減少速度変わる
+	const int m_Life_Decrease = 1;//減少値
+	int m_LifeSpeed = 5; //ここをいじると寿命減少速度変わる
+	const int m_LifeSpeedDEF = 5; //デフォルト寿命減少速度
+	const int DashLife = 2;//ダッシュ中は寿命が0にならないようにする、その最小値
 	//リセット用
 	int ResetTimer = 0;
 };

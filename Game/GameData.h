@@ -62,12 +62,45 @@ public:
 		return m_stete;
 	}
 
+	//流星ゲージ加減
+	//指定した値を加算するから減少したいときは負の数を入れてね
+	void GameData::Star_PowerChange(int hoge) {
+		Star_Power += hoge;
+		if (Star_Power > MAXStarPower) {
+			Star_Power = MAXStarPower;
+		}
+		if (Star_Power < 0) {
+			Star_Power = 0;
+		}
+
+	}
+
 	//流星ゲージ取得
 	int GameData::GetStar_Power() {
 		return Star_Power;
 	}
+
+	//流星ゲージ最大値取得
+	int GameData::GetMAXStar_Power() {
+		return MAXStarPower;
+	}
+
+	//テストメッセージ
+	void GameData::TestMessage() {
+
+		prefab::CFontRender* m_fontRender;
+		m_fontRender = NewGO<prefab::CFontRender>(1);
+
+		wchar_t text[256];
+		swprintf(text, L"TEST MESSAGE");
+
+		m_fontRender->SetText(text);
+		m_fontRender->SetPosition({ 0.0f,0.0f});
+
+	}
+
 private:
-	
+
 	int Zanki = 50; //残機
 	int Star_Power = 0; //流星ダッシュ発動までのゲージ
 
@@ -79,4 +112,8 @@ private:
 	int ATK = 100; //基本攻撃力
 	int DEF_Zanki = 50; //デフォルト残機
 	int DEF_Life = 100; //デフォルト寿命
+
+	//定数
+	const int MAXStarPower = 100;//流星ゲージの最大値
+
 };

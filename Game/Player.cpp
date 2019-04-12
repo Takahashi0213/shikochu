@@ -36,6 +36,7 @@ void Player::Update() {
 		switch (player_state) {
 
 		case Estate_Stay://待機
+		{
 			//移動
 			if (Pad(0).IsPress(enButtonUp)) {
 				m_moveSpeed.z += moveCrossKey;
@@ -91,8 +92,22 @@ void Player::Update() {
 					m_Life = 0; //0より小さくしない
 				}
 			}
-			break;
-			//case Estate_Dash://ダッシュ
+
+			//流星ダッシュ
+			if (Pad(0).IsTrigger(enButtonY)) {
+				GameData * gamedata = FindGO<GameData>("GameData");
+				//ゲージの色々を取得する
+				int Now_Star_Power = gamedata->GetStar_Power();
+				int MAX_Star_Power = gamedata->GetMAXStar_Power();
+				//ゲージがMAXなら
+				if (Now_Star_Power == MAX_Star_Power) {
+					//ダッシュ状態になるぞ！！！！！！
+					player_state = Estate_Dash;
+				}
+			}
+		}
+		break;
+		//case Estate_Dash://ダッシュ
 			//	break;
 			//case Estate_Death://死んでいる
 			//	break;
@@ -250,13 +265,15 @@ void Player::PlayerReset() {
 		m_skinModelRender->SetScale(m_scale);
 
 	}
-	if (ResetTimer == 120) {
+	if (ResetTimer == 60) {
 		//ゲームデータから最大寿命を引っ張ってくる
 		GameData * gamedata = FindGO<GameData>("GameData");
 		m_Life = gamedata->GetDEF_Life();
 		ResetTimer = -1;
-		gamedata->SetZanki(-1);
+		gamedata->SetZanki(-1);//残機減少
 		player_state = Estate_Stay;
+		//寿命減少速度も戻す
+		LifeSpeedReset();
 		//元に戻す
 		position = { 0.0f,0.0f,0.0f };
 		rotation = CQuaternion::Identity;

@@ -24,6 +24,7 @@
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="Player_Status.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="StarItem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -39,6 +40,7 @@
     </ClInclude>
     <ClInclude Include="Player_Status.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="StarItem.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
