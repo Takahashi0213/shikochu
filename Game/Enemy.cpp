@@ -36,7 +36,6 @@ bool Enemy::Start()
 		10.0f,  //キャラクターの高さ。
 		m_position //キャラクターの初期座標。
 	);
-
 	
 	return true;
 }
@@ -67,35 +66,38 @@ void Enemy::EnemyAttack()
 void Enemy::EnemyMove()
 {
 	Player * player = FindGO<Player>("Bug");
-
-	//通常状態]
+	//通常状態
 	CVector3 P_Position = player->Getm_Position();
 	CVector3 diff = P_Position - m_position;
-	CVector3 df = m_position - m_oldposition;
 
-	moveVec.x = 50.0f * move;
-	moveVec.y = 0.0f;
-	moveVec.z = 0.0f;
-	m_position.x += moveVec.x;
+	count++;
+	/*if (count == 0) {
+		random = rand() % 360;
+		count = 1;
+	}*/
+	
+	if(count == 60){
+		random = rand() % 360;
+		m_rotation.SetRotation(CVector3::AxisY, random);
+		CVector3 musi_mae = { 1.0f, 0.0f,0.0f };
+		m_rotation.Multiply(musi_mae);
+		moveVec = musi_mae * 30.3f;
+		count = 0;
+	}
+	/*else if () {
+
+	}*/
+	/*else if (diff.Length() < distancemove) {
+		//距離が近いので追尾する。
+		m_stete = Estete_Follow;
+	}*/
 	if (m_stete == Estete_Move) {
 		//steteがmoveのときは歩きアニメーション
 		m_skinModelRender->PlayAnimation(enAnimationClip_walk);
 
 	}
-	//左右の移動
-	if (df.x > rightmove) {
-		//右移動
-		move = -1;
-	}
-	else if (df.x < leftmove) {
-		//左移動
-		move = 1;
-	}
-	else if (diff.Length() < distancemove) {
-		//距離が近いので追尾する。
-		m_stete = Estete_Follow;
-	}
-	m_position = m_charaCon.Execute(moveVec);
+	 m_position = m_charaCon.Execute(moveVec);
+
 }
 void Enemy::EnemyFollow()
 {
@@ -127,9 +129,9 @@ void Enemy::EnemyFollow()
 	 }
 	 CVector3 enemyForward = { 1.0f, 0.0f, 0.0f };
 
-	 //②　向かせたい方向のベクトルを計算する。
+	 //　向かせたい方向のベクトルを計算する。
 	 CVector3 targetVector = P_Position - m_position;
-	 //③　Y成分は除去して正規化する。Y成分を入れると空を向いたりするよ。
+	 //　Y成分は除去して正規化する。Y成分を入れると空を向いたりするよ。
 	 targetVector.y = 0.0f;
 	 targetVector.Normalize();
 	 CQuaternion qRot;

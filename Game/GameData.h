@@ -53,7 +53,7 @@ public:
 	}
 
 	//ゲームモード変更
-	int GameData::SetGameMode(GameMode Mode) {
+	void GameData::SetGameMode(GameMode Mode) {
 		m_stete = Mode;
 	}
 

@@ -8,6 +8,5 @@ public:
 	void Update();
 	CVector3 cameraTarget;
 	CVector3 cameraPos;
-
 };
 

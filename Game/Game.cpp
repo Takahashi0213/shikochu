@@ -24,13 +24,14 @@ Game::~Game()
 }
 bool Game::Start()
 {
-
 	NewGO<GameData>(0,"GameData");
-
 	NewGO<Player>(0,"Bug");
 	NewGO<Enemy>(0, "Enemy");
 	NewGO<GameCamera>(0,"Gamecamera");
 	NewGO<Player_Status>(0, "Status");
+
+	GameData * gameData = FindGO<GameData>("GameData");
+	gameData->SetGameMode(GameData::Battle2D_Mode);
 
 	return true;
 }

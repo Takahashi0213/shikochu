@@ -10,10 +10,15 @@ class Player : public IGameObject
 {
 public:
 
-	enum Player_State {
+	enum Player_State2D {
 		Estate_Stay, //待機
 		Estate_Dash, //ダッシュ
 		Estate_Death, //死亡
+	};
+	enum Player_State3D {
+		Estate_Stay2, //待機
+		Estate_Dash2, //ダッシュ
+		Estate_Death2, //死亡
 	};
 
 	Player();
@@ -42,7 +47,9 @@ private:
 	CVector3 m_moveSpeed = CVector3::Zero;	//移動速度。
 	CCharacterController m_charaCon;		//キャラクターコントローラー。
 	
-	Player_State player_state = Estate_Stay;		 //状態
+	Player_State2D player_state = Estate_Stay;		 //状態
+	Player_State3D player_state2 = Estate_Stay2;		 //3D状態
+
 	//距離算出用
 	CVector3 playerVec;
 	//移動速度

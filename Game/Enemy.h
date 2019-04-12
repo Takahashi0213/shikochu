@@ -49,17 +49,16 @@ private:
 	CQuaternion m_rotation = CQuaternion::Identity; //回転。
 	CVector3 m_scale = CVector3::One; // 拡大率。
 
-	CVector3 m_oldposition;
 	CVector3 moveVec;
 	CVector3 enemyVec;
-	int move = 1;
 	Estete m_stete = Estete_Move;		 //状態
 	CCharacterController m_charaCon; //キャラコン
 	int timer = 0;
+	int count = 0;
+	int random = 0;
+	const int movee = 100;
 	const int yobiwait = 50;//予備動作の時間
 	const int attackwait = 120;//攻撃動作の時間
-	const int rightmove = 200;//右移動
-	const int leftmove = -200;//右移動
 	const int distancemove = 600;//追尾になる距離
 
 
