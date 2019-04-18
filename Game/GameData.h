@@ -75,6 +75,11 @@ public:
 
 	}
 
+	//流星ゲージを0にする
+	void GameData::StarPowerZero() {
+		Star_Power = 0;
+	}
+
 	//流星ゲージ取得
 	int GameData::GetStar_Power() {
 		return Star_Power;

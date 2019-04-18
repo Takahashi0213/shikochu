@@ -51,13 +51,13 @@ private:
 
 	CVector3 moveVec;
 	CVector3 enemyVec;
-	Estete m_stete = Estete_Move;		 //状態
+	Estete m_stete = Estete_Move; //状態
 	CCharacterController m_charaCon; //キャラコン
 
 	//移動関連
 	const float followRange = 1000.0f; //追尾する距離（追尾を諦めるまでの距離）
 	const float attackRange = 120.0f; //攻撃する距離
-	const int followSpeed = 80; //追尾の速度
+	const float followSpeed = 80.0f; //追尾の速度
 
 	//ランダム移動関連
 	int count = 0; //ランダム移動のタイマー
@@ -69,7 +69,7 @@ private:
 	int timer = 0; //攻撃のタイマー
 	const int yobiwait = 50; //予備動作の時間
 	const int attackwait = 120; //攻撃動作の時間
-	const int attackMoveRange = 50; //攻撃時の前進距離と速度
+	const float attackMoveRange = 50.0f; //攻撃時の前進距離と速度
 
 };
 

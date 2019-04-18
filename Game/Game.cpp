@@ -22,6 +22,7 @@ Game::~Game()
 	DeleteGOs("Gamecamera");
 	DeleteGOs("Status");
 	DeleteGOs("item");
+	DeleteGOs("Sky");
 
 }
 bool Game::Start()
@@ -36,7 +37,10 @@ bool Game::Start()
 
 	GameData * gameData = FindGO<GameData>("GameData");
 	gameData->SetGameMode(GameData::Battle2D_Mode);
-
+	prefab::CSky* sky = NewGO<prefab::CSky>(0, "Sky");
+	sky->SetScale({ 2000.0f, 2000.0f, 2000.0f });
+	sky->SetEmissionColor({0.1f, 0.1f, 0.1f});
+	LightManager().SetAmbientLight({ 0.1f,0.1f, 0.1f });
 	return true;
 }
 

@@ -21,9 +21,19 @@ private:
 	//距離算出用
 	CVector3 itemVec;
 	//消滅時間のタイマー
-	int itemTimer = 10;//これが0になったら消滅
+	int itemTimer = 10;//これが0になったら消滅、100にすると即満タンになるチートアイテムになります
 
-	Estete m_stete = Estete_Wait;		 //状態
+	Estete m_stete = Estete_Wait;	//状態
 
+	const float GetRange = 40.0f;	//取得する範囲
+
+	//光関連
+	prefab::CPointLight* m_pointLig;	//点光源。
+	CVector3 ItemEmission = CVector3::One; //自分の発光具合
+	CVector3 ItemLight = CVector3::One; //周囲の光
+	CVector3 ItemLightAttn = CVector3::One; //減衰
+	const CVector3 ItemEmissionDEF = { 1.0f, 1.0f, 1.0f }; //自分の発光具合デフォ
+	const CVector3 ItemLightDEF = { 200.0f, 200.0f, 200.0f }; //周囲の光デフォ
+	const CVector3 ItemLightAttnDEF = { 50.0f, 2.0f, 0.0f }; //減衰デフォ
 };
 

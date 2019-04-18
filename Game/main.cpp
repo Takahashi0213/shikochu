@@ -47,11 +47,11 @@ namespace {
 	{
 		initParam.screenWidth = 1280;
 		initParam.screenHeight = 720;
-		initParam.frameBufferWidth = 1280;
-		initParam.frameBufferHeight = 720;
+		initParam.frameBufferWidth = 640;
+		initParam.frameBufferHeight = 360;
 		
 		//影の設定。
-		initParam.graphicsConfing.shadowRenderConfig.isEnable = true;
+		initParam.graphicsConfing.shadowRenderConfig.isEnable = false;
 		initParam.graphicsConfing.shadowRenderConfig.shadowMapWidth = 1024;
 		initParam.graphicsConfing.shadowRenderConfig.shadowMapHeight = 1024;
 		initParam.graphicsConfing.shadowRenderConfig.lightHeight = UnitM(20.0f);
@@ -66,14 +66,14 @@ namespace {
 		initParam.graphicsConfing.bloomConfig.isEnable = true;
 		//tonemap
 		initParam.graphicsConfing.tonemapConfig.isEnable = true;
-		initParam.graphicsConfing.tonemapConfig.luminance = 0.56f;
+		initParam.graphicsConfing.tonemapConfig.luminance = 0.03f;
 
 		//SSR
-		initParam.graphicsConfing.ssrConfig.isEnable = true;
+		initParam.graphicsConfing.ssrConfig.isEnable = false;
 		//ディザ
 		initParam.graphicsConfing.ditheringConfig.isEnable = false;
 		//dof
-		initParam.graphicsConfing.dofConfig.isEnable = true;
+		initParam.graphicsConfing.dofConfig.isEnable = false;
 	}
 	/*!
 	*@brief	高スペックPC向けにtkEngineのConfigを設定する。
@@ -107,7 +107,7 @@ namespace {
 		//ディザ
 		initParam.graphicsConfing.ditheringConfig.isEnable = true;
 		//dof
-		initParam.graphicsConfing.dofConfig.isEnable = true;
+		initParam.graphicsConfing.dofConfig.isEnable = false;
 	}
 }
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nCmdShow)
