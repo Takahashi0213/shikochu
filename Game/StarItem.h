@@ -14,6 +14,7 @@ public:
 	void Update();
 
 private:
+
 	prefab::CSkinModelRender* m_skinModelRender = nullptr;		//スキンモデルレンダラー。
 	CVector3 m_position = CVector3::Zero; // 座標。
 	CQuaternion m_rotation = CQuaternion::Identity; //回転。
@@ -26,7 +27,8 @@ private:
 	Estete m_stete = Estete_Wait;	//状態
 
 	const float GetRange = 40.0f;	//取得する範囲
-
+	const CVector3 EffectScale = { 30.0f,30.0f,30.0f }; //取得時のエフェクトの大きさ
+	
 	//光関連
 	prefab::CPointLight* m_pointLig;	//点光源。
 	CVector3 ItemEmission = CVector3::One; //自分の発光具合

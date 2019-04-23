@@ -3,14 +3,23 @@
 #include "Player.h"
 #include "GameData.h"
 
+GameCamera* GameCamera::m_instance = nullptr;
+
 GameCamera::GameCamera()
 {
+	if (m_instance != nullptr) {
+		std::abort(); //すでにカメラが出ているためクラッシュ
+	}
 
+	//このインスタンスを唯一のインスタンスとして記録する
+	m_instance = this;
 }
 
 
 GameCamera::~GameCamera()
 {
+	//インスタンスが破棄されたので、nullptrを代入
+	m_instance = nullptr;
 }
 
 bool GameCamera::Start() {
@@ -20,7 +29,7 @@ bool GameCamera::Start() {
 	//画角を変更
 	MainCamera().SetViewAngle(CMath::DegToRad(80.0f));
 
-	Player * player = FindGO<Player>("Bug");
+	Player * player = Player::GetInstance();
 	CVector3 P_Position = player->Getm_Position();
 	//注視点を動かす
 	cameraTarget.x = P_Position.x;
@@ -44,10 +53,10 @@ bool GameCamera::Start() {
 
 void GameCamera::Update() {
 
-	GameData * gameData = FindGO<GameData>("GameData");
-	int mode = gameData->GetGameMode();
+	GameData * gamedata = GameData::GetInstance();
+	int mode = gamedata->GetGameMode();
 
-	Player * player = FindGO<Player>("Bug");
+	Player * player = Player::GetInstance();
 	CVector3 P_Position = player->Getm_Position();
 
 	if (mode==0) {

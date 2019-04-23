@@ -27,6 +27,7 @@ bool Title::Start() {
 void Title::Update() {
 	if (Pad(0).IsPress(enButtonStart)) {
 		NewGO<Game>(0, "game");
+
 		DeleteGO(this);
 	}
 }

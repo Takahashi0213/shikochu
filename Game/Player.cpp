@@ -3,14 +3,26 @@
 #include "tkEngine/character/tkCharacterController.h"
 #include "GameData.h"
 
+Player* Player::m_instance = nullptr;
+
 Player::Player()
 {
+	if (m_instance != nullptr) {
+		std::abort(); //すでにプレイヤーが出ているためクラッシュ
+	}
+
+	//このインスタンスを唯一のインスタンスとして記録する
+	m_instance = this;
+
 }
 
 Player::~Player()
 {
 	DeleteGO(m_skinModelRender);
 	DeleteGO(m_pointLig);
+
+	//インスタンスが破棄されたので、nullptrを代入
+	m_instance = nullptr;
 }
 
 bool Player::Start() {
@@ -27,7 +39,7 @@ bool Player::Start() {
 	m_skinModelRender->SetEmissionColor(PlayerEmission);
 
 	//ゲームデータから最大寿命を引っ張ってくる
-	GameData * gamedata = FindGO<GameData>("GameData");
+	GameData * gamedata = GameData::GetInstance();
 	m_Life = gamedata->GetDEF_Life();
 
 	m_pointLig = NewGO<prefab::CPointLight>(0, "StarLight");
@@ -107,7 +119,7 @@ void Player::Update() {
 
 			//流星ダッシュ
 			if (Pad(0).IsTrigger(enButtonY)) {
-				GameData * gamedata = FindGO<GameData>("GameData");
+				GameData * gamedata = GameData::GetInstance();
 				//ゲージの色々を取得する
 				int Now_Star_Power = gamedata->GetStar_Power();
 				int MAX_Star_Power = gamedata->GetMAXStar_Power();
@@ -127,7 +139,7 @@ void Player::Update() {
 			Dash_Speed *= dashSpeed2D;
 			m_moveSpeed += Dash_Speed;
 			//流星ゲージが減る
-			GameData * gamedata = FindGO<GameData>("GameData");
+			GameData * gamedata = GameData::GetInstance();
 			gamedata->Star_PowerChange(-DashLifeSpeed);
 			//もし流星ゲージが0なら死ぬ
 			int NowStarPower = gamedata->GetStar_Power();
@@ -216,21 +228,23 @@ void Player::Update() {
 
 			}
 
-			//ダッシュ機能
+			//加速減速
 			if (Pad(0).IsTrigger(enButtonA)) {
-				CVector3 Dash_Speed = m_moveSpeed;
-				Dash_Speed.Normalize();
-				Dash_Speed *= 1000.0f;
-				m_moveSpeed += Dash_Speed;
-
-				m_Life -= 5;
-				if (m_Life < 0) {
-					m_Life = 0; //0より小さくしない
-				}
+				//加速状態に
+				Dash_state3D = Estate_Front;
+			}
+			else if (Pad(0).IsTrigger(enButtonB)) {
+				//減速状態に
+				Dash_state3D = Estate_Back;
+			}
+			else {
+				//通常状態に
+				Dash_state3D = Estate_DEF;
 			}
 
+			//流星ダッシュ
 			if (Pad(0).IsTrigger(enButtonY)) {
-				GameData * gamedata = FindGO<GameData>("GameData");
+				GameData * gamedata = GameData::GetInstance();
 				//ゲージの色々を取得する
 				int Now_Star_Power = gamedata->GetStar_Power();
 				int MAX_Star_Power = gamedata->GetMAXStar_Power();
@@ -242,12 +256,24 @@ void Player::Update() {
 				}
 			}
 		}
+		//自動前進
+		switch (Dash_state3D) {
+		case Estate_DEF:
+			m_moveSpeed.z = Advance3D;
+			break;
+		case Estate_Front:
+			m_moveSpeed.z = Advance3D + Advance3D_PM;
+			break;
+		case Estate_Back:
+			m_moveSpeed.z = Advance3D - Advance3D_PM;
+			break;
+		}
 			break;
 		case Estate_Dash://ダッシュ
 
-			m_moveSpeed.z += dashSpeed3D; //全速前進！
+			m_moveSpeed.z = dashSpeed3D; //全速前進！
 			//流星ゲージが減る
-			GameData * gamedata = FindGO<GameData>("GameData");
+			GameData * gamedata = GameData::GetInstance();
 			gamedata->Star_PowerChange(-DashLifeSpeed);
 			//もし流星ゲージが0なら死ぬ
 			int NowStarPower = gamedata->GetStar_Power();
@@ -285,7 +311,7 @@ void Player::Update() {
 	if (player_state != Estate_Death) {
 
 		//発光具合を寿命に応じて調整する
-		int LightLoop = GetLifePercent(1);
+		int LightLoop = (int)GetLifePercent(1);
 		int LoopX = 0;
 		float LightX = LightXDEF;//上昇値
 		float AttnX = AttnXDEF;
@@ -305,6 +331,11 @@ void Player::Update() {
 
 		}
 
+	}
+
+	//無敵時間中なら実行
+	if (MutekiTimer >= 0) {
+		MutekiSupporter();
 	}
 
 	//ライト
@@ -329,10 +360,13 @@ void Player::PlayerJudge(){
 	//死んでいなければ接触判定
 	if (player_state != Estate_Dash) {
 		if (diff.Length() < 80.0f) {
-			m_Life = 0;//敵にぶつかった
-			int EState = enemy->GetEState();
-			if (EState != 0) {//敵が攻撃中の時でない
-				enemy->SetDeath();
+			//もし無敵時間中でないなら
+			if (MutekiTimer == -1) {
+				m_Life = 0;//敵にぶつかった
+				int EState = enemy->GetEState();
+				if (EState != 0) {//敵が攻撃中の時でない
+					enemy->SetDeath();
+			}
 			}
 		}
 	}
@@ -341,7 +375,7 @@ void Player::PlayerJudge(){
 	if (m_Life == 0) {
 		//ダッシュ中なら流星ゲージを0にする
 		if (player_state == Estate_Dash) {
-			GameData * gamedata = FindGO<GameData>("GameData");
+			GameData * gamedata = GameData::GetInstance();
 			gamedata->StarPowerZero();
 		}
 		//ここで死ぬ
@@ -356,20 +390,41 @@ void Player::PlayerReset() {
 		//しんでしまった！
 		player_state = Estate_Death;
 		
-		//ライト戻す
-		LightReset();
-
 		//移動停止
 		m_moveSpeed = CVector3::Zero;
+
+		//無敵時間の準備！
+		MutekiTimer = 0;
+
+	}
+	
+	//死んで発光する時間
+	if (ResetTimer <= DeathLightTime/2){
+		//死の発光
+		PlayerEmission *= DeathLight;
+		PlayerLight *= DeathLight;
+	}
+	else if (ResetTimer < DeathLightTime) {
+		//死の発光減少
+		PlayerEmission *= DeathLight_Syusoku;
+		PlayerLight *= DeathLight_Syusoku;
+	}
+	else if (ResetTimer == DeathLightTime) {
+
+		//ライト戻す
+		LightReset();
 
 		//m_scaleをゼロにして死んだように見せかける
 		m_scale = CVector3::Zero;
 		m_skinModelRender->SetScale(m_scale);
 
 	}
+	//
+	//インターバル終了
+	//
 	if (ResetTimer == ResetAverage) {
 		//ゲームデータから最大寿命を引っ張ってくる
-		GameData * gamedata = FindGO<GameData>("GameData");
+		GameData * gamedata = GameData::GetInstance();
 		m_Life = gamedata->GetDEF_Life();
 		ResetTimer = -1;
 		gamedata->SetZanki(-1);//残機減少
@@ -394,16 +449,30 @@ void Player::PlayerReset() {
 float Player::GetLifePercent(int x){//x=0で割合を、x=1で減少値を返す
 
 	//ゲームデータから最大寿命を引っ張ってくる
-	GameData * gamedata = FindGO<GameData>("GameData");
+	GameData * gamedata = GameData::GetInstance();
 	int DEF_Life = gamedata->GetDEF_Life();
 
 	if (x == 0) {
-		float player_percent = m_Life / DEF_Life;
+		float player_percent = (float)m_Life / DEF_Life;
 		return player_percent;
 	}
 	else if (x == 1) {
 		int player_Gensyou = DEF_Life - m_Life;
-		return player_Gensyou;
+		return (float)player_Gensyou;
 	}
 
+}
+
+void Player::MutekiSupporter() {
+
+	//タイマー加算
+	MutekiTimer++;
+
+	//ここで点滅処理
+
+
+	//時間切れ
+	if (MutekiTimer >= MutekiAverage) {
+		MutekiTimer = -1; //無敵を戻す
+	}
 }

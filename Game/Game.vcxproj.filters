@@ -14,6 +14,9 @@
     <Filter Include="Assets\sprite">
       <UniqueIdentifier>{a6ce300a-b532-440d-b914-b4661d3015ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Effect">
+      <UniqueIdentifier>{c8f8b055-304d-460c-8aff-391c178d42d3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -25,6 +28,15 @@
     <ClCompile Include="Player_Status.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="StarItem.cpp" />
+    <ClCompile Include="GameData.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectManager.cpp">
+      <Filter>Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectPlay.cpp">
+      <Filter>Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -41,6 +53,12 @@
     <ClInclude Include="Player_Status.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="StarItem.h" />
+    <ClInclude Include="EffectManager.h">
+      <Filter>Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectPlay.h">
+      <Filter>Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">

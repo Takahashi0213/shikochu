@@ -81,9 +81,9 @@ void Player_Status::Update() {
 
 	CVector3 LifeScale = CVector3::Zero;
 	CVector3 StarScale = CVector3::Zero;
-	Player * player = FindGO<Player>("Bug");
-	GameData * gamedata = FindGO<GameData>("GameData");
-	
+	Player * player = Player::GetInstance();
+	GameData * gamedata = GameData::GetInstance();
+
 	//寿命ゲージを動かす
 	float DEF_Life = (float)gamedata->GetDEF_Life();
 	float NOW_Life = (float)player->GetLife();
@@ -123,7 +123,6 @@ void Player_Status::Update() {
 	m_spriteRender[1]->SetPivot(StarPivot);
 	m_spriteRender[1]->SetScale(StarScale);
 	m_spriteRender[1]->SetMulColor(StarColor);
-
 
 	//残機を更新
 	wchar_t text[256];

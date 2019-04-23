@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Enemy.h"
 #include "GameData.h"
+#include "Player.h"
 
 Enemy::Enemy()
 {
@@ -41,7 +42,7 @@ bool Enemy::Start()
 }
 void Enemy::EnemyAttack()
 {
-	Player * player = FindGO<Player>("Bug");
+	Player * player = Player::GetInstance();
 
 	timer++;
 	if(timer <= attackwait){
@@ -65,7 +66,7 @@ void Enemy::EnemyAttack()
 
 void Enemy::EnemyMove()
 {
-	Player * player = FindGO<Player>("Bug");
+	Player * player = Player::GetInstance();
 	//’Êíó‘Ô
 	CVector3 P_Position = player->Getm_Position();
 	CVector3 diff = P_Position - m_position;
@@ -95,7 +96,7 @@ void Enemy::EnemyMove()
 }
 void Enemy::EnemyFollow()
 {
-	Player * player = FindGO<Player>("Bug");
+	Player * player = Player::GetInstance();
 
 	//’Ç”öó‘Ô	
 	CVector3 P_Position = player->Getm_Position();
@@ -148,7 +149,7 @@ void Enemy::EnemyDeath()
 	m_position = { 1000.0f,1000.0f,1000.0f };
 	//ˆÚ“®
 	m_skinModelRender->SetPosition(m_position);
-	GameData * gamedata = FindGO<GameData>("GameData");
+	GameData * gamedata = GameData::GetInstance();
 	gamedata->TestMessage();
 }
 void Enemy::Enemyyobi() {

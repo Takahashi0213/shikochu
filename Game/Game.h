@@ -6,11 +6,19 @@
 
 class Game : public IGameObject
 {
+	static Game* m_instance;
 public:
 	Game();
 	~Game();
 	bool Start();
 	void Update();
+
+	//インスタンスの取得
+	static Game* Game::GetInstance() {
+		return m_instance;
+	} 
+
+private:
 	prefab::CSkinModelRender* m_skinModelRender = nullptr;		//スキンモデルレンダラー。
 	CQuaternion rotation = CQuaternion::Identity;
 

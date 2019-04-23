@@ -3,6 +3,7 @@
 
 class GameData : public IGameObject
 {
+	static GameData* m_instance;
 public:
 
 	//ゲームモード
@@ -10,6 +11,32 @@ public:
 		Battle2D_Mode,
 		Battle3D_Mode,
 	};
+
+	/////////////// Singleton //////////////////////////////
+	
+	GameData::GameData()
+	{
+
+		if (m_instance != nullptr) {
+			std::abort(); //すでにカメラが出ているためクラッシュ
+		}
+
+		//このインスタンスを唯一のインスタンスとして記録する
+		m_instance = this;
+	}
+
+	GameData::~GameData()
+	{
+		//インスタンスが破棄されたので、nullptrを代入
+		m_instance = nullptr;
+	}
+
+	//インスタンスの取得
+	static GameData* GameData::GetInstance() {
+		return m_instance;
+	}
+
+	//////////////////////////////////////////////////////
 
 	//残機増減
 	void GameData::SetZanki(int x) {

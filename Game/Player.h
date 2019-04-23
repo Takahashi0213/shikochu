@@ -8,12 +8,19 @@
 
 class Player : public IGameObject
 {
+	static Player* m_instance;
 public:
 
 	enum Player_State {
 		Estate_Stay, //待機
 		Estate_Dash, //ダッシュ
 		Estate_Death, //死亡
+	};
+	//3Dモードでの加速減速ステート
+	enum Dash_State3D{
+		Estate_DEF, //通常
+		Estate_Front, //加速
+		Estate_Back, //減速
 	};
 
 	Player();
@@ -38,6 +45,22 @@ public:
 			return player_state;
 	}
 
+	//無敵時間中ならtrue、そうでなければfalseを返す
+	bool Player::MutekiChecker() {
+		//無敵時間タイマーを参照
+		if (MutekiTimer >= 0) {			
+			return true; //無敵時間
+		}
+		else {
+			return false; //無敵でない
+		}
+	}
+
+	//インスタンスの取得
+	static Player* Player::GetInstance(){
+		return m_instance;
+	}
+
 private:
 
 	//寿命減少速度リセット
@@ -54,6 +77,7 @@ private:
 
 	void PlayerReset(); //死んだときに色々初期化します
 	void PlayerJudge(); //死亡判定色々
+	void MutekiSupporter(); //無敵時間中に実行するぜ～～～～～
 
 	prefab::CSkinModelRender* m_skinModelRender = nullptr;		//スキンモデルレンダラー。
 	CVector3 position = CVector3::Zero;
@@ -64,6 +88,7 @@ private:
 	CCharacterController m_charaCon;		//キャラクターコントローラー。
 	
 	Player_State player_state = Estate_Stay;		 //状態
+	Dash_State3D Dash_state3D = Estate_DEF;			 //3Dでの前進状態
 
 	//距離算出用
 	CVector3 playerVec;
@@ -71,8 +96,10 @@ private:
 	const float moveCrossKey = 20.0f; //十字キー入力時の最高速度
 	const float moveSpeedMAX = 1000.0f; //普段の最高速度
 	const float playerMoveSpeed = 4.0f; //ここの数値をいじると移動速度変わる
-	const float dashSpeed2D = 100.0f; //2Dモード時の前進速度
-	const float dashSpeed3D = 10.0f; //3Dモード時の前進速度
+	const float dashSpeed2D = 100.0f; //2Dモード時の流星ダッシュ速度
+	const float dashSpeed3D = 20.0f; //3Dモード時の流星ダッシュ速度
+	const float Advance3D = 10.0f; //3Dモード時のデフォルト全身速度
+	const float Advance3D_PM = 8.0f; //3Dモード時の加速減速量
 	//寿命
 	int m_Life = 0; //自分の寿命
 	int m_LifeCounter = 0; //寿命減少カウンター
@@ -92,10 +119,15 @@ private:
 	const CVector3 PlayerEmissionDEF = { 0.1f, 0.1f, 0.1f }; //自分の発光具合デフォ
 	const CVector3 PlayerLightDEF = { 500.0f, 500.0f, 500.0f }; //周囲の光デフォ
 	const CVector3 PlayerLightAttnDEF = { 50.0f, 2.0f, 0.0f }; //減衰デフォ
-	const float LightXDEF = 100.0f;//上昇値
-	const float AttnXDEF = 1.0f;//上昇値
-	const float LightSpeed = 50.0f; //光が強くなるスピード 小さくすると強く光るようになる
-	const float AttnSpeed = 5000.0f;//光る範囲が広くなるスピード 小さくすると強く光るようになる
-
+	const float LightXDEF = 10000.0f;//上昇値
+	const float AttnXDEF = 0.5f;//上昇値
+	const float LightSpeed = 10.0f; //光が強くなるスピード 小さくすると強く光るようになる
+	const float AttnSpeed = 10000.0f;//光る範囲が広くなるスピード 小さくすると強く光るようになる
+	const float DeathLight = 1.5f; //死んだ瞬間にドカンと光る倍率
+	const float DeathLight_Syusoku = 0.8f; //死んだ瞬間の光が収束する倍率
+	const int DeathLightTime = 12; //死んだ瞬間に光る時間
+	//無敵時間
+	const int MutekiAverage = 60 + ResetAverage; //無敵解除までの時間（リスポーン間隔も含む）
+	int MutekiTimer = -1; //無敵時間タイマー 0以上ならカウント開始するので普段は-1
 };
 

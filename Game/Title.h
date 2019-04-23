@@ -6,6 +6,9 @@ public:
 	~Title();
 	bool Start();
 	void Update();
+
+private:
+
 	std::vector<prefab::CSpriteRender*> m_spriteRender;
 
 };

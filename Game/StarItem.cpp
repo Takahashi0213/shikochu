@@ -2,6 +2,7 @@
 #include "StarItem.h"
 #include "Player.h"
 #include "GameData.h"
+#include "EffectManager.h"
 
 StarItem::StarItem()
 {
@@ -40,18 +41,22 @@ void StarItem::Update() {
 
 	if (m_stete == Estete_Wait) {
 		//ÚG”»’è
-		Player * player = FindGO<Player>("Bug");
+		Player * player = Player::GetInstance();
 		CVector3 player_position = player->Getm_Position();
 		CVector3 diff = player_position - m_position;
 		itemVec = diff;
 		//‹——£‚ªˆê’èˆÈ‰º‚È‚ç©€
 		if (diff.Length() < GetRange) {
+			//EffectÄ¶
+			EffectManager * effectmanager = EffectManager::GetInstance();
+			effectmanager->EffectPlayer(EffectManager::ItemGet, m_position, EffectScale);
+			//state•ÏX
 			m_stete = Estete_Death;
 		}
 	}
 	else {
 		//Á–Å’†
-		GameData * gamedata = FindGO<GameData>("GameData");
+		GameData * gamedata = GameData::GetInstance();
 		gamedata->Star_PowerChange(1);
 		m_scale -= {0.1f, 0.1f, 0.1f};//¬‚³‚­‚È‚é
 		itemTimer--;
