@@ -116,9 +116,12 @@ private:
 	CVector3 PlayerEmission = CVector3::One; //自分の発光具合
 	CVector3 PlayerLight = CVector3::One; //周囲の光
 	CVector3 PlayerLightAttn = CVector3::One; //減衰
+	const float LightPosHosei = 30.0f; //ポイントライトのY軸補正
+	const float LightHosei = 0.01f; //僅かに光る
 	const CVector3 PlayerEmissionDEF = { 0.1f, 0.1f, 0.1f }; //自分の発光具合デフォ
 	const CVector3 PlayerLightDEF = { 500.0f, 500.0f, 500.0f }; //周囲の光デフォ
 	const CVector3 PlayerLightAttnDEF = { 50.0f, 2.0f, 0.0f }; //減衰デフォ
+	const CVector3 EmissionColorDEF{ 2.0f,2.0f,2.0f }; //モデルの光デフォ
 	const float LightXDEF = 10000.0f;//上昇値
 	const float AttnXDEF = 0.5f;//上昇値
 	const float LightSpeed = 10.0f; //光が強くなるスピード 小さくすると強く光るようになる

@@ -339,9 +339,13 @@ void Player::Update() {
 	}
 
 	//ƒ‰ƒCƒg
-	m_pointLig->SetPosition(position);
-	m_pointLig->SetColor(PlayerLight);
+	CVector3 pos = position;
+	pos.y += LightPosHosei;
+	m_pointLig->SetPosition(pos);
+	m_pointLig->SetColor(PlayerLight * LightHosei);
 	m_pointLig->SetAttn(PlayerLightAttn);
+	m_skinModelRender->SetEmissionColor(EmissionColorDEF);
+
 	//”½‰f
 	m_skinModelRender->SetPosition(position);
 	m_skinModelRender->SetRotation(rotation);
