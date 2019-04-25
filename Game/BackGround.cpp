@@ -37,7 +37,6 @@ void BackGround::StageMaker(Stage ST){
 	m_skinModelRender->SetPosition(m_position);
 	m_skinModelRender->SetScale(m_scale);
 	m_skinModelRender->SetEmissionColor(StageEmission);
-
 }
 
 void BackGround::DeleteStage() {

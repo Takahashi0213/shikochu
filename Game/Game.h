@@ -21,6 +21,8 @@ public:
 private:
 	prefab::CSkinModelRender* m_skinModelRender = nullptr;		//スキンモデルレンダラー。
 	CQuaternion rotation = CQuaternion::Identity;
+	prefab::CDirectionLight* m_directionLig = nullptr;
+	float m_tonemapDisableTimer = 1.0f;
 
 };
 

@@ -31,6 +31,8 @@ namespace tkEngine{
 		desc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
 		desc.Filter = D3D11_FILTER_MIN_MAG_LINEAR_MIP_POINT;
 		m_samplerState.Create(desc);
+
+		m_cbGPU.Create(nullptr, sizeof(SCb));
 	}
 	void CDithering::Render(CRenderContext& rc, CPostEffect* postEffect)
 	{
@@ -38,6 +40,8 @@ namespace tkEngine{
 			return;
 		}
 		BeginGPUEvent(L"enRenderStep_Dithering");
+
+		rc.UpdateSubresource(m_cbGPU, &m_cbCPU);
 
 		//レンダリングステートをディザようにする。
 		rc.OMSetDepthStencilState(DepthStencilState::disable);
@@ -48,6 +52,7 @@ namespace tkEngine{
 		CRenderTarget* renderTargets[] = {
 			&postEffect->GetFinalRenderTarget()
 		};
+		rc.PSSetConstantBuffer(0, m_cbGPU);
 		rc.OMSetBlendState(AlphaBlendState::disable);
 		rc.PSSetSampler(0, m_samplerState);
 		rc.OMSetRenderTargets(1, renderTargets);

@@ -61,6 +61,10 @@ namespace tkEngine{
 		{
 			return m_dof;
 		}
+		CDithering& GetDithering()
+		{
+			return m_dithering;
+		}
 		/*!
 		* @brief	最終書き込みのレンダリングターゲットを切り替え。
 		*/

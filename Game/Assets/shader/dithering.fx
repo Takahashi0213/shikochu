@@ -24,6 +24,11 @@ static const int pattern[] = {
     63, 31, 55, 23, 61, 29, 53, 21 
 };
 
+cbuffer cbParam : register( b0 )
+{
+	float ligRange;
+};
+
 PSInput VSMain(VSInput In) 
 {
 	PSInput psIn;
@@ -34,17 +39,15 @@ PSInput VSMain(VSInput In)
 
 float4 PSMain( PSInput In ) : SV_Target0
 {
+	float asspect = 9.0f / 16.0f;
 	
+	float2 pos = In.uv;
+	pos -= 0.5f;
+	pos *= 2.0f;
+	pos.y *= asspect;
+	float t = max( 0.0f, ligRange - length( pos ) ) / ligRange;
+	t = pow( t, 4.0f);
 	float4 color = sceneTexture.Sample(Sampler, In.uv);
-	//ディザリングを試す。
-	float2 uv = fmod(In.uv * 1000.0f, 8.0f);
-	float t = 0.0f;
-	int x = (int)clamp(uv.x, 0.0f, 7.0f );
-	int y = (int)clamp(uv.y, 0.0f, 7.0f );
-	int index = y * 8 + x;
-	t = (float)pattern[index] / 256.0f;
-
-	float addColor = t / 32.0f - (1.0f / 128.0f);
-	color.xyz += addColor;
-	return color;
+	
+	return lerp( float4( 0.0f, 0.0f, 0.0f, 1.0f), color, t);
 }

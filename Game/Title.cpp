@@ -17,6 +17,7 @@ Title::~Title()
 
 bool Title::Start() {
 
+	DisableSpecialLigRange();
 	prefab::CSpriteRender* r = NewGO<prefab::CSpriteRender>(0);
 	r->Init(L"sprite/rogo.dds", 440.0f, 245.0f);
 	m_spriteRender.push_back(r);

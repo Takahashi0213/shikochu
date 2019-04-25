@@ -35,7 +35,7 @@ namespace {
 		//SSR
 		initParam.graphicsConfing.ssrConfig.isEnable = false;
 		//ディザ
-		initParam.graphicsConfing.ditheringConfig.isEnable = false;
+		initParam.graphicsConfing.ditheringConfig.isEnable = true;
 		//dof
 		initParam.graphicsConfing.dofConfig.isEnable = false;
 	}
@@ -52,9 +52,9 @@ namespace {
 		
 		//影の設定。
 		initParam.graphicsConfing.shadowRenderConfig.isEnable = false;
-		initParam.graphicsConfing.shadowRenderConfig.shadowMapWidth = 1024;
-		initParam.graphicsConfing.shadowRenderConfig.shadowMapHeight = 1024;
-		initParam.graphicsConfing.shadowRenderConfig.lightHeight = UnitM(20.0f);
+		initParam.graphicsConfing.shadowRenderConfig.shadowMapWidth = 2048;
+		initParam.graphicsConfing.shadowRenderConfig.shadowMapHeight = 2048;
+		initParam.graphicsConfing.shadowRenderConfig.lightHeight = UnitM(100.0f);
 		initParam.graphicsConfing.shadowRenderConfig.depthOffset[0] = 0.001f;
 		initParam.graphicsConfing.shadowRenderConfig.depthOffset[1] = 0.001f;
 		initParam.graphicsConfing.shadowRenderConfig.depthOffset[2] = 0.002f;
@@ -66,12 +66,12 @@ namespace {
 		initParam.graphicsConfing.bloomConfig.isEnable = true;
 		//tonemap
 		initParam.graphicsConfing.tonemapConfig.isEnable = true;
-		initParam.graphicsConfing.tonemapConfig.luminance = 0.03f;
+		initParam.graphicsConfing.tonemapConfig.luminance = 0.56f;
 
 		//SSR
 		initParam.graphicsConfing.ssrConfig.isEnable = false;
 		//ディザ
-		initParam.graphicsConfing.ditheringConfig.isEnable = false;
+		initParam.graphicsConfing.ditheringConfig.isEnable = true;
 		//dof
 		initParam.graphicsConfing.dofConfig.isEnable = false;
 	}

@@ -43,6 +43,7 @@ Game::~Game()
 }
 bool Game::Start()
 {
+	EnableSpecialLigRange();
 	NewGO<GameData>(0,"GameData");
 	NewGO<Player>(0,"Bug");
 	NewGO<Enemy>(0, "Enemy");
@@ -64,11 +65,25 @@ bool Game::Start()
 	sky->SetEmissionColor({0.1f, 0.1f, 0.1f});
 	LightManager().SetAmbientLight({ 100.1f,100.1f, 100.1f });
 
+	m_directionLig = NewGO<prefab::CDirectionLight>(0);
+	m_directionLig->SetColor({ 1000.0f, 1000.0f, 1000.0f, 1.0f });
+	CVector3 ligDir = { 1, -1, 1 };
+	ligDir.Normalize();
+	m_directionLig->SetDirection(ligDir);
+	GraphicsEngine().GetShadowMap().SetLightDirection(ligDir);
+	
 	return true;
 }
 
 void Game::Update()
 {
+	m_tonemapDisableTimer -= GameTime().GetFrameDeltaTime();
+	if (m_tonemapDisableTimer <= 0.0f) {
+		m_tonemapDisableTimer = 0.0f;
+	}
+	if (m_tonemapDisableTimer > 0.0f) {
+		GraphicsEngine().GetTonemap().Reset();
+	}
 	if (Pad(0).IsPress(enButtonSelect)) {
 		NewGO<Title>(0, "title");
 		DeleteGO(this);

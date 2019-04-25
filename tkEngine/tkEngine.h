@@ -258,6 +258,19 @@ namespace tkEngine{
 	{
 		return Engine().GetGraphicsEngine().GetGBufferRender().GetRenderTarget(gBuffer).GetRenderTargetSRV();
 	}
+	static inline void SetSpecialLigRange( float range )
+	{
+		GraphicsEngine().GetPostEffect().GetDithering().SetLigRange(range);
+	}
+
+	static inline void DisableSpecialLigRange()
+	{
+		GraphicsEngine().GetPostEffect().GetDithering().Disable();
+	}
+	static inline void EnableSpecialLigRange()
+	{
+		GraphicsEngine().GetPostEffect().GetDithering().Enable();
+	}
 	/// <summary>
 	/// ポストエフェクトの機能に簡易的にアクセスするための名前空間。
 	/// </summary>
