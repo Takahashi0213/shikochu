@@ -96,10 +96,10 @@ private:
 	const float moveCrossKey = 20.0f; //十字キー入力時の最高速度
 	const float moveSpeedMAX = 1000.0f; //普段の最高速度
 	const float playerMoveSpeed = 4.0f; //ここの数値をいじると移動速度変わる
-	const float dashSpeed2D = 100.0f; //2Dモード時の流星ダッシュ速度
+	const float dashSpeed2D = 50.0f; //2Dモード時の流星ダッシュ速度
 	const float dashSpeed3D = 20.0f; //3Dモード時の流星ダッシュ速度
-	const float Advance3D = 10.0f; //3Dモード時のデフォルト全身速度
-	const float Advance3D_PM = 8.0f; //3Dモード時の加速減速量
+	const float Advance3D = 60.0f; //3Dモード時のデフォルト前進速度
+	const float Advance3D_PM = 40.0f; //3Dモード時の加速減速量
 	//寿命
 	int m_Life = 0; //自分の寿命
 	int m_LifeCounter = 0; //寿命減少カウンター
@@ -132,5 +132,8 @@ private:
 	//無敵時間
 	const int MutekiAverage = 60 + ResetAverage; //無敵解除までの時間（リスポーン間隔も含む）
 	int MutekiTimer = -1; //無敵時間タイマー 0以上ならカウント開始するので普段は-1
+	//エフェクト関連
+	const CVector3 SpawnEffectScale = { 30.0f,30.0f,30.0f }; //スポーンエフェクトの大きさ
+	const float SpawnEffectY = 50.0f;//スポーンエフェクトのY補正
 };
 

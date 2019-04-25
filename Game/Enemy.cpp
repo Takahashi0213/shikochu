@@ -149,8 +149,7 @@ void Enemy::EnemyDeath()
 	m_position = { 1000.0f,1000.0f,1000.0f };
 	//ˆÚ“®
 	m_skinModelRender->SetPosition(m_position);
-	GameData * gamedata = GameData::GetInstance();
-	gamedata->TestMessage();
+
 }
 void Enemy::Enemyyobi() {
 	//—\”õ“®ì

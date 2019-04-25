@@ -27,8 +27,9 @@ void EffectManager::EffectPlayer(Effect EF, CVector3 position, CVector3 scale) {
 	//ì¬
 	EffectPlay* p = NewGO<EffectPlay>(0);
 	//–¼‘O‚ğˆø‚Á’£‚Á‚Ä‚­‚é
+
 	int len = wcslen(DetaBase[EF]);
-	for (int x = 0; x < len; x++) {
+	for (int x = 0; x < len+1; x++) {
 		EF_Name[x] = DetaBase[EF][x];
 	}
 	//İ’è

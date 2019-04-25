@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "tkEngine/character/tkCharacterController.h"
 #include "GameData.h"
+#include "EffectManager.h"
 
 Player* Player::m_instance = nullptr;
 
@@ -134,6 +135,12 @@ void Player::Update() {
 		break;
 		case Estate_Dash://ダッシュ
 
+			EffectManager * effectmanager = EffectManager::GetInstance();
+			effectmanager->EffectPlayer(EffectManager::star, position, SpawnEffectScale/2);
+			effectmanager->EffectPlayer(EffectManager::star, position, SpawnEffectScale / 2);
+			effectmanager->EffectPlayer(EffectManager::star, position, SpawnEffectScale / 2);
+
+			//移動
 			CVector3 Dash_Speed = m_moveSpeed;
 			Dash_Speed.Normalize();
 			Dash_Speed *= dashSpeed2D;
@@ -427,6 +434,9 @@ void Player::PlayerReset() {
 	//インターバル終了
 	//
 	if (ResetTimer == ResetAverage) {
+		//エフェクトを再生
+		EffectManager * effectmanager = EffectManager::GetInstance();
+		effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
 		//ゲームデータから最大寿命を引っ張ってくる
 		GameData * gamedata = GameData::GetInstance();
 		m_Life = gamedata->GetDEF_Life();
@@ -437,13 +447,17 @@ void Player::PlayerReset() {
 		//寿命減少速度も戻す
 		LifeSpeedReset();
 		//あれもこれも戻す
-		position = { 0.0f,0.0f,0.0f };
+		position = CVector3::Zero;
 		rotation = CQuaternion::Identity;
 		m_scale = CVector3::One;
 		//はい。
 		m_skinModelRender->SetPosition(position);
 		m_skinModelRender->SetRotation(rotation);
 		m_skinModelRender->SetScale(m_scale);
+
+		//臨時モードチェンジ
+		//gamedata->SwapGameMode();
+
 	}
 
 	ResetTimer++;

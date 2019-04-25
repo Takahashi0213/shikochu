@@ -8,6 +8,8 @@ public:
 	enum Effect {
 		Null,
 		ItemGet, //アイテム入手時のエフェクト
+		spawn,//出現時のエフェクト
+		star,//移動後に出すやつ5
 	};
 
 	EffectManager();
@@ -29,6 +31,9 @@ private:
 	wchar_t DetaBase[5][30]{
 		{ L"" },//Nullなので何もない
 		{ L"effect/Item.efk" },
+		{ L"effect/spawn.efk" },
+		{ L"effect/star.efk" },
+
 	};
 
 	CVector3 m_scale = CVector3::One;

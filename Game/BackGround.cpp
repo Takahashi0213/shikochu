@@ -29,7 +29,7 @@ void BackGround::StageMaker(Stage ST){
 
 	//–¼‘O‚ðˆø‚Á’£‚Á‚Ä‚­‚é
 	int len = wcslen(DetaBase[ST]);
-	for (int x = 0; x < len; x++) {
+	for (int x = 0; x < len+1; x++) {
 		ST_Name[x] = DetaBase[ST][x];
 	}
 	//ì¬

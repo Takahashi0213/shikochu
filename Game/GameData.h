@@ -10,6 +10,7 @@ public:
 	enum GameMode {
 		Battle2D_Mode,
 		Battle3D_Mode,
+		BattleMode_Swap,//2Dモードと3Dモード入れ替え中
 	};
 
 	/////////////// Singleton //////////////////////////////
@@ -115,6 +116,11 @@ public:
 	//流星ゲージ最大値取得
 	int GameData::GetMAXStar_Power() {
 		return MAXStarPower;
+	}
+
+	//実行すると2Dモードから3Dモードへ移行（演出込）
+	void GameData::SwapGameMode() {
+		SetGameMode(BattleMode_Swap);
 	}
 
 	//テストメッセージ
