@@ -38,7 +38,7 @@ private:
 	const CVector3 m_position = { 0.0f,-1000.0f,0.0f };//êŠ
 	const CVector3 m_scale = { 25.0f,25.0f,25.0f };//‘å‚«‚³
 
-	const float Emission = 0.5f; //‚í‚´‚í‚´’²®‚·‚é‚Ì‚ª–Ê“|‚È‚Ì‚Å
+	const float Emission = 0.4f; //‚í‚´‚í‚´’²®‚·‚é‚Ì‚ª–Ê“|‚È‚Ì‚Å
 	const CVector3 StageEmission = { Emission,Emission,Emission }; //©•ª‚Ì”­Œõ‹ï‡
 
 };

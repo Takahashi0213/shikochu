@@ -1765,11 +1765,12 @@
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="EffectPlay.cpp" />
-    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Bunbogu.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameData.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Neoriku.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Player_Status.cpp" />
     <ClCompile Include="StarItem.cpp" />
@@ -1799,10 +1800,11 @@
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="EffectManager.h" />
     <ClInclude Include="EffectPlay.h" />
-    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Bunbogu.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameData.h" />
+    <ClInclude Include="Neoriku.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Player_Status.h" />
     <CLInclude Include="resource.h" />
@@ -1815,6 +1817,7 @@
     <MeshContentTask Include="Assets\modelData\bug.FBX" />
     <MeshContentTask Include="Assets\modelData\bunbo-gu0.FBX" />
     <MeshContentTask Include="Assets\modelData\item.FBX" />
+    <MeshContentTask Include="Assets\modelData\neoriku_0.FBX" />
     <MeshContentTask Include="Assets\modelData\stage1.FBX" />
     <MeshContentTask Include="Assets\modelData\unityChan.fbx" />
   </ItemGroup>

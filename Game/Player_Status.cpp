@@ -126,9 +126,9 @@ void Player_Status::Update() {
 
 	//残機を更新
 	wchar_t text[256];
-
+	//おわ
 	swprintf(text, L"%d", gamedata->GetZanki());
-
+	//はい。
 	m_fontRender->SetText(text);
 	m_fontRender->SetPosition(ZankiPos);
 	m_fontRender->SetScale(ZankiScale);

@@ -5,11 +5,12 @@
 #include "tkEngine/light/tkDirectionLight.h"
 #include "Player_Status.h"
 #include "GameData.h"
-#include "Enemy.h"
+#include "Bunbogu.h"
 #include "Title.h"
 #include "StarItem.h"
 #include "EffectManager.h"
 #include "BackGround.h"
+#include "Neoriku.h"
 
 Game* Game::m_instance = nullptr;
 
@@ -46,7 +47,7 @@ bool Game::Start()
 	EnableSpecialLigRange();
 	NewGO<GameData>(0,"GameData");
 	NewGO<Player>(0,"Bug");
-	NewGO<Enemy>(0, "Enemy");
+	NewGO<Bunbogu>(0, "Enemy");
 	NewGO<GameCamera>(0,"Gamecamera");
 	NewGO<Player_Status>(0, "Status");
 	NewGO<EffectManager>(0, "EffectManager");
@@ -62,11 +63,11 @@ bool Game::Start()
 
 	prefab::CSky* sky = NewGO<prefab::CSky>(0, "Sky");
 	sky->SetScale({ 20000.0f, 20000.0f, 20000.0f });
-	sky->SetEmissionColor({0.1f, 0.1f, 0.1f});
+	sky->SetEmissionColor({6.1f, 6.1f, 8.1f});
 	LightManager().SetAmbientLight({ 100.1f,100.1f, 100.1f });
 
 	m_directionLig = NewGO<prefab::CDirectionLight>(0);
-	m_directionLig->SetColor({ 1000.0f, 1000.0f, 1000.0f, 1.0f });
+	m_directionLig->SetColor({ 900.0f, 900.0f, 1000.0f, 1.0f });
 	CVector3 ligDir = { 1, -1, 1 };
 	ligDir.Normalize();
 	m_directionLig->SetDirection(ligDir);

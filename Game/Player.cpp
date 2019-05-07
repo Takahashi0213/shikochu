@@ -3,6 +3,7 @@
 #include "tkEngine/character/tkCharacterController.h"
 #include "GameData.h"
 #include "EffectManager.h"
+#include "Bunbogu.h"
 
 Player* Player::m_instance = nullptr;
 
@@ -109,10 +110,10 @@ void Player::Update() {
 
 				CVector3 Dash_Speed = m_moveSpeed;
 				Dash_Speed.Normalize();
-				Dash_Speed *= 1000.0f;
+				Dash_Speed *= A_DashSpeed;
 				m_moveSpeed += Dash_Speed;
 
-				m_Life -= 5;
+				m_Life -= Dash_LifeGensyo;
 				if (m_Life < 0) {
 					m_Life = 0; //0より小さくしない
 				}
@@ -345,14 +346,31 @@ void Player::Update() {
 		MutekiSupporter();
 	}
 
-	//ライト
-	CVector3 pos = position;
-	pos.y += LightPosHosei;
-	m_pointLig->SetPosition(pos);
-	m_pointLig->SetColor(PlayerLight * LightHosei);
-	m_pointLig->SetAttn(PlayerLightAttn);
-	m_skinModelRender->SetEmissionColor(EmissionColorDEF);
+	//モードに応じてライト処理を変えます
+	if (mode == 0) {
+		CVector3 pos = position;
+		pos.y += LightPosHosei;
+		m_pointLig->SetPosition(pos);
+		m_pointLig->SetColor(PlayerLight * LightHosei);
+		m_pointLig->SetAttn(PlayerLightAttn);
+		m_skinModelRender->SetEmissionColor(EmissionColorDEF);
+		GraphicsEngine().GetTonemap().SetLuminance(0.56f);
+	}
+	else if (mode == 1) {
+		CVector3 pos = position;
+		pos.z += LightPosHoseiZ;
+		m_pointLig->SetPosition(pos);
+		m_pointLig->SetColor(PlayerLight * LightHosei);
+		m_pointLig->SetAttn(PlayerLightAttn);
+		m_skinModelRender->SetEmissionColor(EmissionColorDEF);
+		GraphicsEngine().GetTonemap().SetLuminance(0.28f);
+	}
 
+
+	//これもライト
+	if (player_state != Estate_Death) {
+		LightStatusSupporter(); //死んでないときだけね
+	}
 	//反映
 	m_skinModelRender->SetPosition(position);
 	m_skinModelRender->SetRotation(rotation);
@@ -363,8 +381,8 @@ void Player::Update() {
 void Player::PlayerJudge(){
 
 	//敵との距離を計算
-	Enemy * enemy = FindGO<Enemy>("Enemy");
-	CVector3 enemy_position = enemy->Getm_Position();
+	Bunbogu * bunbogu = FindGO<Bunbogu>("Enemy");
+	CVector3 enemy_position = bunbogu->Getm_Position();
 	CVector3 diff = enemy_position - position;
 	playerVec = diff;
 
@@ -374,9 +392,9 @@ void Player::PlayerJudge(){
 			//もし無敵時間中でないなら
 			if (MutekiTimer == -1) {
 				m_Life = 0;//敵にぶつかった
-				int EState = enemy->GetEState();
+				int EState = bunbogu->GetEState();
 				if (EState != 0) {//敵が攻撃中の時でない
-					enemy->SetDeath();
+					bunbogu->SetDeath();
 			}
 			}
 		}
@@ -450,11 +468,11 @@ void Player::PlayerReset() {
 		position = CVector3::Zero;
 		rotation = CQuaternion::Identity;
 		m_scale = CVector3::One;
+		LightStatus = LightStatusDEF;
 		//はい。
 		m_skinModelRender->SetPosition(position);
 		m_skinModelRender->SetRotation(rotation);
 		m_skinModelRender->SetScale(m_scale);
-
 		//臨時モードチェンジ
 		//gamedata->SwapGameMode();
 
@@ -493,4 +511,26 @@ void Player::MutekiSupporter() {
 	if (MutekiTimer >= MutekiAverage) {
 		MutekiTimer = -1; //無敵を戻す
 	}
+}
+
+void Player::LightStatusSupporter() {
+
+	//呼び出し
+	GameData * gameData = FindGO<GameData>("GameData");
+	int mode = gameData->GetGameMode();
+	//LightStatusの値を設定
+	float LightX = GetLifePercent(0);
+	LightX = 1.0f - LightX; //これで割合がわかります！！！！すごい
+	LightStatus = LightStatusMAX * LightX;
+	//小さすぎたら最小値に設定する！
+	if (LightStatus < LightStatusMIN) {
+		LightStatus = LightStatusMIN;
+	}
+	//ふははは
+	if (mode == 1) {
+		LightStatus *= LightHosei3D;
+	}
+	//セット(^_-)-☆
+	SetSpecialLigRange(LightStatus);
+
 }

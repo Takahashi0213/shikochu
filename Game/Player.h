@@ -4,7 +4,6 @@
 #include "tkEngine/physics/tkPhysicsGhostObject.h"
 #include "tkEngine/character/tkCharacterController.h"
 #include "tkEngine/light/tkPointLight.h"
-#include "Enemy.h"
 
 class Player : public IGameObject
 {
@@ -78,6 +77,7 @@ private:
 	void PlayerReset(); //死んだときに色々初期化します
 	void PlayerJudge(); //死亡判定色々
 	void MutekiSupporter(); //無敵時間中に実行するぜ～～～～～
+	void LightStatusSupporter(); //呼ぶだけ明かり更新ちゃん
 
 	prefab::CSkinModelRender* m_skinModelRender = nullptr;		//スキンモデルレンダラー。
 	CVector3 position = CVector3::Zero;
@@ -93,13 +93,14 @@ private:
 	//距離算出用
 	CVector3 playerVec;
 	//移動速度
-	const float moveCrossKey = 20.0f; //十字キー入力時の最高速度
-	const float moveSpeedMAX = 1000.0f; //普段の最高速度
+	const float moveCrossKey = 80.0f; //十字キー入力時の最高速度
+	const float moveSpeedMAX = 800.0f; //普段の最高速度
 	const float playerMoveSpeed = 4.0f; //ここの数値をいじると移動速度変わる
 	const float dashSpeed2D = 50.0f; //2Dモード時の流星ダッシュ速度
 	const float dashSpeed3D = 20.0f; //3Dモード時の流星ダッシュ速度
 	const float Advance3D = 60.0f; //3Dモード時のデフォルト前進速度
 	const float Advance3D_PM = 40.0f; //3Dモード時の加速減速量
+	const float A_DashSpeed = 2000.0f; //Aダッシュの速さだ
 	//寿命
 	int m_Life = 0; //自分の寿命
 	int m_LifeCounter = 0; //寿命減少カウンター
@@ -108,6 +109,7 @@ private:
 	const int m_LifeSpeedDEF = 5; //デフォルト寿命減少速度
 	const int DashLife = 2; //ダッシュ中は寿命が0にならないようにする、その最小値
 	const int DashLifeSpeed = 2; //ダッシュ中の寿命減少速度
+	const int Dash_LifeGensyo = 5; //ダッシュ時の寿命減少値
 	//リセット用
 	int ResetTimer = 0; //リセット用タイマー。そのままの意味
 	const int ResetAverage = 60; //自分がリスポーンする間隔
@@ -116,19 +118,26 @@ private:
 	CVector3 PlayerEmission = CVector3::One; //自分の発光具合
 	CVector3 PlayerLight = CVector3::One; //周囲の光
 	CVector3 PlayerLightAttn = CVector3::One; //減衰
-	const float LightPosHosei = 30.0f; //ポイントライトのY軸補正
+	const float LightPosHosei = 30.0f; //ポイントライトのY軸補正（2Dモード）
+	const float LightPosHoseiZ = -30.0f; //ポイントライトのZ軸補正（3Dモード）
 	const float LightHosei = 0.01f; //僅かに光る
 	const CVector3 PlayerEmissionDEF = { 0.1f, 0.1f, 0.1f }; //自分の発光具合デフォ
 	const CVector3 PlayerLightDEF = { 500.0f, 500.0f, 500.0f }; //周囲の光デフォ
 	const CVector3 PlayerLightAttnDEF = { 50.0f, 2.0f, 0.0f }; //減衰デフォ
 	const CVector3 EmissionColorDEF{ 2.0f,2.0f,2.0f }; //モデルの光デフォ
-	const float LightXDEF = 10000.0f;//上昇値
-	const float AttnXDEF = 0.5f;//上昇値
-	const float LightSpeed = 10.0f; //光が強くなるスピード 小さくすると強く光るようになる
+	const float LightXDEF = 500000.0f;//上昇値
+	const float AttnXDEF = 0.2f;//上昇値
+	const float LightSpeed = 5.0f; //光が強くなるスピード 小さくすると強く光るようになる
 	const float AttnSpeed = 10000.0f;//光る範囲が広くなるスピード 小さくすると強く光るようになる
 	const float DeathLight = 1.5f; //死んだ瞬間にドカンと光る倍率
 	const float DeathLight_Syusoku = 0.8f; //死んだ瞬間の光が収束する倍率
 	const int DeathLightTime = 12; //死んだ瞬間に光る時間
+	//周囲の光
+	const float LightStatusDEF = 0.5f; //明かりデフォルト
+	const float LightStatusMAX = 1.2f; //明かり最大値
+	const float LightStatusMIN = 0.5f; //明かり最小値
+	float LightStatus = LightStatusDEF; //少しずつ光る
+	const float LightHosei3D = 4.0f; //3Dモードでの補正だぜ
 	//無敵時間
 	const int MutekiAverage = 60 + ResetAverage; //無敵解除までの時間（リスポーン間隔も含む）
 	int MutekiTimer = -1; //無敵時間タイマー 0以上ならカウント開始するので普段は-1

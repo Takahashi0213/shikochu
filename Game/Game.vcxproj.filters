@@ -17,6 +17,9 @@
     <Filter Include="Effect">
       <UniqueIdentifier>{c8f8b055-304d-460c-8aff-391c178d42d3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Enemy">
+      <UniqueIdentifier>{9b24f448-75e7-4944-95f3-6036be7e47f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -26,7 +29,6 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="Player_Status.cpp" />
-    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="StarItem.cpp" />
     <ClCompile Include="GameData.cpp">
       <Filter>Resource Files</Filter>
@@ -38,6 +40,12 @@
       <Filter>Effect</Filter>
     </ClCompile>
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="Neoriku.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Bunbogu.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -52,7 +60,6 @@
       <Filter>Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="Player_Status.h" />
-    <ClInclude Include="Enemy.h" />
     <ClInclude Include="StarItem.h" />
     <ClInclude Include="EffectManager.h">
       <Filter>Effect</Filter>
@@ -61,6 +68,12 @@
       <Filter>Effect</Filter>
     </ClInclude>
     <ClInclude Include="BackGround.h" />
+    <ClInclude Include="Neoriku.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Bunbogu.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
@@ -81,6 +94,9 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\stage1.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\neoriku_0.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>
