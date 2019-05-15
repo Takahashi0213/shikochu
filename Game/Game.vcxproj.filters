@@ -48,6 +48,10 @@
     </ClCompile>
     <ClCompile Include="NakamaLight.cpp" />
     <ClCompile Include="GameResult.cpp" />
+    <ClCompile Include="shisokus.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -78,6 +82,10 @@
     </ClInclude>
     <ClInclude Include="NakamaLight.h" />
     <ClInclude Include="GameResult.h" />
+    <ClInclude Include="shisokus.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
@@ -133,5 +141,10 @@
     <ImageContentTask Include="Assets\sprite\StarBarUe.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\modelData\shisokus.FBX">
+      <Filter>Assets\modelData</Filter>
+    </None>
   </ItemGroup>
 </Project>

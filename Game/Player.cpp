@@ -4,6 +4,7 @@
 #include "GameData.h"
 #include "EffectManager.h"
 #include "Bunbogu.h"
+#include "Neoriku.h"
 
 Player* Player::m_instance = nullptr;
 

@@ -11,6 +11,7 @@
 #include "EffectManager.h"
 #include "BackGround.h"
 #include "Neoriku.h"
+#include "shisokus.h"
 
 Game* Game::m_instance = nullptr;
 
@@ -54,6 +55,12 @@ bool Game::Start()
 			Bunbogu* bun = NewGO<Bunbogu>(0, "Enemy");
 			bun->SetPosition(objData.position);
 			bun->SetRotation(objData.rotation);
+			return true;
+		}
+		if (objData.EqualObjectName(L"neoriku_0")) {
+			Neoriku* neo = NewGO<Neoriku>(0, "neo");
+			neo->SetPosition(objData.position);
+			neo->SetRotation(objData.rotation);
 			return true;
 		}
 		return false;

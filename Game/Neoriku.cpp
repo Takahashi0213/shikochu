@@ -1,5 +1,8 @@
 #include "stdafx.h"
 #include "Neoriku.h"
+#include "GameData.h"
+#include "Player.h"
+#include "Bullet.h"
 
 
 Neoriku::Neoriku()
@@ -21,8 +24,10 @@ bool Neoriku::Start() {
 	//ÉXÉLÉìÉÇÉfÉã
 	m_skinModelRender = NewGO<prefab::CSkinModelRender>(0);
 	m_skinModelRender->Init(L"modelData/neoriku_0.cmo", m_animClips, enAnimationClip_Num);
-	//m_position = { 100.0f,0.0f,0.0f };
-	//m_skinModelRender->SetPosition(m_position);
+	m_skinModelRender->SetForwardRenderFlag(true);
+	//m_skinModelRender->SetEmissionColor({ 0.0f, 10.0f, 0.0f });
+	m_position = { 100.0f,0.0f,0.0f };
+	m_skinModelRender->SetPosition(m_position);
 
 	m_scale = { 2.0f,2.0f,2.0f };
 	m_charaCon.Init(
@@ -36,38 +41,74 @@ bool Neoriku::Start() {
 }
 
 void Neoriku::NeoAttack() {
-	//çUåÇíÜ
-
+	//âìãóó£Ç‚Ç≈Ç≈
+	if (count == 1) {
+		NewGO<Bullet>(0, "bullet");
+		count = 0;
+	}
+	else {
+		m_stete = Estete_Move;
+	}
 }
 
 void Neoriku::NeoMove() {
 	//à⁄ìÆíÜ
+	Player * player = Player::GetInstance();
+	CVector3 P_Position = player->Getm_Position();
+	CVector3 diff = P_Position - m_position;
+	neoVec = diff;
+	//dbg::DrawVector(
+	//	P_Position,
+	//	m_position);
+	if (diff.Length() < 400) {
+		//í‚é~ÅïçUåÇãóó£
+		moveVec = neoVec * Speed;
+		//m_stete = Estete_yobi;
+	}
+	else {
+		//í«Ç¢Ç©ÇØÇÈÇÊ!
+		neoVec.Normalize();
+		moveVec = neoVec * followSpeed;
+	}
+	//ÉvÉåÉCÉÑÅ[ÇÃå¸Ç´Ç…âÒì]
+	CVector3 enemyForward = { -1.0f, 0.0f, 0.0f };
+	diff.y = 0.0f;
+	diff.Normalize();
+	CQuaternion qRot;
+	qRot.SetRotation(enemyForward, diff);
+	m_rotation = qRot;
+	m_position = m_charaCon.Execute(moveVec);
 
 }
 void Neoriku::NeoDeath() {
 	//éÄÇÒÇæ......≥Ø...
+	m_position = { 1000.0f,1000.0f,-1000.0f };
+	//à⁄ìÆ
+	m_skinModelRender->SetPosition(m_position);
 
 }
 void Neoriku::Neoyobi() {
 	//ó\îıìÆçÏ
-
-
+	/*if ( count == 0) {
+		m_stete = Estete_Attack;
+		count++;
+	}*/
 }
 
 void Neoriku::Update() {
-	switch (m_Neostete) {
-	case Estete_Attack://çUåÇ
-		NeoAttack();
-		break;
-	case Estete_Move://à⁄ìÆ
-		NeoMove();
-		break;
-	case Estete_Death:
-		NeoDeath();//éÄ
-		break;
-	case Estete_yobi:
-		Neoyobi();//ó\îıìÆçÏ
-		break;
+	switch (m_stete) {
+		case Estete_Attack://çUåÇ
+			NeoAttack();
+			break;
+		case Estete_Move://à⁄ìÆ
+			NeoMove();
+			break;
+		case Estete_Death:
+			NeoDeath();//éÄ
+			break;
+		case Estete_yobi:
+			Neoyobi();//ó\îıìÆçÏ
+			break;
 	}
 	//à⁄ìÆ
 	m_skinModelRender->SetPosition(m_position);

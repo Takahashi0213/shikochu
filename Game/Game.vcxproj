@@ -1763,6 +1763,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="EffectPlay.cpp" />
     <ClCompile Include="Bunbogu.cpp" />
@@ -1775,6 +1776,7 @@
     <ClCompile Include="Neoriku.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Player_Status.cpp" />
+    <ClCompile Include="shisokus.cpp" />
     <ClCompile Include="StarItem.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -1800,6 +1802,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="EffectManager.h" />
     <ClInclude Include="EffectPlay.h" />
     <ClInclude Include="Bunbogu.h" />
@@ -1812,6 +1815,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Player_Status.h" />
     <CLInclude Include="resource.h" />
+    <ClInclude Include="shisokus.h" />
     <ClInclude Include="StarItem.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Title.h" />
@@ -1822,6 +1826,7 @@
     <MeshContentTask Include="Assets\modelData\bunbo-gu0.FBX" />
     <MeshContentTask Include="Assets\modelData\item.FBX" />
     <MeshContentTask Include="Assets\modelData\neoriku_0.FBX" />
+    <None Include="Assets\modelData\shisokus.FBX" />
     <MeshContentTask Include="Assets\modelData\stage1.FBX" />
     <MeshContentTask Include="Assets\modelData\unityChan.fbx" />
   </ItemGroup>
