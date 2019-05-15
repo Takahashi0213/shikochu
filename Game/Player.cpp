@@ -81,14 +81,16 @@ void Player::Update() {
 			stick.x = Pad(0).GetLStickXF();
 			stick.y = 0.0f;
 			stick.z = Pad(0).GetLStickYF();
+
 			m_moveSpeed += stick * playerMoveSpeed;
 			//スティック入力されてなければ緩やかストップ
-			if (stick.x == 0.0f) {
+			m_moveSpeed *= 0.95f;
+			/*if (stick.x == 0.0f) {
 				m_moveSpeed.x /= 1.2f;
 			}
 			if (stick.z == 0.0f) {
 				m_moveSpeed.z /= 1.2f;
-			}
+			}*/
 			//移動速度上限
 			if (m_moveSpeed.x > moveSpeedMAX) {
 				m_moveSpeed.x = moveSpeedMAX;
@@ -176,8 +178,19 @@ void Player::Update() {
 			}
 		}
 
-		position = m_charaCon.Execute(m_moveSpeed);
+		//無敵時間中なら実行
+		if (MutekiTimer >= 0) {
+			//無敵状態は敵を貫通したいので、キャラコンを使わずに動かす。
 
+			CVector3 addPos = m_moveSpeed * GameTime().GetFrameDeltaTime();
+			position += addPos;
+			//キャラコンも追従させておかないと、無敵時間が終わったときに戻されてしまうので
+			//キャラコンに座標を設定しておく。
+			m_charaCon.SetPosition(position);
+		}
+		else {
+			position = m_charaCon.Execute(m_moveSpeed);
+		}
 		if (fabsf(m_moveSpeed.x) < 0.001f
 			&& fabsf(m_moveSpeed.z) < 0.001f) {
 			//わからん
@@ -309,7 +322,18 @@ void Player::Update() {
 			}
 		}
 
-		position = m_charaCon.Execute(m_moveSpeed);
+		//無敵時間中なら実行
+		if (MutekiTimer >= 0) {
+			//無敵状態は敵を貫通したいので、キャラコンを使わずに動かす。
+			CVector3 addPos = m_moveSpeed * GameTime().GetFrameDeltaTime();
+			position += addPos;
+			//キャラコンも追従させておかないと、無敵時間が終わったときに戻されてしまうので
+			//キャラコンに座標を設定しておく。
+			m_charaCon.SetPosition(position);
+		}
+		else {
+			position = m_charaCon.Execute(m_moveSpeed);
+		}
 
 		PlayerJudge();
 
@@ -319,7 +343,8 @@ void Player::Update() {
 	if (player_state != Estate_Death) {
 
 		//発光具合を寿命に応じて調整する
-		int LightLoop = (int)GetLifePercent(1);
+		GameData * gamedata = GameData::GetInstance();
+		int LightLoop = (int)gamedata->GetLifePercent(1);
 		int LoopX = 0;
 		float LightX = LightXDEF;//上昇値
 		float AttnX = AttnXDEF;
@@ -378,28 +403,49 @@ void Player::Update() {
 
 }
 
+//判定を色々
 void Player::PlayerJudge(){
 
 	//敵との距離を計算
-	Bunbogu * bunbogu = FindGO<Bunbogu>("Enemy");
-	CVector3 enemy_position = bunbogu->Getm_Position();
-	CVector3 diff = enemy_position - position;
-	playerVec = diff;
+	QueryGOs<Bunbogu>("Enemy", [&](Bunbogu* bunbogu) {
+		CVector3 enemy_position = bunbogu->Getm_Position();
+		CVector3 diff = enemy_position - position;
+		playerVec = diff;
+		//死んでいなければ接触判定
+		if (player_state != Estate_Dash) {
+			//＊ダメージレンジは どこだ。
+			float Langth_hoge = bunbogu->GetDamageLength();
+			//距離判定
+			if (diff.Length() < Langth_hoge) {
+				//もし無敵時間中でないなら
+				if (MutekiTimer == -1) {
 
-	//死んでいなければ接触判定
-	if (player_state != Estate_Dash) {
-		if (diff.Length() < 80.0f) {
-			//もし無敵時間中でないなら
-			if (MutekiTimer == -1) {
-				m_Life = 0;//敵にぶつかった
-				int EState = bunbogu->GetEState();
-				if (EState != 0) {//敵が攻撃中の時でない
-					bunbogu->SetDeath();
-			}
+					//ギリギリボーナスが成立するか確認
+					GameData * gamedata = GameData::GetInstance();
+					bool Hantei = gamedata->GiriBonusKeisan();
+
+					//寿命をゼロに
+					m_Life = 0;
+
+					int EState = bunbogu->GetEState();
+					if (EState != 0) {//敵が攻撃中の時でないなら…
+
+						bunbogu->SetDeath();//お前も死ね
+
+						if (Hantei == true) {
+							gamedata->GiriCounter(); //ギリギリボーナスカウントを+1
+							//ボーナス成立のエフェクトを表示
+							EffectManager * effectmanager = EffectManager::GetInstance();
+							effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
+							//gamedata->TestMessage();
+						}
+					}
+				}
 			}
 		}
-	}
-
+		return true;
+	});
+	
 	//寿命だ…
 	if (m_Life == 0) {
 		//ダッシュ中なら流星ゲージを0にする
@@ -452,9 +498,6 @@ void Player::PlayerReset() {
 	//インターバル終了
 	//
 	if (ResetTimer == ResetAverage) {
-		//エフェクトを再生
-		EffectManager * effectmanager = EffectManager::GetInstance();
-		effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
 		//ゲームデータから最大寿命を引っ張ってくる
 		GameData * gamedata = GameData::GetInstance();
 		m_Life = gamedata->GetDEF_Life();
@@ -466,6 +509,7 @@ void Player::PlayerReset() {
 		LifeSpeedReset();
 		//あれもこれも戻す
 		position = CVector3::Zero;
+		m_charaCon.SetPosition(position); //キャラコンも戻すぞ
 		rotation = CQuaternion::Identity;
 		m_scale = CVector3::One;
 		LightStatus = LightStatusDEF;
@@ -473,6 +517,9 @@ void Player::PlayerReset() {
 		m_skinModelRender->SetPosition(position);
 		m_skinModelRender->SetRotation(rotation);
 		m_skinModelRender->SetScale(m_scale);
+		//移動が終わったのでエフェクトを再生（移動後にやらないと死んだ場所で再生されてしまうので）
+		EffectManager * effectmanager = EffectManager::GetInstance();
+		effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
 		//臨時モードチェンジ
 		//gamedata->SwapGameMode();
 
@@ -482,55 +529,52 @@ void Player::PlayerReset() {
 
 }
 
-float Player::GetLifePercent(int x){//x=0で割合を、x=1で減少値を返す
-
-	//ゲームデータから最大寿命を引っ張ってくる
-	GameData * gamedata = GameData::GetInstance();
-	int DEF_Life = gamedata->GetDEF_Life();
-
-	if (x == 0) {
-		float player_percent = (float)m_Life / DEF_Life;
-		return player_percent;
-	}
-	else if (x == 1) {
-		int player_Gensyou = DEF_Life - m_Life;
-		return (float)player_Gensyou;
-	}
-
-}
-
 void Player::MutekiSupporter() {
 
 	//タイマー加算
 	MutekiTimer++;
 
-	//ここで点滅処理
-
+	if (MutekiTimer >= ResetAverage) {
+		//ここで点滅処理
+		static int TenmetuTimer = 0;
+		if (TenmetuTimer % 2 == 0) {
+			//偶数
+			m_skinModelRender->SetActiveFlag(true);
+		}
+		else {
+			//奇数
+			m_skinModelRender->SetActiveFlag(false);
+		}
+		TenmetuTimer++;
+	}
 
 	//時間切れ
 	if (MutekiTimer >= MutekiAverage) {
 		MutekiTimer = -1; //無敵を戻す
+		m_skinModelRender->SetActiveFlag(true);
 	}
 }
 
 void Player::LightStatusSupporter() {
 
 	//呼び出し
-	GameData * gameData = FindGO<GameData>("GameData");
-	int mode = gameData->GetGameMode();
+	GameData * gamedata = GameData::GetInstance();
+	int mode = gamedata->GetGameMode();
+	float RightHosei = 1.0f - gamedata->ZankiWariai(); //逆だ…
+	float range = minRange * (1.0f - RightHosei) + maxRange * RightHosei;
+
 	//LightStatusの値を設定
-	float LightX = GetLifePercent(0);
-	LightX = 1.0f - LightX; //これで割合がわかります！！！！すごい
+	float LightX = gamedata->GetLifePercent(0);
+	LightX = 1.0f - LightX; //これで割合がわかります！！！！
 	LightStatus = LightStatusMAX * LightX;
-	//小さすぎたら最小値に設定する！
-	if (LightStatus < LightStatusMIN) {
-		LightStatus = LightStatusMIN;
-	}
+	range += LightStatus;
+
 	//ふははは
 	if (mode == 1) {
 		LightStatus *= LightHosei3D;
 	}
+
 	//セット(^_-)-☆
-	SetSpecialLigRange(LightStatus);
+	SetSpecialLigRange(range);
 
 }

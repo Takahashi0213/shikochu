@@ -41,6 +41,22 @@ public:
 		m_stete = Estete_Death;
 		return 0;
 	}
+	//座標を設定。
+	void SetPosition(CVector3 pos)
+	{
+		m_position = pos;
+	}
+	//回転を設定。
+	void SetRotation( CQuaternion rot )
+	{
+		m_rotation = rot;
+	}
+	//ダメージ範囲を教える関数
+	float GetDamageLength() {
+		return DamageLength;
+	}
+
+
 private:
 
 	CAnimationClip m_animClips[enAnimationClip_Num];
@@ -55,7 +71,7 @@ private:
 	CCharacterController m_charaCon; //キャラコン
 
 	//移動関連
-	const float followRange = 1000.0f; //追尾する距離（追尾を諦めるまでの距離）
+	const float followRange = 300.0f; //追尾する距離（追尾を諦めるまでの距離）
 	const float attackRange = 120.0f; //攻撃する距離
 	const float followSpeed = 80.0f; //追尾の速度
 
@@ -70,6 +86,9 @@ private:
 	const int yobiwait = 50; //予備動作の時間
 	const int attackwait = 120; //攻撃動作の時間
 	const float attackMoveRange = 50.0f; //攻撃時の前進距離と速度
+
+	//ステータス
+	const float DamageLength = 80.0f; //ダメメージを受けけるは範囲だだよ
 
 };
 

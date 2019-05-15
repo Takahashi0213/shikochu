@@ -26,7 +26,6 @@ public:
 	~Player();
 	bool Start();
 	void Update();
-	float Player::GetLifePercent(int x); 	//現在の寿命割合をfloatで返すぞ！
 
 	//寿命を返す関数
 	int Player::GetLife() {
@@ -93,9 +92,9 @@ private:
 	//距離算出用
 	CVector3 playerVec;
 	//移動速度
-	const float moveCrossKey = 80.0f; //十字キー入力時の最高速度
+	const float moveCrossKey = 8.0f; //十字キー入力時の最高速度
 	const float moveSpeedMAX = 800.0f; //普段の最高速度
-	const float playerMoveSpeed = 4.0f; //ここの数値をいじると移動速度変わる
+	const float playerMoveSpeed = 8.0f; //ここの数値をいじると移動速度変わる
 	const float dashSpeed2D = 50.0f; //2Dモード時の流星ダッシュ速度
 	const float dashSpeed3D = 20.0f; //3Dモード時の流星ダッシュ速度
 	const float Advance3D = 60.0f; //3Dモード時のデフォルト前進速度
@@ -134,10 +133,12 @@ private:
 	const int DeathLightTime = 12; //死んだ瞬間に光る時間
 	//周囲の光
 	const float LightStatusDEF = 0.5f; //明かりデフォルト
-	const float LightStatusMAX = 1.2f; //明かり最大値
-	const float LightStatusMIN = 0.5f; //明かり最小値
+	const float LightStatusMAX = 0.4f; //寿命によって明るさに補正がかかる、その最大値
 	float LightStatus = LightStatusDEF; //少しずつ光る
 	const float LightHosei3D = 4.0f; //3Dモードでの補正だぜ
+	float Light_Nakama = 4.0f; //仲間が死んだときのライト補正の大きさ
+	float minRange = 0.3f; //最小範囲
+	float maxRange = 2.0f; //DEF最大範囲 すなわちザンキゼロかつ寿命MAXの時の明るさ範囲
 	//無敵時間
 	const int MutekiAverage = 60 + ResetAverage; //無敵解除までの時間（リスポーン間隔も含む）
 	int MutekiTimer = -1; //無敵時間タイマー 0以上ならカウント開始するので普段は-1

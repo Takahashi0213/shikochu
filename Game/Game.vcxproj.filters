@@ -46,6 +46,8 @@
     <ClCompile Include="Bunbogu.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="NakamaLight.cpp" />
+    <ClCompile Include="GameResult.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -74,6 +76,8 @@
     <ClInclude Include="Bunbogu.h">
       <Filter>Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="NakamaLight.h" />
+    <ClInclude Include="GameResult.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">

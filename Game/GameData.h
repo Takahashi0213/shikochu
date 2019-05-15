@@ -39,6 +39,10 @@ public:
 
 	//////////////////////////////////////////////////////
 
+	//x=0で割合を、x=1で減少値を返す
+	float GameData::GetLifePercent(int x);
+	bool GameData::GiriBonusKeisan();
+
 	//残機増減
 	void GameData::SetZanki(int x) {
 		Zanki += x;
@@ -90,6 +94,18 @@ public:
 		return m_stete;
 	}
 
+	//最大残機-現在残機を返す
+	int GameData::ZankiKeisan() {
+		int x = DEF_Zanki - Zanki;
+		return x;
+	}
+
+	//現在残機/最大残機をするよ
+	float GameData::ZankiWariai() {
+		float x = (float)Zanki / (float)DEF_Zanki;
+		return x;
+	}
+
 	//流星ゲージ加減
 	//指定した値を加算するから減少したいときは負の数を入れてね
 	void GameData::Star_PowerChange(int hoge) {
@@ -123,6 +139,45 @@ public:
 		SetGameMode(BattleMode_Swap);
 	}
 
+	//アイテムカウント（変数）を1増やすだけ
+	//アイテムを拾ったときに実行する
+	void GameData::ItemCounter() {
+		ItemCount++;
+	}
+
+	//アイテムカウント取得
+	int GameData::GetItemCount() {
+		return ItemCount;
+	}
+
+	//ギリギリボーナスのカウント（変数）を1増やすだけ
+	//寿命が一定値以下で敵を倒したときに呼び出します
+	void GameData::GiriCounter() {
+		GiriCount++;
+	}
+
+	//ギリギリボーナス取得
+	int GameData::GetGiriCount() {
+		return GiriCount;
+	}
+
+	//ポイント加算（引数を所持ポイントに加算するよ）
+	int GameData::PlusPoint(int x) {
+
+		Point + x;
+	}
+
+	//ゲームデータをリセット
+	//ステージ開始時に必ず呼び出すこと！！！！！！！！
+	void GameData::GameDataReset() {
+		//現在残機をデフォルト残機に設定
+		Zanki = DEF_Zanki;
+		//カウント系もろもろ0にする
+		Star_Power = 0;
+		ItemCount = 0;
+		GiriCount = 0;
+	}
+
 	//テストメッセージ
 	void GameData::TestMessage() {
 
@@ -137,12 +192,17 @@ public:
 
 	}
 
+///////////////////////////////////////////////////////////////////
+
 private:
 
 	int Zanki = 50; //残機
 	int Star_Power = 0; //流星ダッシュ発動までのゲージ
 
 	int Point = 0; //所持ポイント
+
+	int ItemCount = 0; //拾ったアイテムをカウントするよ
+	int GiriCount = 0; //ギリギリボーナスをカウント
 
 	GameMode m_stete = Battle2D_Mode;		 //状態
 
@@ -152,6 +212,6 @@ private:
 	int DEF_Life = 100; //デフォルト寿命
 
 	//定数
-	const int MAXStarPower = 100;//流星ゲージの最大値
-
+	const int MAXStarPower = 100; //流星ゲージの最大値
+	const float GiriBonus_Line = 0.5f; //ギリギリボーナスが成立するライン 最大は1.0f（100%）
 };

@@ -44,10 +44,20 @@ Game::~Game()
 }
 bool Game::Start()
 {
-	EnableSpecialLigRange();
+	//EnableSpecialLigRange();
+	DisableSpecialLigRange();
 	NewGO<GameData>(0,"GameData");
 	NewGO<Player>(0,"Bug");
-	NewGO<Bunbogu>(0, "Enemy");
+	
+	m_level.Init(L"level/level_01.tkl", [&](LevelObjectData& objData) {
+		if (objData.EqualObjectName(L"bunbo-gu0")) {
+			Bunbogu* bun = NewGO<Bunbogu>(0, "Enemy");
+			bun->SetPosition(objData.position);
+			bun->SetRotation(objData.rotation);
+			return true;
+		}
+		return false;
+	});
 	NewGO<GameCamera>(0,"Gamecamera");
 	NewGO<Player_Status>(0, "Status");
 	NewGO<EffectManager>(0, "EffectManager");

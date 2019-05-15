@@ -37,9 +37,9 @@ bool GameCamera::Start() {
 	cameraTarget.z = P_Position.z;
 
 	//視点をカメラに伝える
-	cameraPos.x = P_Position.x;
-	cameraPos.y = P_Position.y + 200.0f;	//プレイヤーのちょっと上にする
-	cameraPos.z = P_Position.z - 5.0f;
+	cameraPos.x = P_Position.x + camera2D_DEF.x;
+	cameraPos.y = P_Position.y + camera2D_DEF.y;	//プレイヤーのちょっと上にする
+	cameraPos.z = P_Position.z + camera2D_DEF.z;
 
 	//注視点をカメラに伝える
 	MainCamera().SetTarget(cameraTarget);

@@ -1769,7 +1769,9 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameData.cpp" />
+    <ClCompile Include="GameResult.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="NakamaLight.cpp" />
     <ClCompile Include="Neoriku.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Player_Status.cpp" />
@@ -1804,6 +1806,8 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameData.h" />
+    <ClInclude Include="GameResult.h" />
+    <ClInclude Include="NakamaLight.h" />
     <ClInclude Include="Neoriku.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Player_Status.h" />

@@ -50,6 +50,9 @@ void StarItem::Update() {
 			//Effect再生
 			EffectManager * effectmanager = EffectManager::GetInstance();
 			effectmanager->EffectPlayer(EffectManager::ItemGet, m_position, EffectScale);
+			//アイテムカウント増加
+			GameData * gamedata = GameData::GetInstance();
+			gamedata->ItemCounter();
 			//state変更
 			m_stete = Estete_Death;
 		}

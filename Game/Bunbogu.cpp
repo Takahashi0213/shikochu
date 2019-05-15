@@ -28,7 +28,7 @@ bool Bunbogu::Start()
 	m_skinModelRender=NewGO<prefab::CSkinModelRender>(0);
 	m_skinModelRender->Init(L"modelData/bunbo-gu0.cmo", m_animClips, enAnimationClip_Num);
 	//m_skinModelRender->PlayAnimation(enAnimationClip_walk);
-	m_position = { 100.0f,0.0f,0.0f };
+	
 	m_skinModelRender->SetPosition(m_position);
 
 	m_scale = { 2.0f,2.0f,2.0f };
@@ -145,11 +145,7 @@ void Bunbogu::EnemyFollow()
 }
 void Bunbogu::EnemyDeath()
 {
-	//€
-	m_position = { 1000.0f,1000.0f,-1000.0f };
-	//ˆÚ“®
-	m_skinModelRender->SetPosition(m_position);
-
+	DeleteGO(this);
 }
 void Bunbogu::Enemyyobi() {
 	//—\”õ“®ì
