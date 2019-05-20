@@ -18,3 +18,9 @@ wchar_t LevelName[5][255]{
 { L"level/level_02.tkl" },
 
 };
+
+//レベルファイル名
+wchar_t BossName[5][255]{
+{ L"シーソークス" },
+
+};

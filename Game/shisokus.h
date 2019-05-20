@@ -58,6 +58,21 @@ public:
 		m_rotation = rot;
 	}
 
+	//ˆø”•ªHP‚ğŒ¸­‚³‚¹‚é
+	void Damage(int x) {
+		NowHP -= x;
+	}
+
+	//Œ»İHP‚ğ•Ô‚·
+	int GetHP() {
+		return NowHP;
+	}
+	
+	//Å‘åHP‚ğ•Ô‚·
+	int GetMAXHP() {
+		return MAXHP;
+	}
+
 	//Š‘®Wave‚ğƒZƒbƒg
 	void SetWave(int x) {
 		waveNo = x;
@@ -79,5 +94,7 @@ private:
 
 	int waveNo = 0; //©•ª‚ª‘®‚·‚éWave‚Ì”Ô†
 
+	const int MAXHP = 10000; //Å‘åHP
+	int NowHP = MAXHP; //Œ»İHP
 };
 
