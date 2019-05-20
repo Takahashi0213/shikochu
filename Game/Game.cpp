@@ -88,7 +88,7 @@ bool Game::Start()
 
 	//NewGO<GameResult>(0);
 
-	//NewGO<WaveEffect>(0);
+	NewGO<WaveEffect>(0);
 
 	return true;
 }

@@ -58,6 +58,18 @@ void LevelSet::LevelSetting(wchar_t LEVEL_Name[255],bool flag,int wave) {
 				EnemyCount++;
 			}			return true;
 		}
+
+		if (objData.EqualObjectName(L"shisokus")) {
+			shisokus* shi = NewGO<shisokus>(0, "shiso");
+			shi->SetPosition(objData.position);
+			shi->SetRotation(objData.rotation);
+			shi->SetActiveFlag(flag);
+			shi->SetWave(wave);
+			if (flag == true) {
+				EnemyCount++;
+			}			return true;
+		}
+
 		if (objData.EqualObjectName(L"StarItem")) {
 			StarItem* item = NewGO<StarItem>(0, "Item");
 			item->SetPosition(objData.position);

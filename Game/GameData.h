@@ -215,6 +215,16 @@ public:
 		return StageNow;
 	}
 
+	//最大WAVE（BOSS）を決定
+	void GameData::SetMAX_WaveNo(int x) {
+		WaveMAX = x;
+	}
+
+	//最大WAVE（BOSS）を返す
+	int GameData::GetMAX_WaveNo() {
+		return WaveMAX;
+	}
+
 	//レベルの準備ができたら呼ぶ
 	void GameData::LevelSetComplete() {
 		LevelSetFlag = true;
@@ -244,7 +254,8 @@ public:
 		ItemCount = 0;
 		GiriCount = 0;
 		EnemyCount = 0;
-		WaveNow = 0;
+		WaveNow = 0;	
+		WaveMAX = 0;
 		LevelSetFlag = false;
 		ResultFlag = false;
 	}
@@ -284,6 +295,7 @@ private:
 	int EnemyCount = 0; //敵の数
 	int WaveNow = 0; //現在Wave
 	int StageNow = 1; //現在ステージ
+	int WaveMAX = 0; //最終Wave
 
 	//以下ポイントで強化できる部分
 	int ATK = 100; //基本攻撃力

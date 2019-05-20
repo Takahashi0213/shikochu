@@ -58,6 +58,7 @@
       <Filter>Effect</Filter>
     </ClCompile>
     <ClCompile Include="Radar.cpp" />
+    <ClCompile Include="BossHPGage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -104,6 +105,7 @@
       <Filter>Effect</Filter>
     </ClInclude>
     <ClInclude Include="Radar.h" />
+    <ClInclude Include="BossHPGage.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
@@ -133,6 +135,9 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\pointa.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\shisokus.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>
@@ -204,10 +209,17 @@
     <ImageContentTask Include="Assets\sprite\WaveUnder.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\modelData\shisokus.FBX">
-      <Filter>Assets\modelData</Filter>
-    </None>
+    <ImageContentTask Include="Assets\sprite\WaveUnderBoss.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\BossLifeBar.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\BossLifeBar_base.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\BossLifeBarUe.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
   </ItemGroup>
 </Project>

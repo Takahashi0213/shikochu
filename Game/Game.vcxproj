@@ -1763,6 +1763,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="BossHPGage.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="EffectPlay.cpp" />
@@ -1806,6 +1807,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
+    <ClInclude Include="BossHPGage.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="DataBase.h" />
     <ClInclude Include="EffectManager.h" />
@@ -1837,7 +1839,9 @@
     <MeshContentTask Include="Assets\modelData\bunbo-gu0.FBX" />
     <MeshContentTask Include="Assets\modelData\item.FBX" />
     <MeshContentTask Include="Assets\modelData\neoriku_0.FBX" />
-    <None Include="Assets\modelData\shisokus.FBX" />
+    <MeshContentTask Include="Assets\modelData\shisokus.FBX">
+      <FileType>Document</FileType>
+    </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\pointa.FBX" />
     <MeshContentTask Include="Assets\modelData\stage1.FBX" />
     <MeshContentTask Include="Assets\modelData\unityChan.fbx" />
@@ -1888,6 +1892,14 @@
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\WaveUnder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\WaveUnderBoss.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\BossLifeBar.png" />
+    <ImageContentTask Include="Assets\sprite\BossLifeBarUe.png" />
+    <ImageContentTask Include="Assets\sprite\BossLifeBar_base.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

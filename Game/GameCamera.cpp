@@ -72,6 +72,22 @@ void GameCamera::Update() {
 	}
 	else if (mode == 1) {
 
+		int D_state = player->GetState3D();
+
+		if (D_state == 1) {
+			DashTimer3D++;
+			if(DashTimer3D < DashTimerMAX) {
+				DashHoseiZ -= 2.0f;
+			}
+		}
+		else {
+			DashTimer3D = 0;
+			DashHoseiZ += 5.0f;
+			if (DashHoseiZ > 0.0f) {
+				DashHoseiZ = 0.0f;
+			}
+		}
+
 		//注視点を動かす
 		cameraTarget.x = P_Position.x;
 		cameraTarget.y = P_Position.y;	
@@ -80,7 +96,7 @@ void GameCamera::Update() {
 		//視点をカメラに伝える
 		cameraPos.x = P_Position.x + camera3D_DEF.x;
 		cameraPos.y = P_Position.y + camera3D_DEF.y;
-		cameraPos.z = P_Position.z + camera3D_DEF.z;
+		cameraPos.z = P_Position.z + camera3D_DEF.z + DashHoseiZ;
 
 	}
 	else if (mode == 2) {
@@ -97,7 +113,7 @@ void GameCamera::Update() {
 			//念のためリセット
 			cameraSwap = CVector3::Zero;
 		}
-		else if (swapTimer > -1) {
+		else if (swapTimer > swapWaitTimer) {
 			//注視点を動かす
 			cameraTarget.x = P_Position.x;
 			cameraTarget.y = P_Position.y;
@@ -116,7 +132,7 @@ void GameCamera::Update() {
 
 		//タイマー加算
 		swapTimer++;
-		if (swapTimer >= swapTimerDEF) {
+		if (swapTimer >= swapTimerDEF + swapWaitTimer) {
 			//終了のためゲームモードを3Dにする
 			GameData * gamedata = GameData::GetInstance();
 			gamedata->SetGameMode(GameData::Battle3D_Mode);

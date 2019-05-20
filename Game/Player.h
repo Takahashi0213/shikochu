@@ -43,6 +43,11 @@ public:
 			return player_state;
 	}
 
+	//3Dステートを返す関数
+	int Player::GetState3D() {
+		return Dash_state3D;
+	}
+
 	//無敵時間中ならtrue、そうでなければfalseを返す
 	bool Player::MutekiChecker() {
 		//無敵時間タイマーを参照
@@ -97,8 +102,10 @@ private:
 	const float playerMoveSpeed = 12.0f; //ここの数値をいじると移動速度変わる
 	const float dashSpeed2D = 50.0f; //2Dモード時の流星ダッシュ速度
 	const float dashSpeed3D = 20.0f; //3Dモード時の流星ダッシュ速度
-	const float Advance3D = 60.0f; //3Dモード時のデフォルト前進速度
-	const float Advance3D_PM = 40.0f; //3Dモード時の加速減速量
+	const float Advance3D = 200.0f; //3Dモード時のデフォルト前進速度
+	const float Advance3D_PM = 100.0f; //3Dモード時の加速減速量
+	const float Advance3D_FrontHosei = 10.0f; //3Dモード時の加速補正
+	const float Advance3D_Move = 1.5f; //3Dモード時の移動補正
 	const float A_DashSpeed = 2000.0f; //Aダッシュの速さだ
 	//寿命
 	int m_Life = 0; //自分の寿命

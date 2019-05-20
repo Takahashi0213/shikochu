@@ -17,7 +17,6 @@ bool shisokus::Start() {
 	m_skinModelRender->Init(L"modelData/shisokus.cmo");
 	m_skinModelRender->SetForwardRenderFlag(true);
 	m_rotation.SetRotationDeg(CVector3::AxisY, -90.0f);
-	m_position = { 0.0f,500.0f,3000.0f };
 	m_skinModelRender->SetPosition(m_position);
 
 	m_scale = { 10.0f,10.0f,10.0f };

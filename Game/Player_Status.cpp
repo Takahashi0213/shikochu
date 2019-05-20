@@ -65,7 +65,7 @@ bool Player_Status::Start() {
 	r->SetPosition(Position);//座標を反映
 	m_spriteRender.push_back(r);
 	//残機アンダー
-	r = NewGO<prefab::CSpriteRender>(0);
+	r = NewGO<prefab::CSpriteRender>(1);
 	r->Init(L"sprite/Zanki.dds", 300.0f, 300.0f);
 	Position = { -550.0f, 280.0f, 1.0f };//座標
 	r->SetPosition(Position);//座標を反映

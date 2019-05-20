@@ -46,6 +46,28 @@ public:
 		m_stete = Estete_Death;
 		return 0;
 	}
+
+	//座標を設定。
+	void SetPosition(CVector3 pos)
+	{
+		m_position = pos;
+	}
+	//回転を設定。
+	void SetRotation(CQuaternion rot)
+	{
+		m_rotation = rot;
+	}
+
+	//所属Waveをセット
+	void SetWave(int x) {
+		waveNo = x;
+	}
+	//所属Waveを返す
+	int GetWave() {
+		return waveNo;
+	}
+
+
 private:
 	prefab::CSkinModelRender* m_skinModelRender = nullptr;	//スキンモデルレンダラー。
 	CVector3 m_position = CVector3::Zero; // 座標。
@@ -54,6 +76,8 @@ private:
 
 	Estete m_stete = Estete_Move; //状態
 	CCharacterController m_charaCon; //キャラコン
+
+	int waveNo = 0; //自分が属するWaveの番号
 
 };
 

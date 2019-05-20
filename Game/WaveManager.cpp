@@ -5,9 +5,13 @@
 #include "LevelSet.h"
 
 #include "GameResult.h"
+#include "BossHPGage.h"
 
+//エネミー
 #include "Bunbogu.h"
 #include "Neoriku.h"
+#include "shisokus.h"
+//ギミック
 #include "StarItem.h"
 
 #include "WaveEffect.h"
@@ -48,6 +52,7 @@ void WaveManager::Update() {
 		int Enemy = 0;
 
 		if (NowWave == LastWave) {
+			//リザルトへ移行
 			gamedata->ResultFlagSet(true);
 			gamedata->EnemyCounterSet(-1);
 		}
@@ -75,9 +80,26 @@ void WaveManager::Update() {
 				return true;
 				});
 
+			QueryGOs<shisokus>("shiso", [&](shisokus* Shisokus) {
+				//対象の所属Waveを取得
+				int wave = Shisokus->GetWave();
+				if (NowWave == wave) {
+					//アクティブ化
+					Enemy++;
+					Shisokus->SetActiveFlag(true);
+				}
+				return true;
+				});
+
 			//敵の数をセット
 			gamedata->EnemyCounterSet(Enemy);
+			//エフェクト再生
 			NewGO<WaveEffect>(0);
+			//もしボスバトルなら3Dへの移行を行う
+			if (NowWave+1 == LastWave) {
+				NewGO<BossHPGage>(0);
+				gamedata->SwapGameMode();
+			}
 
 		}
 
@@ -92,7 +114,10 @@ void WaveManager::AllStage(int x) {
 	int NowWave = gamedata->GetWave();
 	bool flag = false;
 
+	//このステージのWave数を取得
 	int y = Stage_Wave[x];
+	//GameDataにメモしておく（便利なので）
+	gamedata->SetMAX_WaveNo(y);
 
 	for (int i = 0; i < y; i++) {
 

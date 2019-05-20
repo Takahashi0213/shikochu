@@ -157,7 +157,7 @@ private:
 	const int PhaseTimer10 = 14; //動作の制限時間
 
 	//フェイズ１１ これでほんとうにサヨナラ
-	const int ScoreKasan = 100.0f; //1フレームで加算される数
+	const int ScoreKasan = 100; //1フレームで加算される数
 	const int DeleteTime = 60; //終了演出の時間
 };
 

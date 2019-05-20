@@ -231,23 +231,23 @@ void Player::Update() {
 		{
 			//移動
 			if (Pad(0).IsPress(enButtonUp)) {
-				m_moveSpeed.y += moveCrossKey;
+				m_moveSpeed.y += moveCrossKey * (Advance3D_Move + Advance3D_Move);
 			}
 			if (Pad(0).IsPress(enButtonDown)) {
-				m_moveSpeed.y -= moveCrossKey;
+				m_moveSpeed.y -= moveCrossKey * (Advance3D_Move + Advance3D_Move);
 			}
 			if (Pad(0).IsPress(enButtonRight)) {
-				m_moveSpeed.x += moveCrossKey;
+				m_moveSpeed.x += moveCrossKey * (Advance3D_Move + Advance3D_Move);
 			}
 			if (Pad(0).IsPress(enButtonLeft)) {
-				m_moveSpeed.x -= moveCrossKey;
+				m_moveSpeed.x -= moveCrossKey * (Advance3D_Move + Advance3D_Move);
 			}
 
 			CVector3 stick = CVector3::Zero;
 			stick.x = Pad(0).GetLStickXF();
 			stick.y = Pad(0).GetLStickYF();
 			stick.z = 0.0f;
-			m_moveSpeed += stick * playerMoveSpeed;
+			m_moveSpeed += stick * (playerMoveSpeed*Advance3D_Move);
 			//スティック入力されてなければ緩やかストップ
 			if (stick.x == 0.0f) {
 				m_moveSpeed.x /= 1.2f;
@@ -272,11 +272,12 @@ void Player::Update() {
 			}
 
 			//加速減速
-			if (Pad(0).IsTrigger(enButtonA)) {
+			if (Pad(0).IsPress(enButtonA)) {
 				//加速状態に
+				m_Life -= 1;
 				Dash_state3D = Estate_Front;
 			}
-			else if (Pad(0).IsTrigger(enButtonB)) {
+			else if (Pad(0).IsPress(enButtonB)) {
 				//減速状態に
 				Dash_state3D = Estate_Back;
 			}
@@ -305,7 +306,7 @@ void Player::Update() {
 			m_moveSpeed.z = Advance3D;
 			break;
 		case Estate_Front:
-			m_moveSpeed.z = Advance3D + Advance3D_PM;
+			m_moveSpeed.z = Advance3D + Advance3D_PM * Advance3D_FrontHosei;
 			break;
 		case Estate_Back:
 			m_moveSpeed.z = Advance3D - Advance3D_PM;
@@ -360,6 +361,12 @@ void Player::Update() {
 		PlayerJudge();
 
 	}
+
+	else if (mode == 2) {
+
+		PlayerJudge();
+
+		}
 
 	//死んでいなければ光る
 	if (player_state != Estate_Death) {
