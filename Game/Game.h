@@ -23,6 +23,5 @@ private:
 	CQuaternion rotation = CQuaternion::Identity;
 	prefab::CDirectionLight* m_directionLig = nullptr;
 	float m_tonemapDisableTimer = 1.0f;
-	CLevel m_level;	//レベルデータ。
 };
 

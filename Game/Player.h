@@ -92,9 +92,9 @@ private:
 	//距離算出用
 	CVector3 playerVec;
 	//移動速度
-	const float moveCrossKey = 8.0f; //十字キー入力時の最高速度
-	const float moveSpeedMAX = 800.0f; //普段の最高速度
-	const float playerMoveSpeed = 8.0f; //ここの数値をいじると移動速度変わる
+	const float moveCrossKey = 12.0f; //十字キー入力時の最高速度
+	const float moveSpeedMAX = 600.0f; //普段の最高速度
+	const float playerMoveSpeed = 12.0f; //ここの数値をいじると移動速度変わる
 	const float dashSpeed2D = 50.0f; //2Dモード時の流星ダッシュ速度
 	const float dashSpeed3D = 20.0f; //3Dモード時の流星ダッシュ速度
 	const float Advance3D = 60.0f; //3Dモード時のデフォルト前進速度
@@ -109,6 +109,10 @@ private:
 	const int DashLife = 2; //ダッシュ中は寿命が0にならないようにする、その最小値
 	const int DashLifeSpeed = 2; //ダッシュ中の寿命減少速度
 	const int Dash_LifeGensyo = 5; //ダッシュ時の寿命減少値
+	//Aダッシュ絡み
+	bool DashFlag = false; //ダッシュだよ
+	int DashTimeCount = -1; //ダッシュタイムを数えるよ
+	const int DashTimeMAX = 120; //ダッシュが切れるフレーム
 	//リセット用
 	int ResetTimer = 0; //リセット用タイマー。そのままの意味
 	const int ResetAverage = 60; //自分がリスポーンする間隔

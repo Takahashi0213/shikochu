@@ -59,7 +59,7 @@ void GameCamera::Update() {
 	Player * player = Player::GetInstance();
 	CVector3 P_Position = player->Getm_Position();
 
-	if (mode==0) {
+	if (mode==0 || mode == 3 ) {
 		//注視点を動かす
 		cameraTarget.x = P_Position.x;
 		cameraTarget.y = P_Position.y;	//プレイヤーのちょっと上にする

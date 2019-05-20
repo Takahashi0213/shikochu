@@ -11,6 +11,7 @@ public:
 		Battle2D_Mode,
 		Battle3D_Mode,
 		BattleMode_Swap,//2Dモードと3Dモード入れ替え中
+		Result,
 	};
 
 	/////////////// Singleton //////////////////////////////
@@ -42,6 +43,7 @@ public:
 	//x=0で割合を、x=1で減少値を返す
 	float GameData::GetLifePercent(int x);
 	bool GameData::GiriBonusKeisan();
+	int GameData::ZankiBonusKeisan();
 
 	//残機増減
 	void GameData::SetZanki(int x) {
@@ -150,6 +152,12 @@ public:
 		return ItemCount;
 	}
 
+	//アイテムカウントをボーナスとして計算して取得
+	int GameData::GetItemCountKeisan() {
+		int x = ItemCount * ItemBonusHosei;
+		return x;
+	}
+
 	//ギリギリボーナスのカウント（変数）を1増やすだけ
 	//寿命が一定値以下で敵を倒したときに呼び出します
 	void GameData::GiriCounter() {
@@ -161,12 +169,71 @@ public:
 		return GiriCount;
 	}
 
+	//ギリギリボーナスを計算して取得
+	int GameData::GetGiriCountKeisan() {
+		int x = GiriCount * GiriBonusHosei;
+		return x;
+	}
+
 	//ポイント加算（引数を所持ポイントに加算するよ）
 	int GameData::PlusPoint(int x) {
 
-		Point + x;
+		Point += x;
 	}
 
+	//エネミーカウンターを減少させる
+	void GameData::EnemyCounterGensyou() {
+		EnemyCount--;
+	}
+	//引数をエネミーカウンターに代入
+	void GameData::EnemyCounterSet(int x) {
+		EnemyCount = x;
+	}
+
+	//エネミーカウンター取得
+	int GameData::GetEnemyCounter() {
+		return EnemyCount;
+	}
+
+	//現在Wave（変数）を1増やすだけ
+	void GameData::WavePlus() {
+		WaveNow++;
+	}
+
+	//現在Wave取得
+	int GameData::GetWave() {
+		return WaveNow;
+	}
+
+	//現在ステージを決定
+	void GameData::SetStageNo(int x) {
+		StageNow = x;
+	}
+
+	//現在ステージを返す
+	int GameData::GetStageNo() {
+		return StageNow;
+	}
+
+	//レベルの準備ができたら呼ぶ
+	void GameData::LevelSetComplete() {
+		LevelSetFlag = true;
+	}
+
+	//レベルフラグを返す
+	bool GameData::GetLevelSet() {
+		return LevelSetFlag;
+	}
+
+	//リザルトの準備ができたら呼ぶ
+	void GameData::ResultFlagSet(bool flag) {
+		ResultFlag = flag;
+	}
+
+	//リザルトフラグを返す
+	bool GameData::GetResultFlag() {
+		return ResultFlag;
+	}
 	//ゲームデータをリセット
 	//ステージ開始時に必ず呼び出すこと！！！！！！！！
 	void GameData::GameDataReset() {
@@ -176,6 +243,10 @@ public:
 		Star_Power = 0;
 		ItemCount = 0;
 		GiriCount = 0;
+		EnemyCount = 0;
+		WaveNow = 0;
+		LevelSetFlag = false;
+		ResultFlag = false;
 	}
 
 	//テストメッセージ
@@ -206,6 +277,14 @@ private:
 
 	GameMode m_stete = Battle2D_Mode;		 //状態
 
+	bool LevelSetFlag = false; //レベルの準備できましたか
+	bool ResultFlag = false; //リザルトへの遷移
+
+	//戦闘絡みの変数置き場
+	int EnemyCount = 0; //敵の数
+	int WaveNow = 0; //現在Wave
+	int StageNow = 1; //現在ステージ
+
 	//以下ポイントで強化できる部分
 	int ATK = 100; //基本攻撃力
 	int DEF_Zanki = 50; //デフォルト残機
@@ -214,4 +293,8 @@ private:
 	//定数
 	const int MAXStarPower = 100; //流星ゲージの最大値
 	const float GiriBonus_Line = 0.5f; //ギリギリボーナスが成立するライン 最大は1.0f（100%）
+	const int MAX_ZankiBonus = 10000; //残機ボーナスの最大値
+	const int GiriBonusHosei = 200; //ギリギリで倒した敵の数*この変数→ギリギリボーナスの値
+	const int ItemBonusHosei = 10; //拾ったアイテムの数*この変数→アイテムボーナスの値
+
 };

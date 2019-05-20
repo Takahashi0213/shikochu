@@ -55,7 +55,14 @@ public:
 	float GetDamageLength() {
 		return DamageLength;
 	}
-
+	//所属Waveをセット
+	void SetWave(int x) {
+		waveNo = x;
+	}
+	//所属Waveを返す
+	int GetWave() {
+		return waveNo;
+	}
 
 private:
 
@@ -67,6 +74,7 @@ private:
 
 	CVector3 moveVec;
 	CVector3 enemyVec;
+	CVector3 attackVec;
 	Estete m_stete = Estete_Move; //状態
 	CCharacterController m_charaCon; //キャラコン
 
@@ -83,12 +91,14 @@ private:
 
 	//攻撃関連
 	int timer = 0; //攻撃のタイマー
-	const int yobiwait = 50; //予備動作の時間
-	const int attackwait = 120; //攻撃動作の時間
-	const float attackMoveRange = 50.0f; //攻撃時の前進距離と速度
-
+	const int yobiwait = 70; //予備動作の時間
+	const int attackwait = 90; //攻撃動作の時間
+	const float attackMoveRange = 120.0f; //攻撃時の前進距離と速度
+	bool keisannflag = false;		//フラグ
 	//ステータス
 	const float DamageLength = 80.0f; //ダメメージを受けけるは範囲だだよ
+
+	int waveNo = 0; //自分が属するWaveの番号
 
 };
 

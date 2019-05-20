@@ -22,9 +22,6 @@ bool StarItem::Start() {
 	m_skinModelRender->Init(L"modelData/item.cmo", nullptr, 0);
 	m_skinModelRender->SetEmissionColor(ItemEmission);
 
-	m_position = { -200.0f,0.0f, 200.0f };
-	m_skinModelRender->SetPosition(m_position);
-
 	m_pointLig = NewGO<prefab::CPointLight>(0, "ItemLight");
 	m_pointLig->SetColor(ItemLight);
 	m_pointLig->SetAttn(ItemLightAttn);

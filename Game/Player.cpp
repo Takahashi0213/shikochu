@@ -4,7 +4,9 @@
 #include "GameData.h"
 #include "EffectManager.h"
 #include "Bunbogu.h"
+#include "Bullet.h"
 #include "Neoriku.h"
+#include "Radar.h"
 
 Player* Player::m_instance = nullptr;
 
@@ -49,6 +51,8 @@ bool Player::Start() {
 	m_pointLig->SetColor(PlayerLight);
 	m_pointLig->SetAttn(PlayerLightAttn);
 
+	NewGO<Radar>(0);
+
 	return true;
 }
 
@@ -58,7 +62,7 @@ void Player::Update() {
 	GameData * gameData = FindGO<GameData>("GameData");
 	int mode = gameData->GetGameMode();
 
-	if (mode == 0) {
+	if (mode == 0 || mode == 3 ) {
 
 		switch (player_state) {
 
@@ -85,7 +89,7 @@ void Player::Update() {
 
 			m_moveSpeed += stick * playerMoveSpeed;
 			//スティック入力されてなければ緩やかストップ
-			m_moveSpeed *= 0.95f;
+			m_moveSpeed *= 0.98f;
 			/*if (stick.x == 0.0f) {
 				m_moveSpeed.x /= 1.2f;
 			}
@@ -116,9 +120,24 @@ void Player::Update() {
 				Dash_Speed *= A_DashSpeed;
 				m_moveSpeed += Dash_Speed;
 
+				//ダッシュフラグセット
+				DashFlag = true;
+				if (DashTimeCount == -1) {
+					DashTimeCount = 0;
+				}
+
 				m_Life -= Dash_LifeGensyo;
 				if (m_Life < 0) {
 					m_Life = 0; //0より小さくしない
+				}
+			}
+
+			//ダッシュ状態カウント
+			if (DashTimeCount >= -1) {
+				DashTimeCount++;
+				if (DashTimeCount >= DashTimeMAX) { //ダッシュ状態が時間切れなら
+					DashTimeCount = -1;
+					DashFlag = false;
 				}
 			}
 
@@ -133,6 +152,8 @@ void Player::Update() {
 					//ダッシュ状態になるぞ！！！！！！
 					m_LifeSpeed = 1;
 					player_state = Estate_Dash;
+					DashFlag = true;
+					DashTimeCount = -2; //解除されないダッシュ状態になる
 				}
 			}
 		}
@@ -373,7 +394,7 @@ void Player::Update() {
 	}
 
 	//モードに応じてライト処理を変えます
-	if (mode == 0) {
+	if (mode == 0 || mode == 3) {
 		CVector3 pos = position;
 		pos.y += LightPosHosei;
 		m_pointLig->SetPosition(pos);
@@ -391,7 +412,13 @@ void Player::Update() {
 		m_skinModelRender->SetEmissionColor(EmissionColorDEF);
 		GraphicsEngine().GetTonemap().SetLuminance(0.28f);
 	}
-
+	/////////////////////////////////////////////
+	if (mode == 3) {//リザルト中は絶対死なない！
+		//ゲームデータから最大寿命を引っ張ってくる
+		GameData * gamedata = GameData::GetInstance();
+		m_Life = gamedata->GetDEF_Life() / 2;
+	}
+	/////////////////////////////////////////////
 
 	//これもライト
 	if (player_state != Estate_Death) {
@@ -405,10 +432,14 @@ void Player::Update() {
 }
 
 //判定を色々
-void Player::PlayerJudge(){
+void Player::PlayerJudge() {
 
-	//敵との距離を計算
-	QueryGOs<Bunbogu>("Enemy", [&](Bunbogu* bunbogu) {
+	//ブンボーグとの距離を計算
+	QueryGOs<Bunbogu>("bun", [&](Bunbogu* bunbogu) {
+		if (bunbogu->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
 		CVector3 enemy_position = bunbogu->Getm_Position();
 		CVector3 diff = enemy_position - position;
 		playerVec = diff;
@@ -429,12 +460,13 @@ void Player::PlayerJudge(){
 					m_Life = 0;
 
 					int EState = bunbogu->GetEState();
-					if (EState != 0) {//敵が攻撃中の時でないなら…
+					if (EState != 0 && DashFlag == true) {//敵が攻撃中の時でない＆ダッシュ状態なら…
 
 						bunbogu->SetDeath();//お前も死ね
 
 						if (Hantei == true) {
-							gamedata->GiriCounter(); //ギリギリボーナスカウントを+1
+							//ギリギリボーナスカウントを+1
+							gamedata->GiriCounter(); 
 							//ボーナス成立のエフェクトを表示
 							EffectManager * effectmanager = EffectManager::GetInstance();
 							effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
@@ -445,8 +477,81 @@ void Player::PlayerJudge(){
 			}
 		}
 		return true;
-	});
-	
+		});
+
+	//玉との距離を計算
+	QueryGOs<Bullet>("bullet", [&](Bullet* bullet) {
+		CVector3 bullet_position = bullet->Getm_Position();
+		CVector3 diff = bullet_position - position;
+		playerVec = diff;
+		//死んでいなければ接触判定
+		if (player_state != Estate_Dash) {
+			//＊ダメージレンジは どこだ。
+			float Langth_hoge = bullet->GetDamageLength();
+			//距離判定
+			if (diff.Length() < Langth_hoge) {
+				//もし無敵時間中でないなら
+				if (MutekiTimer == -1) {
+
+					//寿命をゼロに
+					m_Life = 0;
+
+					bullet->SetDeath();//お前も死ね
+
+				}
+			}
+		}
+		return true;
+		});
+
+	//ネオリクとの距離を計算
+	QueryGOs<Neoriku>("neo", [&](Neoriku* neoriku) {
+		if (neoriku->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 neoriku_position = neoriku->Getm_Position();
+		CVector3 diff = neoriku_position - position;
+		playerVec = diff;
+		//死んでいなければ接触判定
+		if (player_state != Estate_Dash) {
+			//＊ダメージレンジは どこだ。
+			float Langth_hoge = neoriku->GetDamageLength();
+			//距離判定
+			if (diff.Length() < Langth_hoge) {
+				//もし無敵時間中でないなら
+				if (MutekiTimer == -1) {
+
+					//ギリギリボーナスが成立するか確認
+					GameData * gamedata = GameData::GetInstance();
+					bool Hantei = gamedata->GiriBonusKeisan();
+					
+					//寿命をゼロに
+					m_Life = 0;
+
+					int EState = neoriku->GetEState();
+					if (EState != 0 && DashFlag == true) {//敵が攻撃中の時でない＆ダッシュ状態なら…
+
+						neoriku->SetDeath();//お前も死ね
+
+						if (Hantei == true) {
+							//ギリギリボーナスカウントを+1
+							gamedata->GiriCounter();
+							//ボーナス成立のエフェクトを表示
+							EffectManager * effectmanager = EffectManager::GetInstance();
+							effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
+							//gamedata->TestMessage();
+						}
+					}
+
+
+				}
+			}
+		}
+		return true;
+		});
+
+
 	//寿命だ…
 	if (m_Life == 0) {
 		//ダッシュ中なら流星ゲージを0にする

@@ -17,24 +17,45 @@ bool Bullet::Start()
 {
 	m_skinModelRender = NewGO<prefab::CSkinModelRender>(0);
 	m_skinModelRender->Init(L"modelData/bullet.cmo");
-	Neoriku* neoriku = FindGO<Neoriku>("neo");
-	CVector3 N_Position = neoriku->Getm_Position();
+	
+	CVector3 N_Position = m_neoriku->Getm_Position();
 	m_position = N_Position;
 	m_skinModelRender->SetPosition(m_position);
+	m_skinModelRender->SetScale(bulletscale);
+
+	m_skinModelRender->SetEmissionColor(bulletEmissionColor);
+
 	return true;
 }
 
 void Bullet::Update()
 {
 	//攻撃ﾀﾞﾖ
-	//弾丸を移動させる。
-	m_position *= moveSpeed;
-	//スキンモデルレンダーに座標を伝える。
+	if (keisannflag == false) {
+		Player* player = FindGO<Player>("Bug");
+		CVector3 P_Position = player->Getm_Position();
+		
+		CVector3 Ne_Position = m_neoriku->Getm_Position();
+		CVector3 diff = P_Position - Ne_Position;
+		buvec = diff;
+		buvec.Normalize();
+		keisannflag = true;
+	}
+	m_position += buvec * moveSpeed;
+
+	//座標を伝える。
 	m_skinModelRender->SetPosition(m_position);
-	//タイマーを加算する。
-	m_timer++;
-	if (m_timer == 180) {
-		//タイマーが180になったらインスタンスを削除する。
+
+
+	if (dathflag == true) {
 		DeleteGO(this);
 	}
+
+
+	m_timer++;
+	if (m_timer == bulletdelete) {
+		//時間がたったらインスタンスを削除する。
+		DeleteGO(this);
+	}
+
 }

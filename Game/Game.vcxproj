@@ -1771,11 +1771,13 @@
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameData.cpp" />
     <ClCompile Include="GameResult.cpp" />
+    <ClCompile Include="LevelSet.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NakamaLight.cpp" />
     <ClCompile Include="Neoriku.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Player_Status.cpp" />
+    <ClCompile Include="Radar.cpp" />
     <ClCompile Include="shisokus.cpp" />
     <ClCompile Include="StarItem.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -1799,10 +1801,13 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Preview_Low|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="WaveEffect.cpp" />
+    <ClCompile Include="WaveManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="DataBase.h" />
     <ClInclude Include="EffectManager.h" />
     <ClInclude Include="EffectPlay.h" />
     <ClInclude Include="Bunbogu.h" />
@@ -1810,23 +1815,30 @@
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameData.h" />
     <ClInclude Include="GameResult.h" />
+    <ClInclude Include="LevelData.h" />
+    <ClInclude Include="LevelSet.h" />
     <ClInclude Include="NakamaLight.h" />
     <ClInclude Include="Neoriku.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Player_Status.h" />
+    <ClInclude Include="Radar.h" />
     <CLInclude Include="resource.h" />
     <ClInclude Include="shisokus.h" />
     <ClInclude Include="StarItem.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Title.h" />
+    <ClInclude Include="WaveEffect.h" />
+    <ClInclude Include="WaveManager.h" />
     <ResourceCompile Include="Game.rc" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\bug.FBX" />
+    <MeshContentTask Include="Assets\modelData\bullet.FBX" />
     <MeshContentTask Include="Assets\modelData\bunbo-gu0.FBX" />
     <MeshContentTask Include="Assets\modelData\item.FBX" />
     <MeshContentTask Include="Assets\modelData\neoriku_0.FBX" />
     <None Include="Assets\modelData\shisokus.FBX" />
+    <MeshContentTask Include="Assets\modelData\pointa.FBX" />
     <MeshContentTask Include="Assets\modelData\stage1.FBX" />
     <MeshContentTask Include="Assets\modelData\unityChan.fbx" />
   </ItemGroup>
@@ -1851,6 +1863,31 @@
     <ImageContentTask Include="Assets\sprite\StarBar.png" />
     <ImageContentTask Include="Assets\sprite\StarBarUe.png" />
     <ImageContentTask Include="Assets\sprite\StarBar_base.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\icon.png" />
+    <ImageContentTask Include="Assets\sprite\icon2.png" />
+    <ImageContentTask Include="Assets\sprite\Result_Back.png" />
+    <ImageContentTask Include="Assets\sprite\Result_Bar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\ResultBG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\A_Runk.png" />
+    <ImageContentTask Include="Assets\sprite\B_Runk.png" />
+    <ImageContentTask Include="Assets\sprite\C_Runk.png" />
+    <ImageContentTask Include="Assets\sprite\D_Runk.png" />
+    <ImageContentTask Include="Assets\sprite\S_Runk.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\Black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\GoodBye.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\WaveUnder.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

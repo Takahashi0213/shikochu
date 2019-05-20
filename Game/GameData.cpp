@@ -18,7 +18,9 @@ float GameData::GetLifePercent(int x) {
 		int player_Gensyou = DEF_Life - m_Life;
 		return (float)player_Gensyou;
 	}
-
+	else {
+		return true;
+	}
 }
 
 //これが実行されたとき、ギリギリボーナスが成立する寿命ならtrue、
@@ -34,4 +36,12 @@ bool GameData::GiriBonusKeisan() {
 		return false;
 	}
 
+}
+
+int GameData::ZankiBonusKeisan() {
+
+	float hoge = ZankiWariai();
+	int Bonus = (int)(MAX_ZankiBonus * hoge);
+
+	return Bonus;
 }

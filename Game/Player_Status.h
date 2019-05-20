@@ -15,7 +15,7 @@ private:
 	const CVector2 LifePivot = { 0.5f, 0.1f };//HPの基点
 	const CVector2 StarPivot = { 0.5f, 0.0f };//流星バーの基点
 
-	const CVector2 ZankiPos = { -630.0f, 240.0f }; //残機数表示位置
+	const CVector2 ZankiPos = { -645.0f, 255.0f }; //残機数表示位置
 	CVector4 LifeColor = { 1.0f,1.0f,1.0f,1.0f }; //HPバーの色
 	CVector4 StarColor = { 1.0f,1.0f,1.0f,1.0f }; //流星バーの色
 	const float ZankiScale = 3.0f; //残機数表示サイズ

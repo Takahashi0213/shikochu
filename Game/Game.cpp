@@ -12,6 +12,11 @@
 #include "BackGround.h"
 #include "Neoriku.h"
 #include "shisokus.h"
+#include "WaveManager.h"
+
+#include "LevelSet.h"
+#include "GameResult.h"
+#include "WaveEffect.h"
 
 Game* Game::m_instance = nullptr;
 
@@ -47,33 +52,20 @@ bool Game::Start()
 {
 	//EnableSpecialLigRange();
 	DisableSpecialLigRange();
+
 	NewGO<GameData>(0,"GameData");
 	NewGO<Player>(0,"Bug");
 	
-	m_level.Init(L"level/level_01.tkl", [&](LevelObjectData& objData) {
-		if (objData.EqualObjectName(L"bunbo-gu0")) {
-			Bunbogu* bun = NewGO<Bunbogu>(0, "Enemy");
-			bun->SetPosition(objData.position);
-			bun->SetRotation(objData.rotation);
-			return true;
-		}
-		if (objData.EqualObjectName(L"neoriku_0")) {
-			Neoriku* neo = NewGO<Neoriku>(0, "neo");
-			neo->SetPosition(objData.position);
-			neo->SetRotation(objData.rotation);
-			return true;
-		}
-		return false;
-	});
 	NewGO<GameCamera>(0,"Gamecamera");
 	NewGO<Player_Status>(0, "Status");
 	NewGO<EffectManager>(0, "EffectManager");
 	NewGO<BackGround>(0, "BackGround");
-
-	NewGO<StarItem>(0, "item");
+	NewGO<WaveManager>(0, "WaveManager");
+	NewGO<LevelSet>(0, "LevelSet");
 
 	GameData * gamedata = GameData::GetInstance();
 	gamedata->SetGameMode(GameData::Battle2D_Mode);
+	gamedata->GameDataReset();
 
 	BackGround * background = BackGround::GetInstance();
 	background->StageMaker(BackGround::Stage_1);
@@ -89,7 +81,15 @@ bool Game::Start()
 	ligDir.Normalize();
 	m_directionLig->SetDirection(ligDir);
 	GraphicsEngine().GetShadowMap().SetLightDirection(ligDir);
-	
+
+	//”z’u
+	WaveManager * wavemanager = WaveManager::GetInstance();
+	wavemanager->AllStage(0);
+
+	//NewGO<GameResult>(0);
+
+	//NewGO<WaveEffect>(0);
+
 	return true;
 }
 
@@ -106,4 +106,13 @@ void Game::Update()
 		NewGO<Title>(0, "title");
 		DeleteGO(this);
 	}
+
+	GameData * gamedata = GameData::GetInstance();
+
+	bool resultflag = gamedata->GetResultFlag();
+	if (resultflag==true) {
+		NewGO<GameResult>(0);
+		gamedata->ResultFlagSet(false);
+	}
+
 }

@@ -20,14 +20,10 @@ bool Neoriku::Start() {
 	m_animClips[enAnimationClip_walk].Load(L"animData/Neowalk.tka");
 	m_animClips[enAnimationClip_walk].SetLoopFlag(true);
 
-	//m_animClips[enAnimationClip_attack1].SetLoopFlag(true);
 	//ÉXÉLÉìÉÇÉfÉã
 	m_skinModelRender = NewGO<prefab::CSkinModelRender>(0);
 	m_skinModelRender->Init(L"modelData/neoriku_0.cmo", m_animClips, enAnimationClip_Num);
 	m_skinModelRender->SetForwardRenderFlag(true);
-	//m_skinModelRender->SetEmissionColor({ 0.0f, 10.0f, 0.0f });
-	m_position = { 100.0f,0.0f,0.0f };
-	m_skinModelRender->SetPosition(m_position);
 
 	m_scale = { 2.0f,2.0f,2.0f };
 	m_charaCon.Init(
@@ -42,36 +38,86 @@ bool Neoriku::Start() {
 
 void Neoriku::NeoAttack() {
 	//âìãóó£Ç‚Ç≈Ç≈
-	if (count == 1) {
-		NewGO<Bullet>(0, "bullet");
-		count = 0;
+	movetimer++;
+	if (bulletFlag == false) {
+		Bullet* bullet = NewGO<Bullet>(0,"bullet");
+		bullet->Init(this);
+		bulletFlag = true;
 	}
-	else {
+	else if (movetimer < move_starttimer) {
+		colorcount -= 1.0f;
+		if (colorcount < 0.0f) {
+			colorcount = 0.0f;
+		}
+		m_skinModelRender->SetEmissionColor({ 0.0f , colorcount, colorcount });
+	}
+	else if (movetimer >= move_starttimer) {
+		count = 0;
+		timer = 0;
+		movetimer = 0;
 		m_stete = Estete_Move;
 	}
-}
 
+}
+void Neoriku::NeoYobi() {
+	//ó\îıìÆçÏÇ≈êFÇ™ïœâªÇ∑Ç¡Ç¡Ç¡ÇÈÇÊ
+	if (colorflag == false) {
+		//ñæÇÈÇ≠
+		colortimer++;
+		if (colortimer == 1) {
+			colorcount+=1.0f;
+			colortimer = 0;
+			if (colorcount < 30.0f) {
+				m_skinModelRender->SetEmissionColor({ 0.0f , colorcount, colorcount });
+			}
+			else {
+				colorflag = true;
+			}
+		}
+	}
+	else {
+		m_stete = Estete_Attack;
+	}
+}
 void Neoriku::NeoMove() {
 	//à⁄ìÆíÜ
 	Player * player = Player::GetInstance();
 	CVector3 P_Position = player->Getm_Position();
 	CVector3 diff = P_Position - m_position;
 	neoVec = diff;
-	//dbg::DrawVector(
-	//	P_Position,
-	//	m_position);
-	if (diff.Length() < 400) {
-		//í‚é~ÅïçUåÇãóó£
-		moveVec = neoVec * Speed;
-		//m_stete = Estete_yobi;
+	if (diff.Length() < followstop) {
+		//í‚é~ãóó£
+		moveVec = neoVec * Speed;	
 	}
 	else {
 		//í«Ç¢Ç©ÇØÇÈÇÊ!
 		neoVec.Normalize();
 		moveVec = neoVec * followSpeed;
+
 	}
-	//ÉvÉåÉCÉÑÅ[ÇÃå¸Ç´Ç…âÒì]
+	if (diff.Length() < followleave) {
+		//ãﬂÇ¢ÇÊyoó£ÇÍÇÈyo!
+		neoVec.Normalize();
+		moveVec = neoVec * followSpeed * -1.0f;
+	}
+	//ÉâÉìÉ_ÉÄÇ»éûä‘Ç≈çUåÇÇ∑ÇÈÉà
+	if (count == 0) {
+		random = rand() % 8;
+		if (random >= 2) {
+			count = 1;
+
+		}
+		random = random * time;//ÉâÉìÉ_ÉÄéûä‘
+	}
+	timer++;
+	if (timer > random) {
+		bulletFlag = false;
+		colorflag = false;
+		m_stete = Estete_Yobi;
+	}
+
 	CVector3 enemyForward = { -1.0f, 0.0f, 0.0f };
+	//ÉvÉåÉCÉÑÅ[ÇÃå¸Ç´Ç…âÒì]
 	diff.y = 0.0f;
 	diff.Normalize();
 	CQuaternion qRot;
@@ -81,24 +127,19 @@ void Neoriku::NeoMove() {
 
 }
 void Neoriku::NeoDeath() {
-	//éÄÇÒÇæ......≥Ø...
-	m_position = { 1000.0f,1000.0f,-1000.0f };
-	//à⁄ìÆ
-	m_skinModelRender->SetPosition(m_position);
+	GameData * gamedata = GameData::GetInstance();
+	gamedata->EnemyCounterGensyou();
+	DeleteGO(this);
+}
 
-}
-void Neoriku::Neoyobi() {
-	//ó\îıìÆçÏ
-	/*if ( count == 0) {
-		m_stete = Estete_Attack;
-		count++;
-	}*/
-}
 
 void Neoriku::Update() {
 	switch (m_stete) {
 		case Estete_Attack://çUåÇ
 			NeoAttack();
+			break;
+		case Estete_Yobi://ó\îıìÆçÏ
+			NeoYobi();
 			break;
 		case Estete_Move://à⁄ìÆ
 			NeoMove();
@@ -106,10 +147,12 @@ void Neoriku::Update() {
 		case Estete_Death:
 			NeoDeath();//éÄ
 			break;
-		case Estete_yobi:
-			Neoyobi();//ó\îıìÆçÏ
-			break;
 	}
+
+	if (dathflag == true) {
+		DeleteGO(this);
+	}
+
 	//à⁄ìÆ
 	m_skinModelRender->SetPosition(m_position);
 	//âÒì]

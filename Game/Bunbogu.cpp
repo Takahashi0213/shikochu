@@ -48,17 +48,13 @@ void Bunbogu::EnemyAttack()
 	if(timer <= attackwait){
 		//UŒ‚ƒAƒjƒ[ƒVƒ‡ƒ“
 		m_skinModelRender->PlayAnimation(enAnimationClip_attack01);
+			m_position = m_charaCon.Execute(attackVec);
 
-		CVector3 P_Position = player->Getm_Position();
-		CVector3 diff = P_Position - m_position;
-
-		diff.Normalize();
-		diff *= attackMoveRange;
-		m_position = m_charaCon.Execute(diff);
 	}
 	else{
 		//’Êíó‘Ô‚É–ß‚é
 		timer = 0;
+		keisannflag = false;
 		m_stete = Estete_Move;
 	}
 
@@ -145,17 +141,30 @@ void Bunbogu::EnemyFollow()
 }
 void Bunbogu::EnemyDeath()
 {
+	GameData * gamedata = GameData::GetInstance();
+	gamedata->EnemyCounterGensyou();
 	DeleteGO(this);
 }
 void Bunbogu::Enemyyobi() {
 	//—\”õ“®ì
+	if (keisannflag == false) {
+		Player * player = Player::GetInstance();
+		CVector3 P_Position = player->Getm_Position();
+		CVector3 diff = P_Position - m_position;
+		attackVec = diff;
+		attackVec.Normalize();
+		attackVec *= attackMoveRange;
+		keisannflag = true;
+	}
 	timer++;
 	if (timer <= yobiwait) {
 		m_skinModelRender->PlayAnimation(enAnimationClip_attack1);
 	}
 	else {
 		m_stete = Estete_Attack;
+
 	}
+
 }
 void Bunbogu::Update()
 	{

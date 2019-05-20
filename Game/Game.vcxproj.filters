@@ -52,6 +52,12 @@
       <Filter>Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="LevelSet.cpp" />
+    <ClCompile Include="WaveManager.cpp" />
+    <ClCompile Include="WaveEffect.cpp">
+      <Filter>Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Radar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -86,6 +92,18 @@
       <Filter>Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="LevelSet.h" />
+    <ClInclude Include="LevelData.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WaveManager.h" />
+    <ClInclude Include="DataBase.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WaveEffect.h">
+      <Filter>Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Radar.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
@@ -109,6 +127,12 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\neoriku_0.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\bullet.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\pointa.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>
@@ -139,6 +163,45 @@
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\StarBarUe.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\icon.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\icon2.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Result_Back.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Result_Bar.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\ResultBG.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\A_Runk.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\B_Runk.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\C_Runk.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\D_Runk.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\S_Runk.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Black.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\GoodBye.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\WaveUnder.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
   </ItemGroup>

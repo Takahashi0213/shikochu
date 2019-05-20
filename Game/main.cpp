@@ -120,6 +120,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	SInitParam initParam;
 	initParam.nCmdShow = nCmdShow;
 	initParam.hInstance = hInstance;
+	
 #if defined(USE_LOW_SPEC_SETTINGS)
 	//LowSpec向けにtkEngineのConfigを設定する。
 	SetTkEngineConfigForLowSpec( initParam );
@@ -136,6 +137,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	
 	//エンジンを初期化。
 	if (Engine().Init(initParam) == true) {
+		dbg::SetDrawVectorEnable();
 		NewGO<Title>(0, nullptr);
 		//NewGO<Game>(0, nullptr);
 		//ゲームループを実行。
