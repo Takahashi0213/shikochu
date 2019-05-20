@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "shisokus.h"
+#include "Player.h"
 
 
 shisokus::shisokus()
@@ -12,31 +13,69 @@ shisokus::~shisokus()
 }
 
 bool shisokus::Start() {
+	
+	//アニメーション
+	m_animClips[enAnimationClip_move].Load(L"animData/sisowalk.tka");
+	m_animClips[enAnimationClip_move].SetLoopFlag(true);
+	//予備
+	m_animClips[enAnimationClip_attack1].Load(L"animData/attack_1.tka");
+	//攻撃
+	m_animClips[enAnimationClip_yobi1].Load(L"animData/attack_01.tka");
 
 	m_skinModelRender = NewGO<prefab::CSkinModelRender>(0);
-	m_skinModelRender->Init(L"modelData/shisokus.cmo");
-	m_skinModelRender->SetForwardRenderFlag(true);
+	m_skinModelRender->Init(L"modelData/shisokus.cmo", m_animClips, enAnimationClip_Num);
+	//m_skinModelRender->SetForwardRenderFlag(true);
 	m_rotation.SetRotationDeg(CVector3::AxisY, -90.0f);
-	m_position = { 0.0f,500.0f,3000.0f };
+	m_position = { 0.0f,500.0f,3500.0f };
 	m_skinModelRender->SetPosition(m_position);
 
 	m_scale = { 10.0f,10.0f,10.0f };
 	m_charaCon.Init(
-		35.0f,  //キャラクターの半径。
-		10.0f,  //キャラクターの高さ。
+		100.0f,  //キャラクターの半径。
+		300.0f,  //キャラクターの高さ。
 		m_position //キャラクターの初期座標。
 	);
 
 	return true;
 }
 void shisokus::shisoMove() {
-	//通常状態。
+	//ボスだよよよよ
+	//ちょっとだけ移動するよ
+	Player * player = Player::GetInstance();
+	CVector3 P_Position = player->Getm_Position();
+	CVector3 diff = P_Position - m_position;
+	shisoVec = diff;
+	if (shisoVec.Length() < yobi1Range) {
+		//距離が近いので予備動作
+		m_stete = Estete_Yobi1;
+	}
+
+
+	//プレイヤーの向きに回転
+	CVector3 enemyForward = { -1.0f, 0.0f, 0.0f };
+	diff.y = 0.0f;
+	diff.Normalize();
+	CQuaternion qRot;
+	qRot.SetRotation(enemyForward, shisoVec);
+	m_rotation = qRot;
+	//m_position.m_charaCon.Execute(shisoVec);
+
 }
 void shisokus::shisoYobi1() {
+	if (keisanflag == false) {
+		m_skinModelRender->PlayAnimation(enAnimationClip_yobi1);
+		yobitimer++;
+		if (yobitimer <= yobiwait) {
+			keisanflag = true;
+		}
+	}
+	else {
+		m_stete = Estete_Attack1;
 
+	}
 }
 void shisokus::shisoAttack1() {
-
+	m_skinModelRender->PlayAnimation(enAnimationClip_attack1);
 }
 void shisokus::shisoYobi2() {
 
@@ -46,6 +85,7 @@ void shisokus::shisoAttack2() {
 }
 void shisokus::shisoDeath() {
 	//ﾔﾗﾚﾀ･･･
+	DeleteGO(this);
 }
 
 

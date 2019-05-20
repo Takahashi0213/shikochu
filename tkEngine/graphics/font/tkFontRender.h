@@ -97,7 +97,7 @@ namespace prefab {
 		* 
 		*@param[in]	color	色。
 		*/
-		void SetColor(const CVector3& color)
+		void SetColor(const CVector4& color)
 		{
 			m_color = color;
 		}
@@ -130,6 +130,13 @@ namespace prefab {
 		void SetPivot(const CVector2& pivot)
 		{
 			m_pivot = pivot;
+		}
+		/*!
+		* @brief	座標を取得。
+		*/
+		const CVector2& GetPosition() const
+		{
+			return m_position;
 		}
 	private:
 		void PostRender(CRenderContext& rc);
