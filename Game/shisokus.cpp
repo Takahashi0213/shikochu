@@ -15,7 +15,7 @@ shisokus::~shisokus()
 }
 
 bool shisokus::Start() {
-	
+
 	//ƒAƒjƒ[ƒVƒ‡ƒ“
 	m_animClips[enAnimationClip_move].Load(L"animData/sisowalk.tka");
 	m_animClips[enAnimationClip_move].SetLoopFlag(true);
@@ -28,6 +28,7 @@ bool shisokus::Start() {
 	m_skinModelRender->Init(L"modelData/shisokus.cmo", m_animClips, enAnimationClip_Num);
 	//m_skinModelRender->SetForwardRenderFlag(true);
 	m_rotation.SetRotationDeg(CVector3::AxisY, -90.0f);
+
 	m_skinModelRender->SetPosition(m_position);
 
 	m_scale = { 10.0f,10.0f,10.0f };
@@ -75,7 +76,7 @@ void shisokus::shisoMove() {
 	qRot.SetRotation(enemyForward, shisoVec);
 	m_rotation = qRot;
 	m_position = m_charaCon.Execute(shisoVec);
-	
+
 }
 void shisokus::shisoYobi1() {
 
@@ -112,7 +113,7 @@ void shisokus::shisoYobi2() {
 
 }
 void shisokus::shisoAttack2() {
-	
+
 }
 void shisokus::shisoDeath() {
 	//Ô×ÚÀ¥¥¥
@@ -122,24 +123,24 @@ void shisokus::shisoDeath() {
 
 void shisokus::Update() {
 	switch (m_stete) {
-		case Estete_Move://ˆÚ“®
-			shisoMove();
-			break;
-		case Estete_Yobi1://—\”õ“®ì1
-			shisoYobi1();
-			break;
-		case Estete_Attack1://UŒ‚1
-			shisoAttack1();
-			break;
-		case Estete_Yobi2://—\”õ“®ì2
-			shisoYobi2();
-			break;
-		case Estete_Attack2://UŒ‚2
-			shisoAttack2();
-			break;
-		case Estete_Death://Ž€Ç
-			shisoDeath();
-			break;
+	case Estete_Move://ˆÚ“®
+		shisoMove();
+		break;
+	case Estete_Yobi1://—\”õ“®ì1
+		shisoYobi1();
+		break;
+	case Estete_Attack1://UŒ‚1
+		shisoAttack1();
+		break;
+	case Estete_Yobi2://—\”õ“®ì2
+		shisoYobi2();
+		break;
+	case Estete_Attack2://UŒ‚2
+		shisoAttack2();
+		break;
+	case Estete_Death://Ž€Ç
+		shisoDeath();
+		break;
 	}
 
 	//ˆÚ“®
@@ -150,4 +151,3 @@ void shisokus::Update() {
 	m_skinModelRender->SetScale(m_scale);
 
 }
-

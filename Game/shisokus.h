@@ -108,6 +108,7 @@ private:
 	int count = 0; //予備動作
 	const int time = 60; //乱数に使うタイマー
 	int timer = 60; //予備動作に移るタイマー
+	const float yobi1Range = 1500.0f; //攻撃する距離
 
 	//予備動作関連
 	bool keisanflag = false;
@@ -123,6 +124,9 @@ private:
 
 	const int MAXHP = 10000; //最大HP
 	int NowHP = MAXHP; //現在HP
+
+	//攻撃関連
+
 
 };
 

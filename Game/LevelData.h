@@ -26,7 +26,7 @@ wchar_t BossName[5][128]{
 };
 
 //ステージ名
-wchar_t BossName[5][128]{
+wchar_t StageName[5][128]{
 	{ L"イフェマラル・ディープシー" },
 
 };
