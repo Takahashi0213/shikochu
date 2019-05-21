@@ -20,7 +20,13 @@ wchar_t LevelName[5][255]{
 };
 
 //ステージ別ボス名
-wchar_t BossName[5][255]{
+wchar_t BossName[5][128]{
 { L"シーソークス" },
+
+};
+
+//ステージ名
+wchar_t BossName[5][128]{
+	{ L"イフェマラル・ディープシー" },
 
 };

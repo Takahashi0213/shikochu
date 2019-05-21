@@ -53,6 +53,20 @@ namespace tkEngine{
 		{
 			m_position = pos;
 		}
+		/*!
+		* @brief	半径を設定。
+		*/
+		void SetRadius(const float& rad)
+		{
+			m_radius = rad;
+		}
+		/*!
+		* @brief	高さを設定。
+		*/
+		void SetHeight(const float& hei)
+		{
+			m_height = hei;
+		}
 
 		/*!
 		 * @brief	ジャンプ中か判定

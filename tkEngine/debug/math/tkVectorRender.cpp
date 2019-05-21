@@ -46,7 +46,7 @@ namespace tkEngine{
 					m_model.UpdateInstancingData(
 						renderData.origin,
 						rot,
-						{ s * 0.2f, s * 0.2f, s }
+						{ s * 1.2f, s * 1.2f, s }
 					);
 				}
 				m_model.EndUpdateInstancingData(true);

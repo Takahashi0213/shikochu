@@ -30,7 +30,7 @@ namespace tkEngine{
 
 		m_spriteBatch->Begin(
 			DirectX::SpriteSortMode_Deferred,
-			nullptr,
+			AlphaBlendState::trans,
 			nullptr,
 			nullptr,
 			nullptr,
@@ -95,6 +95,7 @@ namespace tkEngine{
 			}
 
 		}
+		
 		m_spriteFont->DrawString(
 			m_spriteBatch,
 			text,

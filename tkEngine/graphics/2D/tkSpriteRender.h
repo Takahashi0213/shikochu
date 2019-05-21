@@ -54,6 +54,13 @@ namespace tkEngine {
 				m_scale = scr;
 			}
 			/*!
+			* @brief	拡大率を取得。
+			*/
+			const CVector3& GetScale() const
+			{
+				return m_scale;
+			}
+			/*!
 			* @brief	ピボットを設定。
 			*@param[in] pivot		基点。
 			*						0.5, 0.5で画像の中心が基点。
