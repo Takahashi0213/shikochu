@@ -58,6 +58,34 @@ bool GameResult::Start() {
 	HogePosition2 = 1200.0f;
 	r->SetPosition({ HogePosition2 ,0.0f,0.0f });
 	m_spriteRender.push_back(r);
+	//3番→装飾1
+	r = NewGO<prefab::CSpriteRender>(10);
+	r->Init(L"sprite/ResultAccessory.dds", 300.0f, 720.0f);
+	r->SetPosition({ ACCPositionX ,0.0f,0.0f });
+	MulColor = { 1.0f,1.0f,1.0f,0.0f };
+	r->SetMulColor(MulColor);
+	m_spriteRender.push_back(r);
+	//4番→装飾2
+	r = NewGO<prefab::CSpriteRender>(10);
+	r->Init(L"sprite/ResultAccessory.dds", 300.0f, 720.0f);
+	r->SetPosition({ ACCPositionX ,-720.0f,0.0f });
+	MulColor = { 1.0f,1.0f,1.0f,0.0f };
+	r->SetMulColor(MulColor);
+	m_spriteRender.push_back(r);
+	//5番→装飾1
+	r = NewGO<prefab::CSpriteRender>(10);
+	r->Init(L"sprite/ResultAccessoryM.dds", 300.0f, 720.0f);
+	r->SetPosition({ -ACCPositionX ,360.0f,0.0f });
+	MulColor = { 1.0f,1.0f,1.0f,0.0f };
+	r->SetMulColor(MulColor);
+	m_spriteRender.push_back(r);
+	//6番→装飾2
+	r = NewGO<prefab::CSpriteRender>(10);
+	r->Init(L"sprite/ResultAccessoryM.dds", 300.0f, 720.0f);
+	r->SetPosition({ -ACCPositionX ,-360.0f,0.0f });
+	MulColor = { 1.0f,1.0f,1.0f,0.0f };
+	r->SetMulColor(MulColor);
+	m_spriteRender.push_back(r);
 
 	return true;
 }
@@ -71,6 +99,11 @@ void GameResult::Update() {
 		//背景をフェード
 		MulColor.a=MulAlpha;
 		m_spriteRender[0]->SetMulColor(MulColor);
+		m_spriteRender[3]->SetMulColor(MulColor);
+		m_spriteRender[4]->SetMulColor(MulColor);
+		m_spriteRender[5]->SetMulColor(MulColor);
+		m_spriteRender[6]->SetMulColor(MulColor);
+
 		//左右枠を移動
 		HogePosition1 += WakuMoveSpeed;
 		if (HogePosition1 > -WakuSpeedDown) {
@@ -103,13 +136,13 @@ void GameResult::Update() {
 	case scene1_ResultMozi://リザルトの文字を表示する
 	{
 		if (Hoge_Couneter == 1) {//最初に
-			//3番→リザルト
+			//7番→リザルト
 			r = NewGO<prefab::CSpriteRender>(1);
 			r->Init(L"sprite/Result_Bar.dds", 691.0f, 218.0f);
 			HogePosition1 = -850.0f;
 			r->SetPosition({ HogePosition1 ,ResultMoziHigh,0.0f });
 			m_spriteRender.push_back(r);
-			//4番→リザルトアイコン
+			//8番→リザルトアイコン
 			r = NewGO<prefab::CSpriteRender>(2);
 			r->Init(L"sprite/Icon2.dds", 200.0f, 200.0f);
 			r->SetPosition({ 100.0f ,ResultIconMoveY,0.0f });
@@ -126,11 +159,11 @@ void GameResult::Update() {
 		else if(Hoge_Couneter < 60.0f) {
 			HogePosition1 -= ResultMoziMoveX;
 		}
-		m_spriteRender[3]->SetPosition({ HogePosition1 ,ResultMoziHigh,0.0f });
+		m_spriteRender[7]->SetPosition({ HogePosition1 ,ResultMoziHigh,0.0f });
 
 		if (Hoge_Couneter >= PhaseTimer2 / 3) {
 			MulColor.a = MulAlpha;
-			m_spriteRender[4]->SetMulColor(MulColor);
+			m_spriteRender[8]->SetMulColor(MulColor);
 			MulPuls();
 		}
 
@@ -257,9 +290,8 @@ void GameResult::Update() {
 	{
 		if (Hoge_Couneter == RunkAverage) {//ある程度経ったら
 
-			//5番→ランク
+			//9番→ランク
 			r = NewGO<prefab::CSpriteRender>(1);
-
 			if (FinalScore >= ScoreData[NowStage][3]) {
 				//Sランク
 				r->Init(L"sprite/S_Runk.dds", 256.0f, 256.0f);
@@ -310,8 +342,8 @@ void GameResult::Update() {
 				HogePosition2 = 1.0f;
 			}
 			MulColor = { 1.0f,1.0f,1.0f,HogePosition2 };
-			m_spriteRender[5]->SetMulColor(MulColor);
-			m_spriteRender[5]->SetScale({ HogePosition1,HogePosition1,HogePosition1 });
+			m_spriteRender[9]->SetMulColor(MulColor);
+			m_spriteRender[9]->SetScale({ HogePosition1,HogePosition1,HogePosition1 });
 		}
 
 		//刻時計が終焉と共鳴せし時、時代の遷移が訪れる（タイマーが終了時間と一致した時にフェイズを次に進めます！）
@@ -448,7 +480,7 @@ void GameResult::Update() {
 				m_fontRender[6]->SetPosition(pos);
 			}
 			else if (HogePosition1 == 90.0f) {
-				//6番→サヨナラベイベー
+				//10番→サヨナラベイベー
 				r = NewGO<prefab::CSpriteRender>(2);
 				r->Init(L"sprite/GoodBye.dds", 325.0f, 114.0f);
 				MulColor = { 1.0f,1.0f,1.0f,0.0f };
@@ -461,7 +493,8 @@ void GameResult::Update() {
 				//フェード
 				MulAlpha += 0.05f;
 				MulColor = { 1.0f,1.0f,1.0f,MulAlpha };
-				m_spriteRender[6]->SetMulColor(MulColor);
+				m_spriteRender[10]->SetMulColor(MulColor);
+				m_spriteRender[10]->SetScale(CVector3::One);
 			}
 			else if (HogePosition1 >= 120.0f) {//全て終わったのだよ、全て
 				OK_Flag = true;
@@ -489,7 +522,7 @@ void GameResult::Update() {
 			}else if (ResultScene == scene2) {
 				//終了！
 				if (FinalFlag == false) {
-					//7番→ブラックアウト
+					//11番→ブラックアウト
 					r = NewGO<prefab::CSpriteRender>(11);
 					r->Init(L"sprite/Black.dds", 1280.0f, 720.0f);
 					MulAlpha = 0.0f;
@@ -510,7 +543,7 @@ void GameResult::Update() {
 			MulAlpha = 1.0f;
 		}
 		MulColor = { 1.0f,1.0f,1.0f,MulAlpha };
-		m_spriteRender[7]->SetMulColor(MulColor);
+		m_spriteRender[11]->SetMulColor(MulColor);
 		if (FinalCount > DeleteTime) {
 			DeleteGO(this);//おしまい
 		}
@@ -525,7 +558,7 @@ void GameResult::Update() {
 		else {
 			ResultIconMoveY -= ResultIconMove;
 		}
-		m_spriteRender[4]->SetPosition({ 100.0f ,ResultIconMoveY,0.0f });
+		m_spriteRender[6]->SetPosition({ 100.0f ,ResultIconMoveY,0.0f });
 
 		ResultIconTimer++;
 		if (ResultIconTimer == ResultIconMoveTime/2) {
@@ -535,6 +568,28 @@ void GameResult::Update() {
 			ResultIconUpDownFlag = false;
 			ResultIconTimer = 0;
 		}
+	}
+
+	//アクセサリーループ！
+	m_spriteRender[3]->SetPosition({ ACCPositionX ,AccPosY1,0.0f });
+	m_spriteRender[4]->SetPosition({ ACCPositionX ,AccPosY2,0.0f });
+	m_spriteRender[5]->SetPosition({ -ACCPositionX ,AccPosY1m,0.0f });
+	m_spriteRender[6]->SetPosition({ -ACCPositionX ,AccPosY2m,0.0f });
+	AccPosY1 += 1.0f;
+	AccPosY2 += 1.0f;
+	AccPosY1m += 1.0f;
+	AccPosY2m += 1.0f;
+	if (AccPosY1 >= 720.0f) {
+		AccPosY1 = -720.0f;
+	}
+	if (AccPosY2 >= 720.0f) {
+		AccPosY2 = -720.0f;
+	}
+	if (AccPosY1m >= 720.0f) {
+		AccPosY1m = -720.0f;
+	}
+	if (AccPosY2m >= 720.0f) {
+		AccPosY2m = -720.0f;
 	}
 
 	Hoge_Couneter++;

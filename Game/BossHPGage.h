@@ -38,6 +38,11 @@ private:
 	CVector3 BarScale = CVector3::One;
 	int HogeHP = 0; //表示用HP
 
+	bool HPMAX_Flag = false;
+	float MulAlphaYobi = 0;
+	bool HPMAX_FlagYobi = false;
+	float HPMAX_Scale = 1.0f;
+
 	//定数
 	const float HPBarY = 326.0f; //HPバーの高さ
 };

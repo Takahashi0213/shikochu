@@ -44,6 +44,7 @@ public:
 	float GameData::GetLifePercent(int x);
 	bool GameData::GiriBonusKeisan();
 	int GameData::ZankiBonusKeisan();
+	int GameData::DamageKeisan(bool dashflag);
 
 	//残機増減
 	void GameData::SetZanki(int x) {
@@ -250,7 +251,7 @@ public:
 		//現在残機をデフォルト残機に設定
 		Zanki = DEF_Zanki;
 		//カウント系もろもろ0にする
-		Star_Power = 0;
+		Star_Power = 100;
 		ItemCount = 0;
 		GiriCount = 0;
 		EnemyCount = 0;

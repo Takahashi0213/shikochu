@@ -2,6 +2,7 @@
 #include "Bunbogu.h"
 #include "GameData.h"
 #include "Player.h"
+#include "EffectManager.h"
 
 Bunbogu::Bunbogu()
 {
@@ -141,6 +142,11 @@ void Bunbogu::EnemyFollow()
 }
 void Bunbogu::EnemyDeath()
 {
+	EffectManager * effectmanager = EffectManager::GetInstance();
+	CVector3 EF_Position = m_position;
+	EF_Position.y += 50.0f;
+	effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+
 	GameData * gamedata = GameData::GetInstance();
 	gamedata->EnemyCounterGensyou();
 	DeleteGO(this);
@@ -169,6 +175,7 @@ void Bunbogu::Enemyyobi() {
 void Bunbogu::Update()
 	{
 
+	if (SpawnWaitTimer > SpawnMaxWait) {
 		switch (m_stete) {
 		case Estete_Attack://UŒ‚
 			EnemyAttack();
@@ -186,6 +193,10 @@ void Bunbogu::Update()
 			Enemyyobi();//—\”õ“®ì
 			break;
 		}
+
+	}
+
+	SpawnWaitTimer++;
 
 	//ˆÚ“®
 	m_skinModelRender->SetPosition(m_position);

@@ -7,6 +7,7 @@
 #include "Bullet.h"
 #include "Neoriku.h"
 #include "Radar.h"
+#include "shisokus.h"
 
 Player* Player::m_instance = nullptr;
 
@@ -164,6 +165,7 @@ void Player::Update() {
 			effectmanager->EffectPlayer(EffectManager::star, position, SpawnEffectScale/2);
 			effectmanager->EffectPlayer(EffectManager::star, position, SpawnEffectScale / 2);
 			effectmanager->EffectPlayer(EffectManager::star, position, SpawnEffectScale / 2);
+			effectmanager->EffectPlayer(EffectManager::star, position, SpawnEffectScale / 2);
 
 			//移動
 			CVector3 Dash_Speed = m_moveSpeed;
@@ -223,6 +225,9 @@ void Player::Update() {
 		PlayerJudge();
 
 	}
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	else if (mode == 1) {
 
 		switch (player_state) {
@@ -274,15 +279,18 @@ void Player::Update() {
 			//加速減速
 			if (Pad(0).IsPress(enButtonA)) {
 				//加速状態に
-				m_Life -= 1;
+				m_Life -= 2;
+				DashFlag = true;
 				Dash_state3D = Estate_Front;
 			}
 			else if (Pad(0).IsPress(enButtonB)) {
 				//減速状態に
+				DashFlag = false;
 				Dash_state3D = Estate_Back;
 			}
 			else {
 				//通常状態に
+				DashFlag = false;
 				Dash_state3D = Estate_DEF;
 			}
 
@@ -295,7 +303,8 @@ void Player::Update() {
 				//ゲージがMAXなら
 				if (Now_Star_Power == MAX_Star_Power) {
 					//ダッシュ状態になるぞ！！！！！！
-					m_LifeSpeed = 1;
+					m_LifeSpeed = 2;
+					DashFlag = true;
 					player_state = Estate_Dash;
 				}
 			}
@@ -315,7 +324,15 @@ void Player::Update() {
 			break;
 		case Estate_Dash://ダッシュ
 
-			m_moveSpeed.z = dashSpeed3D; //全速前進！
+			EffectManager * effectmanager = EffectManager::GetInstance();
+			CVector3 ef_position = position;
+			ef_position.z += 200.0f;
+			effectmanager->EffectPlayer(EffectManager::star, ef_position, SpawnEffectScale / 2);
+			effectmanager->EffectPlayer(EffectManager::star, ef_position, SpawnEffectScale / 2);
+			effectmanager->EffectPlayer(EffectManager::star, ef_position, SpawnEffectScale / 2);
+			effectmanager->EffectPlayer(EffectManager::star, ef_position, SpawnEffectScale / 2);
+
+			m_moveSpeed.z = Advance3D + Advance3D_PM * (Advance3D_FrontHosei*dashSpeed3D); //全速前進！
 			//流星ゲージが減る
 			GameData * gamedata = GameData::GetInstance();
 			gamedata->Star_PowerChange(-DashLifeSpeed);
@@ -451,7 +468,7 @@ void Player::PlayerJudge() {
 		CVector3 diff = enemy_position - position;
 		playerVec = diff;
 		//死んでいなければ接触判定
-		if (player_state != Estate_Dash) {
+		if (player_state != Estate_Death) {
 			//＊ダメージレンジは どこだ。
 			float Langth_hoge = bunbogu->GetDamageLength();
 			//距離判定
@@ -473,7 +490,7 @@ void Player::PlayerJudge() {
 
 						if (Hantei == true) {
 							//ギリギリボーナスカウントを+1
-							gamedata->GiriCounter(); 
+							gamedata->GiriCounter();
 							//ボーナス成立のエフェクトを表示
 							EffectManager * effectmanager = EffectManager::GetInstance();
 							effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
@@ -492,7 +509,7 @@ void Player::PlayerJudge() {
 		CVector3 diff = bullet_position - position;
 		playerVec = diff;
 		//死んでいなければ接触判定
-		if (player_state != Estate_Dash) {
+		if (player_state != Estate_Death) {
 			//＊ダメージレンジは どこだ。
 			float Langth_hoge = bullet->GetDamageLength();
 			//距離判定
@@ -521,7 +538,7 @@ void Player::PlayerJudge() {
 		CVector3 diff = neoriku_position - position;
 		playerVec = diff;
 		//死んでいなければ接触判定
-		if (player_state != Estate_Dash) {
+		if (player_state != Estate_Death) {
 			//＊ダメージレンジは どこだ。
 			float Langth_hoge = neoriku->GetDamageLength();
 			//距離判定
@@ -532,12 +549,11 @@ void Player::PlayerJudge() {
 					//ギリギリボーナスが成立するか確認
 					GameData * gamedata = GameData::GetInstance();
 					bool Hantei = gamedata->GiriBonusKeisan();
-					
+
 					//寿命をゼロに
 					m_Life = 0;
 
-					int EState = neoriku->GetEState();
-					if (EState != 0 && DashFlag == true) {//敵が攻撃中の時でない＆ダッシュ状態なら…
+					if (DashFlag == true) {//ダッシュ状態なら…
 
 						neoriku->SetDeath();//お前も死ね
 
@@ -549,6 +565,53 @@ void Player::PlayerJudge() {
 							effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
 							//gamedata->TestMessage();
 						}
+					}
+
+
+				}
+			}
+		}
+		return true;
+		});
+
+	//シーソークスとの距離を計算
+	QueryGOs<shisokus>("shiso", [&](shisokus* Shisok) {
+		if (Shisok->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 Shisok_position = Shisok->Getm_Position();
+		CVector3 diff = Shisok_position - position;
+		playerVec = diff;
+		//死んでいなければ接触判定
+		if (player_state != Estate_Death) {
+			//＊ダメージレンジは どこだ。
+			float Langth_hoge = Shisok->GetDamageLength();
+			//距離判定
+			if (diff.Length() < Langth_hoge) {
+				//もし無敵時間中でないなら
+				if (MutekiTimer == -1) {
+
+					//ダメージを前もって計算
+					GameData * gamedata = GameData::GetInstance();
+					bool dash;
+					if (player_state == Estate_Dash) {
+						dash = true;
+					}
+					else {
+						dash = false;
+					}
+					int Damage = (int)gamedata->DamageKeisan(dash);
+
+					//寿命をゼロに
+					m_Life = 0;
+
+					int EState = Shisok->GetEState();
+					if (EState != 1 && DashFlag == true) {//敵が攻撃中の時でない＆ダッシュ状態なら…
+
+						//オラァ！
+						Shisok->Damage(Damage);
+
 					}
 
 

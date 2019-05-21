@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "WaveManager.h"
+#include "EffectManager.h"
+
 #include "GameData.h"
 #include "LevelData.h"
 #include "LevelSet.h"
@@ -65,6 +67,11 @@ void WaveManager::Update() {
 					//アクティブ化
 					Enemy++;
 					bunbogu->SetActiveFlag(true);
+					EffectManager * effectmanager = EffectManager::GetInstance();
+					CVector3 EF_Position = bunbogu->Getm_Position();
+					EF_Position.x += 50.0f;
+					EF_Position.y += 50.0f;
+					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
 				}
 				return true;
 				});
@@ -76,6 +83,10 @@ void WaveManager::Update() {
 					//アクティブ化
 					Enemy++;
 					neoriku->SetActiveFlag(true);
+					EffectManager * effectmanager = EffectManager::GetInstance();
+					CVector3 EF_Position = neoriku->Getm_Position();
+					EF_Position.y += 50.0f;
+					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
 				}
 				return true;
 				});

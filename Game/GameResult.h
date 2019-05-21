@@ -90,6 +90,12 @@ private:
 	bool ResultIconUpDownFlag = false; //falseなら上、trueなら下
 	int ResultIconTimer = 0; //上のFlagを切り替えるまでのタイマー
 	bool ResultIconMoveFlag = false; //これがtrueの間アニメーションする
+	
+	//以下アクセループ用
+	float AccPosY1 = 0; //アクセサリー1のY座標
+	float AccPosY2 = -720; //アクセサリー2のY座標
+	float AccPosY1m = 360; //アクセサリー1MのY座標
+	float AccPosY2m = -360; //アクセサリー2MのY座標
 
 	//以下リザルト処理用
 	int ZankiBonus = 0;
@@ -108,6 +114,7 @@ private:
 	const float WakuMoveSpeed = 20.0f; //左右枠の移動速度
 	const float WakuSpeedDown = 700.0f; //左右枠の速度が落ちるポジション
 	const float WakuSpeedDownHosei = 0.6; //左右枠の減少速度（左右枠の移動速度に乗算される）
+	const float ACCPositionX = -500.0f; //左の装飾のX座標 固定
 
 	//フェイズ２ リザルト移動
 	const int PhaseTimer2 = 80; //動作の制限時間

@@ -10,6 +10,7 @@ public:
 		ItemGet, //アイテム入手時のエフェクト
 		spawn,//出現時のエフェクト
 		star,//移動後に出すやつ5
+		enemySpawn,//敵がすっぽんぽん
 	};
 
 	EffectManager();
@@ -33,6 +34,7 @@ private:
 		{ L"effect/Item.efk" },
 		{ L"effect/spawn.efk" },
 		{ L"effect/star.efk" },
+		{ L"effect/enemySpawn.efk" },
 
 	};
 

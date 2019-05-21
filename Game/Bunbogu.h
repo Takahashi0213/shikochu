@@ -99,6 +99,7 @@ private:
 	const float DamageLength = 80.0f; //ƒ_ƒƒ[ƒW‚ğó‚¯‚¯‚é‚Í”ÍˆÍ‚¾‚¾‚æ
 
 	int waveNo = 0; //©•ª‚ª‘®‚·‚éWave‚Ì”Ô†
-
+	int SpawnWaitTimer = 0;
+	const int SpawnMaxWait = 12;
 };
 

@@ -38,10 +38,32 @@ bool GameData::GiriBonusKeisan() {
 
 }
 
+//残機ボーナスの値を計算して返す関数(^^)/
 int GameData::ZankiBonusKeisan() {
 
 	float hoge = ZankiWariai();
 	int Bonus = (int)(MAX_ZankiBonus * hoge);
 
 	return Bonus;
+}
+
+//現在寿命と攻撃力からダメージを計算して返す 引数には流星ダッシュ中ならtrueを、それ以外ならfalseを入れること！！！！！！！！！
+int GameData::DamageKeisan(bool dashflag) {
+
+	float m_Life = GetLifePercent(0);
+	//
+	m_Life = 1.0f + ((1.0f - m_Life)*5.0f); //これが攻撃倍率
+
+	int damage = ATK * m_Life;
+
+	bool flag = GiriBonusKeisan();
+	if (flag == true) {
+		damage *= 1.5f; //ギリギリボーナス圏内ならダメージアップ
+	}
+
+	if (dashflag == true) {//流星ダッシュ中ならダメージアップ！
+		damage *= 8.0f;
+	}
+
+	return damage;
 }

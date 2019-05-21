@@ -18,9 +18,9 @@ public:
 	enum EnAnimationClip {
 		enAnimationClip_move, //動作
 		enAnimationClip_attack1, //攻撃1
-		enAnimationClip_attack2, //攻撃2
 		enAnimationClip_yobi1, //予備動作1
-		enAnimationClip_yobi2, //予備動作2
+		/*enAnimationClip_attack2, //攻撃2
+		enAnimationClip_yobi2, //予備動作2*/
 		enAnimationClip_Num,  //アニメーションクリップ
 	};
 
@@ -34,6 +34,8 @@ public:
 	void shisoAttack2();
 	void shisoDeath();
 
+	//ポジションを返す関数
+
 	CVector3 shisokus::Getm_Position() {
 		return m_position;
 	}
@@ -41,12 +43,17 @@ public:
 	int shisokus::GetEState() {
 		return m_stete;
 	}
+	//ダメージ範囲を教える関数
+	float GetDamageLength() {
+		return DamageLength;
+	}
+
 	//自分が死ぬ関数
 	int shisokus::SetDeath() {
 		m_stete = Estete_Death;
 		return 0;
-	}
-
+	}	
+	
 	//座標を設定。
 	void SetPosition(CVector3 pos)
 	{
@@ -61,6 +68,9 @@ public:
 	//引数分HPを減少させる
 	void Damage(int x) {
 		NowHP -= x;
+		if (NowHP < 0) {//負の数にならないようにしておく
+			NowHP = 0;
+		}
 	}
 
 	//現在HPを返す
@@ -82,19 +92,37 @@ public:
 		return waveNo;
 	}
 
-
 private:
+	CAnimationClip m_animClips[enAnimationClip_Num];
 	prefab::CSkinModelRender* m_skinModelRender = nullptr;	//スキンモデルレンダラー。
 	CVector3 m_position = CVector3::Zero; // 座標。
 	CQuaternion m_rotation = CQuaternion::Identity; //回転。
 	CVector3 m_scale = CVector3::One; // 拡大率。
+	CVector3 shisoVec;
 
 	Estete m_stete = Estete_Move; //状態
 	CCharacterController m_charaCon; //キャラコン
+
+	//移動関連
+	int random = 0;//乱数
+	int count = 0; //予備動作
+	const int time = 60; //乱数に使うタイマー
+	int timer = 60; //予備動作に移るタイマー
+
+	//予備動作関連
+	bool keisanflag = false;
+	int yobitimer = 0;
+	const float yobiwait = 50.0f;
+	//攻撃関連
+	int attacktimer = 0;
+
+
+	const float DamageLength = 2680.0f; //ダメメージを受けけるは範囲だだよ
 
 	int waveNo = 0; //自分が属するWaveの番号
 
 	const int MAXHP = 10000; //最大HP
 	int NowHP = MAXHP; //現在HP
+
 };
 

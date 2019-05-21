@@ -101,7 +101,7 @@ private:
 	const float moveSpeedMAX = 600.0f; //普段の最高速度
 	const float playerMoveSpeed = 12.0f; //ここの数値をいじると移動速度変わる
 	const float dashSpeed2D = 50.0f; //2Dモード時の流星ダッシュ速度
-	const float dashSpeed3D = 20.0f; //3Dモード時の流星ダッシュ速度
+	const float dashSpeed3D = 2.0f; //3Dモード時の流星ダッシュ速度
 	const float Advance3D = 200.0f; //3Dモード時のデフォルト前進速度
 	const float Advance3D_PM = 100.0f; //3Dモード時の加速減速量
 	const float Advance3D_FrontHosei = 10.0f; //3Dモード時の加速補正
