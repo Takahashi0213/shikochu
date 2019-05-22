@@ -2,10 +2,12 @@
 #include "shisokus.h"
 #include "Player.h"
 #include "GameData.h"
+#include "NerukGenerator.h"
 #include "BossHPGage.h"
 
 shisokus::shisokus()
 {
+	NewGO<NerukGenerator>(0, "nerukGenerator");
 }
 
 
@@ -124,6 +126,8 @@ void shisokus::shisoDeath() {
 		BossHPGage * bossHPGage = BossHPGage::GetInstance();
 		gamedata->SetGameMode(GameData::Result);
 		bossHPGage->DeleteGage();
+		NerukGenerator * nerukGenerator = NerukGenerator::GetInstance();
+		DeleteGO(nerukGenerator);
 	}
 
 	if (ToumeiTimeMAX == DeathTimer) {

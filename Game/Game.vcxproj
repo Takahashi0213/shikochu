@@ -1776,6 +1776,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NakamaLight.cpp" />
     <ClCompile Include="Neoriku.cpp" />
+    <ClCompile Include="Neruk.cpp" />
+    <ClCompile Include="NerukGenerator.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Player_Status.cpp" />
     <ClCompile Include="Radar.cpp" />
@@ -1822,6 +1824,8 @@
     <ClInclude Include="LevelSet.h" />
     <ClInclude Include="NakamaLight.h" />
     <ClInclude Include="Neoriku.h" />
+    <ClInclude Include="Neruk.h" />
+    <ClInclude Include="NerukGenerator.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Player_Status.h" />
     <ClInclude Include="Radar.h" />
@@ -1841,6 +1845,7 @@
     <MeshContentTask Include="Assets\modelData\bunbo-gu0.FBX" />
     <MeshContentTask Include="Assets\modelData\item.FBX" />
     <MeshContentTask Include="Assets\modelData\neoriku_0.FBX" />
+    <MeshContentTask Include="Assets\modelData\Neruk.FBX" />
     <MeshContentTask Include="Assets\modelData\shisokus.FBX">
       <FileType>Document</FileType>
     </MeshContentTask>

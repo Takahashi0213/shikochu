@@ -6,6 +6,7 @@
 #include "Bunbogu.h"
 #include "Bullet.h"
 #include "Neoriku.h"
+#include "Neruk.h"
 #include "Radar.h"
 #include "shisokus.h"
 
@@ -629,6 +630,34 @@ void Player::PlayerJudge() {
 
 					}
 
+
+				}
+			}
+		}
+		return true;
+		});
+	//ネルクとの距離を計算
+	QueryGOs<Neruk>("neru", [&](Neruk* neruk) {
+		if (neruk->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 neruk_position = neruk->Getm_Position();
+		CVector3 diff = neruk_position - position;
+		playerVec = diff;
+		//死んでいなければ接触判定
+		if (player_state != Estate_Death) {
+			//＊ダメージレンジは どこだ。
+			float Langth_hoge = neruk->GetDamageLength();
+			//距離判定
+			if (diff.Length() < Langth_hoge) {
+				//もし無敵時間中でないなら
+				if (MutekiTimer == -1) {
+
+					//寿命をゼロに
+					m_Life = 0;
+
+					neruk->SetDeath();//お前も死ね
 
 				}
 			}

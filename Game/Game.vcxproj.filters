@@ -60,6 +60,10 @@
     <ClCompile Include="Radar.cpp" />
     <ClCompile Include="BossHPGage.cpp" />
     <ClCompile Include="StageSelect.cpp" />
+    <ClCompile Include="Neruk.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="NerukGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -108,6 +112,10 @@
     <ClInclude Include="Radar.h" />
     <ClInclude Include="BossHPGage.h" />
     <ClInclude Include="StageSelect.h" />
+    <ClInclude Include="Neruk.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="NerukGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
@@ -140,6 +148,9 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\shisokus.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Neruk.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>
