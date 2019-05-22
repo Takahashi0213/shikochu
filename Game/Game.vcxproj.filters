@@ -59,6 +59,7 @@
     </ClCompile>
     <ClCompile Include="Radar.cpp" />
     <ClCompile Include="BossHPGage.cpp" />
+    <ClCompile Include="StageSelect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -106,6 +107,7 @@
     </ClInclude>
     <ClInclude Include="Radar.h" />
     <ClInclude Include="BossHPGage.h" />
+    <ClInclude Include="StageSelect.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
@@ -231,6 +233,15 @@
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\ResultAccessoryM.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\starMax.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Denger.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Kiken.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
   </ItemGroup>

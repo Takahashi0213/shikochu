@@ -58,11 +58,11 @@ int GameData::DamageKeisan(bool dashflag) {
 
 	bool flag = GiriBonusKeisan();
 	if (flag == true) {
-		damage *= 1.5f; //ギリギリボーナス圏内ならダメージアップ
+		damage = (int)((float)damage * 1.5f); //ギリギリボーナス圏内ならダメージアップ
 	}
 
 	if (dashflag == true) {//流星ダッシュ中ならダメージアップ！
-		damage *= 8.0f;
+		damage *= 5;
 	}
 
 	return damage;

@@ -1780,6 +1780,7 @@
     <ClCompile Include="Player_Status.cpp" />
     <ClCompile Include="Radar.cpp" />
     <ClCompile Include="shisokus.cpp" />
+    <ClCompile Include="StageSelect.cpp" />
     <ClCompile Include="StarItem.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -1826,6 +1827,7 @@
     <ClInclude Include="Radar.h" />
     <CLInclude Include="resource.h" />
     <ClInclude Include="shisokus.h" />
+    <ClInclude Include="StageSelect.h" />
     <ClInclude Include="StarItem.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Title.h" />
@@ -1912,6 +1914,13 @@
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\ResultAccessoryM.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\starMax.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\Denger.png" />
+    <ImageContentTask Include="Assets\sprite\Kiken.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

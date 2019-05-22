@@ -375,9 +375,16 @@ void Player::Update() {
 			position = m_charaCon.Execute(m_moveSpeed);
 		}
 
+		//地面に埋まらないようにする
+		if (position.y < PosY_Min3D) {
+			position.y = PosY_Min3D;
+		}
+
 		PlayerJudge();
 
 	}
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	else if (mode == 2) {
 
@@ -677,6 +684,8 @@ void Player::PlayerReset() {
 		//ゲームデータから最大寿命を引っ張ってくる
 		GameData * gamedata = GameData::GetInstance();
 		m_Life = gamedata->GetDEF_Life();
+		int mode = gamedata->GetGameMode();
+		//あ～～～～～～
 		ResetTimer = -1;
 		gamedata->SetZanki(-1);//残機減少
 		//状態を戻す
@@ -695,7 +704,12 @@ void Player::PlayerReset() {
 		m_skinModelRender->SetScale(m_scale);
 		//移動が終わったのでエフェクトを再生（移動後にやらないと死んだ場所で再生されてしまうので）
 		EffectManager * effectmanager = EffectManager::GetInstance();
-		effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
+		if (mode == 0) {
+			effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
+		}
+		else if (mode == 1) {
+			effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y,position.z + SpawnEffectY }, SpawnEffectScale);
+		}
 		//臨時モードチェンジ
 		//gamedata->SwapGameMode();
 

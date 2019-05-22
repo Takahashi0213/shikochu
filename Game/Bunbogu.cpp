@@ -43,7 +43,7 @@ bool Bunbogu::Start()
 }
 void Bunbogu::EnemyAttack()
 {
-	Player * player = Player::GetInstance();
+	//Player * player = Player::GetInstance();
 
 	timer++;
 	if(timer <= attackwait){

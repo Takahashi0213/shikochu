@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Title.h"
 #include "Game.h"
+#include "StageSelect.h"
 
 Title* Title::m_instance = nullptr;
 

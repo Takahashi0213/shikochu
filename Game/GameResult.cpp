@@ -592,6 +592,7 @@ void GameResult::Update() {
 		AccPosY2m = -720.0f;
 	}
 
+	//カウンターを加算する…
 	Hoge_Couneter++;
 
 }

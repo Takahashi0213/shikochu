@@ -32,7 +32,7 @@ bool Radar::Start() {
 void Radar::Update() {
 
 	Player * player = Player::GetInstance();
-	GameData * gamedata = GameData::GetInstance();
+	//GameData * gamedata = GameData::GetInstance();
 
 	//ブンボーグとの距離を計算
 	QueryGOs<Bunbogu>("bun", [&](Bunbogu* bunbogu) {

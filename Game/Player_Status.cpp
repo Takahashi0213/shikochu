@@ -19,19 +19,19 @@ Player_Status::~Player_Status()
 
 bool Player_Status::Start() {
 
-	//流星ゲージ土台
+	//流星ゲージ土台 0
 	prefab::CSpriteRender* r = NewGO<prefab::CSpriteRender>(0);
 	r->Init(L"sprite/StarBar_base.dds", 20.0f, 300.0f);
 	CVector3 Position = { -550.0f, -10.0f, 1.0f };//座標
 	r->SetPosition(Position);//座標を反映
 	m_spriteRender.push_back(r);
-	//流星ゲージ
+	//流星ゲージ 1
 	r = NewGO<prefab::CSpriteRender>(0);
 	r->Init(L"sprite/StarBar.dds", 20.0f, 300.0f);
 	Position = { -550.0f, -160.0f, 1.0f };//座標
 	r->SetPosition(Position);//座標を反映
 	m_spriteRender.push_back(r);
-	//流星ゲージ上部分
+	//流星ゲージ上部分 2
 	r = NewGO<prefab::CSpriteRender>(0);
 	r->Init(L"sprite/StarBarUe.dds", 20.0f, 300.0f);
 	Position = { -550.0f, -10.0f, 1.0f };//座標
@@ -39,38 +39,45 @@ bool Player_Status::Start() {
 	m_spriteRender.push_back(r);
 
 
-	//寿命土台
+	//寿命土台 3
 	r = NewGO<prefab::CSpriteRender>(0);
 	r->Init(L"sprite/LifeBar_base.dds", 120.0f, 480.0f);
 	Position = { -600.0f, -20.0f, 1.0f };//座標
 	r->SetPosition(Position);//座標を反映
 	m_spriteRender.push_back(r);
-	//バー
+	//バー 4
 	r = NewGO<prefab::CSpriteRender>(0);
 	r->Init(L"sprite/LifeBar.dds", 120.0f, 480.0f);
 	Position = { -600.0f, -215.0f, 1.0f };//座標
 	r->SetPosition(Position);//座標を反映
 	m_spriteRender.push_back(r);
-	//寿命上部分
+	//寿命上部分 5
 	r = NewGO<prefab::CSpriteRender>(0);
 	r->Init(L"sprite/LifeBarUe.dds", 120.0f, 480.0f);
 	Position = { -600.0f, -20.0f, 1.0f };//座標
 	r->SetPosition(Position);//座標を反映
 	m_spriteRender.push_back(r);
 
-	//ソウルアイコン
+	//ソウルアイコン 6
 	r = NewGO<prefab::CSpriteRender>(1);
 	r->Init(L"sprite/soulIC.dds", 100.0f, 100.0f);
 	Position = { -600.0f, -220.0f, 1.0f };//座標
 	r->SetPosition(Position);//座標を反映
 	m_spriteRender.push_back(r);
-	//残機アンダー
+	//残機アンダー 7
 	r = NewGO<prefab::CSpriteRender>(1);
 	r->Init(L"sprite/Zanki.dds", 300.0f, 300.0f);
 	Position = { -550.0f, 280.0f, 1.0f };//座標
 	r->SetPosition(Position);//座標を反映
 	m_spriteRender.push_back(r);
 
+	//ゲージマックスアイコン 8
+	r = NewGO<prefab::CSpriteRender>(1);
+	r->Init(L"sprite/starMax.dds", 150.0f, 100.0f);
+	Position = { -480.0f, -150.0f, 1.0f };//座標
+	r->SetPosition(Position);//座標を反映
+	r->SetMulColor({ 1.0f,1.0f,1.0f,1.0f });
+	m_spriteRender.push_back(r);
 
 	m_fontRender = NewGO<prefab::CFontRender>(1);
 	return true;
@@ -115,14 +122,43 @@ void Player_Status::Update() {
 	//流星バーの色変え
 	if (NOW_StarPower == DEF_StarPower) {
 		StarColor = { 1.0f,1.0f,1.0f,1.0f };
+		StarMaxFlag = true;
 	}
 	else {
 		StarColor = { 0.5f,0.5f,255.0f,1.0f };
+		StarMaxFlag = false;
 	}
 
 	m_spriteRender[1]->SetPivot(StarPivot);
 	m_spriteRender[1]->SetScale(StarScale);
 	m_spriteRender[1]->SetMulColor(StarColor);
+
+	//流星ゲージに応じて見えたり見えなかったりしろ
+	if (StarMaxFlag == true) {
+		//見える＆点滅する
+		if (StarMaxColorFlag == false) {
+			StarMaxColor += 0.05f;
+			StarMaxScale += 0.01f;
+			if (StarMaxColor > 2.0f) {
+				StarMaxColor = 2.0f;
+				StarMaxColorFlag = true;
+			}
+		}
+		else if (StarMaxColorFlag == true) {
+			StarMaxColor -= 0.05f;
+			StarMaxScale -= 0.01f;
+			if (StarMaxColor < 1.0f) {
+				StarMaxColor = 1.0f;
+				StarMaxColorFlag = false;
+			}
+			m_spriteRender[8]->SetMulColor({ StarMaxColor,StarMaxColor,StarMaxColor,0.8f });
+			m_spriteRender[8]->SetScale({ StarMaxScale ,StarMaxScale ,StarMaxScale });
+		}
+	}
+	else {
+		//非表示
+		m_spriteRender[8]->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
+	}
 
 	//残機を更新
 	wchar_t text[256];

@@ -24,6 +24,17 @@ private:
 	CVector4 MulColor;
 
 	float alf = 0.0f;
+	float Accalf = 0.0f; //アクセサリー用Alpha値
+
+	//アクセサリー用変数
+	float AccX1 = 0.0f;
+	float AccX2 = 1280.0f;
+	float AccX3 = 0.0f;
+	float AccX4 = -1280.0f;
+	float AccX5 = 0.0f;
+	float AccX6 = -1280.0f;
+	float AccX7 = 0.0f;
+	float AccX8 = 1280.0f;
 
 	//定数
 	const int DeleteTimer = 48;

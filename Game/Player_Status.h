@@ -15,6 +15,11 @@ private:
 	const CVector2 LifePivot = { 0.5f, 0.1f };//HPの基点
 	const CVector2 StarPivot = { 0.5f, 0.0f };//流星バーの基点
 
+	bool StarMaxFlag = false; //マックスアイコン表示フラグ
+	float StarMaxColor = 1.0f; //マックスアイコンの白さ
+	bool StarMaxColorFlag = false; //マックスアイコンの色味が往復ループするので
+	float StarMaxScale = 1.0f; //マックスアイコンの拡大率
+
 	const CVector2 ZankiPos = { -645.0f, 255.0f }; //残機数表示位置
 	CVector4 LifeColor = { 1.0f,1.0f,1.0f,1.0f }; //HPバーの色
 	CVector4 StarColor = { 1.0f,1.0f,1.0f,1.0f }; //流星バーの色

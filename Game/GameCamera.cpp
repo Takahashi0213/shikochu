@@ -134,7 +134,6 @@ void GameCamera::Update() {
 		swapTimer++;
 		if (swapTimer >= swapTimerDEF + swapWaitTimer) {
 			//終了のためゲームモードを3Dにする
-			GameData * gamedata = GameData::GetInstance();
 			gamedata->SetGameMode(GameData::Battle3D_Mode);
 			swapTimer = -1; //タイマーもおしまい
 		}
