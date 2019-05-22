@@ -208,11 +208,11 @@ void WaveEffect::Update() {
 		if (AccX2 < -1280.0f) {
 			AccX2 = 1280.0f;
 		}	
-		AccX3 += 40.0f;
+		AccX3 += 20.0f;
 		if (AccX3 > 1280.0f) {
 			AccX3 = -1280.0f;
 		}
-		AccX4 += 40.0f;
+		AccX4 += 20.0f;
 		if (AccX4 > 1280.0f) {
 			AccX4 = -1280.0f;
 		}
@@ -225,11 +225,11 @@ void WaveEffect::Update() {
 		if (AccX6 > 1280.0f) {
 			AccX6 = -1280.0f;
 		}
-		AccX7 -= 40.0f;
+		AccX7 -= 20.0f;
 		if (AccX7 < -1280.0f) {
 			AccX7 = 1280.0f;
 		}
-		AccX8 -= 40.0f;
+		AccX8 -= 20.0f;
 		if (AccX8 < -1280.0f) {
 			AccX8 = 1280.0f;
 		}

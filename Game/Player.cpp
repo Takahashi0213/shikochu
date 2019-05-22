@@ -63,7 +63,7 @@ void Player::Update() {
 	GameData * gameData = FindGO<GameData>("GameData");
 	int mode = gameData->GetGameMode();
 
-	if (mode == 0 || mode == 3 ) {
+	if (mode == 0) {
 
 		switch (player_state) {
 
@@ -391,7 +391,15 @@ void Player::Update() {
 		PlayerJudge();
 
 		}
+	else if (mode == 3) {
 
+		//なんもせんで
+		SetActiveFlag(false);
+		//m_scaleをゼロにして死んだように見せかける
+		m_scale = CVector3::Zero;
+		position = { 10000.0f,10000.0f,0.0f };
+
+	}
 	//死んでいなければ光る
 	if (player_state != Estate_Death) {
 
@@ -447,7 +455,7 @@ void Player::Update() {
 	if (mode == 3) {//リザルト中は絶対死なない！
 		//ゲームデータから最大寿命を引っ張ってくる
 		GameData * gamedata = GameData::GetInstance();
-		m_Life = gamedata->GetDEF_Life() / 2;
+		m_Life = gamedata->GetDEF_Life();
 	}
 	/////////////////////////////////////////////
 
@@ -629,6 +637,7 @@ void Player::PlayerJudge() {
 		});
 
 
+
 	//寿命だ…
 	if (m_Life == 0) {
 		//ダッシュ中なら流星ゲージを0にする
@@ -685,31 +694,32 @@ void Player::PlayerReset() {
 		GameData * gamedata = GameData::GetInstance();
 		m_Life = gamedata->GetDEF_Life();
 		int mode = gamedata->GetGameMode();
-		//あ～～～～～～
-		ResetTimer = -1;
-		gamedata->SetZanki(-1);//残機減少
-		//状態を戻す
-		player_state = Estate_Stay;
-		//寿命減少速度も戻す
-		LifeSpeedReset();
-		//あれもこれも戻す
-		position = CVector3::Zero;
-		m_charaCon.SetPosition(position); //キャラコンも戻すぞ
-		rotation = CQuaternion::Identity;
-		m_scale = CVector3::One;
-		LightStatus = LightStatusDEF;
-		//はい。
-		m_skinModelRender->SetPosition(position);
-		m_skinModelRender->SetRotation(rotation);
-		m_skinModelRender->SetScale(m_scale);
-		//移動が終わったのでエフェクトを再生（移動後にやらないと死んだ場所で再生されてしまうので）
-		EffectManager * effectmanager = EffectManager::GetInstance();
-		if (mode == 0) {
-			effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
-		}
-		else if (mode == 1) {
-			effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y,position.z + SpawnEffectY }, SpawnEffectScale);
-		}
+			//あ～～～～～～
+			ResetTimer = -1;
+			gamedata->SetZanki(-1);//残機減少
+			 //状態を戻す
+			player_state = Estate_Stay;
+			//寿命減少速度も戻す
+			LifeSpeedReset();
+			//あれもこれも戻す
+			position = CVector3::Zero;
+			m_charaCon.SetPosition(position); //キャラコンも戻すぞ
+			rotation = CQuaternion::Identity;
+			m_scale = CVector3::One;
+			LightStatus = LightStatusDEF;
+			//はい。
+			m_skinModelRender->SetPosition(position);
+			m_skinModelRender->SetRotation(rotation);
+			m_skinModelRender->SetScale(m_scale);
+			//移動が終わったのでエフェクトを再生（移動後にやらないと死んだ場所で再生されてしまうので）
+			EffectManager * effectmanager = EffectManager::GetInstance();
+			if (mode == 0) {
+				effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
+			}
+			else if (mode == 1) {
+				effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y,position.z + SpawnEffectY }, SpawnEffectScale);
+			}
+
 		//臨時モードチェンジ
 		//gamedata->SwapGameMode();
 

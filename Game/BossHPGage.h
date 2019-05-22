@@ -16,6 +16,11 @@ public:
 		}
 	}
 
+	//フェードしながら消えます
+	void DeleteGage() {
+		DeleteTimer = 0;
+	}
+
 	//インスタンスの取得
 	static BossHPGage* BossHPGage::GetInstance() {
 		return m_instance;
@@ -43,7 +48,13 @@ private:
 	bool HPMAX_FlagYobi = false;
 	float HPMAX_Scale = 1.0f;
 
+	//消去関連
+	int DeleteTimer = -1;
+	float DeleteMulAlpha = 1.0f;
+
 	//定数
 	const float HPBarY = 326.0f; //HPバーの高さ
+	const float HPBarX = 20.0f; //HPバーのXざひょ～
+	const int DeleteLimit = 180; //消去制限時間
 };
 

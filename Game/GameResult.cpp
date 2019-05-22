@@ -37,8 +37,6 @@ bool GameResult::Start() {
 	NowStage = gamedata->GetStageNo();
 	Point_Count = gamedata->GetPoint();
 	Point = Point_Count + FinalScore;
-	//状態をリザルトに！
-	gamedata->SetGameMode(GameData::Result);
 
 	//0番→背景
 	r = NewGO<prefab::CSpriteRender>(0);
@@ -528,6 +526,7 @@ void GameResult::Update() {
 					MulAlpha = 0.0f;
 					MulColor = { 1.0f,1.0f,1.0f,MulAlpha };
 					r->SetMulColor(MulColor);
+					r->SetScale(CVector3::One);
 					m_spriteRender.push_back(r);
 					FinalFlag = true;//終了演出フラグを立てる			
 				}
@@ -558,7 +557,7 @@ void GameResult::Update() {
 		else {
 			ResultIconMoveY -= ResultIconMove;
 		}
-		m_spriteRender[6]->SetPosition({ 100.0f ,ResultIconMoveY,0.0f });
+		m_spriteRender[8]->SetPosition({ 100.0f ,ResultIconMoveY,0.0f });
 
 		ResultIconTimer++;
 		if (ResultIconTimer == ResultIconMoveTime/2) {

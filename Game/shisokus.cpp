@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "shisokus.h"
 #include "Player.h"
-
+#include "GameData.h"
+#include "BossHPGage.h"
 
 shisokus::shisokus()
 {
@@ -68,14 +69,14 @@ void shisokus::shisoMove() {
 	}
 
 
-	//プレイヤーの向きに回転
-	CVector3 enemyForward = { -1.0f, 0.0f, 0.0f };
-	shisoVec.y = 0.0f;
-	shisoVec.Normalize();
-	CQuaternion qRot;
-	qRot.SetRotation(enemyForward, shisoVec);
-	m_rotation = qRot;
-	m_position = m_charaCon.Execute(shisoVec);
+	////プレイヤーの向きに回転
+	//CVector3 enemyForward = { -1.0f, 0.0f, 0.0f };
+	//shisoVec.y = 0.0f;
+	//shisoVec.Normalize();
+	//CQuaternion qRot;
+	//qRot.SetRotation(enemyForward, shisoVec);
+	//m_rotation = qRot;
+	//m_position = m_charaCon.Execute(shisoVec);
 
 }
 void shisokus::shisoYobi1() {
@@ -117,9 +118,26 @@ void shisokus::shisoAttack2() {
 }
 void shisokus::shisoDeath() {
 	//ﾔﾗﾚﾀ･･･
-	DeleteGO(this);
-}
+	if (DeathTimer == 0) {
+		//状態をリザルトに！
+		GameData * gamedata = GameData::GetInstance();
+		BossHPGage * bossHPGage = BossHPGage::GetInstance();
+		gamedata->SetGameMode(GameData::Result);
+		bossHPGage->DeleteGage();
+	}
 
+	if (ToumeiTimeMAX == DeathTimer) {
+		m_scale = CVector3::Zero;
+	}
+
+	if (DeathTimeMAX == DeathTimer) {
+		GameData * gamedata = GameData::GetInstance();
+		gamedata->EnemyCounterGensyou();
+		DeleteGO(this);
+	}
+
+	DeathTimer++;
+}
 
 void shisokus::Update() {
 	switch (m_stete) {
@@ -141,6 +159,11 @@ void shisokus::Update() {
 	case Estete_Death://死ﾇ
 		shisoDeath();
 		break;
+	}
+
+	//HPが0なら死ぬ
+	if (NowHP == 0) {
+		m_stete = Estete_Death;
 	}
 
 	//移動

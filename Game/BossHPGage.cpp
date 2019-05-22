@@ -40,7 +40,7 @@ bool BossHPGage::Start() {
 	//ボスHP土台 0
 	r = NewGO<prefab::CSpriteRender>(0);
 	r->Init(L"sprite/BossLifeBar_base.dds", 1100.0f, 100.0f);
-	Position = { 0.0f, HPBarY, 1.0f };//座標
+	Position = { HPBarX, HPBarY, 1.0f };//座標
 	r->SetPosition(Position);//座標を反映
 	MulColor = { 1.0f,1.0f,1.0f,0.0f };
 	r->SetMulColor(MulColor);
@@ -50,7 +50,7 @@ bool BossHPGage::Start() {
 	//ボスHP 1
 	r = NewGO<prefab::CSpriteRender>(0);
 	r->Init(L"sprite/BossLifeBarWhite.dds", 1100.0f, 100.0f);
-	Position = { -550.0f, HPBarY, 1.0f };//座標
+	Position = { HPBarX-550.0f, HPBarY, 1.0f };//座標
 	r->SetPosition(Position);//座標を反映
 	MulColor = { 1.0f,1.0f,1.0f,0.0f };
 	r->SetMulColor(MulColor);
@@ -60,7 +60,7 @@ bool BossHPGage::Start() {
 	//ボスHPダミー 2
 	r = NewGO<prefab::CSpriteRender>(0);
 	r->Init(L"sprite/BossLifeBar.dds", 1100.0f, 100.0f);
-	Position = { -550.0f, HPBarY, 1.0f };//座標
+	Position = { HPBarX-550.0f, HPBarY, 1.0f };//座標
 	r->SetPosition(Position);//座標を反映
 	MulColor = { 1.0f,1.0f,1.0f,0.0f };
 	r->SetMulColor(MulColor);
@@ -70,7 +70,7 @@ bool BossHPGage::Start() {
 	//ボスHP上 3
 	r = NewGO<prefab::CSpriteRender>(0);
 	r->Init(L"sprite/BossLifeBarUe.dds", 1100.0f, 100.0f);
-	Position = { 0.0f, HPBarY, 1.0f };//座標
+	Position = { HPBarX, HPBarY, 1.0f };//座標
 	r->SetPosition(Position);//座標を反映
 	MulColor = { 1.0f,1.0f,1.0f,0.0f };
 	r->SetMulColor(MulColor);
@@ -80,7 +80,7 @@ bool BossHPGage::Start() {
 	//ボスアイコン 4
 	r = NewGO<prefab::CSpriteRender>(0);
 	r->Init(L"sprite/BossIcon.dds", 100.0f, 100.0f);
-	Position = { 480.0f, HPBarY, 1.0f };//座標
+	Position = { HPBarX+480.0f, HPBarY, 1.0f };//座標
 	r->SetPosition(Position);//座標を反映
 	MulColor = { 1.0f,1.0f,1.0f,0.0f };
 	r->SetMulColor(MulColor);
@@ -125,7 +125,7 @@ void BossHPGage::Update() {
 				//ボスHP演出用 5
 				r = NewGO<prefab::CSpriteRender>(1);
 				r->Init(L"sprite/BossLifeBarWhite.dds", 1100.0f, 100.0f);
-				Position = { 0.0f, HPBarY, 1.0f };//座標
+				Position = { HPBarX, HPBarY, 1.0f };//座標
 				r->SetPosition(Position);//座標を反映
 				MulColor = { 1.0f,1.0f,1.0f,0.0f };
 				r->SetMulColor(MulColor);
@@ -186,6 +186,29 @@ void BossHPGage::Update() {
 		m_spriteRender[2]->SetScale(BarScale);
 	}
 
+	//削除演出…
+	if (DeleteTimer >= 0) {
+
+		MulColor = { 1.0f,1.0f,1.0f,DeleteMulAlpha };
+		m_spriteRender[0]->SetMulColor(MulColor);
+		m_spriteRender[1]->SetMulColor(MulColor);
+		m_spriteRender[2]->SetMulColor(MulColor);
+		m_spriteRender[3]->SetMulColor(MulColor);
+		m_spriteRender[4]->SetMulColor(MulColor);
+		m_fontRender[0]->SetColor(MulColor);
+
+		DeleteMulAlpha -= 0.01f;
+		if (DeleteMulAlpha < 0.0f) {
+			DeleteMulAlpha = 0.0f;
+		}
+		DeleteTimer++;
+		if (DeleteTimer == DeleteLimit) {
+			DeleteGO(this);
+			DeleteTimer = -1;
+		}
+	}
+
 	Timer++;
 
 }
+

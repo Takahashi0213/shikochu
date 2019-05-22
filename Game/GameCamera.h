@@ -23,6 +23,10 @@ private:
 	int swapTimer = -1; //フレームタイマー
 	int DashTimer3D = 0; //3Dモード用ダッシュタイマー
 	float DashHoseiZ = 0.0f;
+	bool ResultCameraFlag = false;
+	bool ResultCameraMoveFlag = false;
+
+	CVector3 targetToPos = { 3500.0f, 150.0f, -1500.0f };
 
 	//定数
 	const CVector3 camera2D_DEF = { 0.0f,250.0f,-5.0f };

@@ -117,16 +117,16 @@ private:
 	//攻撃関連
 	int attacktimer = 0;
 
+	int DeathTimer = 0; //HPが0になってからDeleteGOされるまでのタイマー 演出用
+	const int ToumeiTimeMAX = 240; //この時間になると透明になる
+	const int DeathTimeMAX = 360; //↑の上限
 
 	const float DamageLength = 2680.0f; //ダメメージを受けけるは範囲だだよ
 
 	int waveNo = 0; //自分が属するWaveの番号
 
-	const int MAXHP = 10000; //最大HP
+	const int MAXHP = 500; //最大HP
 	int NowHP = MAXHP; //現在HP
-
-	//攻撃関連
-
 
 };
 
