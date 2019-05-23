@@ -12,6 +12,7 @@ public:
 		Battle3D_Mode,
 		BattleMode_Swap,//2Dモードと3Dモード入れ替え中
 		Result,
+		GameEnd,
 	};
 
 	/////////////// Singleton //////////////////////////////
@@ -177,7 +178,7 @@ public:
 	}
 
 	//ポイント加算（引数を所持ポイントに加算するよ）
-	int GameData::PlusPoint(int x) {
+	void GameData::PlusPoint(int x) {
 
 		Point += x;
 	}
@@ -245,13 +246,24 @@ public:
 	bool GameData::GetResultFlag() {
 		return ResultFlag;
 	}
+
+	//ステージクリアフラグをtrueにする（引数のステージ）
+	void GameData::SetStageClearFlag(int x) {
+		StageClearFlag[x] = true;
+	}
+
+	//ステージクリアフラグを返す（引数のステージ）
+	bool GameData::GetStageClearFlag(int x) {
+		return StageClearFlag[x];
+	}
+
 	//ゲームデータをリセット
 	//ステージ開始時に必ず呼び出すこと！！！！！！！！
 	void GameData::GameDataReset() {
 		//現在残機をデフォルト残機に設定
 		Zanki = DEF_Zanki;
 		//カウント系もろもろ0にする
-		Star_Power = 100;
+		Star_Power = 0;
 		ItemCount = 0;
 		GiriCount = 0;
 		EnemyCount = 0;
@@ -291,6 +303,15 @@ private:
 
 	bool LevelSetFlag = false; //レベルの準備できましたか
 	bool ResultFlag = false; //リザルトへの遷移
+
+	//ステージクリアフラグ
+	bool StageClearFlag[5]{
+		false,
+		false,
+		false,
+		false,
+		false,
+	};
 
 	//戦闘絡みの変数置き場
 	int EnemyCount = 0; //敵の数

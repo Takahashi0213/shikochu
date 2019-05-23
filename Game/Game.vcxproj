@@ -1805,6 +1805,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Preview_Low|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="UICamera.cpp" />
     <ClCompile Include="WaveEffect.cpp" />
     <ClCompile Include="WaveManager.cpp" />
   </ItemGroup>
@@ -1835,6 +1836,7 @@
     <ClInclude Include="StarItem.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Title.h" />
+    <ClInclude Include="UICamera.h" />
     <ClInclude Include="WaveEffect.h" />
     <ClInclude Include="WaveManager.h" />
     <ResourceCompile Include="Game.rc" />
@@ -1851,6 +1853,9 @@
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\pointa.FBX" />
     <MeshContentTask Include="Assets\modelData\stage1.FBX" />
+    <MeshContentTask Include="Assets\modelData\stage2.FBX" />
+    <MeshContentTask Include="Assets\modelData\StageMini1.FBX" />
+    <MeshContentTask Include="Assets\modelData\StageMini2.FBX" />
     <MeshContentTask Include="Assets\modelData\unityChan.fbx" />
   </ItemGroup>
   <ItemGroup>
@@ -1926,6 +1931,12 @@
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\Denger.png" />
     <ImageContentTask Include="Assets\sprite\Kiken.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\SelectDodai.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\Time.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

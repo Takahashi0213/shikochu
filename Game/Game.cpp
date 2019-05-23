@@ -17,6 +17,7 @@
 #include "LevelSet.h"
 #include "GameResult.h"
 #include "WaveEffect.h"
+#include "StageSelect.h"
 
 Game* Game::m_instance = nullptr;
 
@@ -36,29 +37,30 @@ Game::Game()
 Game::~Game()
 {
 	//色々消す
-	DeleteGOs("GameData");
 	DeleteGOs("Bug");
-	DeleteGOs("Enemy");
 	DeleteGOs("Gamecamera");
 	DeleteGOs("Status");
-	DeleteGOs("item");
+	DeleteGOs("WaveManager");
+	DeleteGOs("BackGround");
+	DeleteGOs("Player_Status");
+	DeleteGOs("LevelSet");
 	DeleteGOs("Sky");
+	DeleteGOs("L_Light");
 
 	//インスタンスが破棄されたので、nullptrを代入
 	m_instance = nullptr;
 
+	NewGO<StageSelect>(0);
 }
 bool Game::Start()
 {
 	//EnableSpecialLigRange();
 	DisableSpecialLigRange();
 
-	NewGO<GameData>(0,"GameData");
 	NewGO<Player>(0,"Bug");
 	
 	NewGO<GameCamera>(0,"Gamecamera");
 	NewGO<Player_Status>(0, "Status");
-	NewGO<EffectManager>(0, "EffectManager");
 	NewGO<BackGround>(0, "BackGround");
 	NewGO<WaveManager>(0, "WaveManager");
 	NewGO<LevelSet>(0, "LevelSet");
@@ -67,6 +69,7 @@ bool Game::Start()
 	gamedata->SetGameMode(GameData::Battle2D_Mode);
 	gamedata->GameDataReset();
 
+	//背景を表示
 	BackGround * background = BackGround::GetInstance();
 	background->StageMaker(BackGround::Stage_1);
 
@@ -75,7 +78,7 @@ bool Game::Start()
 	sky->SetEmissionColor({6.1f, 6.1f, 8.1f});
 	LightManager().SetAmbientLight({ 100.1f,100.1f, 100.1f });
 
-	m_directionLig = NewGO<prefab::CDirectionLight>(0);
+	m_directionLig = NewGO<prefab::CDirectionLight>(0,"L_Light");
 	m_directionLig->SetColor({ 900.0f, 900.0f, 1000.0f, 1.0f });
 	CVector3 ligDir = { 1, -1, 1 };
 	ligDir.Normalize();
@@ -102,10 +105,6 @@ void Game::Update()
 	if (m_tonemapDisableTimer > 0.0f) {
 		GraphicsEngine().GetTonemap().Reset();
 	}
-	if (Pad(0).IsPress(enButtonSelect)) {
-		NewGO<Title>(0, "title");
-		DeleteGO(this);
-	}
 
 	GameData * gamedata = GameData::GetInstance();
 
@@ -114,5 +113,9 @@ void Game::Update()
 		NewGO<GameResult>(0);
 		gamedata->ResultFlagSet(false);
 	}
-
+	//さようなら…
+	int mode=gamedata->GetGameMode();
+	if (mode == GameData::GameEnd) {
+		DeleteGO(this);
+	}
 }

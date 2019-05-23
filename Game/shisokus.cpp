@@ -7,14 +7,12 @@
 
 shisokus::shisokus()
 {
-	NewGO<NerukGenerator>(0, "nerukGenerator");
 }
-
 
 shisokus::~shisokus()
 {
 	DeleteGO(m_skinModelRender);
-
+	DeleteGOs("nerukGenerator");
 }
 
 bool shisokus::Start() {
@@ -26,6 +24,8 @@ bool shisokus::Start() {
 	m_animClips[enAnimationClip_yobi1].Load(L"animData/sesoyobi1.tka");
 	//çUåÇ
 	m_animClips[enAnimationClip_attack1].Load(L"animData/sesoattack1.tka");
+
+	NewGO<NerukGenerator>(0, "nerukGenerator");
 
 	m_skinModelRender = NewGO<prefab::CSkinModelRender>(0);
 	m_skinModelRender->Init(L"modelData/shisokus.cmo", m_animClips, enAnimationClip_Num);

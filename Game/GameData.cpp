@@ -54,7 +54,7 @@ int GameData::DamageKeisan(bool dashflag) {
 	//
 	m_Life = 1.0f + ((1.0f - m_Life)*5.0f); //‚±‚ê‚ªUŒ‚”{—¦
 
-	int damage = ATK * m_Life;
+	int damage = (int)(ATK * m_Life);
 
 	bool flag = GiriBonusKeisan();
 	if (flag == true) {

@@ -57,7 +57,7 @@ bool Neruk::Start() {
 void Neruk::position1() {
 
 	CVector3 diff = pos1 - oldpos1;
-	diff /= moveflame1;
+	diff /= (float)moveflame1;
 	if (moveflag == false) {
 		m_position += diff;
 		movetimer++;
@@ -78,7 +78,7 @@ void Neruk::position1() {
 void Neruk::position2() {
 
 	CVector3 diff = pos2 - oldpos2;
-	diff /= moveflame1;
+	diff /= (float)moveflame1;
 	if (moveflag == false) {
 		m_position += diff;
 		movetimer++;
@@ -98,7 +98,7 @@ void Neruk::position2() {
 void Neruk::position3() {
 
 	CVector3 diff = pos3 - oldpos3;
-	diff /= moveflame1;
+	diff /= (float)moveflame1;
 	if (moveflag == false) {
 		m_position += diff;
 		movetimer++;
@@ -119,7 +119,7 @@ void Neruk::position3() {
 void Neruk::position4() {
 
 	CVector3 diff = pos4 - oldpos4;
-	diff /= moveflame1;
+	diff /= (float)moveflame1;
 	if (moveflag == false) {
 		m_position += diff;
 		movetimer++;
@@ -140,7 +140,7 @@ void Neruk::position4() {
 void Neruk::position5() {
 
 	CVector3 diff = pos5 - oldpos5;
-	diff /= moveflame1;
+	diff /= (float)moveflame1;
 	if (moveflag == false) {
 		m_position += diff;
 		movetimer++;
@@ -161,7 +161,7 @@ void Neruk::position5() {
 void Neruk::position6() {
 
 	CVector3 diff = pos6 - oldpos6;
-	diff /= moveflame1;
+	diff /= (float)moveflame1;
 	if (moveflag == false) {
 		m_position += diff;
 		movetimer++;
@@ -260,7 +260,6 @@ void Neruk::NeruAttack() {
 	if (D_stete != Player::Estate_Death) {
 
 		if (attackflag == false) {
-			Player* player = FindGO<Player>("Bug");
 			CVector3 P_Position = player->Getm_Position();
 			CVector3 diff = P_Position - m_position;
 			atmove = diff;
@@ -314,7 +313,7 @@ void Neruk::NeruMove() {
 
 		}
 
-		deathdiff /= moveflame1;
+		deathdiff /= (float)moveflame1;
 		m_position += deathdiff;
 		movetimer++;
 		if (movetimer > deathMove) {

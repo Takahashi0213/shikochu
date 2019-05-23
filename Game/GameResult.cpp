@@ -544,6 +544,9 @@ void GameResult::Update() {
 		MulColor = { 1.0f,1.0f,1.0f,MulAlpha };
 		m_spriteRender[11]->SetMulColor(MulColor);
 		if (FinalCount > DeleteTime) {
+			GameData * gamedata = GameData::GetInstance();
+			gamedata->SetGameMode(GameData::GameEnd);
+			gamedata->PlusPoint(FinalScore);
 			DeleteGO(this);//‚¨‚µ‚Ü‚¢
 		}
 		FinalCount++;

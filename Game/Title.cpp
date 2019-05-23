@@ -2,6 +2,9 @@
 #include "Title.h"
 #include "Game.h"
 #include "StageSelect.h"
+#include "GameData.h"
+#include "EffectManager.h"
+#include "UICamera.h"
 
 Title* Title::m_instance = nullptr;
 
@@ -28,6 +31,12 @@ Title::~Title()
 
 bool Title::Start() {
 
+	//ゲームデータ
+	NewGO<GameData>(0, "GameData");
+	NewGO<EffectManager>(0, "EffectManager");
+	NewGO<UICamera>(0, "UICamera");
+
+	//タイトル
 	DisableSpecialLigRange();
 	prefab::CSpriteRender* r = NewGO<prefab::CSpriteRender>(0);
 	r->Init(L"sprite/rogo.dds", 440.0f, 245.0f);
@@ -37,8 +46,9 @@ bool Title::Start() {
 }
 
 void Title::Update() {
-	if (Pad(0).IsPress(enButtonStart)) {
-		NewGO<Game>(0, "game");
+	if (Pad(0).IsPress(enButtonA)) {
+		DeleteGOs("UICamera");
+		NewGO<StageSelect>(0, "StageSelect");
 
 		DeleteGO(this);
 	}

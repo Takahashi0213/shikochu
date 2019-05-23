@@ -27,6 +27,7 @@ Player::~Player()
 {
 	DeleteGO(m_skinModelRender);
 	DeleteGO(m_pointLig);
+	DeleteGOs("Radar");
 
 	//インスタンスが破棄されたので、nullptrを代入
 	m_instance = nullptr;
@@ -53,7 +54,7 @@ bool Player::Start() {
 	m_pointLig->SetColor(PlayerLight);
 	m_pointLig->SetAttn(PlayerLightAttn);
 
-	NewGO<Radar>(0);
+	NewGO<Radar>(0, "Radar");
 
 	return true;
 }

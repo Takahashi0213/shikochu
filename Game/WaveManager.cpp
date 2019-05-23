@@ -109,8 +109,12 @@ void WaveManager::Update() {
 			//もしボスバトルなら3Dへの移行を行う
 			if (NowWave+1 == LastWave) {
 				NewGO<BossHPGage>(0);
+				int len = (int)wcslen(BossName[stage]);
+				for (int z = 0; z < len + 1; z++) {
+					BOSS_Name[z] = BossName[stage][z];
+				}
 				BossHPGage * bossHPgage = BossHPGage::GetInstance();
-				bossHPgage->SetBossName(BossName[stage]);
+				bossHPgage->SetBossName(BOSS_Name);
 				gamedata->SwapGameMode();
 			}
 

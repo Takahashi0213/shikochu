@@ -20,6 +20,9 @@
     <Filter Include="Enemy">
       <UniqueIdentifier>{9b24f448-75e7-4944-95f3-6036be7e47f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="STAGE_SELECT">
+      <UniqueIdentifier>{c2b7c0b2-2c12-4639-8b18-df8ad1a93b6a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -59,11 +62,14 @@
     </ClCompile>
     <ClCompile Include="Radar.cpp" />
     <ClCompile Include="BossHPGage.cpp" />
-    <ClCompile Include="StageSelect.cpp" />
     <ClCompile Include="Neruk.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
     <ClCompile Include="NerukGenerator.cpp" />
+    <ClCompile Include="StageSelect.cpp">
+      <Filter>STAGE_SELECT</Filter>
+    </ClCompile>
+    <ClCompile Include="UICamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -111,11 +117,14 @@
     </ClInclude>
     <ClInclude Include="Radar.h" />
     <ClInclude Include="BossHPGage.h" />
-    <ClInclude Include="StageSelect.h" />
     <ClInclude Include="Neruk.h">
       <Filter>Enemy</Filter>
     </ClInclude>
     <ClInclude Include="NerukGenerator.h" />
+    <ClInclude Include="StageSelect.h">
+      <Filter>STAGE_SELECT</Filter>
+    </ClInclude>
+    <ClInclude Include="UICamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
@@ -151,6 +160,15 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\Neruk.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\stage2.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\StageMini1.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\StageMini2.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>
@@ -253,6 +271,12 @@
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\Kiken.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\SelectDodai.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Time.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
   </ItemGroup>

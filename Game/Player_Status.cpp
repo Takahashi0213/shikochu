@@ -14,6 +14,7 @@ Player_Status::~Player_Status()
 	for (int i = 0; i < m_spriteRender.size(); i++) {
 		DeleteGO(m_spriteRender[i]);
 	}
+	DeleteGO(m_fontRender);
 
 }
 

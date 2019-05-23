@@ -3,6 +3,7 @@ class WaveManager : public IGameObject
 {
 	static WaveManager* m_instance;
 public:
+
 	WaveManager();
 	~WaveManager();
 	void Update();
@@ -14,14 +15,9 @@ public:
 	}
 
 private:
-	enum {
-		WAVE_1,
-		WAVE_2,
-		WAVE_3,
-	};
-	int m_currentWaveNo = WAVE_1;
 
 	wchar_t LEVEL_Name[255] = { L"" };	//レベル名保管用
+	wchar_t BOSS_Name[128] = { L"" };	//ボス名保管用
 
 };
 

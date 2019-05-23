@@ -26,10 +26,19 @@ public:
 private:
 
 	prefab::CSkinModelRender* m_skinModelRender = nullptr;		//スキンモデルレンダラー。
+	CPhysicsStaticObject m_physicsStaticObject;				//静的物理オブジェクト。
 
-																//エフェクトファイル名
+	//ステージファイル名
 	wchar_t DetaBase[5][30]{
 	{ L"modelData/stage1.cmo" },
+	{ L"modelData/stage2.cmo" },
+
+	};
+
+	//trueに設定したステージでは静的物理オブジェクトを設定する
+	bool physicsFlag[5]{
+		false,
+		true,
 	};
 
 	Stage m_stete = Stage_1;		 //ステージ状態

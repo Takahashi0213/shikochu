@@ -132,7 +132,7 @@ void WaveEffect::Update() {
 		wchar_t text[256];
 		//‚¨‚í
 		if (Wave == MaxWave) {
-			swprintf(text, L"BOSS WAVE", Wave);
+			swprintf(text, L"BOSS WAVE");
 		}
 		else {
 			swprintf(text, L"WAVE %d", Wave);

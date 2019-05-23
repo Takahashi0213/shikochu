@@ -37,6 +37,11 @@ void BackGround::StageMaker(Stage ST){
 	m_skinModelRender->SetPosition(m_position);
 	m_skinModelRender->SetScale(m_scale);
 	m_skinModelRender->SetEmissionColor(StageEmission);
+
+	//CPhysicsStaticObject‚Ì‰Šú‰»
+	if (physicsFlag[ST] == true) {
+		m_physicsStaticObject.CreateMesh(m_position, CQuaternion::Identity, m_scale, m_skinModelRender);
+	}
 }
 
 void BackGround::DeleteStage() {
