@@ -9,13 +9,16 @@ shisokus::shisokus()
 {
 }
 
+
 shisokus::~shisokus()
 {
 	DeleteGO(m_skinModelRender);
-	DeleteGOs("nerukGenerator");
+
 }
 
 bool shisokus::Start() {
+
+	NewGO<NerukGenerator>(0, "nerukGenerator");
 
 	//アニメーション
 	m_animClips[enAnimationClip_move].Load(L"animData/sisowalk.tka");
@@ -24,8 +27,6 @@ bool shisokus::Start() {
 	m_animClips[enAnimationClip_yobi1].Load(L"animData/sesoyobi1.tka");
 	//攻撃
 	m_animClips[enAnimationClip_attack1].Load(L"animData/sesoattack1.tka");
-
-	NewGO<NerukGenerator>(0, "nerukGenerator");
 
 	m_skinModelRender = NewGO<prefab::CSkinModelRender>(0);
 	m_skinModelRender->Init(L"modelData/shisokus.cmo", m_animClips, enAnimationClip_Num);
@@ -164,12 +165,10 @@ void shisokus::Update() {
 		shisoDeath();
 		break;
 	}
-
 	//HPが0なら死ぬ
 	if (NowHP == 0) {
 		m_stete = Estete_Death;
 	}
-
 	//移動
 	m_skinModelRender->SetPosition(m_position);
 	//回転

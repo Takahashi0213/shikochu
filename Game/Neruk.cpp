@@ -22,9 +22,8 @@ bool Neruk::Start() {
 
 	m_skinModelRender = NewGO<prefab::CSkinModelRender>(0);
 	m_skinModelRender->Init(L"modelData/Neruk.cmo", m_animClips, enAnimationClip_Num);
-	typerandom = rand() % 3;
-	posmove = m_nerukGenerator->moverandom;
-	animove = m_nerukGenerator->animesionrandom;
+	posmove = m_nerukGenerator->GetMoveRandom();
+	animove = m_nerukGenerator->GetAnimesionRandom();
 	if (posmove == 0) {
 		m_position = oldpos1;
 	}
@@ -181,78 +180,6 @@ void Neruk::position6() {
 }
 
 
-void Neruk::Movetype1() {
-	if (movecount < endcount) {
-		//ã‰º‚ÌˆÚ“®
-		waittimer++;
-		if (waittimer <= up) {
-			m_position.y += typemove;
-		}
-		else if (waittimer <= down) {
-			m_position.y -= typemove;
-		}
-		else {
-			movecount++;
-			waittimer = 0;
-		}
-	}
-	else {
-		typeflag = true;
-	}
-}
-void Neruk::Movetype2() {
-	if (movecount < endcount) {
-		//ã‰º‚ÌˆÚ“®
-		waittimer++;
-		if (waittimer <= Right) {
-			m_position.x += typemove;
-		}
-		else if (waittimer <= Left) {
-			m_position.x -= typemove;
-		}
-		else {
-			movecount++;
-			waittimer = 0;
-		}
-	}
-	else {
-		typeflag = true;
-	}
-
-}
-void Neruk::Movetype3() {
-	if (movecount < endcount) {
-		//ã‰º‚ÌˆÚ“®
-		waittimer++;
-		if (waittimer <= Rightup) {
-			m_position.x += typemove;
-			m_position.y += typemove;
-
-		}
-		else if (waittimer <= Leftdown) {
-			m_position.x -= typemove;
-			m_position.y -= typemove;
-		}
-		else if (waittimer <= Leftup) {
-			m_position.x -= typemove;
-			m_position.y += typemove;
-
-		}
-		else if (waittimer <= Rightdown) {
-			m_position.x += typemove;
-			m_position.y -= typemove;
-		}
-
-		else {
-			movecount++;
-			waittimer = 0;
-		}
-	}
-	else {
-		typeflag = true;
-	}
-
-}
 
 void Neruk::NeruAttack() {
 	Player* player = FindGO<Player>("Bug");
@@ -276,19 +203,7 @@ void Neruk::NeruAttack() {
 	}
 }
 void Neruk::NeruMove() {
-	if (typeflag ==false) {
-		if (typerandom == 0) {
-			Movetype1();
-		}
-		else if (typerandom == 1) {
-			Movetype2();
-		}
-		else if (typerandom == 2) {
-			Movetype3();
-		}
-
-	}
-	else {
+	
 		if (posmove == 0) {
 			deathdiff = oldpos1 - m_position;
 		}
@@ -319,7 +234,7 @@ void Neruk::NeruMove() {
 		if (movetimer > deathMove) {
 			DeleteGO(this);
 		}
-	}
+	
 }
 
 void Neruk::NeruSelect() {

@@ -9,6 +9,7 @@
 #include "Neruk.h"
 #include "Radar.h"
 #include "shisokus.h"
+#include "soukabuto.h"
 
 Player* Player::m_instance = nullptr;
 
@@ -665,7 +666,51 @@ void Player::PlayerJudge() {
 		}
 		return true;
 		});
+	//ソウカブトとの距離を計算
+	QueryGOs<soukabuto>("souk", [&](soukabuto* souka) {
+		if (souka->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 souka_position = souka->Getm_Position();
+		CVector3 diff = souka_position - position;
+		playerVec = diff;
+		//死んでいなければ接触判定
+		if (player_state != Estate_Death) {
+			//＊ダメージレンジは どこだ。
+			float Langth_hoge = souka->GetDamageLength();
+			//距離判定
+			if (diff.Length() < Langth_hoge) {
+				//もし無敵時間中でないなら
+				if (MutekiTimer == -1) {
 
+					//ギリギリボーナスが成立するか確認
+					GameData * gamedata = GameData::GetInstance();
+					bool Hantei = gamedata->GiriBonusKeisan();
+
+					//寿命をゼロに
+					m_Life = 0;
+
+					if (DashFlag == true) {//ダッシュ状態なら…
+
+						souka->SetDeath();//お前も死ね
+
+						if (Hantei == true) {
+							//ギリギリボーナスカウントを+1
+							gamedata->GiriCounter();
+							//ボーナス成立のエフェクトを表示
+							EffectManager * effectmanager = EffectManager::GetInstance();
+							effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
+							//gamedata->TestMessage();
+						}
+					}
+
+
+				}
+			}
+		}
+		return true;
+		});
 
 
 	//寿命だ…

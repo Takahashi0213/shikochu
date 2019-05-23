@@ -1782,6 +1782,7 @@
     <ClCompile Include="Player_Status.cpp" />
     <ClCompile Include="Radar.cpp" />
     <ClCompile Include="shisokus.cpp" />
+    <ClCompile Include="soukabuto.cpp" />
     <ClCompile Include="StageSelect.cpp" />
     <ClCompile Include="StarItem.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -1832,6 +1833,7 @@
     <ClInclude Include="Radar.h" />
     <CLInclude Include="resource.h" />
     <ClInclude Include="shisokus.h" />
+    <ClInclude Include="soukabuto.h" />
     <ClInclude Include="StageSelect.h" />
     <ClInclude Include="StarItem.h" />
     <ClInclude Include="stdafx.h" />
@@ -1852,6 +1854,7 @@
       <FileType>Document</FileType>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\pointa.FBX" />
+    <MeshContentTask Include="Assets\modelData\soukabuto_0.FBX" />
     <MeshContentTask Include="Assets\modelData\stage1.FBX" />
     <MeshContentTask Include="Assets\modelData\stage2.FBX" />
     <MeshContentTask Include="Assets\modelData\StageMini1.FBX" />

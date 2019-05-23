@@ -114,12 +114,6 @@ private:
 	int waittimer = 0;
 	int timer = 0;
 
-	//movetype関連
-	int typerandom = 0;
-	bool typeflag = false;
-	int movecount = 0;
-	const float endcount = 2.0f;
-	const float typemove = 5.0f;
 	//movetype1
 	const float up = 60.f;
 	const float down = 120.f;
@@ -139,6 +133,11 @@ private:
 	const float deathwait = 30.0f;
 	const float deathattack = 120.f;
 	CVector3 deathdiff;
+	//ランダム
+	int  moverandom = 0; //動く場所乱数用
+	int  animesionrandom = 0; //アニメーション乱数用
+
+	int oldmovecount = 3;
 
 	const float DamageLength = 150.0f; //ダメメージを受けけるは範囲だだよ
 	NerukGenerator* m_nerukGenerator = nullptr;

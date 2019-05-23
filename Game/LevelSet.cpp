@@ -6,6 +6,7 @@
 #include "Bunbogu.h"
 #include "Neoriku.h"
 #include "shisokus.h"
+#include "soukabuto.h"
 //ÉMÉ~ÉbÉN
 #include "StarItem.h"
 
@@ -69,7 +70,16 @@ void LevelSet::LevelSetting(wchar_t LEVEL_Name[255],bool flag,int wave) {
 				EnemyCount++;
 			}			return true;
 		}
-
+		if (objData.EqualObjectName(L"soukabuto")) {
+			soukabuto* sou = NewGO<soukabuto>(0, "sou");
+			sou->SetPosition(objData.position);
+			sou->SetRotation(objData.rotation);
+			sou->SetActiveFlag(flag);
+			sou->SetWave(wave);
+			if (flag == true) {
+				EnemyCount++;
+			}			return true;
+		}
 		if (objData.EqualObjectName(L"StarItem")) {
 			StarItem* item = NewGO<StarItem>(0, "Item");
 			item->SetPosition(objData.position);

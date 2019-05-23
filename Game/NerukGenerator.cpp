@@ -22,6 +22,14 @@ NerukGenerator::~NerukGenerator()
 	m_instance = nullptr;
 
 }
+int NerukGenerator::GetMoveRandom()
+{
+	return moverandom;
+}
+int NerukGenerator::GetAnimesionRandom()
+{
+	return animesionrandom;
+}
 
 void NerukGenerator::Update() {
 

@@ -70,6 +70,9 @@
       <Filter>STAGE_SELECT</Filter>
     </ClCompile>
     <ClCompile Include="UICamera.cpp" />
+    <ClCompile Include="soukabuto.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -125,6 +128,9 @@
       <Filter>STAGE_SELECT</Filter>
     </ClInclude>
     <ClInclude Include="UICamera.h" />
+    <ClInclude Include="soukabuto.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
@@ -169,6 +175,9 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\StageMini2.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\soukabuto_0.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>
