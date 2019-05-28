@@ -13,6 +13,8 @@ public:
 		BattleMode_Swap,//2Dモードと3Dモード入れ替え中
 		Result,
 		GameEnd,
+		GameOver,
+		NotGame,
 	};
 
 	/////////////// Singleton //////////////////////////////
@@ -46,6 +48,7 @@ public:
 	bool GameData::GiriBonusKeisan();
 	int GameData::ZankiBonusKeisan();
 	int GameData::DamageKeisan(bool dashflag);
+	void GameData::TestMessage();
 
 	//残機増減
 	void GameData::SetZanki(int x) {
@@ -76,16 +79,35 @@ public:
 		return ATK;
 	}
 
+	//引数分基本攻撃力を加算
+	void GameData::PlusATK(int x) {
+
+		ATK += x;
+	}
+
 	//基本体力取得
 	int GameData::GetDEF_Life() {
 
 		return DEF_Life;
+	}
+	//引数分基本体力を加算
+	void GameData::PlusLife(int x) {
+
+		DEF_Life += x;
 	}
 
 	//初期残機取得
 	int GameData::GetDEF_Zanki() {
 
 		return DEF_Zanki;
+	}
+	//引数分初期残機を加算
+	void GameData::PlusDEF_Zanki(int x) {
+
+		DEF_Zanki += x;
+		if (DEF_Zanki > ZankiDEF_MAX) {
+			DEF_Zanki = ZankiDEF_MAX;
+		}
 	}
 
 	//ゲームモード変更
@@ -247,16 +269,6 @@ public:
 		return ResultFlag;
 	}
 
-	//ステージクリアフラグをtrueにする（引数のステージ）
-	void GameData::SetStageClearFlag(int x) {
-		StageClearFlag[x] = true;
-	}
-
-	//ステージクリアフラグを返す（引数のステージ）
-	bool GameData::GetStageClearFlag(int x) {
-		return StageClearFlag[x];
-	}
-
 	//ゲームデータをリセット
 	//ステージ開始時に必ず呼び出すこと！！！！！！！！
 	void GameData::GameDataReset() {
@@ -273,20 +285,6 @@ public:
 		ResultFlag = false;
 	}
 
-	//テストメッセージ
-	void GameData::TestMessage() {
-
-		prefab::CFontRender* m_fontRender;
-		m_fontRender = NewGO<prefab::CFontRender>(1);
-
-		wchar_t text[256];
-		swprintf(text, L"TEST MESSAGE");
-
-		m_fontRender->SetText(text);
-		m_fontRender->SetPosition({ 0.0f,0.0f});
-
-	}
-
 ///////////////////////////////////////////////////////////////////
 
 private:
@@ -294,24 +292,15 @@ private:
 	int Zanki = 50; //残機
 	int Star_Power = 0; //流星ダッシュ発動までのゲージ
 
-	int Point = 0; //所持ポイント
+	int Point = 11037; //所持ポイント
 
 	int ItemCount = 0; //拾ったアイテムをカウントするよ
 	int GiriCount = 0; //ギリギリボーナスをカウント
 
-	GameMode m_stete = Battle2D_Mode;		 //状態
+	GameMode m_stete = NotGame;		 //状態
 
 	bool LevelSetFlag = false; //レベルの準備できましたか
 	bool ResultFlag = false; //リザルトへの遷移
-
-	//ステージクリアフラグ
-	bool StageClearFlag[5]{
-		false,
-		false,
-		false,
-		false,
-		false,
-	};
 
 	//戦闘絡みの変数置き場
 	int EnemyCount = 0; //敵の数
@@ -330,5 +319,6 @@ private:
 	const int MAX_ZankiBonus = 10000; //残機ボーナスの最大値
 	const int GiriBonusHosei = 200; //ギリギリで倒した敵の数*この変数→ギリギリボーナスの値
 	const int ItemBonusHosei = 10; //拾ったアイテムの数*この変数→アイテムボーナスの値
+	const int ZankiDEF_MAX = 99; //初期残機最大値
 
 };

@@ -2,6 +2,8 @@
 #include "GameCamera.h"
 #include "Player.h"
 #include "GameData.h"
+#include "LevelData.h"
+
 //ボス
 #include "shisokus.h"
 
@@ -114,6 +116,14 @@ void GameCamera::Update() {
 			swapParameter.z = swapParameter.z / swapTimerDEF;
 			//念のためリセット
 			cameraSwap = CVector3::Zero;
+			//まさかのここで再生です
+			int stage = gamedata->GetStageNo();
+			stage--;
+			ss = NewGO<prefab::CSoundSource>(0);
+			//SE再生
+			ss->Init(BossBGMName[stage]);
+			ss->SetVolume(BMG_V);
+			ss->Play(true);
 		}
 		else if (swapTimer > swapWaitTimer) {
 			//注視点を動かす
@@ -142,6 +152,14 @@ void GameCamera::Update() {
 
 	}
 	else if (mode == 3) {//リザルトならボスにフォーカスして回転
+
+		//静かに～！
+		BMG_V -= 0.1f;
+		if (BMG_V < 0.0f) {
+			BMG_V = 0.0f;
+		}
+		ss->SetVolume(BMG_V);
+
 		int stage = gamedata->GetStageNo();
 		stage--;
 		if (stage == 0) {//シーソークスにフォーカスする	

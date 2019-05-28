@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "soukabuto.h"
-
+#include "GameData.h"
+#include "EffectManager.h"
 
 soukabuto::soukabuto()
 {
@@ -84,6 +85,13 @@ void soukabuto::Souattack() {
 
 }
 void soukabuto::Soudeath() {
+	EffectManager * effectmanager = EffectManager::GetInstance();
+	CVector3 EF_Position = m_position;
+	EF_Position.y += 50.0f;
+	effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+
+	GameData * gamedata = GameData::GetInstance();
+	gamedata->EnemyCounterGensyou();
 	DeleteGO(this);
 }
 void soukabuto::Update() {

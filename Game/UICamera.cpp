@@ -33,8 +33,8 @@ bool UICamera::Start(){
 
 	//視点をカメラに伝える
 	cameraPos.x = 0.0f;
-	cameraPos.y = 100.0f;
-	cameraPos.z = 100.0f;
+	cameraPos.y = 50.0f;
+	cameraPos.z = 180.0f;
 
 	//注視点をカメラに伝える
 	MainCamera().SetTarget(cameraTarget);
@@ -49,5 +49,31 @@ bool UICamera::Start(){
 
 void UICamera::Update() {
 
+	//注視点を動かす
+	cameraTarget.x = 0.0f;
+	cameraTarget.y = 0.0f;
+	cameraTarget.z = 0.0f;
+
+	if(C_Flag==false){
+		//視点をカメラに伝える
+		cameraPos.x = 0.0f;
+		cameraPos.y = 50.0f;
+		cameraPos.z = 180.0f;
+	}
+	else {
+		//視点をカメラに伝える
+		cameraPos.x = 0.0f;
+		cameraPos.y = 150.0f;
+		cameraPos.z = 180.0f;
+	}
+
+	//注視点をカメラに伝える
+	MainCamera().SetTarget(cameraTarget);
+	MainCamera().SetPosition(cameraPos);
+
+	//カメラ行列を更新する
+	MainCamera().Update();
+
 }
+
 

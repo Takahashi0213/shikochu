@@ -23,7 +23,7 @@ BackGround::~BackGround()
 
 }
 
-void BackGround::StageMaker(Stage ST){
+void BackGround::StageMaker(int ST){
 
 	m_skinModelRender = NewGO<prefab::CSkinModelRender>(0, "stage");
 

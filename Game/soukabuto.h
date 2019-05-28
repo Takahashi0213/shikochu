@@ -85,8 +85,7 @@ private:
 	CVector3 diff;
 	bool attackflag = false;
 
-
-	const float DamageLength = 100.0f; //ダメメージを受けけるは範囲だだよ
+	const float DamageLength = 80.0f; //ダメメージを受けけるは範囲だだよ
 
 	int waveNo = 0; //自分が属するWaveの番号
 	int SpawnWaitTimer = 0;

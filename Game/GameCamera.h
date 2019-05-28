@@ -28,6 +28,9 @@ private:
 
 	CVector3 targetToPos = { 3500.0f, 150.0f, -1500.0f };
 
+	prefab::CSoundSource* ss;
+	float BMG_V = 1.0f;
+
 	//íËêî
 	const CVector3 camera2D_DEF = { 0.0f,250.0f,-5.0f };
 	const CVector3 camera3D_DEF = { 0.0f,0.0f,-200.0f };

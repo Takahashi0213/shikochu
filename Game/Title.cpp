@@ -5,6 +5,8 @@
 #include "GameData.h"
 #include "EffectManager.h"
 #include "UICamera.h"
+#include "SaveData.h"
+#include "TransitionMaker.h"
 
 
 class FadeOut : public IGameObject {
@@ -79,6 +81,8 @@ bool Title::Start() {
 	NewGO<GameData>(0, "GameData");
 	NewGO<EffectManager>(0, "EffectManager");
 	NewGO<UICamera>(0, "UICamera");
+	NewGO<SaveData>(0, "SaveData");
+	NewGO<TransitionMaker>(0, "TransitionMaker");
 
 	//NewGame用タイトル
 	//0番→NewGame背景
@@ -629,19 +633,17 @@ void Title::ExitMove() {
 void Title::GameStart(){
 
 	NewMove();
-	/*if (Pad(0).IsTrigger(enButtonA)) {
+	if (Pad(0).IsTrigger(enButtonA)) {
 		miniflag = true;
 	}
 	if (minimoveflag == false && miniflag == true) {
 		minimove();
 	}
 	else if (minimoveflag == true) {
-		DeleteGOs("UICamera");
 		NewGO<StageSelect>(0, "StageSelect");
 
 		DeleteGO(this);
-	}*/
-
+	}
 }
 void Title::GameMore() {
 	

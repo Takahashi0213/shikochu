@@ -7,7 +7,7 @@
 //エネミー
 #include "Bunbogu.h"
 #include "Neoriku.h"
-#include "shisokus.h"
+#include "soukabuto.h"
 
 Radar::Radar()
 {
@@ -61,6 +61,25 @@ void Radar::Update() {
 		}
 		CVector3 player_position = player->Getm_Position();
 		CVector3 enemy_position = neoriku->Getm_Position();
+		CVector3 diff = enemy_position - player_position;
+
+		diff.Normalize();
+		diff *= 40.0f;
+
+		CVector3 pointPos = player_position + diff;
+
+		m_skinModelRender->UpdateInstancingData(pointPos, CQuaternion::Identity, { 0.2f, 0.2f, 0.2f });
+		return true;
+		});
+
+	//ソウカブトとの距離を計算
+	QueryGOs<soukabuto>("sou", [&](soukabuto* souka) {
+		if (souka->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 player_position = player->Getm_Position();
+		CVector3 enemy_position = souka->Getm_Position();
 		CVector3 diff = enemy_position - player_position;
 
 		diff.Normalize();

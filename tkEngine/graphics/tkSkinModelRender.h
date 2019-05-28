@@ -165,6 +165,9 @@ namespace prefab{
 		{
 			m_position = position;
 		}
+		CVector3 GetPosition() {
+			return m_position;
+		}
 		/*!
 		*@brief	回転を設定。
 		*@details
@@ -334,6 +337,7 @@ namespace prefab{
 		* @brief	アニメーションの初期化。
 		*/
 		void InitAnimation(CAnimationClip* animationClips, int numAnimationClips);
+		void Release();
 	private:
 		bool						m_isForwardRender = false;		//!<フォワードレンダリング。
 		CAnimationClip*				m_animationClips = nullptr;			//!<アニメーションクリップ。
@@ -345,7 +349,7 @@ namespace prefab{
 		CAnimation					m_animation;						//!<アニメーション。
 		CSkinModel					m_skinModel;						//!<スキンモデル。
 		CSkinModelData				m_skinModelData;					//!<スキンモデルデータ。
-		const std::wstring			m_filePath;							//!<ファイルパス。
+		std::wstring				m_filePath;							//!<ファイルパス。
 		bool						m_isFrustumCulling = false;			//!<フラスタムカリングを行う？
 		CObjectFrustumCulling		m_frustumCulling;					//!<フラスタムカリング。
 		bool						m_isUpdateAnimation = true;			//!<アニメーションを更新する？

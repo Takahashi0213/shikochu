@@ -7,7 +7,6 @@
 
 namespace tkEngine{
 namespace prefab{
-
 	void CSkinModelRender::Init(
 		const wchar_t* filePath,
 		CAnimationClip* animationClips,
@@ -15,6 +14,7 @@ namespace prefab{
 		EnFbxUpAxis fbxUpAxis,
 		int maxInstance )
 	{
+		m_filePath = filePath;
 		m_enFbxUpAxis = fbxUpAxis;
 		m_skinModelData.Load(filePath);
 		m_skinModel.Init(m_skinModelData, maxInstance);
@@ -48,6 +48,9 @@ namespace prefab{
 	 */
 	void CSkinModelRender::Update()
 	{
+		if (m_filePath == L"modelData/neoriku_0.cmo") {
+			int hoge = 0;
+		}
 		if (m_skinModelData.IsAvailable() == false) {
 			//m_skinModelDataが利用不可。
 			//多分初期化の時にエラーが出ているはずです。エラーを直してください。

@@ -142,6 +142,8 @@ namespace tkEngine{
 				GraphicsEngine().GetShadowMap().Entry(&m_shadowCaster);
 			}
 		}
+		//スケルトン更新。
+		m_skinModelData->GetSkeleton().Update(m_worldMatrix);
 	}
 	
 	void CSkinModel::Draw(CRenderContext& renderContext)

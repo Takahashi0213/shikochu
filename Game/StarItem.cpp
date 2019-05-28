@@ -31,6 +31,8 @@ bool StarItem::Start() {
 	ItemLight = ItemLightDEF;
 	ItemLightAttn = ItemLightAttnDEF;
 
+	m_skinModelRender->SetPosition(m_position);
+
 	return true;
 }
 
