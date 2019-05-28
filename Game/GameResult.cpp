@@ -2,6 +2,7 @@
 #include "GameResult.h"
 #include "GameData.h"
 #include "DataBase.h"
+#include "SaveData.h"
 
 GameResult* GameResult::m_instance = nullptr;
 
@@ -27,6 +28,12 @@ GameResult::~GameResult()
 }
 
 bool GameResult::Start() {
+
+	ss = NewGO<prefab::CSoundSource>(0);
+	//SE再生
+	ss->Init(L"sound/result.wav");
+	ss->SetVolume(BMG_V);
+	ss->Play(false);
 
 	//変数の準備
 	GameData * gamedata = GameData::GetInstance();
@@ -536,6 +543,12 @@ void GameResult::Update() {
 
 	//最終処理
 	if (FinalFlag == true) {
+		BMG_V -= 0.1f;
+		if (BMG_V < 0.0f) {
+			BMG_V = 0.0f;
+		}
+		ss->SetVolume(BMG_V);
+
 		//フェード
 		MulAlpha += 0.02f;
 		if (MulAlpha > 1.0f) {
@@ -544,7 +557,27 @@ void GameResult::Update() {
 		MulColor = { 1.0f,1.0f,1.0f,MulAlpha };
 		m_spriteRender[11]->SetMulColor(MulColor);
 		if (FinalCount > DeleteTime) {
+			//セーブデータを設定する
+			SaveData * savedata = SaveData::GetInstance();
 			GameData * gamedata = GameData::GetInstance();
+			int stage= gamedata->GetStageNo();
+			stage -= 1;
+			//もしハイスコアが0なら歴代クリア数を加算
+			if (savedata->GetHighScore(stage) == 0) {
+				savedata->PlusClearedStage();
+			}
+			//ハイスコアならハイスコアに代入
+			if (savedata->GetHighScore(stage) < FinalScore) {
+				savedata->SetHighScore(stage, FinalScore);
+			}
+			//モンスター登録処理
+			if (stage == 0) {
+				savedata->SetMonFlag(0);
+				savedata->SetMonFlag(1);
+				savedata->SetMonFlag(2);
+				savedata->SetMonFlag(3);
+				savedata->SetMonFlag(4);
+			}
 			gamedata->SetGameMode(GameData::GameEnd);
 			gamedata->PlusPoint(FinalScore);
 			DeleteGO(this);//おしまい

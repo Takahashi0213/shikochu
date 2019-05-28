@@ -22,6 +22,11 @@ public:
 		return waveNo;
 	}
 
+	//さよならアイテム
+	void DeleteItem() {
+		DeleteGO(this);
+	}
+
 	StarItem();
 	~StarItem();
 	bool Start();
@@ -32,7 +37,7 @@ private:
 	prefab::CSkinModelRender* m_skinModelRender = nullptr;		//スキンモデルレンダラー。
 	CVector3 m_position = CVector3::Zero; // 座標。
 	CQuaternion m_rotation = CQuaternion::Identity; //回転。
-	CVector3 m_scale = CVector3::One; // 拡大率。
+	CVector3 m_scale = { 2.0f,2.0f,2.0f }; // 拡大率。
 	//距離算出用
 	CVector3 itemVec;
 	//消滅時間のタイマー
@@ -40,7 +45,7 @@ private:
 
 	Estete m_stete = Estete_Wait;	//状態
 
-	const float GetRange = 40.0f;	//取得する範囲
+	const float GetRange = 80.0f;	//取得する範囲
 	const CVector3 EffectScale = { 30.0f,30.0f,30.0f }; //取得時のエフェクトの大きさ
 	
 	//光関連

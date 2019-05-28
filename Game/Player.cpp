@@ -28,7 +28,9 @@ Player::~Player()
 {
 	DeleteGO(m_skinModelRender);
 	DeleteGO(m_pointLig);
-	DeleteGOs("Radar");
+	if (LaderFlag == false) {
+		DeleteGOs("Radar");
+	}
 
 	//インスタンスが破棄されたので、nullptrを代入
 	m_instance = nullptr;
@@ -502,7 +504,7 @@ void Player::PlayerJudge() {
 					m_Life = 0;
 
 					int EState = bunbogu->GetEState();
-					if (EState != 0 && DashFlag == true) {//敵が攻撃中の時でない＆ダッシュ状態なら…
+					if (EState != 0 && DashFlag == true || player_state==Estate_Dash) {//敵が攻撃中の時でない＆ダッシュ状態なら…
 
 						bunbogu->SetDeath();//お前も死ね
 
@@ -533,7 +535,7 @@ void Player::PlayerJudge() {
 			//距離判定
 			if (diff.Length() < Langth_hoge) {
 				//もし無敵時間中でないなら
-				if (MutekiTimer == -1) {
+				if (MutekiTimer == -1 || player_state != Estate_Dash) {
 
 					//寿命をゼロに
 					m_Life = 0;
@@ -625,7 +627,7 @@ void Player::PlayerJudge() {
 					m_Life = 0;
 
 					int EState = Shisok->GetEState();
-					if (EState != 1 && DashFlag == true) {//敵が攻撃中の時でない＆ダッシュ状態なら…
+					if (EState != 1 && DashFlag == true || player_state == Estate_Dash) {//敵が攻撃中の時でない＆ダッシュ状態なら…
 
 						//オラァ！
 						Shisok->Damage(Damage);
@@ -654,7 +656,7 @@ void Player::PlayerJudge() {
 			//距離判定
 			if (diff.Length() < Langth_hoge) {
 				//もし無敵時間中でないなら
-				if (MutekiTimer == -1) {
+				if (MutekiTimer == -1 || player_state != Estate_Dash) {
 
 					//寿命をゼロに
 					m_Life = 0;
@@ -662,12 +664,15 @@ void Player::PlayerJudge() {
 					neruk->SetDeath();//お前も死ね
 
 				}
+				if (player_state == Estate_Dash) {
+					neruk->SetDeath();//お前も死ね
+				}
 			}
 		}
 		return true;
 		});
 	//ソウカブトとの距離を計算
-	QueryGOs<soukabuto>("souk", [&](soukabuto* souka) {
+	QueryGOs<soukabuto>("sou", [&](soukabuto* souka) {
 		if (souka->IsActive() == false) {
 			//Activeじゃない。
 			return true;
@@ -727,6 +732,8 @@ void Player::PlayerJudge() {
 
 void Player::PlayerReset() {
 
+	GameData * gamedata = GameData::GetInstance();
+
 	if (ResetTimer == 0) {
 
 		//しんでしまった！
@@ -761,12 +768,26 @@ void Player::PlayerReset() {
 		m_skinModelRender->SetScale(m_scale);
 
 	}
+
+	//もし残機が１ならおしまいですよ
+	int zanki = gamedata->GetZanki();
+	if (zanki == 1 && ResetTimer == DeathLightTime) {
+		gamedata->SetZanki(-1);//残機減少
+		gamedata->SetGameMode(GameData::GameOver);
+		MutekiTimer = -1;
+		m_skinModelRender->SetActiveFlag(false);
+		DeleteGOs("Radar");
+		LaderFlag = true;
+	}
+	else if (zanki == 0) {
+		ResetTimer = 0;
+	}
+
 	//
 	//インターバル終了
 	//
 	if (ResetTimer == ResetAverage) {
 		//ゲームデータから最大寿命を引っ張ってくる
-		GameData * gamedata = GameData::GetInstance();
 		m_Life = gamedata->GetDEF_Life();
 		int mode = gamedata->GetGameMode();
 			//あ～～～～～～
@@ -806,10 +827,14 @@ void Player::PlayerReset() {
 
 void Player::MutekiSupporter() {
 
+	//現在モード
+	GameData * gameData = FindGO<GameData>("GameData");
+	int mode = gameData->GetGameMode();
+
 	//タイマー加算
 	MutekiTimer++;
 
-	if (MutekiTimer >= ResetAverage) {
+	if (MutekiTimer >= ResetAverage && mode != 2) {
 		//ここで点滅処理
 		static int TenmetuTimer = 0;
 		if (TenmetuTimer % 2 == 0) {

@@ -15,5 +15,6 @@ public:
 
 private:
 	CLevel m_level;	//レベルデータ。
+
 };
 

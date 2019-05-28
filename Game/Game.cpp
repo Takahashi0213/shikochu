@@ -5,19 +5,16 @@
 #include "tkEngine/light/tkDirectionLight.h"
 #include "Player_Status.h"
 #include "GameData.h"
-#include "Bunbogu.h"
-#include "Title.h"
 #include "StarItem.h"
 #include "EffectManager.h"
 #include "BackGround.h"
-#include "Neoriku.h"
-#include "shisokus.h"
 #include "WaveManager.h"
-
+#include "UICamera.h"
 #include "LevelSet.h"
 #include "GameResult.h"
 #include "WaveEffect.h"
 #include "StageSelect.h"
+#include "GameOver.h"
 
 Game* Game::m_instance = nullptr;
 
@@ -36,6 +33,9 @@ Game::Game()
 
 Game::~Game()
 {
+	WaveManager * wavemanager = WaveManager::GetInstance();
+	wavemanager->DeleteAll();
+
 	//色々消す
 	DeleteGOs("Bug");
 	DeleteGOs("Gamecamera");
@@ -50,6 +50,10 @@ Game::~Game()
 	//インスタンスが破棄されたので、nullptrを代入
 	m_instance = nullptr;
 
+	GameData * gamedata = GameData::GetInstance();
+	gamedata->SetGameMode(GameData::NotGame);
+
+	NewGO<UICamera>(0, "UICamera");
 	NewGO<StageSelect>(0);
 }
 bool Game::Start()
@@ -68,10 +72,12 @@ bool Game::Start()
 	GameData * gamedata = GameData::GetInstance();
 	gamedata->SetGameMode(GameData::Battle2D_Mode);
 	gamedata->GameDataReset();
+	int stageNo = gamedata->GetStageNo();
+	stageNo--;
 
 	//背景を表示
 	BackGround * background = BackGround::GetInstance();
-	background->StageMaker(BackGround::Stage_1);
+	background->StageMaker(stageNo);
 
 	prefab::CSky* sky = NewGO<prefab::CSky>(0, "Sky");
 	sky->SetScale({ 20000.0f, 20000.0f, 20000.0f });
@@ -87,9 +93,7 @@ bool Game::Start()
 
 	//配置
 	WaveManager * wavemanager = WaveManager::GetInstance();
-	wavemanager->AllStage(0);
-
-	//NewGO<GameResult>(0);
+	wavemanager->AllStage(stageNo);
 
 	NewGO<WaveEffect>(0);
 
@@ -108,6 +112,7 @@ void Game::Update()
 
 	GameData * gamedata = GameData::GetInstance();
 
+	//リザルトに遷移
 	bool resultflag = gamedata->GetResultFlag();
 	if (resultflag==true) {
 		NewGO<GameResult>(0);
@@ -117,5 +122,10 @@ void Game::Update()
 	int mode=gamedata->GetGameMode();
 	if (mode == GameData::GameEnd) {
 		DeleteGO(this);
+	}
+	//しんでしまうとはなさけない！
+	if (mode == GameData::GameOver && GameOverFlag == false) {
+		NewGO<GameOver>(0);
+		GameOverFlag = true;
 	}
 }

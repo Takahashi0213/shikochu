@@ -87,7 +87,7 @@ bool BossHPGage::Start() {
 	r->SetScale({ 1.0f,1.0f,1.0f });
 	r->SetPivot({ 0.5f,0.5f });
 	m_spriteRender.push_back(r);
-	//
+	//ƒ{ƒX‚Ì–¼‘O
 	f = NewGO<prefab::CFontRender>(1);
 	//‚¨‚í
 	swprintf(bossname, bossname);

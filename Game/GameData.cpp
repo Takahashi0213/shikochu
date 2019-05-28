@@ -67,3 +67,16 @@ int GameData::DamageKeisan(bool dashflag) {
 
 	return damage;
 }
+
+void GameData::TestMessage() {
+
+	prefab::CFontRender* m_fontRender;
+	m_fontRender = NewGO<prefab::CFontRender>(1);
+
+	wchar_t text[256];
+	swprintf(text, L"TEST MESSAGE");
+
+	m_fontRender->SetText(text);
+	m_fontRender->SetPosition({ 0.0f,0.0f });
+
+}

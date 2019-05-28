@@ -57,7 +57,8 @@ void LevelSet::LevelSetting(wchar_t LEVEL_Name[255],bool flag,int wave) {
 			neo->SetWave(wave);
 			if (flag == true) {
 				EnemyCount++;
-			}			return true;
+			}		
+			return true;
 		}
 
 		if (objData.EqualObjectName(L"shisokus")) {
@@ -68,9 +69,11 @@ void LevelSet::LevelSetting(wchar_t LEVEL_Name[255],bool flag,int wave) {
 			shi->SetWave(wave);
 			if (flag == true) {
 				EnemyCount++;
-			}			return true;
+			}		
+			return true;
 		}
-		if (objData.EqualObjectName(L"soukabuto")) {
+
+		if (objData.EqualObjectName(L"soukabuto_0")) {
 			soukabuto* sou = NewGO<soukabuto>(0, "sou");
 			sou->SetPosition(objData.position);
 			sou->SetRotation(objData.rotation);
@@ -78,13 +81,16 @@ void LevelSet::LevelSetting(wchar_t LEVEL_Name[255],bool flag,int wave) {
 			sou->SetWave(wave);
 			if (flag == true) {
 				EnemyCount++;
-			}			return true;
+			}		
+			return true;
 		}
-		if (objData.EqualObjectName(L"StarItem")) {
-			StarItem* item = NewGO<StarItem>(0, "Item");
-			item->SetPosition(objData.position);
-			item->SetActiveFlag(flag);
-			item->SetWave(wave);
+
+		/////////////////////////////////////////////////
+		if (objData.EqualObjectName(L"item")) {
+			StarItem* ITEM = NewGO<StarItem>(0, "Item");
+			ITEM->SetPosition(objData.position);
+			ITEM->SetActiveFlag(flag);
+			ITEM->SetWave(wave);
 			return true;
 		}
 		return false;

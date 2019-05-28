@@ -167,7 +167,12 @@ void Player_Status::Update() {
 	swprintf(text, L"%d", gamedata->GetZanki());
 	//‚Í‚¢B
 	m_fontRender->SetText(text);
-	m_fontRender->SetPosition(ZankiPos);
+	if (gamedata->GetZanki() <= 9) {
+		m_fontRender->SetPosition({ ZankiPos.x + ZankiPosXHosei ,ZankiPos.y});
+	}
+	else {
+		m_fontRender->SetPosition(ZankiPos);
+	}
 	m_fontRender->SetScale(ZankiScale);
 	
 }

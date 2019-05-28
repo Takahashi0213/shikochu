@@ -67,6 +67,8 @@ private:
 
 	prefab::CSpriteRender* r;
 	prefab::CFontRender* f;
+	prefab::CSoundSource* ss;
+	float BMG_V = 2.0f;
 
 	int FinalScore = 0; //結果スコア
 	int Point = 0; //所持ポイント
@@ -166,5 +168,6 @@ private:
 	//フェイズ１１ これでほんとうにサヨナラ
 	const int ScoreKasan = 100; //1フレームで加算される数
 	const int DeleteTime = 60; //終了演出の時間
+
 };
 

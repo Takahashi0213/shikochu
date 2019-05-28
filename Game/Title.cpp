@@ -5,6 +5,8 @@
 #include "GameData.h"
 #include "EffectManager.h"
 #include "UICamera.h"
+#include "SaveData.h"
+#include "TransitionMaker.h"
 
 Title* Title::m_instance = nullptr;
 
@@ -35,6 +37,8 @@ bool Title::Start() {
 	NewGO<GameData>(0, "GameData");
 	NewGO<EffectManager>(0, "EffectManager");
 	NewGO<UICamera>(0, "UICamera");
+	NewGO<SaveData>(0, "SaveData");
+	NewGO<TransitionMaker>(0, "TransitionMaker");
 
 	//ƒ^ƒCƒgƒ‹
 	DisableSpecialLigRange();
@@ -47,7 +51,6 @@ bool Title::Start() {
 
 void Title::Update() {
 	if (Pad(0).IsPress(enButtonA)) {
-		DeleteGOs("UICamera");
 		NewGO<StageSelect>(0, "StageSelect");
 
 		DeleteGO(this);
