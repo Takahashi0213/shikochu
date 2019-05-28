@@ -10,6 +10,7 @@
 #include "Radar.h"
 #include "shisokus.h"
 #include "soukabuto.h"
+#include "Nerubikkuri.h"
 
 Player* Player::m_instance = nullptr;
 
@@ -638,6 +639,7 @@ void Player::PlayerJudge() {
 		}
 		return true;
 		});
+
 	//ネルクとの距離を計算
 	QueryGOs<Neruk>("neru", [&](Neruk* neruk) {
 		if (neruk->IsActive() == false) {
@@ -646,7 +648,7 @@ void Player::PlayerJudge() {
 		}
 		CVector3 neruk_position = neruk->Getm_Position();
 		CVector3 diff = neruk_position - position;
-		playerVec = diff;
+
 		//死んでいなければ接触判定
 		if (player_state != Estate_Death) {
 			//＊ダメージレンジは どこだ。
@@ -666,6 +668,7 @@ void Player::PlayerJudge() {
 		}
 		return true;
 		});
+
 	//ソウカブトとの距離を計算
 	QueryGOs<soukabuto>("souk", [&](soukabuto* souka) {
 		if (souka->IsActive() == false) {

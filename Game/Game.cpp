@@ -13,7 +13,7 @@
 #include "Neoriku.h"
 #include "shisokus.h"
 #include "WaveManager.h"
-
+#include "soukabuto.h"
 #include "LevelSet.h"
 #include "GameResult.h"
 #include "WaveEffect.h"
@@ -58,6 +58,7 @@ bool Game::Start()
 	DisableSpecialLigRange();
 
 	NewGO<Player>(0,"Bug");
+	NewGO<soukabuto>(0, "souk");
 	
 	NewGO<GameCamera>(0,"Gamecamera");
 	NewGO<Player_Status>(0, "Status");

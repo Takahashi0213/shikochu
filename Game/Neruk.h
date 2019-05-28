@@ -139,7 +139,7 @@ private:
 
 	int oldmovecount = 3;
 
-	const float DamageLength = 150.0f; //ダメメージを受けけるは範囲だだよ
+	const float DamageLength = 100.0f; //ダメメージを受けけるは範囲だだよ
 	NerukGenerator* m_nerukGenerator = nullptr;
 
 };

@@ -1776,6 +1776,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NakamaLight.cpp" />
     <ClCompile Include="Neoriku.cpp" />
+    <ClCompile Include="Nerubikkuri.cpp" />
     <ClCompile Include="Neruk.cpp" />
     <ClCompile Include="NerukGenerator.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -1826,6 +1827,7 @@
     <ClInclude Include="LevelSet.h" />
     <ClInclude Include="NakamaLight.h" />
     <ClInclude Include="Neoriku.h" />
+    <ClInclude Include="Nerubikkuri.h" />
     <ClInclude Include="Neruk.h" />
     <ClInclude Include="NerukGenerator.h" />
     <ClInclude Include="Player.h" />

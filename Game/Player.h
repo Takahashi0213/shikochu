@@ -157,5 +157,7 @@ private:
 	//エフェクト関連
 	const CVector3 SpawnEffectScale = { 40.0f,40.0f,40.0f }; //スポーンエフェクトの大きさ
 	const float SpawnEffectY = 50.0f;//スポーンエフェクトのY補正
+	//ネルク
+	bool bikkuriflag = false;
 };
 

@@ -73,6 +73,7 @@
     <ClCompile Include="soukabuto.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Nerubikkuri.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -131,6 +132,7 @@
     <ClInclude Include="soukabuto.h">
       <Filter>Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Nerubikkuri.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">

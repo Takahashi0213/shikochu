@@ -80,6 +80,10 @@ namespace tkEngine {
 			{
 				m_sprite.SetMulColor(mulColor);
 			}
+			CVector4 GetMulColor()
+			{
+				return m_sprite.GetMulColor();
+			}
 		public:
 			void Update() override final;
 			void ForwardRender(CRenderContext& rc)override final;

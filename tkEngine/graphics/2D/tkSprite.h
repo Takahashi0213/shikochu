@@ -42,6 +42,10 @@ namespace tkEngine{
 		{
 			m_mulColor = mulColor;
 		}
+		CVector4 GetMulColor()
+		{
+			return m_mulColor;
+		}
 		/*!
 		*@brief	更新
 		*@param[in]	trans		平行移動。

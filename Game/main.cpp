@@ -47,8 +47,8 @@ namespace {
 	{
 		initParam.screenWidth = 1280;
 		initParam.screenHeight = 720;
-		initParam.frameBufferWidth = 640;
-		initParam.frameBufferHeight = 360;
+		initParam.frameBufferWidth = 1280;
+		initParam.frameBufferHeight = 720;
 		
 		//影の設定。
 		initParam.graphicsConfing.shadowRenderConfig.isEnable = false;
@@ -137,6 +137,27 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	
 	//エンジンを初期化。
 	if (Engine().Init(initParam) == true) {
+/*
+		struct SGameData {
+			int level;	//現在のレベル。	
+			int exp;	//経験値。
+		};
+		SGameData gameData;
+		//セーブ
+		{
+			FILE* fp = fopen("save.bin", "w");
+			fwrite(&gameData, sizeof(gameData), 1, fp);
+			fclose(fp);
+		}
+		//ロード
+		{
+			FILE* fp = fopen("save.bin", "r");
+			if (fp != NULL) {
+				fread(&gameData, sizeof(gameData), 1, fp);
+				fclose(fp);
+			}
+		}
+*/
 		dbg::SetDrawVectorEnable();
 		NewGO<Title>(0, nullptr);
 		//NewGO<Game>(0, nullptr);

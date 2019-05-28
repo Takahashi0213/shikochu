@@ -17,6 +17,7 @@
 #include "StarItem.h"
 
 #include "WaveEffect.h"
+#include "Nerubikkuri.h"
 
 WaveManager* WaveManager::m_instance = nullptr;
 
@@ -113,6 +114,7 @@ void WaveManager::Update() {
 				for (int z = 0; z < len + 1; z++) {
 					BOSS_Name[z] = BossName[stage][z];
 				}
+				NewGO<Nerubikkuri>(0, "‚Ñ‚Á‚­‚è");
 				BossHPGage * bossHPgage = BossHPGage::GetInstance();
 				bossHPgage->SetBossName(BOSS_Name);
 				gamedata->SwapGameMode();

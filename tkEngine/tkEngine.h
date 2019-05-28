@@ -117,6 +117,10 @@ namespace tkEngine{
 		* シーンの切り替えなどで、リソースのアンロードが必要な場合に使用してください。
 		*/
 		void ResourceUnload();
+		HWND GetHwnd()
+		{
+			return m_hWnd;
+		}
 #if BUILD_LEVEL != BUILD_LEVEL_MASTER
 		prefab::CVectorRender* GetVectorRender()
 		{
@@ -149,6 +153,7 @@ namespace tkEngine{
 		/// ゲーム部分の更新処理。
 		/// </summary>
 		void GameUpdate();
+		
 	private:
 		HINSTANCE				m_hInst = nullptr;	//!<アプリケーションのインスタンス。
 		HWND					m_hWnd = nullptr;	//!<ウィンドウハンドル。
