@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "Game.h"
 #include "Title.h"
-#include "OP.h"
+#include "TitleStandby.h"
 
 namespace {
 	/*!
@@ -160,7 +160,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		}
 */
 		dbg::SetDrawVectorEnable();
-		NewGO<Title>(0, nullptr);
+		NewGO<TitleStandby>(0, nullptr);
 		//NewGO<Game>(0, nullptr);
 		//ゲームループを実行。
 		Engine().RunGameLoop();

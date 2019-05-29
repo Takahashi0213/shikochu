@@ -15,7 +15,6 @@
 #include "WaveEffect.h"
 #include "StageSelect.h"
 #include "GameOver.h"
-#include "Pi_rabi.h"
 
 Game* Game::m_instance = nullptr;
 
@@ -63,8 +62,7 @@ bool Game::Start()
 	DisableSpecialLigRange();
 
 	NewGO<Player>(0,"Bug");
-	NewGO<Pi_rabi>(0, "rabi");
-
+	
 	NewGO<GameCamera>(0,"Gamecamera");
 	NewGO<Player_Status>(0, "Status");
 	NewGO<BackGround>(0, "BackGround");

@@ -122,6 +122,12 @@ void Player::Update() {
 			//ダッシュ機能
 			if (Pad(0).IsTrigger(enButtonA)) {
 
+				prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+				//SE再生
+				ss->Init(L"sound/dash.wav");
+				ss->SetVolume(1.0f);
+				ss->Play(false);
+
 				CVector3 Dash_Speed = m_moveSpeed;
 				Dash_Speed.Normalize();
 				Dash_Speed *= A_DashSpeed;
@@ -630,6 +636,11 @@ void Player::PlayerJudge() {
 					int EState = Shisok->GetEState();
 					if (EState != 1 && DashFlag == true || player_state == Estate_Dash) {//敵が攻撃中の時でない＆ダッシュ状態なら…
 
+						prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+						ss->Init(L"sound/damage.wav");
+						ss->SetVolume(0.5f);
+						ss->Play(false);
+
 						//オラァ！
 						Shisok->Damage(Damage);
 
@@ -738,6 +749,12 @@ void Player::PlayerReset() {
 	GameData * gamedata = GameData::GetInstance();
 
 	if (ResetTimer == 0) {
+
+		prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+		//SE再生
+		ss->Init(L"sound/P_death.wav");
+		ss->SetVolume(0.5f);
+		ss->Play(false);
 
 		//しんでしまった！
 		player_state = Estate_Death;

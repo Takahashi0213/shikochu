@@ -4,8 +4,6 @@
 #include "shisokus.h"
 #include "NerukGenerator.h"
 
-
-
 Neruk::Neruk()
 {
 }
@@ -264,6 +262,12 @@ void Neruk::NeruSelect() {
 
 }
 void Neruk::NeruDeath() {
+
+	prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+	ss->Init(L"sound/E_death.wav");
+	ss->SetVolume(0.5f);
+	ss->Play(false);
+
 		DeleteGO(this);
 }
 void Neruk::Update() {

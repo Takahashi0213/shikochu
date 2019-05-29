@@ -73,7 +73,6 @@ private:
 	CVector3 neoVec;
 
 	Estete m_stete = Estete_Move; //ó‘Ô
-	CCharacterController m_charaCon; //ƒLƒƒƒ‰ƒRƒ“
 	const int onleZero = 0; //Zerorororo
 
 	//ˆÚ“®ŠÖ˜A

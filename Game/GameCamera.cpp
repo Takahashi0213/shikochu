@@ -162,7 +162,7 @@ void GameCamera::Update() {
 
 		int stage = gamedata->GetStageNo();
 		stage--;
-		if (stage == 0) {//シーソークスにフォーカスする	
+		if (stage == 1) {//シーソークスにフォーカスする	
 			if (ResultCameraFlag == false) {
 				shisokus * shiso = FindGO<shisokus>("shiso");
 				cameraTarget = shiso->Getm_Position();

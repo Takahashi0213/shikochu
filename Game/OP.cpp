@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "OP.h"
 #include "TransitionMaker.h"
+#include "StageSelect.h"
 
 OP* OP::m_instance = nullptr;
 
@@ -382,6 +383,9 @@ void OP::Update() {
 		}
 
 		if (Timer >= Scene5_Limit) {//ŽžŠÔ‚¾
+			TransitionMaker * tm = TransitionMaker::GetInstance();
+			tm->TransitionSetting(TransitionMaker::Fade, 12, 12, true);
+			NewGO<StageSelect>(0);
 			DeleteGO(this);
 		}
 

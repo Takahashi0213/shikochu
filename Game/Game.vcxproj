@@ -1762,15 +1762,12 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Arukasya.cpp" />
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="BossHPGage.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="EffectPlay.cpp" />
     <ClCompile Include="Bunbogu.cpp" />
-    <ClCompile Include="Ekku.cpp" />
-    <ClCompile Include="Fairo.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameData.cpp" />
@@ -1778,24 +1775,19 @@
     <ClCompile Include="GameResult.cpp" />
     <ClCompile Include="LevelSet.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Morikon.cpp" />
     <ClCompile Include="NakamaLight.cpp" />
     <ClCompile Include="Neoriku.cpp" />
     <ClCompile Include="Nerubikkuri.cpp" />
     <ClCompile Include="Neruk.cpp" />
     <ClCompile Include="NerukGenerator.cpp" />
     <ClCompile Include="OP.cpp" />
-    <ClCompile Include="Pairodorago.cpp" />
-    <ClCompile Include="Pi_rabi.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerUpgrade.cpp" />
     <ClCompile Include="Player_Status.cpp" />
     <ClCompile Include="Radar.cpp" />
-    <ClCompile Include="Riritto.cpp" />
     <ClCompile Include="SaveData.cpp" />
     <ClCompile Include="shisokus.cpp" />
     <ClCompile Include="soukabuto.cpp" />
-    <ClCompile Include="SS_001.cpp" />
     <ClCompile Include="StageSelect.cpp" />
     <ClCompile Include="StageWait.cpp" />
     <ClCompile Include="StarItem.cpp" />
@@ -1820,6 +1812,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Preview_Low|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="TitleStandby.cpp" />
     <ClCompile Include="TransitionMaker.cpp" />
     <ClCompile Include="UICamera.cpp" />
     <ClCompile Include="WaveEffect.cpp" />
@@ -1827,7 +1820,6 @@
     <ClCompile Include="Zukan.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Arukasya.h" />
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="BossHPGage.h" />
     <ClInclude Include="Bullet.h" />
@@ -1835,8 +1827,6 @@
     <ClInclude Include="EffectManager.h" />
     <ClInclude Include="EffectPlay.h" />
     <ClInclude Include="Bunbogu.h" />
-    <ClInclude Include="Ekku.h" />
-    <ClInclude Include="Fairo.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameData.h" />
@@ -1844,30 +1834,26 @@
     <ClInclude Include="GameResult.h" />
     <ClInclude Include="LevelData.h" />
     <ClInclude Include="LevelSet.h" />
-    <ClInclude Include="Morikon.h" />
     <ClInclude Include="NakamaLight.h" />
     <ClInclude Include="Neoriku.h" />
     <ClInclude Include="Nerubikkuri.h" />
     <ClInclude Include="Neruk.h" />
     <ClInclude Include="NerukGenerator.h" />
     <ClInclude Include="OP.h" />
-    <ClInclude Include="Pairodorago.h" />
-    <ClInclude Include="Pi_rabi.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerUpgrade.h" />
     <ClInclude Include="Player_Status.h" />
     <ClInclude Include="Radar.h" />
     <CLInclude Include="resource.h" />
-    <ClInclude Include="Riritto.h" />
     <ClInclude Include="SaveData.h" />
     <ClInclude Include="shisokus.h" />
     <ClInclude Include="soukabuto.h" />
-    <ClInclude Include="SS_001.h" />
     <ClInclude Include="StageSelect.h" />
     <ClInclude Include="StageWait.h" />
     <ClInclude Include="StarItem.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Title.h" />
+    <ClInclude Include="TitleStandby.h" />
     <ClInclude Include="TransitionMaker.h" />
     <ClInclude Include="UICamera.h" />
     <ClInclude Include="WaveEffect.h" />
@@ -1877,8 +1863,6 @@
     <ResourceCompile Include="Game.rc" />
   </ItemGroup>
   <ItemGroup>
-    <MeshContentTask Include="Assets\modelData\Arukasya.fbx" />
-    <MeshContentTask Include="Assets\modelData\Bat_Level_1.fbx" />
     <MeshContentTask Include="Assets\modelData\bug.FBX" />
     <MeshContentTask Include="Assets\modelData\bullet.FBX" />
     <MeshContentTask Include="Assets\modelData\bunbo-gu0.FBX" />
@@ -1886,7 +1870,6 @@
     <MeshContentTask Include="Assets\modelData\item.FBX" />
     <MeshContentTask Include="Assets\modelData\neoriku_0.FBX" />
     <MeshContentTask Include="Assets\modelData\Neruk.FBX" />
-    <MeshContentTask Include="Assets\modelData\Rabbit_Level_1.fbx" />
     <MeshContentTask Include="Assets\modelData\shisokus.FBX">
       <FileType>Document</FileType>
     </MeshContentTask>
@@ -1894,8 +1877,10 @@
     <MeshContentTask Include="Assets\modelData\soukabuto_0.FBX" />
     <MeshContentTask Include="Assets\modelData\stage1.FBX" />
     <MeshContentTask Include="Assets\modelData\stage2.FBX" />
+    <MeshContentTask Include="Assets\modelData\stage3.FBX" />
     <MeshContentTask Include="Assets\modelData\StageMini1.FBX" />
     <MeshContentTask Include="Assets\modelData\StageMini2.FBX" />
+    <MeshContentTask Include="Assets\modelData\StageMini3.FBX" />
     <MeshContentTask Include="Assets\modelData\StageSelect_Back.FBX" />
     <MeshContentTask Include="Assets\modelData\unityChan.fbx" />
     <MeshContentTask Include="Assets\modelData\Zukan_Back.FBX" />
@@ -2070,6 +2055,37 @@
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\bikkuri.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\Title\Exit.png" />
+    <ImageContentTask Include="Assets\sprite\Title\LoadGame.png" />
+    <ImageContentTask Include="Assets\sprite\Title\NewGame.png" />
+    <ImageContentTask Include="Assets\sprite\Title\Tiele2.png" />
+    <ImageContentTask Include="Assets\sprite\Title\Tiele2_h.png" />
+    <ImageContentTask Include="Assets\sprite\Title\Title1.png" />
+    <ImageContentTask Include="Assets\sprite\Title\Title1BG_Full.png" />
+    <ImageContentTask Include="Assets\sprite\Title\Title1BG_Touka.png" />
+    <ImageContentTask Include="Assets\sprite\Title\Title1_h.png" />
+    <ImageContentTask Include="Assets\sprite\Title\Title2BG_Full.png" />
+    <ImageContentTask Include="Assets\sprite\Title\Title2BG_Touka.png" />
+    <ImageContentTask Include="Assets\sprite\Title\Title3.png" />
+    <ImageContentTask Include="Assets\sprite\Title\Title3BG_Full.png" />
+    <ImageContentTask Include="Assets\sprite\Title\Title3BG_Touka.png" />
+    <ImageContentTask Include="Assets\sprite\Title\Title3_h.png" />
+    <ImageContentTask Include="Assets\sprite\Title\TitleIC.png" />
+    <ImageContentTask Include="Assets\sprite\Title\TitlrLoop1.png" />
+    <ImageContentTask Include="Assets\sprite\Title\TitlrLoop2.png" />
+    <ImageContentTask Include="Assets\sprite\Title\TitlrLoop3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\gameover.png" />
+    <ImageContentTask Include="Assets\sprite\loadimg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\Message\m_3_1.png" />
+    <ImageContentTask Include="Assets\sprite\Message\m_3_2.png" />
+    <ImageContentTask Include="Assets\sprite\Message\m_3_3.png" />
+    <ImageContentTask Include="Assets\sprite\Message\m_3_a.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

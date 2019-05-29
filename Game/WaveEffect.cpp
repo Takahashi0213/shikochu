@@ -52,6 +52,12 @@ bool WaveEffect::Start() {
 	
 	//ボス演出の時のみ出す
 	if (Wave == MaxWave) {
+		prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+		//SE再生
+		ss->Init(L"sound/Boss.wav");
+		ss->SetVolume(1.0f);
+		ss->Play(false);
+
 		//2番→キケン1
 		r = NewGO<prefab::CSpriteRender>(10);
 		r->Init(L"sprite/Kiken.dds", 1280.0f, 150.0f);
@@ -261,6 +267,14 @@ void WaveEffect::Update() {
 		MulColor = { 1.0f,1.0f,1.0f,Accalf };
 		m_spriteRender[9]->SetMulColor(MulColor);
 
+	}
+
+	if (Wave != MaxWave && Timer==10) {
+		prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+		//SE再生
+		ss->Init(L"sound/Wave.wav");
+		ss->SetVolume(1.0f);
+		ss->Play(false);
 	}
 
 	//ぶっぱ

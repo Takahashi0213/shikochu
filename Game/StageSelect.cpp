@@ -62,6 +62,8 @@ bool StageSelect::Start() {
 	m_animClips[enAnimationClip_motion1].SetLoopFlag(true);
 	m_animClips[enAnimationClip_motion2].Load(L"animData/StageMini2.tka");
 	m_animClips[enAnimationClip_motion2].SetLoopFlag(true);
+	m_animClips[enAnimationClip_motion3].Load(L"animData/StageMini3.tka");
+	m_animClips[enAnimationClip_motion3].SetLoopFlag(true);
 
 	//必要な有象無象を設定するぜ
 	//0番 上の飾り
@@ -253,7 +255,7 @@ void StageSelect::Update(){
 					StageWait * sw = StageWait::GetInstance();
 					sw->WaitDelete();
 					TransitionMaker * tm = TransitionMaker::GetInstance();
-					tm->TransitionSetting(TransitionMaker::Toziru, 12, 50, true);
+					tm->TransitionSetting(TransitionMaker::Toziru, 12, 30, true);
 					StartFlag = true;
 				}
 			}
@@ -295,11 +297,11 @@ void StageSelect::Update(){
 
 			}
 		}
-		else if (Selected_Counter == 40) {
+		else if (Selected_Counter == 25) {
 			TransitionMaker * tm = TransitionMaker::GetInstance();
 			tm->TransitionSetting(TransitionMaker::Toziru, 12, 0, false);
 		}
-		else if (Selected_Counter == 60) {
+		else if (Selected_Counter == 40) {
 			TransitionMaker * tm = TransitionMaker::GetInstance();
 			tm->TransitionSetting(TransitionMaker::Toziru, 12, 10, true);
 			NewGO<PlayerUpgrade>(0);
@@ -332,11 +334,11 @@ void StageSelect::Update(){
 
 			}
 		}
-		else if (Selected_Counter == 40) {
+		else if (Selected_Counter == 25) {
 			TransitionMaker * tm = TransitionMaker::GetInstance();
 			tm->TransitionSetting(TransitionMaker::Toziru, 12, 0, false);
 		}
-		else if (Selected_Counter == 60) {
+		else if (Selected_Counter == 40) {
 			TransitionMaker * tm = TransitionMaker::GetInstance();
 			tm->TransitionSetting(TransitionMaker::Toziru, 12, 10, true);
 			UICamera * UIcamera = UICamera::GetInstance();
@@ -354,12 +356,22 @@ void StageSelect::Update(){
 		if (IdouFlag == false) {
 			if (Pad(0).IsTrigger(enButtonUp)) {
 				if (SelectStageNow < MAX_Stage - 1) {
+					prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+					ss->Init(L"sound/SS.wav");
+					ss->SetVolume(1.0f);
+					ss->Play(false);
+
 					SelectStageNow++;
 					IdouFlag = true;
 				}
 			}
 			if (Pad(0).IsTrigger(enButtonDown)) {
 				if (SelectStageNow != 0) {
+					prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+					ss->Init(L"sound/SS.wav");
+					ss->SetVolume(1.0f);
+					ss->Play(false);
+
 					SelectStageNow--;
 					IdouFlag = true;
 				}
@@ -367,6 +379,11 @@ void StageSelect::Update(){
 
 			//これでおけ
 			if (Pad(0).IsTrigger(enButtonStart)) {
+				prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+				ss->Init(L"sound/stageStart.wav");
+				ss->SetVolume(0.5f);
+				ss->Play(false);
+
 				SelectedFlag = true;
 				GameData * gamedata = GameData::GetInstance();
 				gamedata->SetStageNo(SelectStageNow+1); //ステージNoを決めるね
@@ -374,11 +391,23 @@ void StageSelect::Update(){
 
 			//強化画面へ…
 			if (Pad(0).IsTrigger(enButtonRB1)) {
+				prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+				//SE再生
+				ss->Init(L"sound/kettei.wav");
+				ss->SetVolume(1.0f);
+				ss->Play(false);
+
 				SelectedFlag = true;
 				KyokaFlag = true;
 			}
 			//図鑑画面へ…
 			if (Pad(0).IsTrigger(enButtonLB1)) {
+				prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+				//SE再生
+				ss->Init(L"sound/kettei.wav");
+				ss->SetVolume(1.0f);
+				ss->Play(false);
+
 				SelectedFlag = true;
 				ZukanFlag = true;
 			}

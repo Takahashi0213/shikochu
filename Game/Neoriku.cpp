@@ -26,12 +26,6 @@ bool Neoriku::Start() {
 	m_skinModelRender->SetForwardRenderFlag(true);
 
 	m_scale = { 2.0f,2.0f,2.0f };
-	m_charaCon.Init(
-		35.0f,  //キャラクターの半径。
-		10.0f,  //キャラクターの高さ。
-		m_position //キャラクターの初期座標。
-	);
-
 
 	return true;
 }
@@ -123,10 +117,14 @@ void Neoriku::NeoMove() {
 	CQuaternion qRot;
 	qRot.SetRotation(enemyForward, diff);
 	m_rotation = qRot;
-	m_position = m_charaCon.Execute(moveVec);
 
 }
 void Neoriku::NeoDeath() {
+
+	prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+	ss->Init(L"sound/E_death.wav");
+	ss->SetVolume(0.5f);
+	ss->Play(false);
 
 	EffectManager * effectmanager = EffectManager::GetInstance();
 	CVector3 EF_Position = m_position;

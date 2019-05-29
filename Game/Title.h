@@ -47,6 +47,7 @@ private:
 
 	std::vector<prefab::CSpriteRender*> m_spriteRender;
 	prefab::CSpriteRender* r;
+	prefab::CSoundSource* ss;
 
 	CVector4 MulColor{ 1.0f,1.0f,1.0f,1.0f };
 
@@ -103,6 +104,7 @@ private:
 	float setloop3_1x = 200.0f;
 	float setloop3_2x = -800.0f;
 
-
+	float BGM_V = 1.0f;
+	int Timer = 0;
 };
 

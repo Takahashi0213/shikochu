@@ -23,6 +23,9 @@
     <Filter Include="STAGE_SELECT">
       <UniqueIdentifier>{c2b7c0b2-2c12-4639-8b18-df8ad1a93b6a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\sprite\Title">
+      <UniqueIdentifier>{dd4507fd-4dc7-425b-ada8-b9f7043fad85}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -91,30 +94,7 @@
     </ClCompile>
     <ClCompile Include="OP.cpp" />
     <ClCompile Include="Nerubikkuri.cpp" />
-    <ClCompile Include="Morikon.cpp">
-      <Filter>Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Pi_rabi.cpp">
-      <Filter>Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Arukasya.cpp">
-      <Filter>Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="SS_001.cpp">
-      <Filter>Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Riritto.cpp">
-      <Filter>Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Pairodorago.cpp">
-      <Filter>Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Fairo.cpp">
-      <Filter>Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Ekku.cpp">
-      <Filter>Enemy</Filter>
-    </ClCompile>
+    <ClCompile Include="TitleStandby.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -194,30 +174,7 @@
     </ClInclude>
     <ClInclude Include="OP.h" />
     <ClInclude Include="Nerubikkuri.h" />
-    <ClInclude Include="Morikon.h">
-      <Filter>Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Pi_rabi.h">
-      <Filter>Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Arukasya.h">
-      <Filter>Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="SS_001.h">
-      <Filter>Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Riritto.h">
-      <Filter>Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Pairodorago.h">
-      <Filter>Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Fairo.h">
-      <Filter>Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Ekku.h">
-      <Filter>Enemy</Filter>
-    </ClInclude>
+    <ClInclude Include="TitleStandby.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
@@ -276,13 +233,10 @@
     <MeshContentTask Include="Assets\modelData\hatena.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\Bat_Level_1.fbx">
+    <MeshContentTask Include="Assets\modelData\StageMini3.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\Rabbit_Level_1.fbx">
-      <Filter>Assets\modelData</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\Arukasya.fbx">
+    <MeshContentTask Include="Assets\modelData\stage3.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>
@@ -516,5 +470,80 @@
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\bikkuri.png" />
+    <ImageContentTask Include="Assets\sprite\Title\Exit.png">
+      <Filter>Assets\sprite\Title</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Title\LoadGame.png">
+      <Filter>Assets\sprite\Title</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Title\NewGame.png">
+      <Filter>Assets\sprite\Title</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Title\Tiele2.png">
+      <Filter>Assets\sprite\Title</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Title\Tiele2_h.png">
+      <Filter>Assets\sprite\Title</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Title\Title1.png">
+      <Filter>Assets\sprite\Title</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Title\Title1_h.png">
+      <Filter>Assets\sprite\Title</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Title\Title1BG_Full.png">
+      <Filter>Assets\sprite\Title</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Title\Title1BG_Touka.png">
+      <Filter>Assets\sprite\Title</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Title\Title2BG_Full.png">
+      <Filter>Assets\sprite\Title</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Title\Title2BG_Touka.png">
+      <Filter>Assets\sprite\Title</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Title\Title3.png">
+      <Filter>Assets\sprite\Title</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Title\Title3_h.png">
+      <Filter>Assets\sprite\Title</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Title\Title3BG_Full.png">
+      <Filter>Assets\sprite\Title</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Title\Title3BG_Touka.png">
+      <Filter>Assets\sprite\Title</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Title\TitleIC.png">
+      <Filter>Assets\sprite\Title</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Title\TitlrLoop1.png">
+      <Filter>Assets\sprite\Title</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Title\TitlrLoop2.png">
+      <Filter>Assets\sprite\Title</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Title\TitlrLoop3.png">
+      <Filter>Assets\sprite\Title</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\loadimg.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\gameover.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Message\m_3_a.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Message\m_3_3.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Message\m_3_2.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Message\m_3_1.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
   </ItemGroup>
 </Project>

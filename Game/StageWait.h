@@ -33,6 +33,9 @@ private:
 	bool DeleteFlag = false;
 	int DeleteTimer = 0;
 
+	bool Accflag = false;
+	float MulAlphaAcc = 1.0f;
+
 	//ジャンプスタート画像
 	int JumpTimer = 0;
 	float JumpPosY = 0.0f;
@@ -40,14 +43,30 @@ private:
 	float JumpSclY = 0.0f;
 
 	//メッセージ*3
-	const wchar_t Message[6][255]{
+	const wchar_t Message[9][255]{
 	{ L"sprite/Message/m_1_1.dds" }, //文章画像をここに
 	{ L"sprite/Message/m_1_2.dds" },
 	{ L"sprite/Message/m_1_3.dds" },
 	{ L"sprite/Message/m_2_1.dds" },
 	{ L"sprite/Message/m_2_2.dds" },
 	{ L"sprite/Message/m_2_3.dds" },
+	{ L"sprite/Message/m_3_1.dds" },
+	{ L"sprite/Message/m_3_2.dds" },
+	{ L"sprite/Message/m_3_3.dds" },
+
 	};
 
+	const bool MessageAcc[3]{//メッセージアクセサリの有無
+		false,
+		false,
+		true,
+	};
+
+	const wchar_t MessageAccName[3][255]{//メッセージアクセサリの名前
+		{ L"" }, 
+		{ L"" }, 
+		{ L"sprite/Message/m_3_a.dds" }, 
+
+	};
 };
 

@@ -85,6 +85,12 @@ void soukabuto::Souattack() {
 
 }
 void soukabuto::Soudeath() {
+
+	prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+	ss->Init(L"sound/E_death.wav");
+	ss->SetVolume(0.5f);
+	ss->Play(false);
+
 	EffectManager * effectmanager = EffectManager::GetInstance();
 	CVector3 EF_Position = m_position;
 	EF_Position.y += 50.0f;

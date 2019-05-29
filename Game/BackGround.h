@@ -25,6 +25,7 @@ private:
 	wchar_t DetaBase[5][30]{
 	{ L"modelData/stage1.cmo" },
 	{ L"modelData/stage2.cmo" },
+	{ L"modelData/stage3.cmo" },
 
 	};
 
@@ -32,6 +33,7 @@ private:
 	bool physicsFlag[5]{
 		false,
 		true,
+		false,
 	};
 
 	wchar_t ST_Name[30] = { L"" };	//ステージ名保管用

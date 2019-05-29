@@ -6,6 +6,7 @@ public:
 	enum Estete {
 		Estete_Wait,  //待機
 		Estete_Death, //死
+		Estete_Death2, //取得されずに死んだ
 	};
 
 	//座標を設定。
@@ -24,7 +25,7 @@ public:
 
 	//さよならアイテム
 	void DeleteItem() {
-		DeleteGO(this);
+		m_stete = Estete_Death2;
 	}
 
 	StarItem();
