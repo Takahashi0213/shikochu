@@ -11,6 +11,9 @@
 #include "Ekku.h"
 #include "Pi_rabi.h"
 #include "Fairo.h"
+#include "Morikon.h"
+#include "Riritto.h"
+#include "Arukasya.h"
 
 Radar::Radar()
 {
@@ -140,6 +143,63 @@ void Radar::Update() {
 		}
 		CVector3 player_position = player->Getm_Position();
 		CVector3 enemy_position = fairo->Getm_Position();
+		CVector3 diff = enemy_position - player_position;
+
+		diff.Normalize();
+		diff *= 40.0f;
+
+		CVector3 pointPos = player_position + diff;
+
+		m_skinModelRender->UpdateInstancingData(pointPos, CQuaternion::Identity, { 0.2f, 0.2f, 0.2f });
+		return true;
+		});
+
+	//モリコンとの距離を計算
+	QueryGOs<Morikon>("Morikon", [&](Morikon* morikon) {
+		if (morikon->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 player_position = player->Getm_Position();
+		CVector3 enemy_position = morikon->Getm_Position();
+		CVector3 diff = enemy_position - player_position;
+
+		diff.Normalize();
+		diff *= 40.0f;
+
+		CVector3 pointPos = player_position + diff;
+
+		m_skinModelRender->UpdateInstancingData(pointPos, CQuaternion::Identity, { 0.2f, 0.2f, 0.2f });
+		return true;
+		});
+
+	//リリットとの距離を計算
+	QueryGOs<Riritto>("Riritto", [&](Riritto* riritto) {
+		if (riritto->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 player_position = player->Getm_Position();
+		CVector3 enemy_position = riritto->Getm_Position();
+		CVector3 diff = enemy_position - player_position;
+
+		diff.Normalize();
+		diff *= 40.0f;
+
+		CVector3 pointPos = player_position + diff;
+
+		m_skinModelRender->UpdateInstancingData(pointPos, CQuaternion::Identity, { 0.2f, 0.2f, 0.2f });
+		return true;
+		});
+
+	//アルカシャとの距離を計算
+	QueryGOs<Arukasya>("Arukasya", [&](Arukasya* arukasya) {
+		if (arukasya->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 player_position = player->Getm_Position();
+		CVector3 enemy_position = arukasya->Getm_Position();
 		CVector3 diff = enemy_position - player_position;
 
 		diff.Normalize();

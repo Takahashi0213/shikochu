@@ -22,6 +22,64 @@ public:
 		enAnimationClip_Num,  //アニメーションクリップ
 	};
 
+	//ポジションを返す関数
+
+	CVector3 SS_001::Getm_Position() {
+		return m_position;
+	}
+	//ステートを返す関数
+	int SS_001::GetEState() {
+		return m_stete;
+	}
+	//ダメージ範囲を教える関数
+	float GetDamageLength() {
+		return DamageLength;
+	}
+
+	//自分が死ぬ関数
+	int SS_001::SetDeath() {
+		m_stete = Estete_Death;
+		return 0;
+	}
+
+	//座標を設定。
+	void SetPosition(CVector3 pos)
+	{
+		m_position = pos;
+	}
+	//回転を設定。
+	void SetRotation(CQuaternion rot)
+	{
+		m_rotation = rot;
+	}
+
+	//引数分HPを減少させる
+	void Damage(int x) {
+		NowHP -= x;
+		if (NowHP < 0) {//負の数にならないようにしておく
+			NowHP = 0;
+		}
+	}
+
+	//現在HPを返す
+	int GetHP() {
+		return NowHP;
+	}
+
+	//最大HPを返す
+	int GetMAXHP() {
+		return MAXHP;
+	}
+
+	//所属Waveをセット
+	void SetWave(int x) {
+		waveNo = x;
+	}
+	//所属Waveを返す
+	int GetWave() {
+		return waveNo;
+	}
+
 private:
 
 	/*
@@ -44,6 +102,8 @@ private:
 
 	Estete m_stete = Estete_Move; //状態
 	CCharacterController m_charaCon; //キャラコン
+
+	const float DamageLength = 2680.0f; //ダメメージを受けけるは範囲だだよ
 
 	int waveNo = 0; //自分が属するWaveの番号
 

@@ -71,6 +71,21 @@ bool Zukan::Start() {
 	hoge++;
 	m_mo7anim[0].Load(MonsterAnime[hoge]);
 	m_mo7anim[0].SetLoopFlag(true);
+	hoge++;
+	m_mo8anim[0].Load(MonsterAnime[hoge]);
+	m_mo8anim[0].SetLoopFlag(true);
+	hoge++;
+	m_mo9anim[0].Load(MonsterAnime[hoge]);
+	m_mo9anim[0].SetLoopFlag(true);
+	hoge++;
+	m_mo10anim[0].Load(MonsterAnime[hoge]);
+	m_mo10anim[0].SetLoopFlag(true);
+	hoge++;
+	m_mo11anim[0].Load(MonsterAnime[hoge]);
+	m_mo11anim[0].SetLoopFlag(true);
+	hoge++;
+	m_mo12anim[0].Load(MonsterAnime[hoge]);
+	m_mo12anim[0].SetLoopFlag(true);
 
 	//0î‘ îwåióp
 	r = NewGO<prefab::CSpriteRender>(3);
@@ -371,9 +386,39 @@ void Zukan::KoumokuUpdate() {
 			m_skinModelRender[1]->Init(ModelName, m_mo7anim, 1);
 			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
 		}
+		if (SelectNow == 8) {
+			DeleteGO(m_skinModelRender[1]);
+			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
+			m_skinModelRender[1]->Init(ModelName, m_mo8anim, 1);
+			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
+		}
+		if (SelectNow == 9) {
+			DeleteGO(m_skinModelRender[1]);
+			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
+			m_skinModelRender[1]->Init(ModelName, m_mo9anim, 1);
+			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
+		}
+		if (SelectNow == 10) {
+			DeleteGO(m_skinModelRender[1]);
+			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
+			m_skinModelRender[1]->Init(ModelName, m_mo10anim, 1);
+			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
+		}
+		if (SelectNow == 11) {
+			DeleteGO(m_skinModelRender[1]);
+			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
+			m_skinModelRender[1]->Init(ModelName, m_mo11anim, 1);
+			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
+		}
+		if (SelectNow == 12) {
+			DeleteGO(m_skinModelRender[1]);
+			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
+			m_skinModelRender[1]->Init(ModelName, m_mo12anim, 1);
+			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
+		}
 
 		m_skinModelRender[1]->SetScale(M_Scale[SelectNow]);
-		m_skinModelRender[1]->SetPosition({ 90.0f,60.0f + Y_Hosei[SelectNow], 0.0f });
+		m_skinModelRender[1]->SetPosition({ 90.0f + X_Hosei[SelectNow],60.0f + Y_Hosei[SelectNow], 0.0f + Z_Hosei[SelectNow] });
 
 		//ÉÇÉìÉXÉ^Å[ñº
 		for (int i = 0; i < 255; i++) {

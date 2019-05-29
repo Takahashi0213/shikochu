@@ -28,6 +28,11 @@ private:
 	CAnimationClip m_mo5anim[1];
 	CAnimationClip m_mo6anim[1];
 	CAnimationClip m_mo7anim[1];
+	CAnimationClip m_mo8anim[1];
+	CAnimationClip m_mo9anim[1];
+	CAnimationClip m_mo10anim[1];
+	CAnimationClip m_mo11anim[1];
+	CAnimationClip m_mo12anim[1];
 
 	CVector3 m_position = CVector3::Zero; // ç¿ïWÅB
 	CQuaternion m_rotation = CQuaternion::Identity; //âÒì]ÅB
