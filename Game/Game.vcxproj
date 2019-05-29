@@ -1812,6 +1812,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Preview_Low|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="TitleStandby.cpp" />
     <ClCompile Include="TransitionMaker.cpp" />
     <ClCompile Include="UICamera.cpp" />
     <ClCompile Include="WaveEffect.cpp" />
@@ -1852,6 +1853,7 @@
     <ClInclude Include="StarItem.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Title.h" />
+    <ClInclude Include="TitleStandby.h" />
     <ClInclude Include="TransitionMaker.h" />
     <ClInclude Include="UICamera.h" />
     <ClInclude Include="WaveEffect.h" />
@@ -1875,8 +1877,10 @@
     <MeshContentTask Include="Assets\modelData\soukabuto_0.FBX" />
     <MeshContentTask Include="Assets\modelData\stage1.FBX" />
     <MeshContentTask Include="Assets\modelData\stage2.FBX" />
+    <MeshContentTask Include="Assets\modelData\stage3.FBX" />
     <MeshContentTask Include="Assets\modelData\StageMini1.FBX" />
     <MeshContentTask Include="Assets\modelData\StageMini2.FBX" />
+    <MeshContentTask Include="Assets\modelData\StageMini3.FBX" />
     <MeshContentTask Include="Assets\modelData\StageSelect_Back.FBX" />
     <MeshContentTask Include="Assets\modelData\unityChan.fbx" />
     <MeshContentTask Include="Assets\modelData\Zukan_Back.FBX" />
@@ -2051,6 +2055,37 @@
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\bikkuri.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\Title\Exit.png" />
+    <ImageContentTask Include="Assets\sprite\Title\LoadGame.png" />
+    <ImageContentTask Include="Assets\sprite\Title\NewGame.png" />
+    <ImageContentTask Include="Assets\sprite\Title\Tiele2.png" />
+    <ImageContentTask Include="Assets\sprite\Title\Tiele2_h.png" />
+    <ImageContentTask Include="Assets\sprite\Title\Title1.png" />
+    <ImageContentTask Include="Assets\sprite\Title\Title1BG_Full.png" />
+    <ImageContentTask Include="Assets\sprite\Title\Title1BG_Touka.png" />
+    <ImageContentTask Include="Assets\sprite\Title\Title1_h.png" />
+    <ImageContentTask Include="Assets\sprite\Title\Title2BG_Full.png" />
+    <ImageContentTask Include="Assets\sprite\Title\Title2BG_Touka.png" />
+    <ImageContentTask Include="Assets\sprite\Title\Title3.png" />
+    <ImageContentTask Include="Assets\sprite\Title\Title3BG_Full.png" />
+    <ImageContentTask Include="Assets\sprite\Title\Title3BG_Touka.png" />
+    <ImageContentTask Include="Assets\sprite\Title\Title3_h.png" />
+    <ImageContentTask Include="Assets\sprite\Title\TitleIC.png" />
+    <ImageContentTask Include="Assets\sprite\Title\TitlrLoop1.png" />
+    <ImageContentTask Include="Assets\sprite\Title\TitlrLoop2.png" />
+    <ImageContentTask Include="Assets\sprite\Title\TitlrLoop3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\gameover.png" />
+    <ImageContentTask Include="Assets\sprite\loadimg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\Message\m_3_1.png" />
+    <ImageContentTask Include="Assets\sprite\Message\m_3_2.png" />
+    <ImageContentTask Include="Assets\sprite\Message\m_3_3.png" />
+    <ImageContentTask Include="Assets\sprite\Message\m_3_a.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

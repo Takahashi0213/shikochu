@@ -94,8 +94,9 @@ public:
 private:
 	//ハイスコア
 	int HighScore[Stage]{
-		0,
-		0,
+		72,
+		72,
+		72,
 	};
 
 	//モンスターの図鑑登録済みフラグ
@@ -112,6 +113,6 @@ private:
 	int Life_Upgrade = 0; //寿命強化回数
 
 	//クリアしたステージ
-	int ClearedStage = 0;
+	int ClearedStage = 2;
 };
 

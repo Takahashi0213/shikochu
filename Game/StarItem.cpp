@@ -11,6 +11,7 @@ StarItem::StarItem()
 
 StarItem::~StarItem()
 {
+
 	DeleteGO(m_skinModelRender);
 	DeleteGO(m_pointLig);
 
@@ -33,6 +34,10 @@ bool StarItem::Start() {
 
 	m_skinModelRender->SetPosition(m_position);
 
+	//Effect再生
+	EffectManager * effectmanager = EffectManager::GetInstance();
+	effectmanager->EffectPlayer(EffectManager::ItemSpawn, m_position, EffectScale);
+
 	return true;
 }
 
@@ -46,6 +51,11 @@ void StarItem::Update() {
 		itemVec = diff;
 		//距離が一定以下なら自死
 		if (diff.Length() < GetRange) {
+			prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+			ss->Init(L"sound/Item.wav");
+			ss->SetVolume(1.0f);
+			ss->Play(false);
+
 			//Effect再生
 			EffectManager * effectmanager = EffectManager::GetInstance();
 			effectmanager->EffectPlayer(EffectManager::ItemGet, m_position, EffectScale);
@@ -56,13 +66,25 @@ void StarItem::Update() {
 			m_stete = Estete_Death;
 		}
 	}
-	else {
+	else if(m_stete== Estete_Death){
 		//消滅中
 		GameData * gamedata = GameData::GetInstance();
 		gamedata->Star_PowerChange(1);
 		m_scale -= {0.1f, 0.1f, 0.1f};//小さくなる
 		itemTimer--;
 		if (itemTimer <= 0) {//タイマーが0でインスタンスを削除
+			DeleteGO(this);
+		}
+	}
+	else if (m_stete == Estete_Death2) {
+		//消滅中
+		m_scale -= {0.1f, 0.1f, 0.1f};//小さくなる
+		itemTimer--;
+		if (itemTimer <= 0) {//タイマーが0でインスタンスを削除
+			//Effect再生
+			EffectManager * effectmanager = EffectManager::GetInstance();
+			effectmanager->EffectPlayer(EffectManager::ItemSpawn, m_position, EffectScale);
+
 			DeleteGO(this);
 		}
 	}

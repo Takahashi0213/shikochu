@@ -3,6 +3,7 @@
 #include "GameData.h"
 #include "DataBase.h"
 #include "SaveData.h"
+#include "TransitionMaker.h"
 
 GameResult* GameResult::m_instance = nullptr;
 
@@ -184,6 +185,11 @@ void GameResult::Update() {
 	{
 		if (Hoge_Couneter == BonusAverage) {//ある程度経ったら
 
+			prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+			ss->Init(L"sound/kettei.wav");
+			ss->SetVolume(0.5f);
+			ss->Play(false);
+
 			f = NewGO<prefab::CFontRender>(1);
 			//表示
 			wchar_t text[256];
@@ -209,6 +215,11 @@ void GameResult::Update() {
 	{
 		if (Hoge_Couneter == BonusAverage) {//ある程度経ったら
 
+			prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+			ss->Init(L"sound/kettei.wav");
+			ss->SetVolume(0.5f);
+			ss->Play(false);
+
 			f = NewGO<prefab::CFontRender>(1);
 			//表示
 			wchar_t text[256];
@@ -233,6 +244,11 @@ void GameResult::Update() {
 	case scene1_ItemBonus://アイテムボーナスを表示する
 	{
 		if (Hoge_Couneter == BonusAverage) {//ある程度経ったら
+
+			prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+			ss->Init(L"sound/kettei.wav");
+			ss->SetVolume(0.5f);
+			ss->Play(false);
 
 			f = NewGO<prefab::CFontRender>(1);
 			//表示
@@ -269,6 +285,11 @@ void GameResult::Update() {
 	case scene1_MatometeScore://スコアを表示する
 	{
 		if (Hoge_Couneter == ScoreAverage) {//ある程度経ったら
+
+			prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+			ss->Init(L"sound/kettei.wav");
+			ss->SetVolume(0.5f);
+			ss->Play(false);
 
 			f = NewGO<prefab::CFontRender>(1);
 			//表示
@@ -338,6 +359,12 @@ void GameResult::Update() {
 			}
 			if (RunkKakudaiMin > HogePosition1) {//下限になった！
 				HogePosition1 = RunkKakudaiMin;
+
+				prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+				ss->Init(L"sound/Result_dodon.wav");
+				ss->SetVolume(0.5f);
+				ss->Play(false);
+
 				RunkFlag = true;
 			}
 			if (RunkFlag == true && HogePosition1 > 1.0f) {//上限になった！
@@ -455,8 +482,18 @@ void GameResult::Update() {
 	case scene2_ScoreKasan://スコア分がポイントになるぞ
 	{
 		if (HogeFlag == false) {//加算
+			prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+			ss->Init(L"sound/Result_Ka.wav");
+			ss->SetVolume(0.5f);
+			ss->Play(false);
+
 			Point_Count += ScoreKasan; 
 			if (Point_Count > Point) {
+				prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+				ss->Init(L"sound/Result_gageEND.wav");
+				ss->SetVolume(0.5f);
+				ss->Play(false);
+
 				Point_Count = Point;
 				HogeFlag = true;
 			}
@@ -527,14 +564,9 @@ void GameResult::Update() {
 			}else if (ResultScene == scene2) {
 				//終了！
 				if (FinalFlag == false) {
-					//11番→ブラックアウト
-					r = NewGO<prefab::CSpriteRender>(11);
-					r->Init(L"sprite/Black.dds", 1280.0f, 720.0f);
-					MulAlpha = 0.0f;
-					MulColor = { 1.0f,1.0f,1.0f,MulAlpha };
-					r->SetMulColor(MulColor);
-					r->SetScale(CVector3::One);
-					m_spriteRender.push_back(r);
+					TransitionMaker * tm = TransitionMaker::GetInstance();
+					tm->TransitionSetting(TransitionMaker::Fade, 60, 0, false);
+
 					FinalFlag = true;//終了演出フラグを立てる			
 				}
 			}
@@ -543,20 +575,12 @@ void GameResult::Update() {
 
 	//最終処理
 	if (FinalFlag == true) {
-		BMG_V -= 0.1f;
-		if (BMG_V < 0.0f) {
-			BMG_V = 0.0f;
-		}
-		ss->SetVolume(BMG_V);
 
-		//フェード
-		MulAlpha += 0.02f;
-		if (MulAlpha > 1.0f) {
-			MulAlpha = 1.0f;
-		}
-		MulColor = { 1.0f,1.0f,1.0f,MulAlpha };
-		m_spriteRender[11]->SetMulColor(MulColor);
 		if (FinalCount > DeleteTime) {
+
+			TransitionMaker * tm = TransitionMaker::GetInstance();
+			tm->TransitionSetting(TransitionMaker::Fade, 60, 30, true);
+
 			//セーブデータを設定する
 			SaveData * savedata = SaveData::GetInstance();
 			GameData * gamedata = GameData::GetInstance();

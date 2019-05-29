@@ -4,6 +4,7 @@
 #include "GameData.h"
 #include "NerukGenerator.h"
 #include "BossHPGage.h"
+#include "EffectManager.h"
 
 shisokus::shisokus()
 {
@@ -12,12 +13,14 @@ shisokus::shisokus()
 
 shisokus::~shisokus()
 {
+	DeleteGOs("nerukGenerator");
+
 	DeleteGO(m_skinModelRender);
 
 }
 
 bool shisokus::Start() {
-
+	
 	NewGO<NerukGenerator>(0, "nerukGenerator");
 
 	//アニメーション
@@ -131,7 +134,35 @@ void shisokus::shisoDeath() {
 		DeleteGO(nerukGenerator);
 	}
 
+	if (DeathTimer == 12) {
+		//Effect再生
+		EffectManager * effectmanager = EffectManager::GetInstance();
+		effectmanager->EffectPlayer(EffectManager::Bakuhatu, m_position, { 500.0f,500.0f,500.0f });
+	}
+	if (DeathTimer == 70) {
+		//Effect再生
+		EffectManager * effectmanager = EffectManager::GetInstance();
+		effectmanager->EffectPlayer(EffectManager::Bakuhatu, m_position, { 500.0f,500.0f,500.0f });
+	}
+	if (DeathTimer == 160) {
+		//Effect再生
+		EffectManager * effectmanager = EffectManager::GetInstance();
+		effectmanager->EffectPlayer(EffectManager::Bakuhatu, m_position, { 500.0f,500.0f,500.0f });
+	}
+	if (DeathTimer == 230) {
+		//Effect再生
+		EffectManager * effectmanager = EffectManager::GetInstance();
+		effectmanager->EffectPlayer(EffectManager::Bakuhatu, { m_position.x + 500.0f,m_position.y, m_position.z-2000.0f}, { 1000.0f,1000.0f,1000.0f });
+	}
+
+
 	if (ToumeiTimeMAX == DeathTimer) {
+		prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+		ss->Init(L"sound/Boss_death.wav");
+		ss->SetVolume(0.5f);
+		ss->SetFrequencyRatio(0.5f);
+		ss->Play(false);
+
 		m_scale = CVector3::Zero;
 	}
 

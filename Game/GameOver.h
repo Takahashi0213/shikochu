@@ -17,5 +17,7 @@ private:
 	std::vector<prefab::CSpriteRender*> m_spriteRender;
 	prefab::CSpriteRender* r;
 
+	int DeleteTimer = 0;
+	bool DeleteFlag = false;
 };
 

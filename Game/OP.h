@@ -76,7 +76,7 @@ private:
 	{ -1 },
 	};
 
-	float BMG_V = 1.0f;
+	float BMG_V = 0.8f;
 
 	//†Å‹
 	int KamisibaiNo = -1;

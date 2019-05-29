@@ -6,6 +6,7 @@ public:
 	enum EnAnimationClip {
 		enAnimationClip_motion1, //動く1
 		enAnimationClip_motion2, //動く2
+		enAnimationClip_motion3, //動く3
 		enAnimationClip_Num,  //アニメーションクリップ
 	};
 
@@ -55,7 +56,7 @@ private:
 
 	float RotBox = 3.0f;
 
-	float BMG_V = 1.0f;
+	float BMG_V = 2.0f;
 
 	bool StartFlag = false;
 	int StartCount = 0;

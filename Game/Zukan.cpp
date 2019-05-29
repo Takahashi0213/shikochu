@@ -188,6 +188,11 @@ void Zukan::Update() {
 			}
 		}
 		else if (Pad(0).IsTrigger(enButtonRB1)) {
+			prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+			ss->Init(L"sound/heiten2.wav");
+			ss->SetVolume(1.0f);
+			ss->Play(false);
+
 			DeleteFlag = true;
 		}
 
@@ -205,6 +210,10 @@ void Zukan::Update() {
 		if (Timer == 12) {
 			TransitionMaker * tm = TransitionMaker::GetInstance();
 			tm->TransitionSetting(TransitionMaker::Toziru, 12, 10, false);
+			prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+			ss->Init(L"sound/heiten1.wav");
+			ss->SetVolume(3.0f);
+			ss->Play(false);
 		}
 		if (Timer < 50) {//‰æ–Ê‰‰o
 			CVector3 scl = m_spriteRender[1]->GetScale();

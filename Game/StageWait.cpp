@@ -38,6 +38,11 @@ void StageWait::Update() {
 			m_spriteRender[0]->SetMulColor(MulColor);
 			m_spriteRender[1]->SetMulColor(MulColor);
 			m_spriteRender[5]->SetMulColor(MulColor);
+
+			if (Accflag == true) {
+				m_spriteRender[6]->SetMulColor(MulColor);
+			}
+
 		}
 		//土台がバシュン
 		if (Timer < 7) {
@@ -45,18 +50,33 @@ void StageWait::Update() {
 			scl.x += 0.1f;
 			scl.y += 0.01f;
 			m_spriteRender[1]->SetScale(scl);
+
+			if (Accflag == true) {
+				m_spriteRender[6]->SetScale(scl);
+			}
+
 		}
 		else if (Timer < 13) {
 			CVector3 scl = m_spriteRender[1]->GetScale();
 			scl.x -= 0.12f;
 			scl.y += 0.25f;
 			m_spriteRender[1]->SetScale(scl);
+
+			if (Accflag == true) {
+				m_spriteRender[6]->SetScale(scl);
+			}
+
 		}
 		else if (Timer < 19) {
 			CVector3 scl = m_spriteRender[1]->GetScale();
 			scl.x += 0.2f;
 			scl.y -= 0.1f;
 			m_spriteRender[1]->SetScale(scl);
+
+			if (Accflag == true) {
+				m_spriteRender[6]->SetScale(scl);
+			}
+
 		}
 		else if(Timer < 60) {
 			CVector3 scl = m_spriteRender[1]->GetScale();
@@ -87,17 +107,32 @@ void StageWait::Update() {
 			}
 
 			m_spriteRender[1]->SetScale(scl);
+
+			if (Accflag == true) {
+				m_spriteRender[6]->SetScale(scl);
+			}
+
 		}
 		//土台がムーヴヴヴ
 		if (Timer < 7) {
 			CVector3 pos = m_spriteRender[1]->GetPosition();
 			pos.y += 0.05f;
 			m_spriteRender[1]->SetPosition(pos);
+
+			if (Accflag == true) {
+				m_spriteRender[6]->SetPosition(pos);
+			}
+
 		}
 		else if (Timer < 13) {
 			CVector3 pos = m_spriteRender[1]->GetPosition();
 			pos.y -= 0.05f;
 			m_spriteRender[1]->SetPosition(pos);
+
+			if (Accflag == true) {
+				m_spriteRender[6]->SetPosition(pos);
+			}
+
 		}
 
 		//////////////////////////////////////////////////////////////
@@ -149,8 +184,12 @@ void StageWait::Update() {
 	if (DeleteFlag == true) {
 		if (DeleteTimer < 60) {
 			MulAlpha -= 0.05f;
+			MulAlphaAcc -= 0.05f;
 			if (MulAlpha < 0.0f) {
 				MulAlpha = 0.0f;
+			}		
+			if (MulAlphaAcc < 0.0f) {
+				MulAlphaAcc = 0.0f;
 			}
 			MulColor = { 1.0f,1.0f,1.0f,MulAlpha };
 			m_spriteRender[0]->SetMulColor(MulColor);
@@ -159,6 +198,11 @@ void StageWait::Update() {
 			m_spriteRender[3]->SetMulColor(MulColor);
 			m_spriteRender[4]->SetMulColor(MulColor);
 			m_spriteRender[5]->SetMulColor(MulColor);
+			MulColor = { MulAlphaAcc,MulAlphaAcc,MulAlphaAcc,1.0f };
+			if (Accflag == true) {
+				m_spriteRender[6]->SetMulColor(MulColor);
+			}
+
 		}
 		if (DeleteTimer == 60) {
 			DeleteGO(this);
@@ -217,6 +261,21 @@ void StageWait::WaitSet(int stage) {
 	r->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
 	r->SetScale({ 1.0f ,1.0f,1.0f });
 	m_spriteRender.push_back(r);
+
+	if (MessageAcc[stage] == true) {
+		//6番 メッセージアクセサリー
+		r = NewGO<prefab::CSpriteRender>(16);
+		r->Init(MessageAccName[stage], 1002.0f, 617.0f);
+		r->SetPosition({ 0.0f ,70.0f,0.0f });
+		r->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
+		r->SetScale({ 1.0f ,1.0f,1.0f });
+		m_spriteRender.push_back(r);
+
+		Accflag = true;
+	}
+	else {
+		Accflag = false;
+	}
 
 	//フラグググ
 	Flag = true;

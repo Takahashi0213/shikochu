@@ -36,11 +36,11 @@ bool PlayerUpgrade::Start() {
 	//SE
 	ss = NewGO<prefab::CSoundSource>(0);
 	ss->Init(L"sound/SE_On.wav");
-	ss->SetVolume(1.0f);
+	ss->SetVolume(2.0f);
 	ss->Play(false);
 	ss = NewGO<prefab::CSoundSource>(0);
 	ss->Init(L"sound/SE_On2.wav");
-	ss->SetVolume(0.5f);
+	ss->SetVolume(2.0f);
 	ss->Play(false);
 
 	Setting();
@@ -350,6 +350,11 @@ void PlayerUpgrade::Update() {
 	//挙動
 	if (startTimer >= 72 && DeleteFlag==false) {
 		if (Pad(0).IsTrigger(enButtonUp)) {
+			prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+			ss->Init(L"sound/select.wav");
+			ss->SetVolume(1.0f);
+			ss->Play(false);
+
 			CommandNow--;
 			if (CommandNow == -1) {
 				CommandNow = 2;
@@ -361,6 +366,11 @@ void PlayerUpgrade::Update() {
 			CommandUpdate();
 		}
 		else if (Pad(0).IsTrigger(enButtonDown)) {
+			prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+			ss->Init(L"sound/select.wav");
+			ss->SetVolume(1.0f);
+			ss->Play(false);
+
 			CommandNow++;
 			if (CommandNow == 3) {
 				CommandNow = 0;
@@ -380,6 +390,11 @@ void PlayerUpgrade::Update() {
 			case 0://残機
 				//もしMAXなら買えない
 				if (zanki_Point == -1) {
+					prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+					ss->Init(L"sound/blip.wav");
+					ss->SetVolume(1.0f);
+					ss->Play(false);
+
 					TransceiverStandby();
 					Transceiver(L"コレイジョウ\nナニヲ フヤスト\nイウノデス？");
 					buruFlag = true;
@@ -388,6 +403,11 @@ void PlayerUpgrade::Update() {
 				//買えるか確認
 				if (zanki_Point <= point) {
 					//買える
+					prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+					ss->Init(L"sound/powerup.wav");
+					ss->SetVolume(1.0f);
+					ss->Play(false);
+
 					TransceiverStandby();
 					Transceiver(L"アリガトウゴザイマス");
 					savedata->PlusZanki_Upgrade();
@@ -407,6 +427,11 @@ void PlayerUpgrade::Update() {
 				}
 				else {
 					//買えない
+					prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+					ss->Init(L"sound/blip.wav");
+					ss->SetVolume(1.0f);
+					ss->Play(false);
+
 					TransceiverStandby();
 					Transceiver(L"ポイントガ タリマセン");
 					buruFlag = true;
@@ -415,6 +440,11 @@ void PlayerUpgrade::Update() {
 			case 1://攻撃
 				   //もしMAXなら買えない
 				if (attack_Point == -1) {
+					prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+					ss->Init(L"sound/blip.wav");
+					ss->SetVolume(1.0f);
+					ss->Play(false);
+
 					TransceiverStandby();
 					Transceiver(L"アナタ ツヨスギデス");
 					buruFlag = true;
@@ -423,6 +453,11 @@ void PlayerUpgrade::Update() {
 				//買えるか確認
 				if (attack_Point <= point) {
 					//買える
+					prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+					ss->Init(L"sound/powerup.wav");
+					ss->SetVolume(1.0f);
+					ss->Play(false);
+
 					TransceiverStandby();
 					Transceiver(L"アリガトウゴザイマス");
 					savedata->PlusAttack_Upgrade();
@@ -442,6 +477,11 @@ void PlayerUpgrade::Update() {
 				}
 				else {
 					//買えない
+					prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+					ss->Init(L"sound/blip.wav");
+					ss->SetVolume(1.0f);
+					ss->Play(false);
+
 					TransceiverStandby();
 					Transceiver(L"ポイントガ タリマセン");
 					buruFlag = true;
@@ -450,6 +490,11 @@ void PlayerUpgrade::Update() {
 			case 2://寿命
 				   //もしMAXなら買えない
 				if (jyumyo_Point == -1) {
+					prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+					ss->Init(L"sound/blip.wav");
+					ss->SetVolume(1.0f);
+					ss->Play(false);
+
 					TransceiverStandby();
 					Transceiver(L"コレガ アナタノ\nゲンカイデスヨ");
 					buruFlag = true;
@@ -458,6 +503,11 @@ void PlayerUpgrade::Update() {
 				//買えるか確認
 				if (jyumyo_Point <= point) {
 					//買える
+					prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+					ss->Init(L"sound/powerup.wav");
+					ss->SetVolume(1.0f);
+					ss->Play(false);
+
 					TransceiverStandby();
 					Transceiver(L"アリガトウゴザイマス");
 					savedata->PlusLife_Upgrade();
@@ -477,6 +527,11 @@ void PlayerUpgrade::Update() {
 				}
 				else {
 					//買えない
+					prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+					ss->Init(L"sound/blip.wav");
+					ss->SetVolume(1.0f);
+					ss->Play(false);
+
 					TransceiverStandby();
 					Transceiver(L"ポイントガ タリマセン");
 					buruFlag = true;

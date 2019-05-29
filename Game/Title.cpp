@@ -7,7 +7,7 @@
 #include "UICamera.h"
 #include "SaveData.h"
 #include "TransitionMaker.h"
-
+#include "OP.h"
 
 class FadeOut : public IGameObject {
 public :
@@ -77,12 +77,10 @@ Title::~Title()
 
 bool Title::Start() {
 
-	//ゲームデータ
-	NewGO<GameData>(0, "GameData");
-	NewGO<EffectManager>(0, "EffectManager");
-	NewGO<UICamera>(0, "UICamera");
-	NewGO<SaveData>(0, "SaveData");
-	NewGO<TransitionMaker>(0, "TransitionMaker");
+	ss = NewGO<prefab::CSoundSource>(0);
+	ss->Init(L"sound/Title.wav");
+	ss->SetVolume(BGM_V);
+	ss->Play(true);
 
 	//NewGame用タイトル
 	//0番→NewGame背景
@@ -275,6 +273,12 @@ void Title::minimove() {
 	CVector3 getpos = m_spriteRender[22]->GetPosition();
 	movetimer++;
 
+	BGM_V -= 0.1f;
+	if (BGM_V < 0.0f) {
+		BGM_V = 0.0f;
+	}
+	ss->SetVolume(BGM_V);
+
 	if (movetimer < 10.0f) {
 		getpos.x -= 10.0f;
 		m_spriteRender[22]->SetPosition({ getpos.x,	minipos.y,0.0f });
@@ -344,7 +348,13 @@ void Title::NewMove() {
 		m_spriteRender[0]->SetMulColor({ 1.0f,1.0f,1.0f,Feathertoumaina });
 		m_spriteRender[1]->SetMulColor({ 1.0f,1.0f,1.0f,Feathertoumaina });
 
-		if (Pad(0).IsTrigger(enButtonDown)) {
+		if (Pad(0).IsTrigger(enButtonDown) && miniflag == false) {
+			prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+			//SE再生
+			ss->Init(L"sound/TitleSelect.wav");
+			ss->SetVolume(1.0f);
+			ss->Play(false);
+
 			m_new = NewDisappear;
 		}
 
@@ -453,11 +463,23 @@ void Title::LoadMove() {
 		m_spriteRender[5]->SetMulColor({ 1.0f,1.0f,1.0f,Feathertoumaina });
 		m_spriteRender[6]->SetMulColor({ 1.0f,1.0f,1.0f,Feathertoumaina });
 
-		if (Pad(0).IsTrigger(enButtonUp)) {
+		if (Pad(0).IsTrigger(enButtonUp) && miniflag == false) {
+			prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+			//SE再生
+			ss->Init(L"sound/TitleSelect.wav");
+			ss->SetVolume(1.0f);
+			ss->Play(false);
+
 			m_load = LoadUp;
 			selectflag = false;
 		}
-		else if (Pad(0).IsTrigger(enButtonDown)) {
+		else if (Pad(0).IsTrigger(enButtonDown) && miniflag == false) {
+			prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+			//SE再生
+			ss->Init(L"sound/TitleSelect.wav");
+			ss->SetVolume(1.0f);
+			ss->Play(false);
+
 			m_load = LoadUp;
 			selectflag = true;
 		}
@@ -575,7 +597,13 @@ void Title::ExitMove() {
 		m_spriteRender[10]->SetMulColor({ 1.0f,1.0f,1.0f,Feathertoumaina });
 		m_spriteRender[11]->SetMulColor({ 1.0f,1.0f,1.0f,Feathertoumaina });
 
-			if (Pad(0).IsTrigger(enButtonUp)) {
+			if (Pad(0).IsTrigger(enButtonUp) && miniflag == false) {
+				prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+				//SE再生
+				ss->Init(L"sound/TitleSelect.wav");
+				ss->SetVolume(1.0f);
+				ss->Play(false);
+
 				m_exit = Exitdown2;
 			}
 
@@ -633,14 +661,25 @@ void Title::ExitMove() {
 void Title::GameStart(){
 
 	NewMove();
-	if (Pad(0).IsTrigger(enButtonA)) {
+	if (Pad(0).IsTrigger(enButtonA) && miniflag == false && Timer > 60) {
+		prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+		//SE再生
+		ss->Init(L"sound/TitleOK.wav");
+		ss->SetVolume(1.0f);
+		ss->Play(false);
+
 		miniflag = true;
+		TransitionMaker * tm = TransitionMaker::GetInstance();
+		tm->TransitionSetting(TransitionMaker::Fade, 12, 12, false);
 	}
 	if (minimoveflag == false && miniflag == true) {
 		minimove();
 	}
 	else if (minimoveflag == true) {
-		NewGO<StageSelect>(0, "StageSelect");
+		TransitionMaker * tm = TransitionMaker::GetInstance();
+		tm->TransitionSetting(TransitionMaker::Fade, 12, 30, true);
+		//NewGO<OP>(0, "OP");
+		NewGO<StageSelect>(0);
 
 		DeleteGO(this);
 	}
@@ -648,7 +687,13 @@ void Title::GameStart(){
 void Title::GameMore() {
 	
 	LoadMove();
-	if (Pad(0).IsTrigger(enButtonA)) {
+	if (Pad(0).IsTrigger(enButtonA) && miniflag==false &&  Timer > 60) {
+		prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+		//SE再生
+		ss->Init(L"sound/TitleOK.wav");
+		ss->SetVolume(1.0f);
+		ss->Play(false);
+
 		miniflag = true;
 	}
 	if (minimoveflag == false && miniflag == true) {
@@ -669,7 +714,13 @@ void Title::GameMore() {
 }
 void Title::GameEnd() {
 	ExitMove();
-	if (Pad(0).IsTrigger(enButtonA)) {
+	if (Pad(0).IsTrigger(enButtonA) && miniflag == false && Timer > 60) {
+		prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+		//SE再生
+		ss->Init(L"sound/TitleOK.wav");
+		ss->SetVolume(1.0f);
+		ss->Play(false);
+
 		miniflag = true;
 	}
 	if (minimoveflag == false && miniflag == true) {
@@ -702,6 +753,9 @@ void Title::Update() {
 		break;
 
 	}
+
+	Timer++;
+
 	if (miniflag == false) {
 		minimusi();
 	}

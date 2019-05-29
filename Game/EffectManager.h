@@ -11,6 +11,8 @@ public:
 		spawn,//出現時のエフェクト
 		star,//移動後に出すやつ5
 		enemySpawn,//敵がすっぽんぽん
+		ItemSpawn, //アイテムが出たり消えたり！
+		Bakuhatu, //どかーん
 	};
 
 	EffectManager();
@@ -29,12 +31,14 @@ public:
 private:
 
 	//エフェクトファイル名
-	wchar_t DetaBase[5][30]{
+	wchar_t DetaBase[7][30]{
 		{ L"" },//Nullなので何もない
 		{ L"effect/Item.efk" },
 		{ L"effect/spawn.efk" },
 		{ L"effect/star.efk" },
 		{ L"effect/enemySpawn.efk" },
+		{ L"effect/itemSpawn.efk" },
+		{ L"effect/bakuha.efk" },
 
 	};
 
