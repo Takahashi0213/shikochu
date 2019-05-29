@@ -10,6 +10,11 @@
 #include "Ekku.h"
 #include "Pi_rabi.h"
 #include "Fairo.h"
+#include "Pairodorago.h"
+#include "Morikon.h"
+#include "Riritto.h"
+#include "Arukasya.h"
+#include "SS_001.h"
 
 //ƒMƒ~ƒbƒN
 #include "StarItem.h"
@@ -119,6 +124,66 @@ void LevelSet::LevelSetting(wchar_t LEVEL_Name[255],bool flag,int wave) {
 			fairo->SetRotation(objData.rotation);
 			fairo->SetActiveFlag(flag);
 			fairo->SetWave(wave);
+			if (flag == true) {
+				EnemyCount++;
+			}
+			return true;
+		}
+
+		if (objData.EqualObjectName(L"DragonTerrorBringerMesh")) {
+			Pairodorago* pairodorago = NewGO<Pairodorago>(0, "Pairodorago");
+			pairodorago->SetPosition(objData.position);
+			pairodorago->SetRotation(objData.rotation);
+			pairodorago->SetActiveFlag(flag);
+			pairodorago->SetWave(wave);
+			if (flag == true) {
+				EnemyCount++;
+			}
+			return true;
+		}
+
+		if (objData.EqualObjectName(L"Bat_Level_1")) {
+			Morikon* morikon = NewGO<Morikon>(0, "Morikon");
+			morikon->SetPosition(objData.position);
+			morikon->SetRotation(objData.rotation);
+			morikon->SetActiveFlag(flag);
+			morikon->SetWave(wave);
+			if (flag == true) {
+				EnemyCount++;
+			}
+			return true;
+		}
+
+		if (objData.EqualObjectName(L"Riritto")) {
+			Riritto* riritto = NewGO<Riritto>(0, "Riritto");
+			riritto->SetPosition(objData.position);
+			riritto->SetRotation(objData.rotation);
+			riritto->SetActiveFlag(flag);
+			riritto->SetWave(wave);
+			if (flag == true) {
+				EnemyCount++;
+			}
+			return true;
+		}
+
+		if (objData.EqualObjectName(L"Arukasya")) {
+			Arukasya* arukasya = NewGO<Arukasya>(0, "Arukasya");
+			arukasya->SetPosition(objData.position);
+			arukasya->SetRotation(objData.rotation);
+			arukasya->SetActiveFlag(flag);
+			arukasya->SetWave(wave);
+			if (flag == true) {
+				EnemyCount++;
+			}
+			return true;
+		}
+
+		if (objData.EqualObjectName(L"SS_001")) {
+			SS_001* ss_001 = NewGO<SS_001>(0, "SS_001");
+			ss_001->SetPosition(objData.position);
+			ss_001->SetRotation(objData.rotation);
+			ss_001->SetActiveFlag(flag);
+			ss_001->SetWave(wave);
 			if (flag == true) {
 				EnemyCount++;
 			}

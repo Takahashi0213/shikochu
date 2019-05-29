@@ -2,7 +2,7 @@
 
 //図鑑のデータベース
 
-const int Monster = 8; //項目数
+const int Monster = 13; //項目数
 
 //モデル
 const wchar_t MonsterModel[Monster][128]{
@@ -14,6 +14,11 @@ const wchar_t MonsterModel[Monster][128]{
 { L"modelData/Ekku.cmo" },
 { L"modelData/Rabbit_Level_1.cmo" },
 { L"modelData/Fairo.cmo" },
+{ L"modelData/DragonTerrorBringerMesh.cmo" },
+{ L"modelData/Bat_Level_1.cmo" },
+{ L"modelData/Riritto.cmo" },
+{ L"modelData/Arukasya.cmo" },
+{ L"modelData/SS_001.cmo" },
 
 };
 
@@ -27,6 +32,11 @@ const wchar_t MonsterAnime[Monster][128]{
 { L"animData/Ekwalk.tka" },
 { L"animData/P_idel.tka" },
 { L"animData/Faiwalk.tka" },
+{ L"animData/piro_Bigidle.tka" },
+{ L"animData/Mori_idel.tka" },
+{ L"animData/Ririwalk.tka" },
+{ L"animData/Aruwalk.tka" },
+{ L"animData/SSwalk.tka" },
 
 };
 
@@ -40,6 +50,11 @@ const wchar_t MonsterName[Monster][128]{
 { L"エック" },
 { L"ピーラビ" },
 { L"ファイロ" },
+{ L"パイロドラゴ" },
+{ L"モリコン" },
+{ L"リリット" },
+{ L"アルカシャ" },
+{ L"SS-001" },
 
 };
 
@@ -53,6 +68,11 @@ const wchar_t Setumei[Monster][255]{
 { L"あげええももげげほおおん\nみゃ\nぐおおおおおおおお" },
 { L"ばかやろう" },
 { L"なんの？" },
+{ L"いいいいい！！？？\nんんんん？？？？\nほほほほう" },
+{ L"うおおあえ" },
+{ L"ふはは" },
+{ L"アルカシャ～" },
+{ L"あ！い！ううううう" },
 
 };
 
@@ -66,6 +86,29 @@ const CVector3 M_Scale[Monster]{
 	{ 2.0f,2.0f,2.0f },
 	{ 30.0f,30.0f,30.0f },
 	{ 1.0f,1.0f,1.0f },
+	{ 20.0f, 20.0f, 20.0f },
+{ 20.0f, 20.0f, 20.0f },
+{ 1.0f,1.0f,1.0f },
+{ 2.0f,2.0f,2.0f },
+{ 0.5f,0.5f,0.5f },
+
+};
+
+//図鑑用X補正
+const float X_Hosei[Monster]{
+	{ 0.0f },
+{ 0.0f },
+{ 0.0f },
+{ 0.0f },
+{ 0.0f },
+{ 0.0f },
+{ 0.0f },
+{ 0.0f },
+{ 50.0f },
+{ 50.0f },
+{ 0.0f },
+{ 0.0f },
+{ 0.0f },
 
 };
 
@@ -73,11 +116,34 @@ const CVector3 M_Scale[Monster]{
 const float Y_Hosei[Monster]{
 	{ 0.0f },
 	{ 0.0f },
+	{ -20.0f },
 	{ 0.0f },
 	{ 0.0f },
+	{ -50.0f },
+	{ -50.0f },
+	{ -50.0f },
+	{ -100.0f },
+{ -160.0f },
+{ 0.0f },
+{ -60.0f },
+{ 0.0f },
+
+};
+
+//図鑑用Z補正
+const float Z_Hosei[Monster]{
 	{ 0.0f },
-	{ 0.0f },
-	{-30.0f },
-	{ -30.0f },
+{ 0.0f },
+{ -100.0f },
+{ 0.0f },
+{ 0.0f },
+{ -100.0f },
+{ 0.0f },
+{ 0.0f },
+{ 0.0f },
+{ 0.0f },
+{ 0.0f },
+{ 0.0f },
+{ 0.0f },
 
 };

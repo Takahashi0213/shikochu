@@ -17,6 +17,11 @@
 #include "Ekku.h"
 #include "Pi_rabi.h"
 #include "Fairo.h"
+#include "Pairodorago.h"
+#include "Morikon.h"
+#include "Riritto.h"
+#include "Arukasya.h"
+#include "SS_001.h"
 
 //ギミック
 #include "StarItem.h"
@@ -168,6 +173,77 @@ void WaveManager::Update() {
 				return true;
 				});
 
+			QueryGOs<Pairodorago>("Pairodorago", [&](Pairodorago* pairodorago) {
+				//対象の所属Waveを取得
+				int wave = pairodorago->GetWave();
+				if (NowWave == wave) {
+					//アクティブ化
+					Enemy++;
+					pairodorago->SetActiveFlag(true);
+				}
+				return true;
+				});
+
+			QueryGOs<Morikon>("Morikon", [&](Morikon* morikon) {
+				//対象の所属Waveを取得
+				int wave = morikon->GetWave();
+				if (NowWave == wave) {
+					//アクティブ化
+					Enemy++;
+					morikon->SetActiveFlag(true);
+					EffectManager * effectmanager = EffectManager::GetInstance();
+					CVector3 EF_Position = morikon->Getm_Position();
+					EF_Position.y += 50.0f;
+					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+				}
+				return true;
+				});
+
+			QueryGOs<Riritto>("Riritto", [&](Riritto* riritto) {
+				//対象の所属Waveを取得
+				int wave = riritto->GetWave();
+				if (NowWave == wave) {
+					//アクティブ化
+					Enemy++;
+					riritto->SetActiveFlag(true);
+					EffectManager * effectmanager = EffectManager::GetInstance();
+					CVector3 EF_Position = riritto->Getm_Position();
+					EF_Position.y += 50.0f;
+					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+				}
+				return true;
+				});
+
+			QueryGOs<Arukasya>("Arukasya", [&](Arukasya* arukasya) {
+				//対象の所属Waveを取得
+				int wave = arukasya->GetWave();
+				if (NowWave == wave) {
+					//アクティブ化
+					Enemy++;
+					arukasya->SetActiveFlag(true);
+					EffectManager * effectmanager = EffectManager::GetInstance();
+					CVector3 EF_Position = arukasya->Getm_Position();
+					EF_Position.y += 50.0f;
+					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+				}
+				return true;
+				});
+
+			QueryGOs<SS_001>("SS_001", [&](SS_001* ss_001) {
+				//対象の所属Waveを取得
+				int wave = ss_001->GetWave();
+				if (NowWave == wave) {
+					//アクティブ化
+					Enemy++;
+					ss_001->SetActiveFlag(true);
+					EffectManager * effectmanager = EffectManager::GetInstance();
+					CVector3 EF_Position = ss_001->Getm_Position();
+					EF_Position.y += 50.0f;
+					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+				}
+				return true;
+				});
+
 			//アイテム
 			QueryGOs<StarItem>("Item", [&](StarItem* staritem) {
 				//対象の所属Waveを取得
@@ -294,6 +370,31 @@ void WaveManager::DeleteAll() {
 
 	QueryGOs<Fairo>("Fairo", [&](Fairo* fairo) {
 		fairo->SetDeath();
+		return true;
+		});
+
+	QueryGOs<Pairodorago>("Pairodorago", [&](Pairodorago* pairodorago) {
+		pairodorago->SetDeath();
+		return true;
+		});
+
+	QueryGOs<Morikon>("Morikon", [&](Morikon* morikon) {
+		morikon->SetDeath();
+		return true;
+		});
+
+	QueryGOs<Riritto>("Riritto", [&](Riritto* riritto) {
+		riritto->SetDeath();
+		return true;
+		});
+
+	QueryGOs<Arukasya>("Arukasya", [&](Arukasya* arukasya) {
+		arukasya->SetDeath();
+		return true;
+		});
+
+	QueryGOs<SS_001>("SS_001", [&](SS_001* ss_001) {
+		ss_001->SetDeath();
 		return true;
 		});
 

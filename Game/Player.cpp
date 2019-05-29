@@ -15,6 +15,11 @@
 #include "Ekku.h"
 #include "Pi_rabi.h"
 #include "Fairo.h"
+#include "Pairodorago.h"
+#include "Morikon.h"
+#include "Riritto.h"
+#include "Arukasya.h"
+#include "SS_001.h"
 
 Player* Player::m_instance = nullptr;
 
@@ -855,6 +860,242 @@ void Player::PlayerJudge() {
 					if (DashFlag == true) {//ダッシュ状態なら…
 
 						fairo->SetDeath();//お前も死ね
+
+						if (Hantei == true) {
+							//ギリギリボーナスカウントを+1
+							gamedata->GiriCounter();
+							//ボーナス成立のエフェクトを表示
+							EffectManager * effectmanager = EffectManager::GetInstance();
+							effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
+							//gamedata->TestMessage();
+						}
+					}
+
+
+				}
+			}
+		}
+		return true;
+		});
+
+	//パイロドラゴとの距離を計算
+	QueryGOs<Pairodorago>("Pairodorago", [&](Pairodorago* pairodorago) {
+		if (pairodorago->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 Shisok_position = pairodorago->Getm_Position();
+		CVector3 diff = Shisok_position - position;
+		playerVec = diff;
+		//死んでいなければ接触判定
+		if (player_state != Estate_Death) {
+			//＊ダメージレンジは どこだ。
+			float Langth_hoge = pairodorago->GetDamageLength();
+			//距離判定
+			if (diff.Length() < Langth_hoge) {
+				//もし無敵時間中でないなら
+				if (MutekiTimer == -1) {
+
+					//ダメージを前もって計算
+					GameData * gamedata = GameData::GetInstance();
+					bool dash;
+					if (player_state == Estate_Dash) {
+						dash = true;
+					}
+					else {
+						dash = false;
+					}
+					int Damage = (int)gamedata->DamageKeisan(dash);
+
+					//寿命をゼロに
+					m_Life = 0;
+
+					int EState = pairodorago->GetEState();
+					if (EState != 1 && DashFlag == true || player_state == Estate_Dash) {//敵が攻撃中の時でない＆ダッシュ状態なら…
+
+						prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+						ss->Init(L"sound/damage.wav");
+						ss->SetVolume(0.5f);
+						ss->Play(false);
+
+						//オラァ！
+						pairodorago->Damage(Damage);
+
+					}
+
+
+				}
+			}
+		}
+		return true;
+		});
+
+	//モリコンとの距離を計算
+	QueryGOs<Morikon>("Morikon", [&](Morikon* morikon) {
+		if (morikon->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 souka_position = morikon->Getm_Position();
+		CVector3 diff = souka_position - position;
+		playerVec = diff;
+		//死んでいなければ接触判定
+		if (player_state != Estate_Death) {
+			//＊ダメージレンジは どこだ。
+			float Langth_hoge = morikon->GetDamageLength();
+			//距離判定
+			if (diff.Length() < Langth_hoge) {
+				//もし無敵時間中でないなら
+				if (MutekiTimer == -1) {
+
+					//ギリギリボーナスが成立するか確認
+					GameData * gamedata = GameData::GetInstance();
+					bool Hantei = gamedata->GiriBonusKeisan();
+
+					//寿命をゼロに
+					m_Life = 0;
+
+					if (DashFlag == true) {//ダッシュ状態なら…
+
+						morikon->SetDeath();//お前も死ね
+
+						if (Hantei == true) {
+							//ギリギリボーナスカウントを+1
+							gamedata->GiriCounter();
+							//ボーナス成立のエフェクトを表示
+							EffectManager * effectmanager = EffectManager::GetInstance();
+							effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
+							//gamedata->TestMessage();
+						}
+					}
+
+
+				}
+			}
+		}
+		return true;
+		});
+
+	//リリットとの距離を計算
+	QueryGOs<Riritto>("Riritto", [&](Riritto* riritto) {
+		if (riritto->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 souka_position = riritto->Getm_Position();
+		CVector3 diff = souka_position - position;
+		playerVec = diff;
+		//死んでいなければ接触判定
+		if (player_state != Estate_Death) {
+			//＊ダメージレンジは どこだ。
+			float Langth_hoge = riritto->GetDamageLength();
+			//距離判定
+			if (diff.Length() < Langth_hoge) {
+				//もし無敵時間中でないなら
+				if (MutekiTimer == -1) {
+
+					//ギリギリボーナスが成立するか確認
+					GameData * gamedata = GameData::GetInstance();
+					bool Hantei = gamedata->GiriBonusKeisan();
+
+					//寿命をゼロに
+					m_Life = 0;
+
+					if (DashFlag == true) {//ダッシュ状態なら…
+
+						riritto->SetDeath();//お前も死ね
+
+						if (Hantei == true) {
+							//ギリギリボーナスカウントを+1
+							gamedata->GiriCounter();
+							//ボーナス成立のエフェクトを表示
+							EffectManager * effectmanager = EffectManager::GetInstance();
+							effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
+							//gamedata->TestMessage();
+						}
+					}
+
+
+				}
+			}
+		}
+		return true;
+		});
+
+	//アルカシャとの距離を計算
+	QueryGOs<Arukasya>("Arukasya", [&](Arukasya* arukasya) {
+		if (arukasya->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 souka_position = arukasya->Getm_Position();
+		CVector3 diff = souka_position - position;
+		playerVec = diff;
+		//死んでいなければ接触判定
+		if (player_state != Estate_Death) {
+			//＊ダメージレンジは どこだ。
+			float Langth_hoge = arukasya->GetDamageLength();
+			//距離判定
+			if (diff.Length() < Langth_hoge) {
+				//もし無敵時間中でないなら
+				if (MutekiTimer == -1) {
+
+					//ギリギリボーナスが成立するか確認
+					GameData * gamedata = GameData::GetInstance();
+					bool Hantei = gamedata->GiriBonusKeisan();
+
+					//寿命をゼロに
+					m_Life = 0;
+
+					if (DashFlag == true) {//ダッシュ状態なら…
+
+						arukasya->SetDeath();//お前も死ね
+
+						if (Hantei == true) {
+							//ギリギリボーナスカウントを+1
+							gamedata->GiriCounter();
+							//ボーナス成立のエフェクトを表示
+							EffectManager * effectmanager = EffectManager::GetInstance();
+							effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
+							//gamedata->TestMessage();
+						}
+					}
+
+
+				}
+			}
+		}
+		return true;
+		});
+
+	//SS-001との距離を計算
+	QueryGOs<SS_001>("SS_001", [&](SS_001* ss_001) {
+		if (ss_001->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 souka_position = ss_001->Getm_Position();
+		CVector3 diff = souka_position - position;
+		playerVec = diff;
+		//死んでいなければ接触判定
+		if (player_state != Estate_Death) {
+			//＊ダメージレンジは どこだ。
+			float Langth_hoge = ss_001->GetDamageLength();
+			//距離判定
+			if (diff.Length() < Langth_hoge) {
+				//もし無敵時間中でないなら
+				if (MutekiTimer == -1) {
+
+					//ギリギリボーナスが成立するか確認
+					GameData * gamedata = GameData::GetInstance();
+					bool Hantei = gamedata->GiriBonusKeisan();
+
+					//寿命をゼロに
+					m_Life = 0;
+
+					if (DashFlag == true) {//ダッシュ状態なら…
+
+						ss_001->SetDeath();//お前も死ね
 
 						if (Hantei == true) {
 							//ギリギリボーナスカウントを+1
