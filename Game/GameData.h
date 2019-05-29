@@ -1,7 +1,7 @@
 #pragma once
 #include "stdafx.h"
 
-class GameData : public IGameObject
+class GameData 
 {
 	static GameData* m_instance;
 public:

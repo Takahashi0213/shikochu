@@ -35,10 +35,10 @@ TitleStandby::~TitleStandby()
 bool TitleStandby::Start() {
 
 	//ゲームデータ
-	NewGO<GameData>(0, "GameData");
+	//NewGO<GameData>(0, "GameData");
 	NewGO<EffectManager>(0, "EffectManager");
 	NewGO<UICamera>(0, "UICamera");
-	NewGO<SaveData>(0, "SaveData");
+	//NewGO<SaveData>(0, "SaveData");
 	NewGO<TransitionMaker>(0, "TransitionMaker");
 
 	//0番 まっくろ！

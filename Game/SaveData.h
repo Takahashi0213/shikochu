@@ -2,7 +2,7 @@
 #include "LevelData.h"
 #include "ZukanData.h"
 
-class SaveData : public IGameObject
+class SaveData 
 {
 	static SaveData* m_instance;
 

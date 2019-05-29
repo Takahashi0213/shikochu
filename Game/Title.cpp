@@ -1,3 +1,4 @@
+
 #include "stdafx.h"
 #include "Title.h"
 #include "Game.h"
@@ -8,6 +9,8 @@
 #include "SaveData.h"
 #include "TransitionMaker.h"
 #include "OP.h"
+
+
 
 class FadeOut : public IGameObject {
 public :
@@ -700,16 +703,18 @@ void Title::GameMore() {
 		minimove();
 	}
 	else if (minimoveflag == true) {
-		/*{
+		{
 			FILE* fp = fopen("save.bin", "r");
 			if (fp != NULL) {
-				//fread(&gameData, sizeof(gameData), 1, fp);
+				fread(SaveData::GetInstance(), sizeof(SaveData), 1, fp);
+				fread(GameData::GetInstance(), sizeof(GameData), 1, fp);
 				fclose(fp);
 			}
-		}*/
+		}
+		NewGO<StageSelect>(0);
 
+		DeleteGO(this);
 	}
-
 
 }
 void Title::GameEnd() {

@@ -125,7 +125,7 @@ private:
 
 	int waveNo = 0; //©•ª‚ª‘®‚·‚éWave‚Ì”Ô†
 
-	const int MAXHP = 500; //Å‘åHP
+	const int MAXHP = 10000; //Å‘åHP
 	int NowHP = MAXHP; //Œ»İHP
 
 };

@@ -70,7 +70,7 @@ bool Player::Start() {
 void Player::Update() {
 
 	//現在モード
-	GameData * gameData = FindGO<GameData>("GameData");
+	GameData * gameData = GameData::GetInstance();
 	int mode = gameData->GetGameMode();
 
 	if (mode == 0) {
@@ -989,7 +989,7 @@ void Player::PlayerReset() {
 void Player::MutekiSupporter() {
 
 	//現在モード
-	GameData * gameData = FindGO<GameData>("GameData");
+	GameData * gameData = GameData::GetInstance();
 	int mode = gameData->GetGameMode();
 
 	//タイマー加算

@@ -11,6 +11,8 @@
 #include "Zukan.h"
 
 StageSelect* StageSelect::m_instance = nullptr;
+SaveData savedata;
+GameData Gamedata;
 
 StageSelect::StageSelect()
 {
@@ -41,6 +43,12 @@ StageSelect::~StageSelect()
 
 bool StageSelect::Start() {
 
+	{
+		FILE* fp = fopen("save.bin", "w");
+		fwrite(&savedata, sizeof(savedata), 1, fp);
+		fwrite(&Gamedata, sizeof(Gamedata), 1, fp);
+		fclose(fp);
+	}
 	ss = NewGO<prefab::CSoundSource>(0);
 	//SEÄ¶
 	ss->Init(L"sound/stageselect.wav");
