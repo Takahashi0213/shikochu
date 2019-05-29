@@ -14,7 +14,7 @@ Morikon::~Morikon()
 bool Morikon::Start() {
 
 	m_skinModelRender = NewGO<prefab::CSkinModelRender>(0);
-	//m_skinModelRender->Init(L"modelData/Arukasya.cmo");
+	m_skinModelRender->Init(L"modelData/Bat_Level_1.cmo");
 	m_skinModelRender->SetPosition(m_position);
 	m_skinModelRender->SetRotation(m_rotation);
 	m_skinModelRender->SetScale(m_scale);

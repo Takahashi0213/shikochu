@@ -15,11 +15,11 @@ soukabuto::~soukabuto()
 }
 
 bool soukabuto::Start() {
-	m_animClips[enAnimationClip_move].Load(L"animData/Neruwalk.tka");
+	m_animClips[enAnimationClip_move].Load(L"animData/souwalk.tka");
 	m_animClips[enAnimationClip_move].SetLoopFlag(true);
 
 	m_skinModelRender = NewGO<prefab::CSkinModelRender>(0);
-	m_skinModelRender->Init(L"modelData/soukabuto_0.cmo");
+	m_skinModelRender->Init(L"modelData/soukabuto_0.cmo", m_animClips, enAnimationClip_Num);
 
 	m_charaCon.Init(
 		45.0f,  //キャラクターの半径。

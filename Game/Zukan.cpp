@@ -62,6 +62,15 @@ bool Zukan::Start() {
 	hoge++;
 	m_mo4anim[0].Load(MonsterAnime[hoge]);
 	m_mo4anim[0].SetLoopFlag(true);
+	hoge++;
+	m_mo5anim[0].Load(MonsterAnime[hoge]);
+	m_mo5anim[0].SetLoopFlag(true);
+	hoge++;
+	m_mo6anim[0].Load(MonsterAnime[hoge]);
+	m_mo6anim[0].SetLoopFlag(true);
+	hoge++;
+	m_mo7anim[0].Load(MonsterAnime[hoge]);
+	m_mo7anim[0].SetLoopFlag(true);
 
 	//0î‘ îwåióp
 	r = NewGO<prefab::CSpriteRender>(3);
@@ -303,7 +312,7 @@ void Zukan::KoumokuUpdate() {
 
 	SaveData * savedata = SaveData::GetInstance();
 	bool flag = savedata->GetMonFlag(SelectNow);
-	//flag = true;
+	flag = true;
 	if (flag == true) { //ÉÇÉìÉXÉ^Å[ìoò^çœÇ›
 
 		for (int i = 0; i < 255; i++) {
@@ -342,6 +351,24 @@ void Zukan::KoumokuUpdate() {
 			DeleteGO(m_skinModelRender[1]);
 			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
 			m_skinModelRender[1]->Init(ModelName, m_mo4anim, 1);
+			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
+		}
+		if (SelectNow == 5) {
+			DeleteGO(m_skinModelRender[1]);
+			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
+			m_skinModelRender[1]->Init(ModelName, m_mo5anim, 1);
+			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
+		}
+		if (SelectNow == 6) {
+			DeleteGO(m_skinModelRender[1]);
+			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
+			m_skinModelRender[1]->Init(ModelName, m_mo6anim, 1);
+			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
+		}
+		if (SelectNow == 7) {
+			DeleteGO(m_skinModelRender[1]);
+			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
+			m_skinModelRender[1]->Init(ModelName, m_mo7anim, 1);
 			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
 		}
 

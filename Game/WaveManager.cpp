@@ -14,6 +14,10 @@
 #include "Neoriku.h"
 #include "shisokus.h"
 #include "soukabuto.h"
+#include "Ekku.h"
+#include "Pi_rabi.h"
+#include "Fairo.h"
+
 //ギミック
 #include "StarItem.h"
 
@@ -113,6 +117,51 @@ void WaveManager::Update() {
 					souka->SetActiveFlag(true);
 					EffectManager * effectmanager = EffectManager::GetInstance();
 					CVector3 EF_Position = souka->Getm_Position();
+					EF_Position.y += 50.0f;
+					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+				}
+				return true;
+				});
+
+			QueryGOs<Ekku>("Ekku", [&](Ekku* ekku) {
+				//対象の所属Waveを取得
+				int wave = ekku->GetWave();
+				if (NowWave == wave) {
+					//アクティブ化
+					Enemy++;
+					ekku->SetActiveFlag(true);
+					EffectManager * effectmanager = EffectManager::GetInstance();
+					CVector3 EF_Position = ekku->Getm_Position();
+					EF_Position.y += 50.0f;
+					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+				}
+				return true;
+				});
+			
+			QueryGOs<Pi_rabi>("Pi_rabi", [&](Pi_rabi* pi_rabi) {
+				//対象の所属Waveを取得
+				int wave = pi_rabi->GetWave();
+				if (NowWave == wave) {
+					//アクティブ化
+					Enemy++;
+					pi_rabi->SetActiveFlag(true);
+					EffectManager * effectmanager = EffectManager::GetInstance();
+					CVector3 EF_Position = pi_rabi->Getm_Position();
+					EF_Position.y += 50.0f;
+					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+				}
+				return true;
+				});
+			
+			QueryGOs<Fairo>("Fairo", [&](Fairo* fairo) {
+				//対象の所属Waveを取得
+				int wave = fairo->GetWave();
+				if (NowWave == wave) {
+					//アクティブ化
+					Enemy++;
+					fairo->SetActiveFlag(true);
+					EffectManager * effectmanager = EffectManager::GetInstance();
+					CVector3 EF_Position = fairo->Getm_Position();
 					EF_Position.y += 50.0f;
 					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
 				}
@@ -230,6 +279,21 @@ void WaveManager::DeleteAll() {
 
 	QueryGOs<soukabuto>("sou", [&](soukabuto* souka) {
 		souka->SetDeath();
+		return true;
+		});
+
+	QueryGOs<Ekku>("Ekku", [&](Ekku* ekku) {
+		ekku->SetDeath();
+		return true;
+		});
+
+	QueryGOs<Pi_rabi>("Pi_rabi", [&](Pi_rabi* pi_rabi) {
+		pi_rabi->SetDeath();
+		return true;
+		});
+
+	QueryGOs<Fairo>("Fairo", [&](Fairo* fairo) {
+		fairo->SetDeath();
 		return true;
 		});
 

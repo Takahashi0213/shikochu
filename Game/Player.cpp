@@ -3,14 +3,18 @@
 #include "tkEngine/character/tkCharacterController.h"
 #include "GameData.h"
 #include "EffectManager.h"
-#include "Bunbogu.h"
 #include "Bullet.h"
+#include "Radar.h"
+//Enemy
 #include "Neoriku.h"
 #include "Neruk.h"
-#include "Radar.h"
 #include "shisokus.h"
 #include "soukabuto.h"
 #include "Nerubikkuri.h"
+#include "Bunbogu.h"
+#include "Ekku.h"
+#include "Pi_rabi.h"
+#include "Fairo.h"
 
 Player* Player::m_instance = nullptr;
 
@@ -731,6 +735,143 @@ void Player::PlayerJudge() {
 		return true;
 		});
 
+	//エックとの距離を計算
+	QueryGOs<Ekku>("Ekku", [&](Ekku* ekku) {
+		if (ekku->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 souka_position = ekku->Getm_Position();
+		CVector3 diff = souka_position - position;
+		playerVec = diff;
+		//死んでいなければ接触判定
+		if (player_state != Estate_Death) {
+			//＊ダメージレンジは どこだ。
+			float Langth_hoge = ekku->GetDamageLength();
+			//距離判定
+			if (diff.Length() < Langth_hoge) {
+				//もし無敵時間中でないなら
+				if (MutekiTimer == -1) {
+
+					//ギリギリボーナスが成立するか確認
+					GameData * gamedata = GameData::GetInstance();
+					bool Hantei = gamedata->GiriBonusKeisan();
+
+					//寿命をゼロに
+					m_Life = 0;
+
+					if (DashFlag == true) {//ダッシュ状態なら…
+
+						ekku->SetDeath();//お前も死ね
+
+						if (Hantei == true) {
+							//ギリギリボーナスカウントを+1
+							gamedata->GiriCounter();
+							//ボーナス成立のエフェクトを表示
+							EffectManager * effectmanager = EffectManager::GetInstance();
+							effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
+							//gamedata->TestMessage();
+						}
+					}
+
+
+				}
+			}
+		}
+		return true;
+		});
+
+	//ピーラビとの距離を計算
+	QueryGOs<Pi_rabi>("Pi_rabi", [&](Pi_rabi* pi_rabi) {
+		if (pi_rabi->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 souka_position = pi_rabi->Getm_Position();
+		CVector3 diff = souka_position - position;
+		playerVec = diff;
+		//死んでいなければ接触判定
+		if (player_state != Estate_Death) {
+			//＊ダメージレンジは どこだ。
+			float Langth_hoge = pi_rabi->GetDamageLength();
+			//距離判定
+			if (diff.Length() < Langth_hoge) {
+				//もし無敵時間中でないなら
+				if (MutekiTimer == -1) {
+
+					//ギリギリボーナスが成立するか確認
+					GameData * gamedata = GameData::GetInstance();
+					bool Hantei = gamedata->GiriBonusKeisan();
+
+					//寿命をゼロに
+					m_Life = 0;
+
+					if (DashFlag == true) {//ダッシュ状態なら…
+
+						pi_rabi->SetDeath();//お前も死ね
+
+						if (Hantei == true) {
+							//ギリギリボーナスカウントを+1
+							gamedata->GiriCounter();
+							//ボーナス成立のエフェクトを表示
+							EffectManager * effectmanager = EffectManager::GetInstance();
+							effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
+							//gamedata->TestMessage();
+						}
+					}
+
+
+				}
+			}
+		}
+		return true;
+		});
+
+	//ファイロとの距離を計算
+	QueryGOs<Fairo>("Fairo", [&](Fairo* fairo) {
+		if (fairo->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 souka_position = fairo->Getm_Position();
+		CVector3 diff = souka_position - position;
+		playerVec = diff;
+		//死んでいなければ接触判定
+		if (player_state != Estate_Death) {
+			//＊ダメージレンジは どこだ。
+			float Langth_hoge = fairo->GetDamageLength();
+			//距離判定
+			if (diff.Length() < Langth_hoge) {
+				//もし無敵時間中でないなら
+				if (MutekiTimer == -1) {
+
+					//ギリギリボーナスが成立するか確認
+					GameData * gamedata = GameData::GetInstance();
+					bool Hantei = gamedata->GiriBonusKeisan();
+
+					//寿命をゼロに
+					m_Life = 0;
+
+					if (DashFlag == true) {//ダッシュ状態なら…
+
+						fairo->SetDeath();//お前も死ね
+
+						if (Hantei == true) {
+							//ギリギリボーナスカウントを+1
+							gamedata->GiriCounter();
+							//ボーナス成立のエフェクトを表示
+							EffectManager * effectmanager = EffectManager::GetInstance();
+							effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
+							//gamedata->TestMessage();
+						}
+					}
+
+
+				}
+			}
+		}
+		return true;
+		});
 
 	//寿命だ…
 	if (m_Life == 0) {

@@ -2,7 +2,7 @@
 
 //図鑑のデータベース
 
-const int Monster = 5; //項目数
+const int Monster = 8; //項目数
 
 //モデル
 const wchar_t MonsterModel[Monster][128]{
@@ -11,6 +11,9 @@ const wchar_t MonsterModel[Monster][128]{
 { L"modelData/soukabuto_0.cmo" },
 { L"modelData/Neruk.cmo" },
 { L"modelData/shisokus.cmo" },
+{ L"modelData/Ekku.cmo" },
+{ L"modelData/Rabbit_Level_1.cmo" },
+{ L"modelData/Fairo.cmo" },
 
 };
 
@@ -21,6 +24,9 @@ const wchar_t MonsterAnime[Monster][128]{
 { L"animData/souwalk.tka" },
 { L"animData/Neruwalk.tka" },
 { L"animData/sisowalk.tka" },
+{ L"animData/Ekwalk.tka" },
+{ L"animData/P_idel.tka" },
+{ L"animData/Faiwalk.tka" },
 
 };
 
@@ -31,6 +37,9 @@ const wchar_t MonsterName[Monster][128]{
 { L"ソウカブト" },
 { L"ネルク" },
 { L"シーソークス" },
+{ L"エック" },
+{ L"ピーラビ" },
+{ L"ファイロ" },
 
 };
 
@@ -41,6 +50,9 @@ const wchar_t Setumei[Monster][255]{
 { L"ソウカブトのせつめ" },
 { L"ネルクのアレ" },
 { L"シーソークスの～" },
+{ L"あげええももげげほおおん\nみゃ\nぐおおおおおおおお" },
+{ L"ばかやろう" },
+{ L"なんの？" },
 
 };
 
@@ -51,6 +63,9 @@ const CVector3 M_Scale[Monster]{
 	{ 2.0f,2.0f,2.0f },
 	{ 2.0f,2.0f,2.0f },
 	{ 0.5f,0.5f,0.5f },
+	{ 2.0f,2.0f,2.0f },
+	{ 30.0f,30.0f,30.0f },
+	{ 1.0f,1.0f,1.0f },
 
 };
 
@@ -58,8 +73,11 @@ const CVector3 M_Scale[Monster]{
 const float Y_Hosei[Monster]{
 	{ 0.0f },
 	{ 0.0f },
-	{ -60.0f },
 	{ 0.0f },
 	{ 0.0f },
+	{ 0.0f },
+	{ 0.0f },
+	{-30.0f },
+	{ -30.0f },
 
 };

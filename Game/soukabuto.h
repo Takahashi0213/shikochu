@@ -12,7 +12,6 @@ public:
 	};
 	enum EnAnimationClip {
 		enAnimationClip_move, //動作
-		enAnimationClip_attack1, //攻撃1
 		enAnimationClip_Num,  //アニメーションクリップ
 	};
 

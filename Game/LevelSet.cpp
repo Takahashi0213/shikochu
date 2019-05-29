@@ -7,6 +7,10 @@
 #include "Neoriku.h"
 #include "shisokus.h"
 #include "soukabuto.h"
+#include "Ekku.h"
+#include "Pi_rabi.h"
+#include "Fairo.h"
+
 //ÉMÉ~ÉbÉN
 #include "StarItem.h"
 
@@ -82,6 +86,42 @@ void LevelSet::LevelSetting(wchar_t LEVEL_Name[255],bool flag,int wave) {
 			if (flag == true) {
 				EnemyCount++;
 			}		
+			return true;
+		}
+
+		if (objData.EqualObjectName(L"Ekku")) {
+			Ekku* ekku = NewGO<Ekku>(0, "Ekku");
+			ekku->SetPosition(objData.position);
+			ekku->SetRotation(objData.rotation);
+			ekku->SetActiveFlag(flag);
+			ekku->SetWave(wave);
+			if (flag == true) {
+				EnemyCount++;
+			}
+			return true;
+		}
+
+		if (objData.EqualObjectName(L"Rabbit_Level_1")) {
+			Pi_rabi* pi_rabi = NewGO<Pi_rabi>(0, "Pi_rabi");
+			pi_rabi->SetPosition(objData.position);
+			pi_rabi->SetRotation(objData.rotation);
+			pi_rabi->SetActiveFlag(flag);
+			pi_rabi->SetWave(wave);
+			if (flag == true) {
+				EnemyCount++;
+			}
+			return true;
+		}
+
+		if (objData.EqualObjectName(L"Fairo")) {
+			Fairo* fairo = NewGO<Fairo>(0, "Fairo");
+			fairo->SetPosition(objData.position);
+			fairo->SetRotation(objData.rotation);
+			fairo->SetActiveFlag(flag);
+			fairo->SetWave(wave);
+			if (flag == true) {
+				EnemyCount++;
+			}
 			return true;
 		}
 

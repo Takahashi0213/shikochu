@@ -47,7 +47,7 @@ public:
 	{
 		m_rotation = rot;
 	}
-	/*//ダメージ範囲を教える関数
+	//ダメージ範囲を教える関数
 	float GetDamageLength() {
 		return DamageLength;
 	}
@@ -59,7 +59,7 @@ public:
 	int GetWave() {
 		return waveNo;
 	}
-	*/
+	
 private:
 	CAnimationClip m_animClips[enAnimationClip_Num];
 	prefab::CSkinModelRender* m_skinModelRender = nullptr;	//スキンモデルレンダラー。
@@ -80,6 +80,10 @@ private:
 	const float followleave = 300.0f; //離れる距離(近いい）
 	const float followSpeed = 100.0f; //追尾の速度
 	const float Speed = 0.0f; //停止の速度
+
+	const float DamageLength = 80.0f; //ダメメージを受けけるは範囲だだよ
+
+	int waveNo = 0; //自分が属するWaveの番号
 
 };
 
