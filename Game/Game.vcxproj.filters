@@ -91,6 +91,30 @@
     </ClCompile>
     <ClCompile Include="OP.cpp" />
     <ClCompile Include="Nerubikkuri.cpp" />
+    <ClCompile Include="Morikon.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Pi_rabi.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Arukasya.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="SS_001.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Riritto.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Pairodorago.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Fairo.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Ekku.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -170,6 +194,30 @@
     </ClInclude>
     <ClInclude Include="OP.h" />
     <ClInclude Include="Nerubikkuri.h" />
+    <ClInclude Include="Morikon.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Pi_rabi.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Arukasya.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="SS_001.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Riritto.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Pairodorago.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Fairo.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Ekku.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
@@ -226,6 +274,15 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\hatena.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Bat_Level_1.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Rabbit_Level_1.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Arukasya.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>
@@ -458,10 +515,6 @@
     <ImageContentTask Include="Assets\sprite\OPED_7.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Assets\sprite\bikkuri.png">
-      <Filter>Assets\sprite</Filter>
-    </Image>
+    <ImageContentTask Include="Assets\sprite\bikkuri.png" />
   </ItemGroup>
 </Project>
