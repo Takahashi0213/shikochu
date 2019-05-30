@@ -73,10 +73,10 @@ void Ekku::EkMove(){
 		count = 0;
 	}
 
-	/*else if (diff.Length() < followRange) {
+	else if (diff.Length() < followRange) {
 		//距離が近いので追尾する。
 		m_stete = Estete_Follow;
-	}*/
+	}
 	if (m_stete == Estete_Move) {
 		//steteがmoveのときは歩きアニメーション
 		m_skinModelRender->PlayAnimation(enAnimationClip_walk);

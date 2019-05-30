@@ -6,24 +6,24 @@ const int Stage = 3; //ステージ数
 const int Stage_Wave[Stage]{
 	4,
 	4,
-	4,
+	2,
 };
 
 //レベルファイル名
 //テストプレイ用レベル名→level/level_Test.tkl
 const wchar_t LevelName[12][255]{
-{ L"level/level_00.tkl" },
+{ L"level/level_00.tkl" },	//ステージ１
 { L"level/level_01.tkl" },
 { L"level/level_02.tkl" },
-{ L"level/level_03.tkl" }, //Boss
-{ L"level/level_Test.tkl" },//ここからステージ２
-{ L"level/level_Test.tkl" },//ここからステージ２
-{ L"level/level_Test.tkl" },//ここからステージ２
-{ L"level/level_03.tkl" },//ここからステージ２
-{ L"level/level_Test.tkl" },//ここからステージ２
-{ L"level/level_Test.tkl" },//ここからステージ２
-{ L"level/level_Test.tkl" },//ここからステージ２
-{ L"level/level_03.tkl" },//ここからステージ２
+{ L"level/level_03.tkl" },	//Boss1
+{ L"level/level_Test.tkl" },	//ステージ２
+{ L"level/level_07.tkl" },
+{ L"level/level_06.tkl" },
+{ L"level/level_07.tkl" },	//Boss2
+{ L"level/level_Test.tkl" },	//ステージ３
+{ L"level/level_11.tkl" },
+{ L"level/level_10.tkl" },
+{ L"level/level_11.tkl" },	//Boss3
 
 };
 

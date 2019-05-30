@@ -12,6 +12,7 @@ SS_001::SS_001()
 
 SS_001::~SS_001()
 {
+	DeleteGO(m_skinModelRender);
 }
 
 bool SS_001::Start() {
