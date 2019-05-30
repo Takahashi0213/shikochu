@@ -129,5 +129,6 @@ private:
 	const int ToumeiTimeMAX = 240; //‚±‚ÌŠÔ‚É‚È‚é‚Æ“§–¾‚É‚È‚é
 	const int DeathTimeMAX = 360; //ª‚ÌãŒÀ
 
+
 };
 

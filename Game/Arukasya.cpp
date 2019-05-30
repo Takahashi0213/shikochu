@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "Arukasya.h"
-
+#include "EffectManager.h"
+#include "GameData.h"
 
 Arukasya::Arukasya()
 {
@@ -99,7 +100,20 @@ void Arukasya::AruAttack() {
 
 
 void Arukasya::AruDeath() {
+	prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+	ss->Init(L"sound/E_death.wav");
+	ss->SetVolume(0.5f);
+	ss->Play(false);
+
+	EffectManager * effectmanager = EffectManager::GetInstance();
+	CVector3 EF_Position = m_position;
+	EF_Position.y += 50.0f;
+	effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+
+	GameData * gamedata = GameData::GetInstance();
+	gamedata->EnemyCounterGensyou();
 	DeleteGO(this);
+
 }
 
 void Arukasya::Update() {

@@ -11,6 +11,7 @@ Pairodorago::Pairodorago()
 
 Pairodorago::~Pairodorago()
 {
+	DeleteGO(m_skinModelRender);
 }
 
 bool Pairodorago::Start() {
@@ -30,6 +31,7 @@ bool Pairodorago::Start() {
 	m_scale = { 750.0f,750.0f,750.0f };
 
 	m_skinModelRender->SetPosition(m_position);
+
 
 	//m_charaCon.Init(
 	//	350.0f,  //キャラクターの半径。
@@ -159,17 +161,17 @@ void Pairodorago::PairoDeath() {
 	if (DeathTimer == 70) {
 		//Effect再生
 		EffectManager * effectmanager = EffectManager::GetInstance();
-		effectmanager->EffectPlayer(EffectManager::Bakuhatu, m_position, { 500.0f,500.0f,500.0f });
+		effectmanager->EffectPlayer(EffectManager::Bakuhatu, m_position, { 1000.0f,1000.0f,1000.0f });
 	}
 	if (DeathTimer == 160) {
 		//Effect再生
 		EffectManager * effectmanager = EffectManager::GetInstance();
-		effectmanager->EffectPlayer(EffectManager::Bakuhatu, m_position, { 500.0f,500.0f,500.0f });
+		effectmanager->EffectPlayer(EffectManager::Bakuhatu, m_position, { 1000.0f,1000.0f,1000.0f });
 	}
 	if (DeathTimer == 230) {
 		//Effect再生
 		EffectManager * effectmanager = EffectManager::GetInstance();
-		effectmanager->EffectPlayer(EffectManager::Bakuhatu, { m_position.x + 500.0f,m_position.y, m_position.z - 2000.0f }, { 1000.0f,1000.0f,1000.0f });
+		effectmanager->EffectPlayer(EffectManager::Bakuhatu, { m_position.x + 500.0f,m_position.y, m_position.z - 2000.0f }, { 2000.0f,2000.0f,2000.0f });
 	}
 
 

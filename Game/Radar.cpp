@@ -15,6 +15,7 @@
 #include "Riritto.h"
 #include "Arukasya.h"
 
+
 Radar::Radar()
 {
 }
@@ -210,5 +211,6 @@ void Radar::Update() {
 		m_skinModelRender->UpdateInstancingData(pointPos, CQuaternion::Identity, { 0.2f, 0.2f, 0.2f });
 		return true;
 		});
+
 
 }

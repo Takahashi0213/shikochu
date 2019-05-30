@@ -950,6 +950,8 @@ void Player::PlayerJudge() {
 			return true;
 		}
 		CVector3 Shisok_position = pairodorago->Getm_Position();
+		Shisok_position.z = Shisok_position.z - 800.0f;
+		Shisok_position.y = Shisok_position.y + 2000.0f;
 		CVector3 diff = Shisok_position - position;
 		playerVec = diff;
 		//死んでいなければ接触判定
@@ -975,8 +977,8 @@ void Player::PlayerJudge() {
 					//寿命をゼロに
 					m_Life = 0;
 
-					int EState = pairodorago->GetEState();
-					if (EState != 1 && DashFlag == true || player_state == Estate_Dash) {//敵が攻撃中の時でない＆ダッシュ状態なら…
+					
+					if (DashFlag == true || player_state == Estate_Dash) {//敵が攻撃中の時でない＆ダッシュ状態なら…
 
 						prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
 						ss->Init(L"sound/damage.wav");

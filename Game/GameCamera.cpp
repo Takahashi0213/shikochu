@@ -226,6 +226,7 @@ void GameCamera::Update() {
 				Pairodorago * pairodorago = FindGO<Pairodorago>("Pairodorago");
 				cameraTarget = pairodorago->Getm_Position();
 				//‹“_‚ğƒJƒƒ‰‚É“`‚¦‚é
+				cameraTarget.y += 3000.0f;
 				cameraPos.x = cameraTarget.x + targetToPos.x;
 				cameraPos.y = cameraTarget.y + targetToPos.y;
 				cameraPos.z = cameraTarget.z + targetToPos.z;
