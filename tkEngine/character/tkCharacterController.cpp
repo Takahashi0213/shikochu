@@ -263,7 +263,7 @@ namespace tkEngine {
 			callback.me = m_rigidBody.GetBody();
 			callback.startPos.Set(start.getOrigin());
 			//è’ìÀåüèoÅB
-			if(fabsf(endPos.y - callback.startPos.y) > FLT_EPSILON){
+			if(fabsf(endPos.y - callback.startPos.y) > 0.001f){
 				PhysicsWorld().ConvexSweepTest((const btConvexShape*)m_collider.GetBody(), start, end, callback);
 				if (callback.isHit) {
 					//ìñÇΩÇ¡ÇΩÅB
