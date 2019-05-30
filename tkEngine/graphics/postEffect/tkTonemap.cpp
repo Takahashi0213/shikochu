@@ -201,6 +201,21 @@ namespace tkEngine{
 		if (!m_isEnable) {
 			return;
 		}
+		//明るさの補間が設定されている？
+		if (m_interpolateEndTime > 0.0f) {
+			m_interpolateTime += GameTime().GetFrameDeltaTime();
+			if (m_interpolateTime > m_interpolateEndTime) {
+				//補間終わり。
+				m_interpolateEndTime = 0.0f;
+				m_interpolateTime = 0.0f;
+				m_tonemapParam.midddleGray = m_targetLuminance;
+			}
+			else {
+				//絶賛補間中・
+				float t = m_interpolateTime / m_interpolateEndTime;
+				m_tonemapParam.midddleGray = CMath::Lerp(t, m_interpolateStartLum, m_targetLuminance);
+			}
+		}
 		rc.SetRenderStep(enRenderStep_Toonmap);
 		CGraphicsEngine& ge = Engine().GetGraphicsEngine();
 		ge.BeginGPUEvent(L"enRenderStep_Toonmap");
