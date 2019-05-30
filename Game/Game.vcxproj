@@ -1778,6 +1778,7 @@
     <ClCompile Include="GameResult.cpp" />
     <ClCompile Include="LevelSet.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Misairu.cpp" />
     <ClCompile Include="Morikon.cpp" />
     <ClCompile Include="NakamaLight.cpp" />
     <ClCompile Include="Neoriku.cpp" />
@@ -1845,6 +1846,7 @@
     <ClInclude Include="GameResult.h" />
     <ClInclude Include="LevelData.h" />
     <ClInclude Include="LevelSet.h" />
+    <ClInclude Include="Misairu.h" />
     <ClInclude Include="Morikon.h" />
     <ClInclude Include="NakamaLight.h" />
     <ClInclude Include="Neoriku.h" />
@@ -1889,6 +1891,7 @@
     <MeshContentTask Include="Assets\modelData\Fairo.fbx" />
     <MeshContentTask Include="Assets\modelData\hatena.FBX" />
     <MeshContentTask Include="Assets\modelData\item.FBX" />
+    <MeshContentTask Include="Assets\modelData\misairu.fbx" />
     <MeshContentTask Include="Assets\modelData\neoriku_0.FBX" />
     <MeshContentTask Include="Assets\modelData\Neruk.FBX" />
     <MeshContentTask Include="Assets\modelData\Rabbit_Level_1.fbx" />

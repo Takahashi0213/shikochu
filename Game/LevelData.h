@@ -30,8 +30,8 @@ const wchar_t LevelName[12][255]{
 //ステージ別ボス名
 const wchar_t BossName[Stage][128]{
 { L"シーソークス" },
-{ L"ナナシノゴンベエ" },
-{ L"ナナシノゴンベエ2" },
+{ L"パイロドラゴ" },
+{ L"SS-001" },
 
 };
 

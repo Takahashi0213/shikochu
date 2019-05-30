@@ -20,6 +20,7 @@
 #include "Riritto.h"
 #include "Arukasya.h"
 #include "SS_001.h"
+#include "Misairu.h"
 
 Player* Player::m_instance = nullptr;
 
@@ -421,6 +422,16 @@ void Player::Update() {
 		position = { 10000.0f,10000.0f,0.0f };
 
 	}
+
+	//現在モードが0か1ならゲージ上昇
+	if (mode == 0 || mode == 1) {
+		StarPointTimer++;
+		if (StarPointTimer == StarPointLimit) {
+			gameData->Star_PowerChange(1);
+			StarPointTimer = 0;
+		}
+	}
+
 	//死んでいなければ光る
 	if (player_state != Estate_Death) {
 
@@ -557,6 +568,31 @@ void Player::PlayerJudge() {
 					m_Life = 0;
 
 					bullet->SetDeath();//お前も死ね
+
+				}
+			}
+		}
+		return true;
+		});
+
+	//ミサイルとの距離を計算
+	QueryGOs<Misairu>("Misairu", [&](Misairu* misairu) {
+		CVector3 bullet_position = misairu->Getm_Position();
+		CVector3 diff = bullet_position - position;
+		playerVec = diff;
+		//死んでいなければ接触判定
+		if (player_state != Estate_Death) {
+			//＊ダメージレンジは どこだ。
+			float Langth_hoge = misairu->GetDamageLength();
+			//距離判定
+			if (diff.Length() < Langth_hoge) {
+				//もし無敵時間中でないなら
+				if (MutekiTimer == -1 || player_state != Estate_Dash) {
+
+					//寿命をゼロに
+					m_Life = 0;
+
+					misairu->SetDeath();//お前も死ね
 
 				}
 			}
@@ -1074,8 +1110,8 @@ void Player::PlayerJudge() {
 			//Activeじゃない。
 			return true;
 		}
-		CVector3 souka_position = ss_001->Getm_Position();
-		CVector3 diff = souka_position - position;
+		CVector3 Shisok_position = ss_001->Getm_Position();
+		CVector3 diff = Shisok_position - position;
 		playerVec = diff;
 		//死んでいなければ接触判定
 		if (player_state != Estate_Death) {
@@ -1086,30 +1122,50 @@ void Player::PlayerJudge() {
 				//もし無敵時間中でないなら
 				if (MutekiTimer == -1) {
 
-					//ギリギリボーナスが成立するか確認
+					//ダメージを前もって計算
 					GameData * gamedata = GameData::GetInstance();
-					bool Hantei = gamedata->GiriBonusKeisan();
+					bool dash;
+					if (player_state == Estate_Dash) {
+						dash = true;
+					}
+					else {
+						dash = false;
+					}
+					int Damage = (int)gamedata->DamageKeisan(dash);
 
 					//寿命をゼロに
 					m_Life = 0;
 
-					if (DashFlag == true) {//ダッシュ状態なら…
+					if (DashFlag == true || player_state == Estate_Dash) {//敵が攻撃中の時でない＆ダッシュ状態なら…
 
-						ss_001->SetDeath();//お前も死ね
+						prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+						ss->Init(L"sound/damage.wav");
+						ss->SetVolume(0.5f);
+						ss->Play(false);
 
-						if (Hantei == true) {
-							//ギリギリボーナスカウントを+1
-							gamedata->GiriCounter();
-							//ボーナス成立のエフェクトを表示
-							EffectManager * effectmanager = EffectManager::GetInstance();
-							effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
-							//gamedata->TestMessage();
-						}
+						//オラァ！
+						ss_001->Damage(Damage);
+
 					}
 
 
 				}
 			}
+
+			//ビーム判定！
+			int EState = ss_001->GetEState();
+			if (EState == SS_001::Estete_Attack2) {//ビームなう
+				float X_MAX = Shisok_position.x + 150.0f;
+				float X_MIN = Shisok_position.x - 150.0f;
+				float Y_MAX = Shisok_position.y + 150.0f;
+				float Y_MIN = Shisok_position.y - 150.0f;
+				//今、審判の時
+				if (X_MAX > position.x && X_MIN < position.x && Y_MAX > position.y && Y_MIN < position.y) {
+					//寿命をゼロに
+					m_Life = 0;
+				}
+			}
+			
 		}
 		return true;
 		});
@@ -1148,7 +1204,7 @@ void Player::PlayerReset() {
 		MutekiTimer = 0;
 
 	}
-	
+
 	//死んで発光する時間
 	if (ResetTimer <= DeathLightTime/2){
 		//死の発光
@@ -1191,8 +1247,7 @@ void Player::PlayerReset() {
 	if (ResetTimer == ResetAverage) {
 		//ゲームデータから最大寿命を引っ張ってくる
 		m_Life = gamedata->GetDEF_Life();
-		int mode = gamedata->GetGameMode();
-			//あ～～～～～～
+		//あ～～～～～～
 			ResetTimer = -1;
 			gamedata->SetZanki(-1);//残機減少
 			 //状態を戻す
@@ -1211,6 +1266,7 @@ void Player::PlayerReset() {
 			m_skinModelRender->SetScale(m_scale);
 			//移動が終わったのでエフェクトを再生（移動後にやらないと死んだ場所で再生されてしまうので）
 			EffectManager * effectmanager = EffectManager::GetInstance();
+			int mode = gamedata->GetGameMode();
 			if (mode == 0) {
 				effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
 			}

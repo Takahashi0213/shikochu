@@ -4,6 +4,8 @@
 
 //ボスデータ
 #include "shisokus.h"
+#include "Pairodorago.h"
+#include "SS_001.h"
 
 BossHPGage* BossHPGage::m_instance = nullptr;
 
@@ -172,6 +174,23 @@ void BossHPGage::Update() {
 			float BarX = (float)NowHP / (float)MAXHP;
 			BarScale = { BarX,1.0f,1.0f };
 		}
+		if (stage == 1) {
+			//ゲージの拡大率を計算
+			Pairodorago * pairodorago = FindGO<Pairodorago>("Pairodorago");
+			int NowHP = pairodorago->GetHP();
+			int MAXHP = pairodorago->GetMAXHP();
+			float BarX = (float)NowHP / (float)MAXHP;
+			BarScale = { BarX,1.0f,1.0f };
+		}
+		if (stage == 2) {
+			//ゲージの拡大率を計算
+			SS_001 * ss_001 = FindGO<SS_001>("SS_001");
+			int NowHP = ss_001->GetHP();
+			int MAXHP = ss_001->GetMAXHP();
+			float BarX = (float)NowHP / (float)MAXHP;
+			BarScale = { BarX,1.0f,1.0f };
+		}
+
 		//緑ゲージの拡大率を取得して差があれば小さくする！
 		CVector3 Ue_Gage = m_spriteRender[2]->GetScale();
 		CVector3 Sita_Gage = m_spriteRender[1]->GetScale();

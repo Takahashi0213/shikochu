@@ -19,6 +19,7 @@ public:
 
 	enum EnAnimationClip {
 		enAnimationClip_move, //動作
+		enAnimationClip_wait, //静止
 		enAnimationClip_Num,  //アニメーションクリップ
 	};
 
@@ -107,8 +108,35 @@ private:
 
 	int waveNo = 0; //自分が属するWaveの番号
 
-	const int MAXHP = 500; //最大HP
+	CVector3 DefPos = CVector3::Zero;
+
+	const int MAXHP = 10000; //最大HP
 	int NowHP = MAXHP; //現在HP
+
+	////////////////////////////////////////////////////////////
+
+	int AttackTimer = 0; //攻撃に遷移するまでのタイマー
+	const int AttackLimit = 30; //攻撃に遷移するまでの制限時間
+
+	int MisairuTimer = 0; //ミサイル用タイマー
+	const int MisairuLimit = 24; //1発ミサイルを撃つのにかかる時間
+	int MisairuCounter = 0; //ミサイル用カウンタ
+	int MisairuCountMAX = 4; //ミサイルを撃つ回数（可変）
+	CVector3 MisairuMove = CVector3::Zero; //ミサイルの移動速度
+	CVector3 MyMove = CVector3::Zero; //自分が動く速度（ミサイル用一時）
+
+	//
+
+	int BeamYobiTimer = 0; //ビーム準備用タイマー
+	const int BeamYobiLimit = 80; //ビーム準備制限時間
+	int BeamTimer = 0; //ビーム発射中タイマー
+	const int BeamLimit = 100; //ビーム制限時間
+
+	//
+
+	int DeathTimer = 0; //HPが0になってからDeleteGOされるまでのタイマー 演出用
+	const int ToumeiTimeMAX = 240; //この時間になると透明になる
+	const int DeathTimeMAX = 360; //↑の上限
 
 };
 

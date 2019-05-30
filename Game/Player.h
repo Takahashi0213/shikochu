@@ -161,5 +161,9 @@ private:
 	const float SpawnEffectY = 50.0f;//スポーンエフェクトのY補正
 	//ネルク
 	bool bikkuriflag = false;
+
+	int StarPointTimer = 0; //スターゲージ上昇タイマー
+	const int StarPointLimit = 60; //スターゲージの上昇制限時間
+
 };
 

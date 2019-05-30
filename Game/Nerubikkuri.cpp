@@ -2,6 +2,8 @@
 #include "Player.h"
 #include "Nerubikkuri.h"
 #include "Neruk.h"
+#include "Misairu.h"
+
 Nerubikkuri* Nerubikkuri::m_instance = nullptr;
 
 Nerubikkuri::Nerubikkuri()
@@ -54,5 +56,26 @@ void Nerubikkuri::Update()
 		}
 		return true;
 		});
+
+	//ミサイルとの距離を計算
+	QueryGOs<Misairu>("Misairu", [&](Misairu* misairu) {
+		if (misairu->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 neruk_position = misairu->Getm_Position();
+		CVector3 diff = neruk_position - player->Getm_Position();
+
+		if (diff.z < 800.0f && diff.z > 0.0f) {
+			diff.z = 0.0f;
+			if (diff.Length() < 200.0f) {
+				bikkuri->SetActiveFlag(true);
+			}
+
+		}
+		return true;
+		});
+
+
 }
 

@@ -6,6 +6,8 @@
 
 //ボス
 #include "shisokus.h"
+#include "Pairodorago.h"
+#include "SS_001.h"
 
 GameCamera* GameCamera::m_instance = nullptr;
 
@@ -162,7 +164,7 @@ void GameCamera::Update() {
 
 		int stage = gamedata->GetStageNo();
 		stage--;
-		if (stage == 1) {//シーソークスにフォーカスする	
+		if (stage == 0) {//シーソークスにフォーカスする	
 			if (ResultCameraFlag == false) {
 				shisokus * shiso = FindGO<shisokus>("shiso");
 				cameraTarget = shiso->Getm_Position();
@@ -219,6 +221,121 @@ void GameCamera::Update() {
 				swapTimer++;
 			}
 		}
+		if (stage == 1) {//パイロドラゴにフォーカスする	
+			if (ResultCameraFlag == false) {
+				Pairodorago * pairodorago = FindGO<Pairodorago>("Pairodorago");
+				cameraTarget = pairodorago->Getm_Position();
+				//視点をカメラに伝える
+				cameraPos.x = cameraTarget.x + targetToPos.x;
+				cameraPos.y = cameraTarget.y + targetToPos.y;
+				cameraPos.z = cameraTarget.z + targetToPos.z;
+				ResultCameraFlag = true;
+				swapTimer = -1;
+			}
+			else {
+
+				if (swapTimer < 180) {
+
+					//注視点から視点に向かうベクトルを回す
+					float x;
+					if (ResultCameraMoveFlag == false) {
+						x = 20.0f;
+						ResultCameraMoveFlag = true;
+					}
+					else {
+						x = -0.05f;
+					}
+					float y = 0.0f;
+					//Y軸周りの回転
+					CQuaternion qRot;
+					qRot.SetRotationDeg(CVector3::AxisY, 5.0f * x);
+					qRot.Multiply(targetToPos);
+
+					// X軸周りの回転
+					CVector3 axisX;
+					//外積を使って回転軸を求める。
+					//外積は二つのベクトルを使って計算する。
+					//外積の結果は新しいベクトルになる。
+					// V1×V2 = V3
+					//そして新しいベクトル(V3)はV1とV2に直行しているベクトルになる！！！
+					axisX.Cross(CVector3::AxisY, targetToPos);
+					//外積の結果は大きさ１ではないので、正規化する。　
+					axisX.Normalize();
+					qRot.SetRotationDeg(axisX, 5.0f*y);
+					//注視点から視点に伸びるベクトルを回す。
+					qRot.Multiply(targetToPos);
+					//注視点から視点からに伸びるベクトルから大きさを除外して
+					//方向のみのデータにする。
+					CVector3 targetToPosDir = targetToPos;
+					targetToPosDir.Normalize();
+
+					//視点を動かす
+					//CVector3 cameraPos;
+					cameraPos = cameraTarget + targetToPos;
+
+				}
+
+				swapTimer++;
+			}
+		}
+		if (stage == 2) {//SS-001にフォーカスする	
+			if (ResultCameraFlag == false) {
+				SS_001 * ss_001 = FindGO<SS_001>("SS_001");
+				cameraTarget = ss_001->Getm_Position();
+				//視点をカメラに伝える
+				cameraPos.x = cameraTarget.x + targetToPos.x;
+				cameraPos.y = cameraTarget.y + targetToPos.y;
+				cameraPos.z = cameraTarget.z + targetToPos.z;
+				ResultCameraFlag = true;
+				swapTimer = -1;
+			}
+			else {
+
+				if (swapTimer < 180) {
+
+					//注視点から視点に向かうベクトルを回す
+					float x;
+					if (ResultCameraMoveFlag == false) {
+						x = 20.0f;
+						ResultCameraMoveFlag = true;
+					}
+					else {
+						x = -0.05f;
+					}
+					float y = 0.0f;
+					//Y軸周りの回転
+					CQuaternion qRot;
+					qRot.SetRotationDeg(CVector3::AxisY, 5.0f * x);
+					qRot.Multiply(targetToPos);
+
+					// X軸周りの回転
+					CVector3 axisX;
+					//外積を使って回転軸を求める。
+					//外積は二つのベクトルを使って計算する。
+					//外積の結果は新しいベクトルになる。
+					// V1×V2 = V3
+					//そして新しいベクトル(V3)はV1とV2に直行しているベクトルになる！！！
+					axisX.Cross(CVector3::AxisY, targetToPos);
+					//外積の結果は大きさ１ではないので、正規化する。　
+					axisX.Normalize();
+					qRot.SetRotationDeg(axisX, 5.0f*y);
+					//注視点から視点に伸びるベクトルを回す。
+					qRot.Multiply(targetToPos);
+					//注視点から視点からに伸びるベクトルから大きさを除外して
+					//方向のみのデータにする。
+					CVector3 targetToPosDir = targetToPos;
+					targetToPosDir.Normalize();
+
+					//視点を動かす
+					//CVector3 cameraPos;
+					cameraPos = cameraTarget + targetToPos;
+
+				}
+
+				swapTimer++;
+			}
+		}
+
 	}
 
 	//注視点をカメラに伝える

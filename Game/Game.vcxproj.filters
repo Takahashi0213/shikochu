@@ -119,6 +119,7 @@
     <ClCompile Include="SS_001.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Misairu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -223,6 +224,7 @@
     <ClInclude Include="Riritto.h">
       <Filter>Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Misairu.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
@@ -309,6 +311,9 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\DragonTerrorBringerMesh.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\misairu.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>

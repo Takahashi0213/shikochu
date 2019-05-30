@@ -19,6 +19,8 @@ public:
 
 	enum EnAnimationClip {
 		enAnimationClip_move, //動作
+		enAnimationClip_yobi, //予備
+		enAnimationClip_attack, //攻撃
 		enAnimationClip_Num,  //アニメーションクリップ
 	};
 
@@ -81,6 +83,14 @@ public:
 	}
 
 private:
+
+	void PairoMove();
+	void PairoYobi1();
+	void PairoAttack1();
+	void PairoYobi2();
+	void PairoAttack2();
+	void PairoDeath();
+
 	CAnimationClip m_animClips[enAnimationClip_Num];
 	prefab::CSkinModelRender* m_skinModelRender = nullptr;	//スキンモデルレンダラー。
 	CVector3 m_position = CVector3::Zero; // 座標。
@@ -91,11 +101,33 @@ private:
 	Estete m_stete = Estete_Move; //状態
 	CCharacterController m_charaCon; //キャラコン
 
-	const float DamageLength = 2680.0f; //ダメメージを受けけるは範囲だだよ
+	const float DamageLengthDEF = 2680.0f; //ダメージレンジデフォルト！（そのまんま）
+	float DamageLength = 2680.0f; //ダメメージを受けけるは範囲だだよ
 
 	int waveNo = 0; //自分が属するWaveの番号
 
-	const int MAXHP = 500; //最大HP
+	const int MAXHP = 10000; //最大HP
 	int NowHP = MAXHP; //現在HP
+
+	//
+
+	int MoveTimer = 0;
+	const int MoveLimit = 20;
+
+	//
+
+	int YobiTimer = 0; //予備動作タイマー
+	const int YobiLimit = 80; //予備動作制限時間
+
+	int AttackTimer = 0; //攻撃動作タイマー
+	const int AttackLimit = 40; //攻撃動作制限時間
+	const int AttackTiming = 10; //攻撃判定が発生するタイミング
+
+	//
+
+	int DeathTimer = 0; //HPが0になってからDeleteGOされるまでのタイマー 演出用
+	const int ToumeiTimeMAX = 240; //この時間になると透明になる
+	const int DeathTimeMAX = 360; //↑の上限
+
 };
 

@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "SS_001.h"
-
+#include "Misairu.h"
+#include "EffectManager.h"
+#include "GameData.h"
+#include "BossHPGage.h"
 
 SS_001::SS_001()
 {
@@ -16,6 +19,8 @@ bool SS_001::Start() {
 	//アニメーション
 	m_animClips[enAnimationClip_move].Load(L"animData/SSwalk.tka");
 	m_animClips[enAnimationClip_move].SetLoopFlag(true);
+	m_animClips[enAnimationClip_wait].Load(L"animData/SSwait.tka");
+	m_animClips[enAnimationClip_wait].SetLoopFlag(true);
 
 	m_skinModelRender = NewGO<prefab::CSkinModelRender>(0);
 	m_skinModelRender->Init(L"modelData/SS_001.cmo", m_animClips, enAnimationClip_Num);
@@ -24,15 +29,17 @@ bool SS_001::Start() {
 
 
 	m_scale = { 10.0f,10.0f,10.0f };
-	m_position = { 0.0f,500.0f,5000.0f };
+	//m_position = { 0.0f,1000.0f,5000.0f };
 
 	m_skinModelRender->SetPosition(m_position);
 
-	m_charaCon.Init(
-		350.0f,  //キャラクターの半径。
-		100.0f,  //キャラクターの高さ。
-		m_position //キャラクターの初期座標。
-	);
+	DefPos = m_position;
+
+	//m_charaCon.Init(
+	//	350.0f,  //キャラクターの半径。
+	//	100.0f,  //キャラクターの高さ。
+	//	m_position //キャラクターの初期座標。
+	//);
 
 	return true;
 }
@@ -59,10 +66,12 @@ void SS_001::Update() {
 		SSDeath();
 		break;
 	}
+
 	//HPが0なら死ぬ
 	if (NowHP == 0) {
 		m_stete = Estete_Death;
 	}
+
 	//移動
 	m_skinModelRender->SetPosition(m_position);
 	//回転
@@ -74,24 +83,195 @@ void SS_001::Update() {
 
 void SS_001::SSMove() {
 
+	//制限時間になったとき実行
+	if (AttackTimer == AttackLimit) {
+		int random = rand() % 2;
+		if (random == 0) {//攻撃します
+			random = rand() % 2;
+			//random = 1; //テスト用
+			if (random == 0) {
+				m_stete = Estete_Yobi1; //ミサイル
+			}
+			else {
+				m_stete = Estete_Yobi2; //ビーム
+			}
+		}
+		AttackTimer = 0;
+	}
+
+	AttackTimer++;
 }
 
 void SS_001::SSYobi1() {
+	m_skinModelRender->PlayAnimation(enAnimationClip_wait, 0.5f);
 
+	m_stete = Estete_Attack1; //ミサイルへ移行
 }
 
 void SS_001::SSAttack1() {
+
+	if (MisairuTimer == 0) {
+		int random = rand() % 4;
+		if (random == 0) {
+			MisairuMove = { 20.0f,20.0f,0.0f };
+		}
+		else if (random == 1) {
+			MisairuMove = { -20.0f,20.0f,0.0f };
+		}
+		else if (random == 2) {
+			MisairuMove = { 20.0f,0.0f,0.0f };
+		}
+		else if (random == 3) {
+			MisairuMove = { -20.0f,0.0f,0.0f };
+		}
+		//ミサイルを撃つ回数はHPで設定する
+		if (NowHP < MAXHP / 4) {
+			MisairuCountMAX = 10;
+		}
+		else if ( NowHP < MAXHP / 2) {
+			MisairuCountMAX = 8;
+		}
+		else {
+			MisairuCountMAX = 6;
+		}
+		//ミサイル生成		
+		NewGO<Misairu>(0, "Misairu");
+	}
+
+	//移動速度セット
+	QueryGOs<Misairu>("Misairu", [&](Misairu* misairu) {
+		if (misairu->GetFlag() == true) { //もし設定済みならスルーする～
+			return true;
+		}
+		//設定の時間だ
+		misairu->SetPosition(m_position);
+		misairu->SetMoveSpeed(MisairuMove);
+		misairu->SettingFlag();
+
+		return true;
+		});
+
+	//自分の移動
+	if (MisairuTimer < MisairuLimit / 4) {
+		MyMove = CVector3::Zero;
+		m_position -= MisairuMove * 2;
+	}
+	else {
+		if (MyMove.x == 0.0f) {
+			MyMove = DefPos - m_position;
+			MyMove = MyMove / ((MisairuLimit / 4) * 3);
+		}
+		m_position += MyMove;
+	}
+
+	if (MisairuTimer == MisairuLimit) {
+		MisairuTimer = -1;
+		MisairuCounter++;
+		if (MisairuCounter >= MisairuCountMAX) {
+			//攻撃終了
+			m_skinModelRender->PlayAnimation(enAnimationClip_move, 0.5f);
+			MisairuCounter = 0;
+			m_stete = Estete_Move;
+		}
+	}
+
+	MisairuTimer++;
 
 }
 
 void SS_001::SSYobi2() {
 
+	if (BeamYobiTimer == 0) {
+		m_skinModelRender->PlayAnimation(enAnimationClip_wait, 0.5f);
+		//Effect再生
+		EffectManager * effectmanager = EffectManager::GetInstance();
+		effectmanager->EffectPlayer(EffectManager::Beam, { m_position.x,m_position.y,m_position.z - 2000.0f }, { 500.0f,500.0f,500.0f });
+	}
+
+	if (BeamYobiTimer >= BeamYobiLimit) {
+		BeamYobiTimer = -1;
+		m_stete = Estete_Attack2; //ビームへ移行
+	}
+
+	BeamYobiTimer++;
+
 }
 
 void SS_001::SSAttack2() {
 
+	if (BeamTimer == 0) {
+		//Effect再生
+		EffectManager * effectmanager = EffectManager::GetInstance();
+		effectmanager->EffectPlayer(EffectManager::BeamHassya, { m_position.x,m_position.y,m_position.z - 2000.0f }, { 1000.0f,1000.0f,1000.0f });
+	}
+
+	if (BeamTimer < 40) {
+		m_position.z += 10.0f;
+	}
+
+	if (BeamTimer > BeamLimit - 40) {
+		m_position.z -= 10.0f;
+	}
+
+	if (BeamTimer >= BeamLimit) {
+		//攻撃終了
+		m_skinModelRender->PlayAnimation(enAnimationClip_move, 0.5f);
+		BeamTimer = -1;
+		m_stete = Estete_Move;
+	}
+
+	BeamTimer++;
 }
 
 void SS_001::SSDeath() {
+
+	//ﾔﾗﾚﾀ･･･
+	if (DeathTimer == 0) {
+		//状態をリザルトに！
+		GameData * gamedata = GameData::GetInstance();
+		BossHPGage * bossHPGage = BossHPGage::GetInstance();
+		gamedata->SetGameMode(GameData::Result);
+		bossHPGage->DeleteGage();
+	}
+
+	if (DeathTimer == 12) {
+		//Effect再生
+		EffectManager * effectmanager = EffectManager::GetInstance();
+		effectmanager->EffectPlayer(EffectManager::Bakuhatu, m_position, { 500.0f,500.0f,500.0f });
+	}
+	if (DeathTimer == 70) {
+		//Effect再生
+		EffectManager * effectmanager = EffectManager::GetInstance();
+		effectmanager->EffectPlayer(EffectManager::Bakuhatu, m_position, { 500.0f,500.0f,500.0f });
+	}
+	if (DeathTimer == 160) {
+		//Effect再生
+		EffectManager * effectmanager = EffectManager::GetInstance();
+		effectmanager->EffectPlayer(EffectManager::Bakuhatu, m_position, { 500.0f,500.0f,500.0f });
+	}
+	if (DeathTimer == 230) {
+		//Effect再生
+		EffectManager * effectmanager = EffectManager::GetInstance();
+		effectmanager->EffectPlayer(EffectManager::Bakuhatu, { m_position.x + 500.0f,m_position.y, m_position.z - 2000.0f }, { 1000.0f,1000.0f,1000.0f });
+	}
+
+
+	if (ToumeiTimeMAX == DeathTimer) {
+		prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+		ss->Init(L"sound/Boss_death.wav");
+		ss->SetVolume(0.5f);
+		ss->SetFrequencyRatio(0.5f);
+		ss->Play(false);
+
+		m_scale = CVector3::Zero;
+	}
+
+	if (DeathTimeMAX == DeathTimer) {
+		GameData * gamedata = GameData::GetInstance();
+		gamedata->EnemyCounterGensyou();
+		DeleteGO(this);
+	}
+
+	DeathTimer++;
 
 }

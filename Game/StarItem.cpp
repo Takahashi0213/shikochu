@@ -69,7 +69,7 @@ void StarItem::Update() {
 	else if(m_stete== Estete_Death){
 		//消滅中
 		GameData * gamedata = GameData::GetInstance();
-		gamedata->Star_PowerChange(1);
+		gamedata->Star_PowerChange(2);
 		m_scale -= {0.1f, 0.1f, 0.1f};//小さくなる
 		itemTimer--;
 		if (itemTimer <= 0) {//タイマーが0でインスタンスを削除

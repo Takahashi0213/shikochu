@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<EffekseerProject>
+  <Root>
+    <Name>Root</Name>
+    <Children>
+      <Node>
+        <CommonValues>
+          <MaxGeneration>
+            <Value>6</Value>
+          </MaxGeneration>
+          <Life>
+            <Center>24</Center>
+            <Max>24</Max>
+            <Min>24</Min>
+          </Life>
+          <GenerationTime>
+            <Center>12</Center>
+            <Max>12</Max>
+            <Min>12</Min>
+          </GenerationTime>
+        </CommonValues>
+        <ScalingValues>
+          <Type>4</Type>
+          <SingleEasing>
+            <End>
+              <Center>10</Center>
+              <Max>10</Max>
+              <Min>10</Min>
+            </End>
+          </SingleEasing>
+        </ScalingValues>
+        <RendererCommonValues>
+          <ColorTexture>Texture/Particle03.png</ColorTexture>
+          <AlphaBlend>2</AlphaBlend>
+          <FadeInType>1</FadeInType>
+          <FadeIn>
+            <Frame>6</Frame>
+          </FadeIn>
+          <FadeOutType>1</FadeOutType>
+          <FadeOut>
+            <Frame>6</Frame>
+          </FadeOut>
+        </RendererCommonValues>
+        <Name>Node</Name>
+        <Children />
+      </Node>
+    </Children>
+  </Root>
+  <ToolVersion>1.32</ToolVersion>
+  <Version>3</Version>
+  <StartFrame>0</StartFrame>
+  <EndFrame>100</EndFrame>
+  <IsLoop>True</IsLoop>
+</EffekseerProject>
