@@ -154,7 +154,7 @@ private:
 	float minRange = 0.3f; //最小範囲
 	float maxRange = 2.0f; //DEF最大範囲 すなわちザンキゼロかつ寿命MAXの時の明るさ範囲
 	//無敵時間
-	const int MutekiAverage = 30 + ResetAverage; //無敵解除までの時間（リスポーン間隔も含む）
+	const int MutekiAverage = 60 + ResetAverage; //無敵解除までの時間（リスポーン間隔も含む）
 	int MutekiTimer = -1; //無敵時間タイマー 0以上ならカウント開始するので普段は-1
 	//エフェクト関連
 	const CVector3 SpawnEffectScale = { 40.0f,40.0f,40.0f }; //スポーンエフェクトの大きさ

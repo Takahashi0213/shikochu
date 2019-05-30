@@ -112,18 +112,8 @@ namespace tkEngine{
 		rc.PSUnsetShaderResource(0);
 		EndGPUEvent();
 	}
-	CVector2 CDithering::AddPointLig(CVector2 pos, float attn)
+	CVector2 CDithering::GeneratePointLigPosition()
 	{
-		m_pointLigList[numPointLig].position = pos;
-		m_pointLigList[numPointLig].attn = attn;
-		numPointLig++;
-		pos.x *= GraphicsEngine().Get2DSpaceScreenWidth() * 0.5f;
-		pos.y *= GraphicsEngine().Get2DSpaceScreenHeight() * -0.5f;
-		return pos;
-	}
-	CVector2 CDithering::AddPointLig()
-	{
-
 		CVector2 pos;
 		pos.x = Random().GetRandDouble();
 		pos.y = Random().GetRandDouble();
@@ -179,14 +169,23 @@ namespace tkEngine{
 			break;
 		case 10:
 			pos.x = CMath::Lerp(pos.x, -0.3f, -0.6f);
-			pos.y = CMath::Lerp(pos.y, -0.3f,  0.3f);
+			pos.y = CMath::Lerp(pos.y, -0.3f, 0.3f);
 			break;
 		case 11:
-			pos.x = CMath::Lerp(pos.x,  0.3f,  0.6f);
-			pos.y = CMath::Lerp(pos.y, -0.3f,  0.3f);
+			pos.x = CMath::Lerp(pos.x, 0.3f, 0.6f);
+			pos.y = CMath::Lerp(pos.y, -0.3f, 0.3f);
 			break;
-			
 		}
-		return AddPointLig(pos, ATTN);
+		pos.x *= GraphicsEngine().Get2DSpaceScreenWidth() * 0.5f;
+		pos.y *= GraphicsEngine().Get2DSpaceScreenHeight() * -0.5f * (16.0f/9.0f);
+		return pos;
+	}
+	void CDithering::AddPointLig(CVector2 pos)
+	{
+		pos.x /= GraphicsEngine().Get2DSpaceScreenWidth() * 0.5f;
+		pos.y /= GraphicsEngine().Get2DSpaceScreenHeight() * -0.5f * (16.0f / 9.0f);
+		m_pointLigList[numPointLig].position = pos;
+		m_pointLigList[numPointLig].attn = ATTN;
+		numPointLig++;
 	}
 }

@@ -66,8 +66,11 @@ namespace tkEngine{
 				m_fadeOutEndTime = fadeOutTime;
 			}
 		}
-		CVector2 AddPointLig();
-		CVector2 AddPointLig(CVector2 pos, float attn);
+		//ポイントライトの座標を生成。
+		CVector2 GeneratePointLigPosition();
+		//ポイントライトを追加
+		//pos ポイントライトを出したい座標。
+		void AddPointLig(CVector2 pos);
 		
 	private:
 		struct SCb {

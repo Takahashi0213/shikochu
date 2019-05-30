@@ -6,6 +6,8 @@
 #include "Bullet.h"
 #include "Bullet2.h"
 #include "Radar.h"
+#include "NakamaLight.h"
+
 //Enemy
 #include "Neoriku.h"
 #include "Neruk.h"
@@ -43,6 +45,7 @@ Player::~Player()
 	if (LaderFlag == false) {
 		DeleteGOs("Radar");
 	}
+	DeleteGOs("NakamaLight");
 
 	//インスタンスが破棄されたので、nullptrを代入
 	m_instance = nullptr;
@@ -70,6 +73,7 @@ bool Player::Start() {
 	m_pointLig->SetAttn(PlayerLightAttn);
 
 	NewGO<Radar>(0, "Radar");
+	NewGO<NakamaLight>(0, "NakamaLight");
 
 	return true;
 }
@@ -1227,7 +1231,12 @@ void Player::PlayerReset() {
 
 		//無敵時間の準備！
 		MutekiTimer = 0;
+	}
 
+	if (GameData::GetInstance()->GetGameMode() == GameData::Battle2D_Mode && ResetTimer == 5) {
+		//星が増えるのは2Dモードだけ。
+		NakamaLight * nakamaLight = NakamaLight::GetInstance();
+		nakamaLight->NakamaPlus();
 	}
 
 	//死んで発光する時間
@@ -1289,11 +1298,12 @@ void Player::PlayerReset() {
 			m_skinModelRender->SetPosition(position);
 			m_skinModelRender->SetRotation(rotation);
 			m_skinModelRender->SetScale(m_scale);
+			/*
 			if (GameData::GetInstance()->GetGameMode() == GameData::Battle2D_Mode) {
 				//星が増えるのは2Dモードだけ。
 				GraphicsEngine().GetPostEffect().GetDithering().AddPointLig();
 			}
-			
+			*/
 			//移動が終わったのでエフェクトを再生（移動後にやらないと死んだ場所で再生されてしまうので）
 			EffectManager * effectmanager = EffectManager::GetInstance();
 			int mode = gamedata->GetGameMode();

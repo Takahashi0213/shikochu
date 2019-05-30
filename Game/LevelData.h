@@ -55,12 +55,12 @@ const wchar_t StageMiniName[Stage][255]{
 const wchar_t BGMName[Stage][255]{
 { L"sound/sea.wav" },
 { L"sound/iseki.wav" },
-{ L"sound/iseki.wav" },
+{ L"sound/ikukan.wav" },
 };
 
 //ボスBGMのファイル名
 const wchar_t BossBGMName[Stage][255]{
 	{ L"sound/seaSokus.wav" },
-{ L"sound/seaSokus.wav" },
-{ L"sound/seaSokus.wav" },
+{ L"sound/pairodorago.wav" },
+{ L"sound/SS_001.wav" },
 };

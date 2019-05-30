@@ -21,19 +21,19 @@ Player_Status::~Player_Status()
 bool Player_Status::Start() {
 
 	//流星ゲージ土台 0
-	prefab::CSpriteRender* r = NewGO<prefab::CSpriteRender>(0);
+	prefab::CSpriteRender* r = NewGO<prefab::CSpriteRender>(7);
 	r->Init(L"sprite/StarBar_base.dds", 20.0f, 300.0f);
 	CVector3 Position = { -550.0f, -10.0f, 1.0f };//座標
 	r->SetPosition(Position);//座標を反映
 	m_spriteRender.push_back(r);
 	//流星ゲージ 1
-	r = NewGO<prefab::CSpriteRender>(0);
+	r = NewGO<prefab::CSpriteRender>(7);
 	r->Init(L"sprite/StarBar.dds", 20.0f, 300.0f);
 	Position = { -550.0f, -160.0f, 1.0f };//座標
 	r->SetPosition(Position);//座標を反映
 	m_spriteRender.push_back(r);
 	//流星ゲージ上部分 2
-	r = NewGO<prefab::CSpriteRender>(0);
+	r = NewGO<prefab::CSpriteRender>(7);
 	r->Init(L"sprite/StarBarUe.dds", 20.0f, 300.0f);
 	Position = { -550.0f, -10.0f, 1.0f };//座標
 	r->SetPosition(Position);//座標を反映
@@ -41,46 +41,46 @@ bool Player_Status::Start() {
 
 
 	//寿命土台 3
-	r = NewGO<prefab::CSpriteRender>(0);
+	r = NewGO<prefab::CSpriteRender>(7);
 	r->Init(L"sprite/LifeBar_base.dds", 120.0f, 480.0f);
 	Position = { -600.0f, -20.0f, 1.0f };//座標
 	r->SetPosition(Position);//座標を反映
 	m_spriteRender.push_back(r);
 	//バー 4
-	r = NewGO<prefab::CSpriteRender>(0);
+	r = NewGO<prefab::CSpriteRender>(7);
 	r->Init(L"sprite/LifeBar.dds", 120.0f, 480.0f);
 	Position = { -600.0f, -215.0f, 1.0f };//座標
 	r->SetPosition(Position);//座標を反映
 	m_spriteRender.push_back(r);
 	//寿命上部分 5
-	r = NewGO<prefab::CSpriteRender>(0);
+	r = NewGO<prefab::CSpriteRender>(7);
 	r->Init(L"sprite/LifeBarUe.dds", 120.0f, 480.0f);
 	Position = { -600.0f, -20.0f, 1.0f };//座標
 	r->SetPosition(Position);//座標を反映
 	m_spriteRender.push_back(r);
 
 	//ソウルアイコン 6
-	r = NewGO<prefab::CSpriteRender>(1);
+	r = NewGO<prefab::CSpriteRender>(8);
 	r->Init(L"sprite/soulIC.dds", 100.0f, 100.0f);
 	Position = { -600.0f, -220.0f, 1.0f };//座標
 	r->SetPosition(Position);//座標を反映
 	m_spriteRender.push_back(r);
 	//残機アンダー 7
-	r = NewGO<prefab::CSpriteRender>(1);
+	r = NewGO<prefab::CSpriteRender>(8);
 	r->Init(L"sprite/Zanki.dds", 300.0f, 300.0f);
 	Position = { -550.0f, 280.0f, 1.0f };//座標
 	r->SetPosition(Position);//座標を反映
 	m_spriteRender.push_back(r);
 
 	//ゲージマックスアイコン 8
-	r = NewGO<prefab::CSpriteRender>(1);
+	r = NewGO<prefab::CSpriteRender>(8);
 	r->Init(L"sprite/starMax.dds", 150.0f, 100.0f);
 	Position = { -480.0f, -150.0f, 1.0f };//座標
 	r->SetPosition(Position);//座標を反映
 	r->SetMulColor({ 1.0f,1.0f,1.0f,1.0f });
 	m_spriteRender.push_back(r);
 
-	m_fontRender = NewGO<prefab::CFontRender>(1);
+	m_fontRender = NewGO<prefab::CFontRender>(8);
 	return true;
 
 }

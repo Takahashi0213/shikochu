@@ -44,6 +44,20 @@ namespace tkEngine{
 			x = v0.x + (v1.x - v0.x) * t;
 			y = v0.y + (v1.y - v0.y) * t;
 		}
+		void Subtract(const CVector2& _v1, const CVector2& _v2)
+		{
+			x = _v1.x - _v2.x;
+			y = _v1.y - _v2.y;
+		}
+		/*!
+		* @brief	除算。
+		*/
+		void Div(float d)
+		{
+			float scale = 1.0f / d;
+			x *= scale;
+			y *= scale;
+		}
 	};
 	/*!
 	 * @brief	ベクトル。
