@@ -4,6 +4,7 @@
 #include "GameData.h"
 #include "EffectManager.h"
 #include "Bullet.h"
+#include "Bullet2.h"
 #include "Radar.h"
 //Enemy
 #include "Neoriku.h"
@@ -420,6 +421,7 @@ void Player::Update() {
 		//m_scaleをゼロにして死んだように見せかける
 		m_scale = CVector3::Zero;
 		position = { 10000.0f,10000.0f,0.0f };
+		
 
 	}
 
@@ -481,7 +483,7 @@ void Player::Update() {
 		m_pointLig->SetColor(PlayerLight * LightHosei);
 		m_pointLig->SetAttn(PlayerLightAttn);
 		m_skinModelRender->SetEmissionColor(EmissionColorDEF);
-		GraphicsEngine().GetTonemap().SetLuminance(0.28f);
+		GraphicsEngine().GetTonemap().SetLuminance(0.56f, 0.5f);
 	}
 	/////////////////////////////////////////////
 	if (mode == 3) {//リザルト中は絶対死なない！
@@ -568,6 +570,29 @@ void Player::PlayerJudge() {
 					m_Life = 0;
 
 					bullet->SetDeath();//お前も死ね
+
+				}
+			}
+		}
+		return true;
+		});
+	QueryGOs<Bullet2>("bullet2", [&](Bullet2* bullet2) {
+		CVector3 bullet_position = bullet2->Getm_Position();
+		CVector3 diff = bullet_position - position;
+		playerVec = diff;
+		//死んでいなければ接触判定
+		if (player_state != Estate_Death) {
+			//＊ダメージレンジは どこだ。
+			float Langth_hoge = bullet2->GetDamageLength();
+			//距離判定
+			if (diff.Length() < Langth_hoge) {
+				//もし無敵時間中でないなら
+				if (MutekiTimer == -1 || player_state != Estate_Dash) {
+
+					//寿命をゼロに
+					m_Life = 0;
+
+					bullet2->SetDeath();//お前も死ね
 
 				}
 			}
@@ -1264,6 +1289,11 @@ void Player::PlayerReset() {
 			m_skinModelRender->SetPosition(position);
 			m_skinModelRender->SetRotation(rotation);
 			m_skinModelRender->SetScale(m_scale);
+			if (GameData::GetInstance()->GetGameMode() == GameData::Battle2D_Mode) {
+				//星が増えるのは2Dモードだけ。
+				GraphicsEngine().GetPostEffect().GetDithering().AddPointLig();
+			}
+			
 			//移動が終わったのでエフェクトを再生（移動後にやらないと死んだ場所で再生されてしまうので）
 			EffectManager * effectmanager = EffectManager::GetInstance();
 			int mode = gamedata->GetGameMode();
@@ -1319,8 +1349,16 @@ void Player::LightStatusSupporter() {
 	GameData * gamedata = GameData::GetInstance();
 	int mode = gamedata->GetGameMode();
 	float RightHosei = 1.0f - gamedata->ZankiWariai(); //逆だ…
-	float range = minRange * (1.0f - RightHosei) + maxRange * RightHosei;
-
+	float range;
+	if (GameData::GetInstance()->GetGameMode() == GameData::Battle2D_Mode) {
+		//2Dモードでは仲間はポイントライトになる。
+		range = minRange;
+	}
+	else {
+		//それ以外(3Dモードなど)では、世界全体を照らす。
+		range = minRange * (1.0f - RightHosei) + maxRange * RightHosei;
+	}
+	
 	//LightStatusの値を設定
 	float LightX = gamedata->GetLifePercent(0);
 	LightX = 1.0f - LightX; //これで割合がわかります！！！！
@@ -1333,6 +1371,6 @@ void Player::LightStatusSupporter() {
 	}
 
 	//セット(^_-)-☆
-	SetSpecialLigRange(range);
+	SetSpecialLigRange(range, 0.2f);
 
 }

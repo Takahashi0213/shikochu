@@ -28,7 +28,6 @@ bool Bunbogu::Start()
 	//ƒXƒLƒ“ƒ‚ƒfƒ‹
 	m_skinModelRender=NewGO<prefab::CSkinModelRender>(0);
 	m_skinModelRender->Init(L"modelData/bunbo-gu0.cmo", m_animClips, enAnimationClip_Num);
-	//m_skinModelRender->PlayAnimation(enAnimationClip_walk);
 	
 	m_skinModelRender->SetPosition(m_position);
 
@@ -43,7 +42,6 @@ bool Bunbogu::Start()
 }
 void Bunbogu::EnemyAttack()
 {
-	//Player * player = Player::GetInstance();
 
 	timer++;
 	if(timer <= attackwait){

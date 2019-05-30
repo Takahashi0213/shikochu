@@ -120,6 +120,7 @@
       <Filter>Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Misairu.cpp" />
+    <ClCompile Include="Bullet2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -225,6 +226,7 @@
       <Filter>Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Misairu.h" />
+    <ClInclude Include="Bullet2.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">

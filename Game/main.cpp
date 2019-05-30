@@ -48,8 +48,8 @@ namespace {
 	{
 		initParam.screenWidth = 1280;
 		initParam.screenHeight = 720;
-		initParam.frameBufferWidth = 1280;
-		initParam.frameBufferHeight = 720;
+		initParam.frameBufferWidth = 640;
+		initParam.frameBufferHeight = 360;
 		
 		//âeÇÃê›íËÅB
 		initParam.graphicsConfing.shadowRenderConfig.isEnable = false;

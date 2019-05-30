@@ -1766,6 +1766,7 @@
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="BossHPGage.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Bullet2.cpp" />
     <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="EffectPlay.cpp" />
     <ClCompile Include="Bunbogu.cpp" />
@@ -1833,6 +1834,7 @@
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="BossHPGage.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="Bullet2.h" />
     <ClInclude Include="DataBase.h" />
     <ClInclude Include="EffectManager.h" />
     <ClInclude Include="EffectPlay.h" />

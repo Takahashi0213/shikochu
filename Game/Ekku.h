@@ -4,19 +4,25 @@ class Ekku : public IGameObject
 public:
 	Ekku();
 	~Ekku();
-	bool Start();
-	void Update();
 
 	enum Estete {
-		Estete_Move,
-		Estete_Attack,
-		Estete_Death,
+		Estete_Move,//移動
+		Estete_Follow, //追尾
+		Estete_Attack, //攻撃
+		Estete_Yobi,//予備動作
+		Estete_Death,//死
 	};
 	enum EnAnimationClip {
-		enAnimationClip_move, //動作
-		enAnimationClip_attack1, //攻撃1
+		enAnimationClip_walk, //移動
+		enAnimationClip_attack, //攻撃
+		enAnimationClip_yobi, //予備動作
 		enAnimationClip_Num,  //アニメーションクリップ
 	};
+
+
+
+	bool Start();
+	void Update();
 
 	//ポジションを返す関数
 	CVector3 Ekku::Getm_Position() {
@@ -55,14 +61,44 @@ public:
 	}
 
 private:
+
+	void EkAttack();
+	void EkMove();
+	void EkFollow();
+	void EkDeath();
+	void Ekyobi();
+
 	CAnimationClip m_animClips[enAnimationClip_Num];
 	prefab::CSkinModelRender* m_skinModelRender = nullptr;	//スキンモデルレンダラー。
 	CVector3 m_position = CVector3::Zero; // 座標。
 	CQuaternion m_rotation = CQuaternion::Identity; //回転。
 	CVector3 m_scale = CVector3::One; // 拡大率。
 
+	CVector3 moveVec = CVector3::Zero;
+	CVector3 enemyVec = CVector3::Zero;
+	CVector3 attackVec = CVector3::Zero;
+
 	Estete m_stete = Estete_Move; //状態
 	CCharacterController m_charaCon; //キャラコン
+
+									 //移動関連
+	const float followRange = 300.0f; //追尾する距離（追尾を諦めるまでの距離）
+	const float attackRange = 120.0f; //攻撃する距離
+	const float followSpeed = 80.0f; //追尾の速度
+
+									 //ランダム移動関連
+	int count = 0; //ランダム移動のタイマー
+	int random = 0; //ランダム移動の方向乱数
+	const int randomCount = 60; //ランダム移動方向切り替えタイマー
+	const float randomSpeed = 30.3f; //ランダム移動速度
+
+									 //攻撃関連
+	int timer = 0; //攻撃のタイマー
+	const int yobiwait = 70; //予備動作の時間
+	const int attackwait = 90; //攻撃動作の時間
+	const float attackMoveRange = 120.0f; //攻撃時の前進距離と速度
+	bool keisannflag = false;		//フラグ
+
 
 	const float DamageLength = 80.0f; //ダメメージを受けけるは範囲だだよ
 

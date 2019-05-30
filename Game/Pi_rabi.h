@@ -13,16 +13,13 @@ public:
 	};
 	enum EnAnimationClip {
 		enAnimationClip_walk, //歩き
+		enAnimationClip_attack, //攻撃
 		enAnimationClip_Num,  //アニメーションクリップ
 	};
 
 	bool Start();
 	void Update();
 
-	void Piattack();
-	void PiMove();
-	void PiFollow();
-	void PiDeath();
 
 	//ポジションを返す関数
 	CVector3 Pi_rabi::Getm_Position() {
@@ -61,6 +58,11 @@ public:
 	}
 	
 private:
+	void Piattack();
+	void PiMove();
+	void PiFollow();
+	void PiDeath();
+
 	CAnimationClip m_animClips[enAnimationClip_Num];
 	prefab::CSkinModelRender* m_skinModelRender = nullptr;	//スキンモデルレンダラー。
 	CVector3 m_position = CVector3::Zero; // 座標。
@@ -72,14 +74,26 @@ private:
 
 	//移動関連
 	int movecount = 0;
-	const float moveD = 15.0f;
-	const float moveup = 45.0f;
-	const float movedown = 60.0f;
-	CVector3 Pivec;
-	const float followstop = 310.0f; //停止する距離(近いい）
-	const float followleave = 300.0f; //離れる距離(近いい）
-	const float followSpeed = 100.0f; //追尾の速度
-	const float Speed = 0.0f; //停止の速度
+	int random = 0;
+	int timer = 0;
+	const float randomCount = 90.0f;
+	const float randomSpeed = 120.0f;
+	CVector3 moveVec = CVector3::Zero;
+	CVector3 attackVec = CVector3::Zero;
+	CVector3 diff = CVector3::Zero;
+	//追尾関連
+	const float followRange = 300.0f; //追尾する距離（追尾を諦めるまでの距離）
+	const float followSpeed = 60.0f; //追尾の速度
+	const float fleeSpeed = 120.0f; //追尾の速度
+	bool attackmoveflag = false;
+	const float attackMoveRange = 240.0f; //攻撃時の前進距離と速度
+	//攻撃関連
+	int attacktimer = 0; //攻撃開始までのタイマー
+	const float attackend = 150.0f; //追尾の速度
+	const float attacktime = 40.0f;
+
+
+
 
 	const float DamageLength = 80.0f; //ダメメージを受けけるは範囲だだよ
 
