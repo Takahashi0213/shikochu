@@ -263,9 +263,9 @@ namespace tkEngine{
 	{
 		return Engine().GetGraphicsEngine().GetGBufferRender().GetRenderTarget(gBuffer).GetRenderTargetSRV();
 	}
-	static inline void SetSpecialLigRange( float range )
+	static inline void SetSpecialLigRange( float range, float interpolateTime )
 	{
-		GraphicsEngine().GetPostEffect().GetDithering().SetLigRange(range);
+		GraphicsEngine().GetPostEffect().GetDithering().SetLigRange(range, interpolateTime);
 	}
 
 	static inline void DisableSpecialLigRange()

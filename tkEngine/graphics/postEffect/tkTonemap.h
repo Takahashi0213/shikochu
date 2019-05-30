@@ -44,9 +44,19 @@ namespace tkEngine{
 		*@brief	 明るさを設定。
 		*@@param[in]	lum		明るさ。この値を大きくすると明るくなる。
 		*/
-		void SetLuminance(float lum)
+		void SetLuminance(float lum, float interpolateTime = 0.0f)
 		{
-			m_tonemapParam.midddleGray = lum;
+			m_interpolateTime = 0.0f;
+			m_targetLuminance = lum;
+			if (interpolateTime > 0.0f) {
+				m_interpolateEndTime = interpolateTime;
+				m_interpolateStartLum = m_tonemapParam.midddleGray;
+			}
+			else {
+				//補間時間が設定されていない場合は即座に変更する。
+				m_interpolateEndTime = 0.0f;			
+				m_tonemapParam.midddleGray = lum;
+			}
 		}
 		/*!
 		*@brief	 トーンマップの有効無効を設定。
@@ -80,5 +90,9 @@ namespace tkEngine{
 		CConstantBuffer	m_cbCalcLuminanceLog;
 		CConstantBuffer m_cbTonemapCommon;
 		STonemapParam	m_tonemapParam;
+		float m_interpolateStartLum;	//
+		float m_interpolateTime = 0.0f;
+		float m_interpolateEndTime = 0.0f;
+		float m_targetLuminance = 0.0f;
 	};
 }

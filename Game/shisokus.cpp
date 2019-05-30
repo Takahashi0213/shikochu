@@ -70,7 +70,7 @@ void shisokus::shisoMove() {
 	}
 	if (m_stete == Estete_Move) {
 		//steteがmoveのときは歩きアニメーション
-		m_skinModelRender->PlayAnimation(enAnimationClip_move);
+		m_skinModelRender->PlayAnimation(enAnimationClip_move, 0.8f);
 
 	}
 
@@ -88,7 +88,7 @@ void shisokus::shisoMove() {
 void shisokus::shisoYobi1() {
 
 	if (keisanflag == false) {
-		m_skinModelRender->PlayAnimation(enAnimationClip_yobi1);
+		m_skinModelRender->PlayAnimation(enAnimationClip_yobi1, 0.2f);
 		yobitimer++;
 		if (yobitimer >= yobiwait) {
 			keisanflag = true;
@@ -104,7 +104,7 @@ void shisokus::shisoAttack1() {
 	attacktimer++;
 	if (attacktimer <= 60) {
 		//攻撃アニメーション
-		m_skinModelRender->PlayAnimation(enAnimationClip_attack1);
+		m_skinModelRender->PlayAnimation(enAnimationClip_attack1, 0.2f);
 
 	}
 	else {

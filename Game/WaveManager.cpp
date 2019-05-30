@@ -270,6 +270,8 @@ void WaveManager::Update() {
 				for (int z = 0; z < len + 1; z++) {
 					BOSS_Name[z] = BossName[stage][z];
 				}
+				//ポイントライトを消す。
+				GraphicsEngine().GetPostEffect().GetDithering().DisablePointLig(0.5f);
 				NewGO<Nerubikkuri>(0, "びっくり");
 				BossHPGage * bossHPgage = BossHPGage::GetInstance();
 				bossHPgage->SetBossName(BOSS_Name);
