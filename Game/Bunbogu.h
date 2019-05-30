@@ -10,7 +10,6 @@ public:
 		Estete_Attack,  //UŒ‚
 		Estete_Move, //ˆÚ“®
 		Estete_Follow, //’Ç”ö
-		Estete_turn, //’Ç”ö
 		Estete_Death, //€
 		Estete_yobi	//—\”õ“®ì
 	};
@@ -72,9 +71,9 @@ private:
 	CQuaternion m_rotation = CQuaternion::Identity; //‰ñ“]B
 	CVector3 m_scale = CVector3::One; // Šg‘å—¦B
 
-	CVector3 moveVec;
-	CVector3 enemyVec;
-	CVector3 attackVec;
+	CVector3 moveVec = CVector3::Zero;
+	CVector3 enemyVec = CVector3::Zero;
+	CVector3 attackVec = CVector3::Zero;
 	Estete m_stete = Estete_Move; //ó‘Ô
 	CCharacterController m_charaCon; //ƒLƒƒƒ‰ƒRƒ“
 

@@ -73,15 +73,15 @@ private:
 	int timer = 0;
 	const float randomCount = 90.0f;
 	const float randomSpeed = 120.0f;
-	CVector3 moveVec;
+	CVector3 moveVec = CVector3::Zero;
 	//攻撃関連
 	int timecount = 0;
 	const float waittimer = 60.0f;
 	const float attacktime = 150.0f;
 	const float back = -20.0f;
 	const float rush = 10.0f;
-	CVector3 attackVec;
-	CVector3 diff;
+	CVector3 attackVec = CVector3::Zero;
+	CVector3 diff = CVector3::Zero;
 	bool attackflag = false;
 
 	const float DamageLength = 80.0f; //ダメメージを受けけるは範囲だだよ

@@ -26,6 +26,11 @@ bool Neoriku::Start() {
 	m_skinModelRender->SetForwardRenderFlag(true);
 
 	m_scale = { 2.0f,2.0f,2.0f };
+	m_charaCon.Init(
+		45.0f,  //キャラクターの半径。
+		10.0f,  //キャラクターの高さ。
+		m_position //キャラクターの初期座標。
+	);
 
 	return true;
 }
@@ -81,7 +86,7 @@ void Neoriku::NeoMove() {
 	neoVec = diff;
 	if (diff.Length() < followstop) {
 		//停止距離
-		moveVec = neoVec * Speed;	
+		moveVec = neoVec * Speed;
 	}
 	else {
 		//追いかけるよ!
@@ -117,7 +122,7 @@ void Neoriku::NeoMove() {
 	CQuaternion qRot;
 	qRot.SetRotation(enemyForward, diff);
 	m_rotation = qRot;
-
+	m_position = m_charaCon.Execute(moveVec);
 }
 void Neoriku::NeoDeath() {
 

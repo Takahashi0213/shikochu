@@ -58,11 +58,11 @@ Game::~Game()
 }
 bool Game::Start()
 {
-	EnableSpecialLigRange();
-	//DisableSpecialLigRange();
+	//EnableSpecialLigRange();
+	DisableSpecialLigRange();
 
 	NewGO<Player>(0,"Bug");
-	
+
 	NewGO<GameCamera>(0,"Gamecamera");
 	NewGO<Player_Status>(0, "Status");
 	NewGO<BackGround>(0, "BackGround");

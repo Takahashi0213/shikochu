@@ -21,10 +21,6 @@ public:
 	bool Start();
 	void Update();
 
-	void NeoAttack();
-	void NeoYobi();
-	void NeoMove();
-	void NeoDeath();
 
 	//ポジションを返す関数
 	CVector3 Neoriku::Getm_Position() {
@@ -63,17 +59,23 @@ public:
 	}
 
 private:
+
+	void NeoAttack();
+	void NeoYobi();
+	void NeoMove();
+	void NeoDeath();
+
 	CAnimationClip m_animClips[enAnimationClip_Num];
 	prefab::CSkinModelRender* m_skinModelRender = nullptr;	//スキンモデルレンダラー。
 	CVector3 m_position = CVector3::Zero; // 座標。
 	CQuaternion m_rotation = CQuaternion::Identity; //回転。
 	CVector3 m_scale = CVector3::One; // 拡大率。
 
-	CVector3 moveVec;
-	CVector3 neoVec;
+	CVector3 moveVec = CVector3::Zero;
+	CVector3 neoVec = CVector3::Zero;
 
 	Estete m_stete = Estete_Move; //状態
-	const int onleZero = 0; //Zerorororo
+	CCharacterController m_charaCon; //キャラコン
 
 	//移動関連
 	const float followstop = 310.0f; //停止する距離(近いい）

@@ -119,6 +119,7 @@
     <ClCompile Include="SS_001.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Bullet2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -223,6 +224,7 @@
     <ClInclude Include="Riritto.h">
       <Filter>Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Bullet2.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
