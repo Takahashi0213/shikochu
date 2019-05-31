@@ -160,6 +160,9 @@ void Pi_rabi::Update() {
 	case Estete_Death:
 		PiDeath();
 		break;
+	case Estete_Death2:
+		PiDeath2();
+		break;
 	}
 
 	//ˆÚ“®
@@ -169,4 +172,8 @@ void Pi_rabi::Update() {
 	//Šg‘å—¦
 	m_skinModelRender->SetScale(m_scale);
 
+}
+
+void Pi_rabi::PiDeath2() {
+	DeleteGO(this);
 }

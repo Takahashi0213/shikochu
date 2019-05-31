@@ -113,11 +113,22 @@ public:
 	//ゲームモード変更
 	void GameData::SetGameMode(GameMode Mode) {
 		m_stete = Mode;
+		if (Mode == 0) {
+			FinalMode = false;
+		}		
+		if (Mode == 1) {
+			FinalMode = true;
+		}
 	}
 
 	//ゲームモード取得
 	int GameData::GetGameMode() {
 		return m_stete;
+	}
+
+	//ファイナルモードを返す
+	bool GameData::GetFinalMode() {
+		return FinalMode;
 	}
 
 	//最大残機-現在残機を返す
@@ -301,6 +312,7 @@ private:
 
 	bool LevelSetFlag = false; //レベルの準備できましたか
 	bool ResultFlag = false; //リザルトへの遷移
+	bool FinalMode = false; //最後は2D？3D？
 
 	//戦闘絡みの変数置き場
 	int EnemyCount = 0; //敵の数
@@ -310,7 +322,7 @@ private:
 
 	//以下ポイントで強化できる部分
 	int ATK = 100; //基本攻撃力
-	int DEF_Zanki = 50; //デフォルト残機
+	int DEF_Zanki = 30; //デフォルト残機
 	int DEF_Life = 100; //デフォルト寿命
 
 	//定数

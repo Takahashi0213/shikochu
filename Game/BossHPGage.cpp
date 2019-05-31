@@ -166,7 +166,11 @@ void BossHPGage::Update() {
 		m_spriteRender[2]->SetScale(BarScale);
 	}
 	else {//バーの更新
-		if (stage == 0) {
+
+		GameData * gamedata = GameData::GetInstance();
+		int mode = gamedata->GetGameMode();
+
+		if (stage == 0 && mode==GameData::Battle3D_Mode) {
 			//ゲージの拡大率を計算
 			shisokus * shiso = FindGO<shisokus>("shiso");
 			int NowHP = shiso->GetHP();
@@ -174,7 +178,7 @@ void BossHPGage::Update() {
 			float BarX = (float)NowHP / (float)MAXHP;
 			BarScale = { BarX,1.0f,1.0f };
 		}
-		if (stage == 1) {
+		if (stage == 1 && mode == GameData::Battle3D_Mode) {
 			//ゲージの拡大率を計算
 			Pairodorago * pairodorago = FindGO<Pairodorago>("Pairodorago");
 			int NowHP = pairodorago->GetHP();
@@ -182,7 +186,7 @@ void BossHPGage::Update() {
 			float BarX = (float)NowHP / (float)MAXHP;
 			BarScale = { BarX,1.0f,1.0f };
 		}
-		if (stage == 2) {
+		if (stage == 2 && mode == GameData::Battle3D_Mode) {
 			//ゲージの拡大率を計算
 			SS_001 * ss_001 = FindGO<SS_001>("SS_001");
 			int NowHP = ss_001->GetHP();

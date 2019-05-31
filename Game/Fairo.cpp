@@ -127,6 +127,9 @@ void Fairo::Update() {
 	case Estete_Death://Ž€Ç
 		Faideath();
 		break;
+	case Estete_Death2://Ž€Ç
+		Faideath2();
+		break;
 	}
 
 	//ˆÚ“®
@@ -136,4 +139,8 @@ void Fairo::Update() {
 	//Šg‘å—¦
 	m_skinModelRender->SetScale(m_scale);
 	
+}
+
+void Fairo::Faideath2() {
+	DeleteGO(this);
 }

@@ -192,6 +192,9 @@ void Bunbogu::Update()
 		case Estete_Death:
 			EnemyDeath();//Ž€
 			break;
+		case Estete_Death2:
+			EnemyDeath2();//Ž€
+			break;
 		case Estete_yobi:
 			Enemyyobi();//—\”õ“®ì
 			break;
@@ -208,4 +211,8 @@ void Bunbogu::Update()
 	//Šg‘å—¦
 	m_skinModelRender->SetScale(m_scale);
 
+}
+
+void Bunbogu::EnemyDeath2() {
+	DeleteGO(this);
 }

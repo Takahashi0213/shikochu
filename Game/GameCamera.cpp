@@ -24,7 +24,9 @@ GameCamera::GameCamera()
 
 GameCamera::~GameCamera()
 {
-	ss->SetVolume(0.0f);
+	if (BGM_Flag == true) {
+		ss->SetVolume(0.0f);
+	}
 
 	//インスタンスが破棄されたので、nullptrを代入
 	m_instance = nullptr;
@@ -147,6 +149,7 @@ void GameCamera::Update() {
 			ss->Init(BossBGMName[stage]);
 			ss->SetVolume(BMG_V);
 			ss->Play(true);
+			BGM_Flag = true;
 		}
 
 		//タイマー加算

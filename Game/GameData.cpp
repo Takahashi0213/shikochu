@@ -62,7 +62,7 @@ int GameData::DamageKeisan(bool dashflag) {
 	}
 
 	if (dashflag == true) {//流星ダッシュ中ならダメージアップ！
-		damage *= 5;
+		damage *= 3;
 	}
 
 	return damage;

@@ -111,6 +111,10 @@ void soukabuto::Update() {
 	case Estete_Death://Ž€Ç
 		Soudeath();
 		break;
+	case Estete_Death2://Ž€Ç
+		Soudeath2();
+		break;
+
 	}
 
 	//ˆÚ“®
@@ -120,4 +124,8 @@ void soukabuto::Update() {
 	//Šg‘å—¦
 	m_skinModelRender->SetScale(m_scale);
 
+}
+
+void soukabuto::Soudeath2() {
+	DeleteGO(this);
 }

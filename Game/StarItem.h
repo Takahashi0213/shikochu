@@ -7,6 +7,7 @@ public:
 		Estete_Wait,  //待機
 		Estete_Death, //死
 		Estete_Death2, //取得されずに死んだ
+		Estete_Death3, //だまって死ね
 	};
 
 	//座標を設定。
@@ -26,6 +27,11 @@ public:
 	//さよならアイテム
 	void DeleteItem() {
 		m_stete = Estete_Death2;
+	}
+
+	//さよならアイテム
+	void DeleteItem2() {
+		m_stete = Estete_Death3;
 	}
 
 	StarItem();

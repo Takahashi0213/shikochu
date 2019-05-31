@@ -9,6 +9,7 @@ public:
 		Estete_Move,
 		Estete_Attack,
 		Estete_Death,
+		Estete_Death2,
 	};
 	enum EnAnimationClip {
 		enAnimationClip_move, //動作
@@ -21,6 +22,7 @@ public:
 	void Soumove();
 	void Souattack();
 	void Soudeath();
+	void Soudeath2();
 
 	//ポジションを返す関数
 	CVector3 soukabuto::Getm_Position() {
@@ -34,6 +36,10 @@ public:
 	int soukabuto::SetDeath() {
 		m_stete = Estete_Death;
 		return 0;
+	}
+	//自分が死ぬ関数2
+	void soukabuto::SetDeath2() {
+		m_stete = Estete_Death2;
 	}
 	//座標を設定。
 	void SetPosition(CVector3 pos)

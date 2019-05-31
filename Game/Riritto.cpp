@@ -154,8 +154,11 @@ void Riritto::Update() {
 		RiMove();
 		break;
 	case Estete_Death:
-		RiDeath();//Ž€
-		break;
+	RiDeath();//Ž€
+	break;
+	case Estete_Death2:
+		RiDeath2();//Ž€
+		break;	
 	}
 
 	if (dathflag == true) {
@@ -169,4 +172,8 @@ void Riritto::Update() {
 	//Šg‘å—¦
 	m_skinModelRender->SetScale(m_scale);
 
+}
+
+void Riritto::RiDeath2() {
+	DeleteGO(this);
 }

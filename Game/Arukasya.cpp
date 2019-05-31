@@ -128,6 +128,9 @@ void Arukasya::Update() {
 	case Estete_Death:
 		AruDeath();
 		break;
+	case Estete_Death2:
+		AruDeath2();
+		break;
 	}
 
 	//ˆÚ“®
@@ -137,4 +140,8 @@ void Arukasya::Update() {
 	//Šg‘å—¦
 	m_skinModelRender->SetScale(m_scale);
 	
+}
+
+void Arukasya::AruDeath2() {
+	DeleteGO(this);
 }

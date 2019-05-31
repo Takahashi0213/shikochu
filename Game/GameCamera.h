@@ -31,6 +31,8 @@ private:
 	prefab::CSoundSource* ss;
 	float BMG_V = 1.0f;
 
+	bool BGM_Flag = false;
+
 	//íËêî
 	const CVector3 camera2D_DEF = { 0.0f,250.0f,-5.0f };
 	const CVector3 camera3D_DEF = { 0.0f,0.0f,-200.0f };

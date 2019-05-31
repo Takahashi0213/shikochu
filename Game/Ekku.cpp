@@ -177,6 +177,9 @@ void Ekku::Update() {
 	case Estete_Death:
 		EkDeath();//Ž€
 		break;
+	case Estete_Death2:
+		EkDeath2();//Ž€
+		break;
 	case Estete_Yobi:
 		Ekyobi();//—\”õ“®ì
 		break;
@@ -190,4 +193,8 @@ void Ekku::Update() {
 	m_skinModelRender->SetScale(m_scale);
 	
 
+}
+
+void Ekku::EkDeath2() {
+	DeleteGO(this);
 }

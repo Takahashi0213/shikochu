@@ -11,6 +11,7 @@ public:
 		Estete_Attack, //UŒ‚
 		Estete_Yobi,//—\”õ“®ì
 		Estete_Death,//€
+		Estete_Death2,//€
 	};
 	enum EnAnimationClip {
 		enAnimationClip_walk, //ˆÚ“®
@@ -37,6 +38,11 @@ public:
 		m_stete = Estete_Death;
 		return 0;
 	}
+	//©•ª‚ª€‚ÊŠÖ”
+	void Ekku::SetDeath2() {
+		m_stete = Estete_Death2;
+	}
+
 	//À•W‚ğİ’èB
 	void SetPosition(CVector3 pos)
 	{
@@ -66,6 +72,7 @@ private:
 	void EkMove();
 	void EkFollow();
 	void EkDeath();
+	void EkDeath2();
 	void Ekyobi();
 
 	CAnimationClip m_animClips[enAnimationClip_Num];

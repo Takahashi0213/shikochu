@@ -248,12 +248,26 @@ bool Title::Start() {
 	r->SetPosition({ -550.0f ,minipos.y,0.0f });
 	m_spriteRender.push_back(r);
 
+	//セーブデータがあったらm_steteをLoadNewにする。
+	{
+		FILE* fp = fopen("save.bin", "r");
+		if (fp != NULL) {
+			m_spriteRender[0]->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
+			m_spriteRender[1]->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
+			m_spriteRender[5]->SetMulColor({ 1.0f,1.0f,1.0f,1.0f });
+			m_spriteRender[6]->SetMulColor({ 1.0f,1.0f,1.0f,1.0f });
+			m_spriteRender[22]->SetMulColor({ 1.0f,1.0f,1.0f,1.0f });
+			minipos.y = -180.0f;
+			m_stete = LoadGame;
+		}
+		else {
+			m_spriteRender[0]->SetMulColor({ 1.0f,1.0f,1.0f,1.0f });
+			m_spriteRender[1]->SetMulColor({ 1.0f,1.0f,1.0f,1.0f });
+			m_spriteRender[5]->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
+			m_spriteRender[6]->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
 
-	m_spriteRender[0]->SetMulColor({ 1.0f,1.0f,1.0f,1.0f });
-	m_spriteRender[1]->SetMulColor({ 1.0f,1.0f,1.0f,1.0f });
-	m_spriteRender[5]->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
-	m_spriteRender[6]->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
-
+		}
+	}
 
 	return true;
 }
@@ -420,6 +434,7 @@ void Title::NewMove() {
 void Title::LoadMove() {
 	switch (m_load) {
 	case Title::LoadDown:{
+
 		CVector3 pos2_1 = m_spriteRender[6]->GetPosition();
 		CVector3 scale2_1 = m_spriteRender[6]->GetScale();
 		diff = musi - pos2_1;
@@ -553,7 +568,6 @@ void Title::LoadMove() {
 	}
 
 }
-
 void Title::ExitMove() {
 	switch (m_exit) {
 	case Title::Exitdown1:
@@ -691,13 +705,26 @@ void Title::GameMore() {
 	
 	LoadMove();
 	if (Pad(0).IsTrigger(enButtonA) && miniflag==false &&  Timer > 60) {
-		prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
-		//SE再生
-		ss->Init(L"sound/TitleOK.wav");
-		ss->SetVolume(1.0f);
-		ss->Play(false);
+		FILE* fp = fopen("save.bin", "r");
+		if (fp != NULL) {
+			prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+			//SE再生
+			ss->Init(L"sound/TitleOK.wav");
+			ss->SetVolume(1.0f);
+			ss->Play(false);
 
-		miniflag = true;
+			miniflag = true;
+			TransitionMaker * tm = TransitionMaker::GetInstance();
+			tm->TransitionSetting(TransitionMaker::Fade, 12, 12, false);
+		}
+		else {
+			prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+			//SE再生
+			ss->Init(L"sound/blip.wav");
+			ss->SetVolume(2.0f);
+			ss->Play(false);
+		}
+
 	}
 	if (minimoveflag == false && miniflag == true) {
 		minimove();
@@ -706,14 +733,20 @@ void Title::GameMore() {
 		{
 			FILE* fp = fopen("save.bin", "r");
 			if (fp != NULL) {
+
 				fread(SaveData::GetInstance(), sizeof(SaveData), 1, fp);
 				fread(GameData::GetInstance(), sizeof(GameData), 1, fp);
 				fclose(fp);
+
+				TransitionMaker * tm = TransitionMaker::GetInstance();
+				tm->TransitionSetting(TransitionMaker::Fade, 12, 30, true);
+
+				NewGO<StageSelect>(0);
+
+				DeleteGO(this);
+
 			}
 		}
-		NewGO<StageSelect>(0);
-
-		DeleteGO(this);
 	}
 
 }

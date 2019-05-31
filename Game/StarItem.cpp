@@ -88,6 +88,9 @@ void StarItem::Update() {
 			DeleteGO(this);
 		}
 	}
+	else if (m_stete == Estete_Death3) {
+			DeleteGO(this);
+	}
 
 	CQuaternion RotationY;
 	RotationY.SetRotationDeg(CVector3::AxisY, -1.0f);

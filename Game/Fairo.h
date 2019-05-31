@@ -11,6 +11,7 @@ public:
 		Estete_Move,
 		Estete_Attack,
 		Estete_Death,
+		Estete_Death2,
 	};
 	enum EnAnimationClip {
 		enAnimationClip_walk, //歩き
@@ -30,6 +31,11 @@ public:
 		m_stete = Estete_Death;
 		return 0;
 	}
+	//自分が死ぬ関数2
+	void Fairo::SetDeath2() {
+		m_stete = Estete_Death2;
+	}
+
 	//座標を設定。
 	void SetPosition(CVector3 pos)
 	{
@@ -58,6 +64,7 @@ private:
 	void Faimove();
 	void Faiattack();
 	void Faideath();
+	void Faideath2();
 
 	CAnimationClip m_animClips[enAnimationClip_Num];
 	prefab::CSkinModelRender* m_skinModelRender = nullptr;	//スキンモデルレンダラー。

@@ -33,8 +33,14 @@ Game::Game()
 
 Game::~Game()
 {
+	GameData * gamedata = GameData::GetInstance();
+	bool F_mode = gamedata->GetFinalMode();
+
+	if (F_mode == true) {
+		DeleteGOs("BossHPGage");
+	}
+
 	//色々消す
-	DeleteGOs("BossHPGage");
 	DeleteGOs("Gamecamera");
 	DeleteGOs("Status");
 	DeleteGOs("WaveManager");
@@ -47,7 +53,6 @@ Game::~Game()
 	//インスタンスが破棄されたので、nullptrを代入
 	m_instance = nullptr;
 
-	GameData * gamedata = GameData::GetInstance();
 	gamedata->SetGameMode(GameData::NotGame);
 
 	WaveManager * wavemanager = WaveManager::GetInstance();

@@ -157,6 +157,9 @@ void Morikon::Update() {
 	case Estete_Death:
 		Modeath();//Ž€
 		break;
+	case Estete_Death2:
+		Modeath2();//Ž€
+		break;
 	}
 
 	//ˆÚ“®
@@ -166,4 +169,8 @@ void Morikon::Update() {
 	//Šg‘å—¦
 	m_skinModelRender->SetScale(m_scale);
 
+}
+
+void Morikon::Modeath2() {
+	DeleteGO(this);
 }

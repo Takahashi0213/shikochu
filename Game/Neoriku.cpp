@@ -156,6 +156,9 @@ void Neoriku::Update() {
 		case Estete_Death:
 			NeoDeath();//Ž€
 			break;
+		case Estete_Death2:
+			NeoDeath2();//Ž€
+			break;
 	}
 
 	if (dathflag == true) {
@@ -171,4 +174,6 @@ void Neoriku::Update() {
 
 }
 
-
+void Neoriku::NeoDeath2() {
+	DeleteGO(this);
+}
