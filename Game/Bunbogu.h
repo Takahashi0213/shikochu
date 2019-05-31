@@ -11,7 +11,8 @@ public:
 		Estete_Move, //移動
 		Estete_Follow, //追尾
 		Estete_Death, //死
-		Estete_yobi	//予備動作
+		Estete_yobi,	//予備動作
+		Estete_Death2, //死
 	};
 	enum EnAnimationClip {
 		enAnimationClip_walk, //歩き
@@ -26,6 +27,7 @@ public:
 	void EnemyMove();
 	void EnemyFollow();
 	void EnemyDeath();
+	void EnemyDeath2();
 	void Enemyyobi();
 	//ポジションを返す関数
 	CVector3 Bunbogu::Getm_Position(){
@@ -39,6 +41,10 @@ public:
 	int Bunbogu::SetDeath() {
 		m_stete = Estete_Death;
 		return 0;
+	}
+	//自分が死ぬ関数2
+	void Bunbogu::SetDeath2() {
+		m_stete = Estete_Death2;
 	}
 	//座標を設定。
 	void SetPosition(CVector3 pos)

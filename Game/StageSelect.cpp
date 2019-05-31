@@ -364,7 +364,7 @@ void StageSelect::Update(){
 	else if (SelectedFlag == false) { //操作中のみ実行する
 
 		//上下移動
-		if (IdouFlag == false) {
+		if (IdouFlag == false && TranTimer >= TranLimit) {
 			if (Pad(0).IsTrigger(enButtonUp)) {
 				if (SelectStageNow < MAX_Stage - 1) {
 					prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
@@ -449,6 +449,8 @@ void StageSelect::Update(){
 	BoxUpdate();
 	//スタート点滅
 	STARTUpdate();
+
+	TranTimer++;
 
 }
 

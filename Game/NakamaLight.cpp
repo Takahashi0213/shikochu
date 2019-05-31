@@ -62,6 +62,11 @@ void NakamaLight::Update() {
 	}
 	
 	if (StarTimer == StarWaitLimit) { //ハイスピード準備
+		ss = NewGO<prefab::CSoundSource>(0);
+		ss->Init(L"sound/star_02.wav");
+		ss->SetVolume(0.3f);
+		ss->Play(false);
+
 		CVector3 m_pos = r->GetPosition();
 		CVector2 m_Pos;
 		m_Pos.x = m_pos.x;
@@ -109,6 +114,12 @@ void NakamaLight::Update() {
 	}
 
 	if (StarTimer == FinalLimit) {
+		ss = NewGO<prefab::CSoundSource>(0);
+		ss->Init(L"sound/star_03.wav");
+		ss->SetVolume(1.0f);
+		ss->SetFrequencyRatio(1.5f);
+		ss->Play(false);
+
 		GraphicsEngine().GetPostEffect().GetDithering().AddPointLig(Star_Pos);
 		Scale = CVector3::Zero;
 		StarTimer = -1;
@@ -121,6 +132,12 @@ void NakamaLight::NakamaPlus() {
 
 	Star_Pos = GraphicsEngine().GetPostEffect().GetDithering().GeneratePointLigPosition();
 	StarTimer = 0;
+
+	ss = NewGO<prefab::CSoundSource>(0);
+	ss->Init(L"sound/star_01.wav");
+	ss->SetVolume(0.5f);
+	ss->SetFrequencyRatio(2.0f);
+	ss->Play(false);
 
 	r->Init(L"sprite/Star.dds", 200, 200);
 	r->SetPosition({ P_Pos.x,P_Pos.y,0.0f });

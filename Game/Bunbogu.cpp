@@ -142,7 +142,7 @@ void Bunbogu::EnemyDeath()
 {
 	prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
 	ss->Init(L"sound/E_death.wav");
-	ss->SetVolume(0.5f);
+	ss->SetVolume(1.0f);
 	ss->Play(false);
 
 	EffectManager * effectmanager = EffectManager::GetInstance();
@@ -192,6 +192,9 @@ void Bunbogu::Update()
 		case Estete_Death:
 			EnemyDeath();//Ž€
 			break;
+		case Estete_Death2:
+			EnemyDeath2();//Ž€
+			break;
 		case Estete_yobi:
 			Enemyyobi();//—\”õ“®ì
 			break;
@@ -208,4 +211,8 @@ void Bunbogu::Update()
 	//Šg‘å—¦
 	m_skinModelRender->SetScale(m_scale);
 
+}
+
+void Bunbogu::EnemyDeath2() {
+	DeleteGO(this);
 }

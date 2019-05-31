@@ -70,6 +70,8 @@ private:
 	//点滅スタート
 	int TenmetuTimer = 0;
 
+	int TranTimer = 0;
+
 	//定数
 	const CVector3 BoxPosDEF = { -100.0f,-120.0f,0.0f }; //選択中のボックスが移動する場所
 	const float BoXMoveZ = 200.0f; //非選択中のボックスの移動差
@@ -77,5 +79,6 @@ private:
 	const float HighScoreFontSize = 2.0f; //ハイスコアのフォントサイズ
 	const float StageFontSize = 1.5f; //ステージ番号のフォントサイズ
 	const float StageNameFontSize = 1.0f; //ステージ名のフォントサイズ
+	const int TranLimit = 40; //トランジション待ち
 };
 

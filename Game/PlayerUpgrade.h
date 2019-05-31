@@ -20,9 +20,9 @@ private:
 	void KumoMove();
 
 	void Point_keisan() { //消費ポイントを計算
-		zanki_Point = 1000 + (1000 * zanki_X);
-		attack_Point = 1000 + (1000 * attack_X);
-		jyumyo_Point = 1000 + (1000 * jyumyo_X);
+		zanki_Point = 200 + (200 * zanki_X);
+		attack_Point = 200 + (200 * attack_X);
+		jyumyo_Point = 200 + (200 * jyumyo_X);
 	}
 
 	int CommandNow = 0;

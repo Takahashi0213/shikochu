@@ -195,6 +195,10 @@ void shisokus::Update() {
 	case Estete_Death://Ž€Ç
 		shisoDeath();
 		break;
+	case Estete_Death2://Ž€Ç
+		shisoDeath2();
+		break;
+
 	}
 	//HP‚ª0‚È‚çŽ€‚Ê
 	if (NowHP == 0) {
@@ -207,4 +211,8 @@ void shisokus::Update() {
 	//Šg‘å—¦
 	m_skinModelRender->SetScale(m_scale);
 
+}
+
+void shisokus::shisoDeath2() {
+	DeleteGO(this);
 }

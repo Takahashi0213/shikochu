@@ -100,7 +100,7 @@ void Fairo::Faiattack() {
 void Fairo::Faideath() {
 	prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
 	ss->Init(L"sound/E_death.wav");
-	ss->SetVolume(0.5f);
+	ss->SetVolume(1.0f);
 	ss->Play(false);
 
 	EffectManager * effectmanager = EffectManager::GetInstance();
@@ -127,6 +127,9 @@ void Fairo::Update() {
 	case Estete_Death://Ž€Ç
 		Faideath();
 		break;
+	case Estete_Death2://Ž€Ç
+		Faideath2();
+		break;
 	}
 
 	//ˆÚ“®
@@ -136,4 +139,8 @@ void Fairo::Update() {
 	//Šg‘å—¦
 	m_skinModelRender->SetScale(m_scale);
 	
+}
+
+void Fairo::Faideath2() {
+	DeleteGO(this);
 }

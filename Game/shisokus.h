@@ -11,7 +11,8 @@ public:
 		Estete_Yobi1,	//—\”õ“®ì1
 		Estete_Attack2,  //UŒ‚2
 		Estete_Yobi2,	//—\”õ“®ì2
-		Estete_Death	 //€Ç
+		Estete_Death,	 //€Ç
+		Estete_Death2, //ˆÓ}‚¹‚¸€‚ñ‚¾
 
 	};
 
@@ -33,6 +34,7 @@ public:
 	void shisoYobi2();
 	void shisoAttack2();
 	void shisoDeath();
+	void shisoDeath2();
 
 	//ƒ|ƒWƒVƒ‡ƒ“‚ğ•Ô‚·ŠÖ”
 
@@ -50,7 +52,7 @@ public:
 
 	//©•ª‚ª€‚ÊŠÖ”
 	int shisokus::SetDeath() {
-		m_stete = Estete_Death;
+		m_stete = Estete_Death2;
 		return 0;
 	}	
 	

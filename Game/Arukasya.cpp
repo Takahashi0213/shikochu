@@ -102,7 +102,7 @@ void Arukasya::AruAttack() {
 void Arukasya::AruDeath() {
 	prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
 	ss->Init(L"sound/E_death.wav");
-	ss->SetVolume(0.5f);
+	ss->SetVolume(1.0f);
 	ss->Play(false);
 
 	EffectManager * effectmanager = EffectManager::GetInstance();
@@ -128,6 +128,9 @@ void Arukasya::Update() {
 	case Estete_Death:
 		AruDeath();
 		break;
+	case Estete_Death2:
+		AruDeath2();
+		break;
 	}
 
 	//ˆÚ“®
@@ -137,4 +140,8 @@ void Arukasya::Update() {
 	//Šg‘å—¦
 	m_skinModelRender->SetScale(m_scale);
 	
+}
+
+void Arukasya::AruDeath2() {
+	DeleteGO(this);
 }

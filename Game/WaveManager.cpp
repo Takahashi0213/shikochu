@@ -22,6 +22,7 @@
 #include "Riritto.h"
 #include "Arukasya.h"
 #include "SS_001.h"
+#include "Neruk.h"
 
 //ギミック
 #include "StarItem.h"
@@ -265,7 +266,7 @@ void WaveManager::Update() {
 			//もしボスバトルなら3Dへの移行を行う
 			if (NowWave+1 == LastWave) {
 				ss->SetVolume(0.0f);
-				NewGO<BossHPGage>(0);
+				NewGO<BossHPGage>(0,"BossHPGage");
 				int len = (int)wcslen(BossName[stage]);
 				for (int z = 0; z < len + 1; z++) {
 					BOSS_Name[z] = BossName[stage][z];
@@ -340,13 +341,15 @@ void WaveManager::AllStage(int x) {
 //全てを無に還す
 void WaveManager::DeleteAll() {
 
+	ss->SetVolume(0.0f);
+
 	QueryGOs<Bunbogu>("bun", [&](Bunbogu* bunbogu) {
-		bunbogu->SetDeath();
+		bunbogu->SetDeath2();
 		return true;
 		});
 
 	QueryGOs<Neoriku>("neo", [&](Neoriku* neoriku) {
-		neoriku->SetDeath();
+		neoriku->SetDeath2();
 		return true;
 		});
 
@@ -355,23 +358,28 @@ void WaveManager::DeleteAll() {
 		return true;
 		});
 
+	QueryGOs<Neruk>("neru", [&](Neruk* neruk) {
+		neruk->SetDeath();
+		return true;
+		});
+
 	QueryGOs<soukabuto>("sou", [&](soukabuto* souka) {
-		souka->SetDeath();
+		souka->SetDeath2();
 		return true;
 		});
 
 	QueryGOs<Ekku>("Ekku", [&](Ekku* ekku) {
-		ekku->SetDeath();
+		ekku->SetDeath2();
 		return true;
 		});
 
 	QueryGOs<Pi_rabi>("Pi_rabi", [&](Pi_rabi* pi_rabi) {
-		pi_rabi->SetDeath();
+		pi_rabi->SetDeath2();
 		return true;
 		});
 
 	QueryGOs<Fairo>("Fairo", [&](Fairo* fairo) {
-		fairo->SetDeath();
+		fairo->SetDeath2();
 		return true;
 		});
 
@@ -381,17 +389,17 @@ void WaveManager::DeleteAll() {
 		});
 
 	QueryGOs<Morikon>("Morikon", [&](Morikon* morikon) {
-		morikon->SetDeath();
+		morikon->SetDeath2();
 		return true;
 		});
 
 	QueryGOs<Riritto>("Riritto", [&](Riritto* riritto) {
-		riritto->SetDeath();
+		riritto->SetDeath2();
 		return true;
 		});
 
 	QueryGOs<Arukasya>("Arukasya", [&](Arukasya* arukasya) {
-		arukasya->SetDeath();
+		arukasya->SetDeath2();
 		return true;
 		});
 
@@ -401,7 +409,7 @@ void WaveManager::DeleteAll() {
 		});
 
 	QueryGOs<StarItem>("Item", [&](StarItem* staritem) {
-		staritem->DeleteItem();
+		staritem->DeleteItem2();
 		return true;
 		});
 

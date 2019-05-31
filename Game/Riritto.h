@@ -10,6 +10,7 @@ public:
 		Estete_Yobi,  //予備動作
 		Estete_Move, //移動
 		Estete_Death, //死
+		Estete_Death2, //死
 	};
 
 	enum EnAnimationClip {
@@ -34,6 +35,12 @@ public:
 		m_stete = Estete_Death;
 		return 0;
 	}
+
+	//自分が死ぬ関数2
+	void Riritto::SetDeath2() {
+		m_stete = Estete_Death2;
+	}
+
 	//座標を設定。
 	void SetPosition(CVector3 pos)
 	{
@@ -63,6 +70,7 @@ private:
 	void RiYobi();
 	void RiMove();
 	void RiDeath();
+	void RiDeath2();
 
 	CAnimationClip m_animClips[enAnimationClip_Num];
 	prefab::CSkinModelRender* m_skinModelRender = nullptr;	//スキンモデルレンダラー。

@@ -696,8 +696,8 @@ void Title::GameStart(){
 	else if (minimoveflag == true) {
 		TransitionMaker * tm = TransitionMaker::GetInstance();
 		tm->TransitionSetting(TransitionMaker::Fade, 12, 30, true);
-		//NewGO<OP>(0, "OP");
-		NewGO<StageSelect>(0);
+		NewGO<OP>(0, "OP");
+		//NewGO<StageSelect>(0);
 
 		DeleteGO(this);
 	}
@@ -706,13 +706,26 @@ void Title::GameMore() {
 	
 	LoadMove();
 	if (Pad(0).IsTrigger(enButtonA) && miniflag==false &&  Timer > 60) {
-		prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
-		//SEÄ¶
-		ss->Init(L"sound/TitleOK.wav");
-		ss->SetVolume(1.0f);
-		ss->Play(false);
+		FILE* fp = fopen("save.bin", "r");
+		if (fp != NULL) {
+			prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+			//SEÄ¶
+			ss->Init(L"sound/TitleOK.wav");
+			ss->SetVolume(1.0f);
+			ss->Play(false);
 
-		miniflag = true;
+			miniflag = true;
+			TransitionMaker * tm = TransitionMaker::GetInstance();
+			tm->TransitionSetting(TransitionMaker::Fade, 12, 12, false);
+		}
+		else {
+			prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+			//SEÄ¶
+			ss->Init(L"sound/blip.wav");
+			ss->SetVolume(2.0f);
+			ss->Play(false);
+		}
+
 	}
 	if (minimoveflag == false && miniflag == true) {
 		minimove();
@@ -721,14 +734,20 @@ void Title::GameMore() {
 		{
 			FILE* fp = fopen("save.bin", "r");
 			if (fp != NULL) {
+
 				fread(SaveData::GetInstance(), sizeof(SaveData), 1, fp);
 				fread(GameData::GetInstance(), sizeof(GameData), 1, fp);
 				fclose(fp);
+
+				TransitionMaker * tm = TransitionMaker::GetInstance();
+				tm->TransitionSetting(TransitionMaker::Fade, 12, 30, true);
+
+				NewGO<StageSelect>(0);
+
+				DeleteGO(this);
+
 			}
 		}
-		NewGO<StageSelect>(0);
-
-		DeleteGO(this);
 	}
 
 }

@@ -130,7 +130,7 @@ void Pi_rabi::PiFollow() {
 void Pi_rabi::PiDeath() {
 	prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
 	ss->Init(L"sound/E_death.wav");
-	ss->SetVolume(0.5f);
+	ss->SetVolume(1.0f);
 	ss->Play(false);
 
 	EffectManager * effectmanager = EffectManager::GetInstance();
@@ -160,6 +160,9 @@ void Pi_rabi::Update() {
 	case Estete_Death:
 		PiDeath();
 		break;
+	case Estete_Death2:
+		PiDeath2();
+		break;
 	}
 
 	//ˆÚ“®
@@ -169,4 +172,8 @@ void Pi_rabi::Update() {
 	//Šg‘å—¦
 	m_skinModelRender->SetScale(m_scale);
 
+}
+
+void Pi_rabi::PiDeath2() {
+	DeleteGO(this);
 }

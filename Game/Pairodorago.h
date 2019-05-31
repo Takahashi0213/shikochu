@@ -13,7 +13,8 @@ public:
 		Estete_Yobi1,	//予備動作1
 		Estete_Attack2,  //攻撃2
 		Estete_Yobi2,	//予備動作2
-		Estete_Death	 //死ﾇ
+		Estete_Death,	 //死ﾇ
+		Estete_Death2,	 //死ﾇ
 
 	};
 
@@ -40,7 +41,7 @@ public:
 
 	//自分が死ぬ関数
 	int Pairodorago::SetDeath() {
-		m_stete = Estete_Death;
+		m_stete = Estete_Death2;
 		return 0;
 	}
 
@@ -90,6 +91,7 @@ private:
 	void PairoYobi2();
 	void PairoAttack2();
 	void PairoDeath();
+	void PairoDeath2();
 
 	CAnimationClip m_animClips[enAnimationClip_Num];
 	prefab::CSkinModelRender* m_skinModelRender = nullptr;	//スキンモデルレンダラー。
@@ -97,6 +99,7 @@ private:
 	CQuaternion m_rotation = CQuaternion::Identity; //回転。
 	CVector3 m_scale = CVector3::One; // 拡大率。
 	CVector3 shisoVec;
+	prefab::CSoundSource* ss;
 
 	Estete m_stete = Estete_Move; //状態
 	CCharacterController m_charaCon; //キャラコン
@@ -106,13 +109,13 @@ private:
 
 	int waveNo = 0; //自分が属するWaveの番号
 
-	const int MAXHP = 10000; //最大HP
+	const int MAXHP = 7000; //最大HP
 	int NowHP = MAXHP; //現在HP
 
 	//
 
 	int MoveTimer = 0;
-	const int MoveLimit = 20;
+	const int MoveLimit = 40;
 
 	//
 

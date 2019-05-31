@@ -88,7 +88,7 @@ void soukabuto::Soudeath() {
 
 	prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
 	ss->Init(L"sound/E_death.wav");
-	ss->SetVolume(0.5f);
+	ss->SetVolume(1.0f);
 	ss->Play(false);
 
 	EffectManager * effectmanager = EffectManager::GetInstance();
@@ -111,6 +111,10 @@ void soukabuto::Update() {
 	case Estete_Death://Ž€Ç
 		Soudeath();
 		break;
+	case Estete_Death2://Ž€Ç
+		Soudeath2();
+		break;
+
 	}
 
 	//ˆÚ“®
@@ -120,4 +124,8 @@ void soukabuto::Update() {
 	//Šg‘å—¦
 	m_skinModelRender->SetScale(m_scale);
 
+}
+
+void soukabuto::Soudeath2() {
+	DeleteGO(this);
 }

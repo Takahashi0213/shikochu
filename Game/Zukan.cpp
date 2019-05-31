@@ -327,7 +327,7 @@ void Zukan::KoumokuUpdate() {
 
 	SaveData * savedata = SaveData::GetInstance();
 	bool flag = savedata->GetMonFlag(SelectNow);
-	flag = true;
+	//flag = true;
 	if (flag == true) { //ƒ‚ƒ“ƒXƒ^[“o˜^Ï‚İ
 
 		for (int i = 0; i < 255; i++) {

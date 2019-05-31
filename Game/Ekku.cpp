@@ -130,7 +130,7 @@ void Ekku::EkFollow(){
 void Ekku::EkDeath(){
 	prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
 	ss->Init(L"sound/E_death.wav");
-	ss->SetVolume(0.5f);
+	ss->SetVolume(1.0f);
 	ss->Play(false);
 
 	EffectManager * effectmanager = EffectManager::GetInstance();
@@ -177,6 +177,9 @@ void Ekku::Update() {
 	case Estete_Death:
 		EkDeath();//Ž€
 		break;
+	case Estete_Death2:
+		EkDeath2();//Ž€
+		break;
 	case Estete_Yobi:
 		Ekyobi();//—\”õ“®ì
 		break;
@@ -190,4 +193,8 @@ void Ekku::Update() {
 	m_skinModelRender->SetScale(m_scale);
 	
 
+}
+
+void Ekku::EkDeath2() {
+	DeleteGO(this);
 }

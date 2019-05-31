@@ -13,7 +13,8 @@ public:
 		Estete_Yobi1,	//予備動作1
 		Estete_Attack2,  //攻撃2
 		Estete_Yobi2,	//予備動作2
-		Estete_Death	 //死ﾇ
+		Estete_Death,	 //死ﾇ
+		Estete_Death2,	 //死ﾇ
 
 	};
 
@@ -39,7 +40,7 @@ public:
 
 	//自分が死ぬ関数
 	int SS_001::SetDeath() {
-		m_stete = Estete_Death;
+		m_stete = Estete_Death2;
 		return 0;
 	}
 
@@ -94,12 +95,14 @@ private:
 	void SSYobi2();
 	void SSAttack2();
 	void SSDeath();
+	void SSDeath2();
 
 	CAnimationClip m_animClips[enAnimationClip_Num];
 	prefab::CSkinModelRender* m_skinModelRender = nullptr;	//スキンモデルレンダラー。
 	CVector3 m_position = CVector3::Zero; // 座標。
 	CQuaternion m_rotation = CQuaternion::Identity; //回転。
 	CVector3 m_scale = CVector3::One; // 拡大率。
+	prefab::CSoundSource* ss;
 
 	Estete m_stete = Estete_Move; //状態
 	CCharacterController m_charaCon; //キャラコン

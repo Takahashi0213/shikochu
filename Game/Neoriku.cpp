@@ -128,7 +128,7 @@ void Neoriku::NeoDeath() {
 
 	prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
 	ss->Init(L"sound/E_death.wav");
-	ss->SetVolume(0.5f);
+	ss->SetVolume(1.0f);
 	ss->Play(false);
 
 	EffectManager * effectmanager = EffectManager::GetInstance();
@@ -156,6 +156,9 @@ void Neoriku::Update() {
 		case Estete_Death:
 			NeoDeath();//Ž€
 			break;
+		case Estete_Death2:
+			NeoDeath2();//Ž€
+			break;
 	}
 
 	if (dathflag == true) {
@@ -171,4 +174,6 @@ void Neoriku::Update() {
 
 }
 
-
+void Neoriku::NeoDeath2() {
+	DeleteGO(this);
+}

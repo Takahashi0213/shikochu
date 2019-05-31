@@ -10,6 +10,7 @@ public:
 		Estete_Move, //移動
 		Estete_Follow, //予備
 		Estete_Death, //死
+		Estete_Death2, //死
 	};
 	enum EnAnimationClip {
 		enAnimationClip_walk, //歩き
@@ -34,6 +35,12 @@ public:
 		m_stete = Estete_Death;
 		return 0;
 	}
+
+	//自分が死ぬ関数
+	void Pi_rabi::SetDeath2() {
+		m_stete = Estete_Death2;
+	}
+
 	//座標を設定。
 	void SetPosition(CVector3 pos)
 	{
@@ -62,6 +69,7 @@ private:
 	void PiMove();
 	void PiFollow();
 	void PiDeath();
+	void PiDeath2();
 
 	CAnimationClip m_animClips[enAnimationClip_Num];
 	prefab::CSkinModelRender* m_skinModelRender = nullptr;	//スキンモデルレンダラー。

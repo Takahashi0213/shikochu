@@ -26,5 +26,7 @@ private:
 	CVector4 StarColor = { 1.0f,1.0f,1.0f,1.0f }; //流星バーの色
 	const float ZankiScale = 3.0f; //残機数表示サイズ
 
+	bool StarMaxSE = false; //流星ゲージマックス効果音
+
 };
 

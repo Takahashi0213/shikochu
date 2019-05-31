@@ -177,6 +177,11 @@ void Player::Update() {
 				int MAX_Star_Power = gamedata->GetMAXStar_Power();
 				//ゲージがMAXなら
 				if (Now_Star_Power == MAX_Star_Power) {
+					prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+					ss->Init(L"sound/stardash.wav");
+					ss->SetVolume(1.0f);
+					ss->Play(false);
+
 					//ダッシュ状態になるぞ！！！！！！
 					m_LifeSpeed = 1;
 					player_state = Estate_Dash;
@@ -330,6 +335,11 @@ void Player::Update() {
 				//ゲージがMAXなら
 				if (Now_Star_Power == MAX_Star_Power) {
 					//ダッシュ状態になるぞ！！！！！！
+					prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+					ss->Init(L"sound/stardash.wav");
+					ss->SetVolume(1.0f);
+					ss->Play(false);
+
 					m_LifeSpeed = 2;
 					DashFlag = true;
 					player_state = Estate_Dash;
@@ -544,7 +554,9 @@ void Player::PlayerJudge() {
 					bool Hantei = gamedata->GiriBonusKeisan();
 
 					//寿命をゼロに
-					m_Life = 0;
+					if (player_state != Estate_Dash) {
+						m_Life = 0;
+					}
 
 					int EState = bunbogu->GetEState();
 					if (EState != 0 && DashFlag == true || player_state==Estate_Dash) {//敵が攻撃中の時でない＆ダッシュ状態なら…
@@ -578,10 +590,12 @@ void Player::PlayerJudge() {
 			//距離判定
 			if (diff.Length() < Langth_hoge) {
 				//もし無敵時間中でないなら
-				if (MutekiTimer == -1 || player_state != Estate_Dash) {
+				if (MutekiTimer == -1 && player_state != Estate_Dash) {
 
 					//寿命をゼロに
-					m_Life = 0;
+					if (player_state != Estate_Dash) {
+						m_Life = 0;
+					}
 
 					bullet->SetDeath();//お前も死ね
 
@@ -601,10 +615,12 @@ void Player::PlayerJudge() {
 			//距離判定
 			if (diff.Length() < Langth_hoge) {
 				//もし無敵時間中でないなら
-				if (MutekiTimer == -1 || player_state != Estate_Dash) {
+				if (MutekiTimer == -1 && player_state != Estate_Dash) {
 
 					//寿命をゼロに
-					m_Life = 0;
+					if (player_state != Estate_Dash) {
+						m_Life = 0;
+					}
 
 					bullet2->SetDeath();//お前も死ね
 
@@ -626,10 +642,12 @@ void Player::PlayerJudge() {
 			//距離判定
 			if (diff.Length() < Langth_hoge) {
 				//もし無敵時間中でないなら
-				if (MutekiTimer == -1 || player_state != Estate_Dash) {
+				if (MutekiTimer == -1 && player_state != Estate_Dash) {
 
 					//寿命をゼロに
-					m_Life = 0;
+					if (player_state != Estate_Dash) {
+						m_Life = 0;
+					}
 
 					misairu->SetDeath();//お前も死ね
 
@@ -662,7 +680,9 @@ void Player::PlayerJudge() {
 					bool Hantei = gamedata->GiriBonusKeisan();
 
 					//寿命をゼロに
-					m_Life = 0;
+					if (player_state != Estate_Dash) {
+						m_Life = 0;
+					}
 
 					if (DashFlag == true) {//ダッシュ状態なら…
 
@@ -753,10 +773,12 @@ void Player::PlayerJudge() {
 			//距離判定
 			if (diff.Length() < Langth_hoge) {
 				//もし無敵時間中でないなら
-				if (MutekiTimer == -1 || player_state != Estate_Dash) {
+				if (MutekiTimer == -1 && player_state != Estate_Dash) {
 
 					//寿命をゼロに
-					m_Life = 0;
+					if (player_state != Estate_Dash) {
+						m_Life = 0;
+					}
 
 					neruk->SetDeath();//お前も死ね
 
@@ -792,7 +814,9 @@ void Player::PlayerJudge() {
 					bool Hantei = gamedata->GiriBonusKeisan();
 
 					//寿命をゼロに
-					m_Life = 0;
+					if (player_state != Estate_Dash) {
+						m_Life = 0;
+					}
 
 					if (DashFlag == true) {//ダッシュ状態なら…
 
@@ -838,7 +862,9 @@ void Player::PlayerJudge() {
 					bool Hantei = gamedata->GiriBonusKeisan();
 
 					//寿命をゼロに
-					m_Life = 0;
+					if (player_state != Estate_Dash) {
+						m_Life = 0;
+					}
 
 					if (DashFlag == true) {//ダッシュ状態なら…
 
@@ -884,9 +910,12 @@ void Player::PlayerJudge() {
 					bool Hantei = gamedata->GiriBonusKeisan();
 
 					//寿命をゼロに
-					m_Life = 0;
+					if (player_state != Estate_Dash) {
+						m_Life = 0;
+					}
 
-					if (DashFlag == true) {//ダッシュ状態なら…
+					int EState = pi_rabi->GetEState();
+					if (EState!=0 && DashFlag == true) {//ダッシュ状態なら…
 
 						pi_rabi->SetDeath();//お前も死ね
 
@@ -930,7 +959,9 @@ void Player::PlayerJudge() {
 					bool Hantei = gamedata->GiriBonusKeisan();
 
 					//寿命をゼロに
-					m_Life = 0;
+					if (player_state != Estate_Dash) {
+						m_Life = 0;
+					}
 
 					if (DashFlag == true) {//ダッシュ状態なら…
 
@@ -960,7 +991,7 @@ void Player::PlayerJudge() {
 			return true;
 		}
 		CVector3 Shisok_position = pairodorago->Getm_Position();
-		Shisok_position.z = Shisok_position.z - 800.0f;
+		//Shisok_position.z = Shisok_position.z - 800.0f;
 		Shisok_position.y = Shisok_position.y + 2000.0f;
 		CVector3 diff = Shisok_position - position;
 		playerVec = diff;
@@ -984,8 +1015,7 @@ void Player::PlayerJudge() {
 					}
 					int Damage = (int)gamedata->DamageKeisan(dash);
 
-					//寿命をゼロに
-					m_Life = 0;
+						m_Life = 0;
 
 					
 					if (DashFlag == true || player_state == Estate_Dash) {//敵が攻撃中の時でない＆ダッシュ状態なら…
@@ -1030,9 +1060,12 @@ void Player::PlayerJudge() {
 					bool Hantei = gamedata->GiriBonusKeisan();
 
 					//寿命をゼロに
-					m_Life = 0;
+					if (player_state != Estate_Dash) {
+						m_Life = 0;
+					}
 
-					if (DashFlag == true) {//ダッシュ状態なら…
+					int EState = morikon->GetEState();
+					if (EState != 1 && DashFlag == true) {//ダッシュ状態なら…
 
 						morikon->SetDeath();//お前も死ね
 
@@ -1076,7 +1109,9 @@ void Player::PlayerJudge() {
 					bool Hantei = gamedata->GiriBonusKeisan();
 
 					//寿命をゼロに
-					m_Life = 0;
+					if (player_state != Estate_Dash) {
+						m_Life = 0;
+					}
 
 					if (DashFlag == true) {//ダッシュ状態なら…
 
@@ -1122,7 +1157,9 @@ void Player::PlayerJudge() {
 					bool Hantei = gamedata->GiriBonusKeisan();
 
 					//寿命をゼロに
-					m_Life = 0;
+					if (player_state != Estate_Dash) {
+						m_Life = 0;
+					}
 
 					if (DashFlag == true) {//ダッシュ状態なら…
 
