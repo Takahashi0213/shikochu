@@ -322,7 +322,7 @@ private:
 
 	//以下ポイントで強化できる部分
 	int ATK = 100; //基本攻撃力
-	int DEF_Zanki = 30; //デフォルト残機
+	int DEF_Zanki = 50; //デフォルト残機
 	int DEF_Life = 100; //デフォルト寿命
 
 	//定数

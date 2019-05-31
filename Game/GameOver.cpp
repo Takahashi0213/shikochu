@@ -63,8 +63,8 @@ bool GameOver::Start() {
 	swprintf(HogeText, HogeText);
 	//‚Í‚¢B
 	f->SetText(HogeText);
-	f->SetPivot({ 0.5f,0.5f });
-	f->SetPosition({ 0.0f,-100.0f });
+	f->SetPivot({ 0.0f,1.0f });
+	f->SetPosition({ -400.0f,-100.0f });
 	f->SetScale(1.0f);
 	f->SetColor({ 1.0f,1.0f,1.0f,1.0f });
 	m_fontRender.push_back(f);
