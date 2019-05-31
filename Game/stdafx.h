@@ -9,3 +9,5 @@
 
 #include "tkEngine/tkEnginePreCompile.h"
 using namespace tkEngine;
+
+const float DEFAULT_LUMINANCE = 0.56f;

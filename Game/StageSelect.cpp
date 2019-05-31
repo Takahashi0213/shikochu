@@ -36,7 +36,8 @@ StageSelect::~StageSelect()
 	for (int i = 0; i < m_skinModelRender.size(); i++) {
 		DeleteGO(m_skinModelRender[i]);
 	}
-
+	//輝度を戻す。
+	postEffect::Tonemap().SetLuminance(DEFAULT_LUMINANCE);
 	//インスタンスが破棄されたので、nullptrを代入
 	m_instance = nullptr;
 }
@@ -73,6 +74,8 @@ bool StageSelect::Start() {
 	m_animClips[enAnimationClip_motion3].Load(L"animData/StageMini3.tka");
 	m_animClips[enAnimationClip_motion3].SetLoopFlag(true);
 
+	//輝度を変更する。
+	postEffect::Tonemap().SetLuminance(0.42f);
 	//必要な有象無象を設定するぜ
 	//0番 上の飾り
 	r = NewGO<prefab::CSpriteRender>(10);

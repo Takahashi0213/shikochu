@@ -478,7 +478,12 @@ void Player::Update() {
 		m_pointLig->SetColor(PlayerLight * LightHosei);
 		m_pointLig->SetAttn(PlayerLightAttn);
 		m_skinModelRender->SetEmissionColor(EmissionColorDEF);
-		GraphicsEngine().GetTonemap().SetLuminance(0.56f);
+		if (GameData::GetInstance()->GetStageNo() == 3) {
+			GraphicsEngine().GetTonemap().SetLuminance(0.2f);
+		}
+		else {
+			GraphicsEngine().GetTonemap().SetLuminance(DEFAULT_LUMINANCE);
+		}
 	}
 	else if (mode == 1) {
 		CVector3 pos = position;
@@ -487,7 +492,12 @@ void Player::Update() {
 		m_pointLig->SetColor(PlayerLight * LightHosei);
 		m_pointLig->SetAttn(PlayerLightAttn);
 		m_skinModelRender->SetEmissionColor(EmissionColorDEF);
-		GraphicsEngine().GetTonemap().SetLuminance(0.56f, 0.5f);
+		if (GameData::GetInstance()->GetStageNo() == 3) {
+			GraphicsEngine().GetTonemap().SetLuminance(0.2f, 0.5f);
+		}
+		else {
+			GraphicsEngine().GetTonemap().SetLuminance(DEFAULT_LUMINANCE, 0.5f);
+		}
 	}
 	/////////////////////////////////////////////
 	if (mode == 3) {//ƒŠƒUƒ‹ƒg’†‚Íâ‘Î€‚È‚È‚¢I
