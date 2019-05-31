@@ -66,6 +66,9 @@ void SS_001::Update() {
 	case Estete_Death://éÄ«
 		SSDeath();
 		break;
+	case Estete_Death2://éÄ«
+		SSDeath2();
+		break;
 	}
 
 	//HPÇ™0Ç»ÇÁéÄÇ 
@@ -135,6 +138,13 @@ void SS_001::SSAttack1() {
 		else {
 			MisairuCountMAX = 6;
 		}
+
+		ss = NewGO<prefab::CSoundSource>(0);
+		ss->Init(L"sound/missile.wav");
+		ss->SetVolume(0.5f);
+		ss->SetFrequencyRatio(2.0f);
+		ss->Play(false);
+
 		//É~ÉTÉCÉãê∂ê¨		
 		NewGO<Misairu>(0, "Misairu");
 	}
@@ -184,6 +194,12 @@ void SS_001::SSYobi2() {
 
 	if (BeamYobiTimer == 0) {
 		m_skinModelRender->PlayAnimation(enAnimationClip_wait, 0.5f);
+		ss = NewGO<prefab::CSoundSource>(0);
+		ss->Init(L"sound/beamcharge.wav");
+		ss->SetVolume(0.8f);
+		ss->SetFrequencyRatio(2.0f);
+		ss->Play(false);
+
 		//Effectçƒê∂
 		EffectManager * effectmanager = EffectManager::GetInstance();
 		effectmanager->EffectPlayer(EffectManager::Beam, { m_position.x,m_position.y,m_position.z - 2000.0f }, { 500.0f,500.0f,500.0f });
@@ -201,6 +217,11 @@ void SS_001::SSYobi2() {
 void SS_001::SSAttack2() {
 
 	if (BeamTimer == 0) {
+		ss = NewGO<prefab::CSoundSource>(0);
+		ss->Init(L"sound/beam.wav");
+		ss->SetVolume(0.5f);
+		ss->Play(false);
+
 		//Effectçƒê∂
 		EffectManager * effectmanager = EffectManager::GetInstance();
 		effectmanager->EffectPlayer(EffectManager::BeamHassya, { m_position.x,m_position.y,m_position.z - 2000.0f }, { 1000.0f,1000.0f,1000.0f });
@@ -276,3 +297,9 @@ void SS_001::SSDeath() {
 	DeathTimer++;
 
 }
+
+void SS_001::SSDeath2() {
+
+	DeleteGO(this);
+}
+

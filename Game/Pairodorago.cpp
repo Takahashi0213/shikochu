@@ -63,6 +63,10 @@ void Pairodorago::Update() {
 	case Estete_Death://Ž€Ç
 		PairoDeath();
 		break;
+	case Estete_Death2://Ž€Ç
+		PairoDeath2();
+		break;
+
 	}
 
 	//HP‚ª0‚È‚çŽ€‚Ê
@@ -102,6 +106,11 @@ void Pairodorago::PairoYobi1() {
 	}
 	
 	if (YobiTimer == 10) {
+		ss = NewGO<prefab::CSoundSource>(0);
+		ss->Init(L"sound/gaoooo.wav");
+		ss->SetVolume(2.0f);
+		ss->Play(false);
+
 		//EffectÄ¶
 		EffectManager * effectmanager = EffectManager::GetInstance();
 		effectmanager->EffectPlayer(EffectManager::Gao, { m_position.x ,m_position.y + 2000.0f, m_position.z - 3000.0f }, { 1000.0f,1000.0f,1000.0f });
@@ -119,6 +128,12 @@ void Pairodorago::PairoYobi1() {
 void Pairodorago::PairoAttack1() {
 
 	if (AttackTimer == AttackTiming) {
+		ss = NewGO<prefab::CSoundSource>(0);
+		ss->Init(L"sound/kamituki.wav");
+		ss->SetVolume(1.0f);
+		ss->SetFrequencyRatio(0.5f);
+		ss->Play(false);
+
 		DamageLength = DamageLengthDEF * 1.5f;
 	}
 	else {
@@ -193,4 +208,8 @@ void Pairodorago::PairoDeath() {
 
 	DeathTimer++;
 
+}
+
+void Pairodorago::PairoDeath2() {
+		DeleteGO(this);
 }

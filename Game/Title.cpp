@@ -681,8 +681,8 @@ void Title::GameStart(){
 	else if (minimoveflag == true) {
 		TransitionMaker * tm = TransitionMaker::GetInstance();
 		tm->TransitionSetting(TransitionMaker::Fade, 12, 30, true);
-		//NewGO<OP>(0, "OP");
-		NewGO<StageSelect>(0);
+		NewGO<OP>(0, "OP");
+		//NewGO<StageSelect>(0);
 
 		DeleteGO(this);
 	}

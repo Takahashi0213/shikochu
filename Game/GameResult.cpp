@@ -588,7 +588,9 @@ void GameResult::Update() {
 			stage -= 1;
 			//もしハイスコアが0なら歴代クリア数を加算
 			if (savedata->GetHighScore(stage) == 0) {
-				savedata->PlusClearedStage();
+				if (stage < 2) {
+					savedata->PlusClearedStage();
+				}
 			}
 			//ハイスコアならハイスコアに代入
 			if (savedata->GetHighScore(stage) < FinalScore) {
@@ -602,6 +604,19 @@ void GameResult::Update() {
 				savedata->SetMonFlag(3);
 				savedata->SetMonFlag(4);
 			}
+			if (stage == 1) {
+				savedata->SetMonFlag(5);
+				savedata->SetMonFlag(6);
+				savedata->SetMonFlag(7);
+				savedata->SetMonFlag(8);
+			}
+			if (stage == 2) {
+				savedata->SetMonFlag(9);
+				savedata->SetMonFlag(10);
+				savedata->SetMonFlag(11);
+				savedata->SetMonFlag(12);
+			}
+
 			gamedata->SetGameMode(GameData::GameEnd);
 			gamedata->PlusPoint(FinalScore);
 			DeleteGO(this);//おしまい

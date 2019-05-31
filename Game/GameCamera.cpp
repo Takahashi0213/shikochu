@@ -24,6 +24,8 @@ GameCamera::GameCamera()
 
 GameCamera::~GameCamera()
 {
+	ss->SetVolume(0.0f);
+
 	//インスタンスが破棄されたので、nullptrを代入
 	m_instance = nullptr;
 }
@@ -118,14 +120,6 @@ void GameCamera::Update() {
 			swapParameter.z = swapParameter.z / swapTimerDEF;
 			//念のためリセット
 			cameraSwap = CVector3::Zero;
-			//まさかのここで再生です
-			int stage = gamedata->GetStageNo();
-			stage--;
-			ss = NewGO<prefab::CSoundSource>(0);
-			//SE再生
-			ss->Init(BossBGMName[stage]);
-			ss->SetVolume(BMG_V);
-			ss->Play(true);
 		}
 		else if (swapTimer > swapWaitTimer) {
 			//注視点を動かす
@@ -142,6 +136,17 @@ void GameCamera::Update() {
 			cameraPos.x = P_Position.x + camera2D_DEF.x + cameraSwap.x;
 			cameraPos.y = P_Position.y + camera2D_DEF.y + cameraSwap.y;
 			cameraPos.z = P_Position.z + camera2D_DEF.z + cameraSwap.z;
+		}
+
+		if (swapTimer == swapWaitTimer) {
+			//まさかのここで再生です
+			int stage = gamedata->GetStageNo();
+			stage--;
+			ss = NewGO<prefab::CSoundSource>(0);
+			//SE再生
+			ss->Init(BossBGMName[stage]);
+			ss->SetVolume(BMG_V);
+			ss->Play(true);
 		}
 
 		//タイマー加算

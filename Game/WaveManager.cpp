@@ -22,6 +22,7 @@
 #include "Riritto.h"
 #include "Arukasya.h"
 #include "SS_001.h"
+#include "Neruk.h"
 
 //ギミック
 #include "StarItem.h"
@@ -265,7 +266,7 @@ void WaveManager::Update() {
 			//もしボスバトルなら3Dへの移行を行う
 			if (NowWave+1 == LastWave) {
 				ss->SetVolume(0.0f);
-				NewGO<BossHPGage>(0);
+				NewGO<BossHPGage>(0,"BossHPGage");
 				int len = (int)wcslen(BossName[stage]);
 				for (int z = 0; z < len + 1; z++) {
 					BOSS_Name[z] = BossName[stage][z];
@@ -352,6 +353,11 @@ void WaveManager::DeleteAll() {
 
 	QueryGOs<shisokus>("shiso", [&](shisokus* Shisokus) {
 		Shisokus->SetDeath();
+		return true;
+		});
+
+	QueryGOs<Neruk>("neru", [&](Neruk* neruk) {
+		neruk->SetDeath();
 		return true;
 		});
 

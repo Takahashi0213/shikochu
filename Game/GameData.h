@@ -292,7 +292,7 @@ private:
 	int Zanki = 50; //残機
 	int Star_Power = 0; //流星ダッシュ発動までのゲージ
 
-	int Point = 11037; //所持ポイント
+	int Point = 0; //所持ポイント
 
 	int ItemCount = 0; //拾ったアイテムをカウントするよ
 	int GiriCount = 0; //ギリギリボーナスをカウント

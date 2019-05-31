@@ -33,11 +33,8 @@ Game::Game()
 
 Game::~Game()
 {
-	WaveManager * wavemanager = WaveManager::GetInstance();
-	wavemanager->DeleteAll();
-
 	//FXÁ‚·
-	DeleteGOs("Bug");
+	DeleteGOs("BossHPGage");
 	DeleteGOs("Gamecamera");
 	DeleteGOs("Status");
 	DeleteGOs("WaveManager");
@@ -53,13 +50,17 @@ Game::~Game()
 	GameData * gamedata = GameData::GetInstance();
 	gamedata->SetGameMode(GameData::NotGame);
 
+	WaveManager * wavemanager = WaveManager::GetInstance();
+	wavemanager->DeleteAll();
+	DeleteGOs("Bug");
+
 	NewGO<UICamera>(0, "UICamera");
 	NewGO<StageSelect>(0);
 }
 bool Game::Start()
 {
-	//EnableSpecialLigRange();
-	DisableSpecialLigRange();
+	EnableSpecialLigRange();
+	//DisableSpecialLigRange();
 
 	NewGO<Player>(0,"Bug");
 

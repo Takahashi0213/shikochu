@@ -134,6 +134,19 @@ void Player_Status::Update() {
 	m_spriteRender[1]->SetScale(StarScale);
 	m_spriteRender[1]->SetMulColor(StarColor);
 
+	if (StarMaxFlag == true) {
+		if (StarMaxSE == false) {
+			prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+			ss->Init(L"sound/StarGageMAX.wav");
+			ss->SetVolume(1.0f);
+			ss->Play(false);
+			StarMaxSE = true;
+		}
+	}
+	else {
+		StarMaxSE = false;
+	}
+
 	//—¬¯ƒQ[ƒW‚É‰‚¶‚ÄŒ©‚¦‚½‚èŒ©‚¦‚È‚©‚Á‚½‚è‚µ‚ë
 	if (StarMaxFlag == true) {
 		//Œ©‚¦‚é•“_–Å‚·‚é
