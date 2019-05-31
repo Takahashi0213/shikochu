@@ -489,7 +489,7 @@ void Player::Update() {
 		m_pointLig->SetAttn(PlayerLightAttn);
 		m_skinModelRender->SetEmissionColor(EmissionColorDEF);
 		if (GameData::GetInstance()->GetStageNo() == 3) {
-			GraphicsEngine().GetTonemap().SetLuminance(0.2f);
+			GraphicsEngine().GetTonemap().SetLuminance(0.05f);
 		}
 		else {
 			GraphicsEngine().GetTonemap().SetLuminance(DEFAULT_LUMINANCE);
@@ -503,7 +503,7 @@ void Player::Update() {
 		m_pointLig->SetAttn(PlayerLightAttn);
 		m_skinModelRender->SetEmissionColor(EmissionColorDEF);
 		if (GameData::GetInstance()->GetStageNo() == 3) {
-			GraphicsEngine().GetTonemap().SetLuminance(0.2f, 0.5f);
+			GraphicsEngine().GetTonemap().SetLuminance(0.1f, 0.5f);
 		}
 		else {
 			GraphicsEngine().GetTonemap().SetLuminance(DEFAULT_LUMINANCE, 0.5f);
