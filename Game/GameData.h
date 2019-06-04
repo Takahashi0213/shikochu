@@ -15,6 +15,7 @@ public:
 		GameEnd,
 		GameOver,
 		NotGame,
+		Pause, //ポーズ画面
 	};
 
 	/////////////// Singleton //////////////////////////////
@@ -280,6 +281,16 @@ public:
 		return ResultFlag;
 	}
 
+	//ハードモードフラグの変更
+	void GameData::SetHardModeFlag(bool flag) {
+		HardModeFlag = flag;
+	}
+
+	//ハードモードフラグを返す
+	bool GameData::GetHardModeFlag() {
+		return HardModeFlag;
+	}
+
 	//ゲームデータをリセット
 	//ステージ開始時に必ず呼び出すこと！！！！！！！！
 	void GameData::GameDataReset() {
@@ -313,6 +324,9 @@ private:
 	bool LevelSetFlag = false; //レベルの準備できましたか
 	bool ResultFlag = false; //リザルトへの遷移
 	bool FinalMode = false; //最後は2D？3D？
+
+	//ハードモード
+	bool HardModeFlag = false; //trueならハードモード！
 
 	//戦闘絡みの変数置き場
 	int EnemyCount = 0; //敵の数

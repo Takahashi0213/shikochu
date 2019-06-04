@@ -15,6 +15,7 @@
 #include "WaveEffect.h"
 #include "StageSelect.h"
 #include "GameOver.h"
+#include "GamePause.h"
 
 Game* Game::m_instance = nullptr;
 
@@ -136,4 +137,12 @@ void Game::Update()
 		NewGO<GameOver>(0);
 		GameOverFlag = true;
 	}
+
+	//É|Å`Å`Å`Å`Å`Å`ÉYÉbÅIÅIÅI
+	if (mode == GameData::Battle2D_Mode || mode == GameData::Battle3D_Mode) {
+		if (Pad(0).IsPress(enButtonSelect)) {
+			NewGO<GamePause>(0);
+		}
+	}
+
 }

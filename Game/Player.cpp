@@ -574,7 +574,7 @@ void Player::PlayerJudge() {
 							gamedata->GiriCounter();
 							//ボーナス成立のエフェクトを表示
 							EffectManager * effectmanager = EffectManager::GetInstance();
-							effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
+							effectmanager->EffectPlayer(EffectManager::Bonus, { enemy_position.x,enemy_position.y + SpawnEffectY,enemy_position.z }, SpawnEffectScale);
 							//gamedata->TestMessage();
 						}
 					}
@@ -699,7 +699,7 @@ void Player::PlayerJudge() {
 							gamedata->GiriCounter();
 							//ボーナス成立のエフェクトを表示
 							EffectManager * effectmanager = EffectManager::GetInstance();
-							effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
+							effectmanager->EffectPlayer(EffectManager::Bonus, { neoriku_position.x,neoriku_position.y + SpawnEffectY,neoriku_position.z }, SpawnEffectScale);
 							//gamedata->TestMessage();
 						}
 					}
@@ -833,7 +833,7 @@ void Player::PlayerJudge() {
 							gamedata->GiriCounter();
 							//ボーナス成立のエフェクトを表示
 							EffectManager * effectmanager = EffectManager::GetInstance();
-							effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
+							effectmanager->EffectPlayer(EffectManager::Bonus, { souka_position.x,souka_position.y + SpawnEffectY,souka_position.z }, SpawnEffectScale);
 							//gamedata->TestMessage();
 						}
 					}
@@ -881,7 +881,7 @@ void Player::PlayerJudge() {
 							gamedata->GiriCounter();
 							//ボーナス成立のエフェクトを表示
 							EffectManager * effectmanager = EffectManager::GetInstance();
-							effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
+							effectmanager->EffectPlayer(EffectManager::Bonus, { souka_position.x,souka_position.y + SpawnEffectY,souka_position.z }, SpawnEffectScale);
 							//gamedata->TestMessage();
 						}
 					}
@@ -930,7 +930,7 @@ void Player::PlayerJudge() {
 							gamedata->GiriCounter();
 							//ボーナス成立のエフェクトを表示
 							EffectManager * effectmanager = EffectManager::GetInstance();
-							effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
+							effectmanager->EffectPlayer(EffectManager::Bonus, { souka_position.x,souka_position.y + SpawnEffectY,souka_position.z }, SpawnEffectScale);
 							//gamedata->TestMessage();
 						}
 					}
@@ -978,7 +978,7 @@ void Player::PlayerJudge() {
 							gamedata->GiriCounter();
 							//ボーナス成立のエフェクトを表示
 							EffectManager * effectmanager = EffectManager::GetInstance();
-							effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
+							effectmanager->EffectPlayer(EffectManager::Bonus, { souka_position.x,souka_position.y + SpawnEffectY,souka_position.z }, SpawnEffectScale);
 							//gamedata->TestMessage();
 						}
 					}
@@ -1080,7 +1080,7 @@ void Player::PlayerJudge() {
 							gamedata->GiriCounter();
 							//ボーナス成立のエフェクトを表示
 							EffectManager * effectmanager = EffectManager::GetInstance();
-							effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
+							effectmanager->EffectPlayer(EffectManager::Bonus, { souka_position.x,souka_position.y + SpawnEffectY,souka_position.z }, SpawnEffectScale);
 							//gamedata->TestMessage();
 						}
 					}
@@ -1128,7 +1128,7 @@ void Player::PlayerJudge() {
 							gamedata->GiriCounter();
 							//ボーナス成立のエフェクトを表示
 							EffectManager * effectmanager = EffectManager::GetInstance();
-							effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
+							effectmanager->EffectPlayer(EffectManager::Bonus, { souka_position.x,souka_position.y + SpawnEffectY,souka_position.z }, SpawnEffectScale);
 							//gamedata->TestMessage();
 						}
 					}
@@ -1176,7 +1176,7 @@ void Player::PlayerJudge() {
 							gamedata->GiriCounter();
 							//ボーナス成立のエフェクトを表示
 							EffectManager * effectmanager = EffectManager::GetInstance();
-							effectmanager->EffectPlayer(EffectManager::spawn, { position.x,position.y + SpawnEffectY,position.z }, SpawnEffectScale);
+							effectmanager->EffectPlayer(EffectManager::Bonus, { souka_position.x,souka_position.y + SpawnEffectY,souka_position.z }, SpawnEffectScale);
 							//gamedata->TestMessage();
 						}
 					}

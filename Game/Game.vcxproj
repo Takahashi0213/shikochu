@@ -1776,6 +1776,7 @@
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameData.cpp" />
     <ClCompile Include="GameOver.cpp" />
+    <ClCompile Include="GamePause.cpp" />
     <ClCompile Include="GameResult.cpp" />
     <ClCompile Include="LevelSet.cpp" />
     <ClCompile Include="main.cpp" />
@@ -1845,6 +1846,7 @@
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameData.h" />
     <ClInclude Include="GameOver.h" />
+    <ClInclude Include="GamePause.h" />
     <ClInclude Include="GameResult.h" />
     <ClInclude Include="LevelData.h" />
     <ClInclude Include="LevelSet.h" />
@@ -2121,6 +2123,19 @@
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\Star2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\Pause2D.png" />
+    <ImageContentTask Include="Assets\sprite\Pause3D.png" />
+    <ImageContentTask Include="Assets\sprite\PauseBack.png" />
+    <ImageContentTask Include="Assets\sprite\PauseGameBack.png" />
+    <ImageContentTask Include="Assets\sprite\PauseRetire.png" />
+    <ImageContentTask Include="Assets\sprite\PauseSita.png" />
+    <ImageContentTask Include="Assets\sprite\PauseStage.png" />
+    <ImageContentTask Include="Assets\sprite\PauseUe.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\White.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

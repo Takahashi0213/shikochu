@@ -121,6 +121,7 @@
     </ClCompile>
     <ClCompile Include="Misairu.cpp" />
     <ClCompile Include="Bullet2.cpp" />
+    <ClCompile Include="GamePause.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -227,6 +228,7 @@
     </ClInclude>
     <ClInclude Include="Misairu.h" />
     <ClInclude Include="Bullet2.h" />
+    <ClInclude Include="GamePause.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
@@ -630,5 +632,14 @@
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\Star2.png" />
+    <ImageContentTask Include="Assets\sprite\Pause2D.png" />
+    <ImageContentTask Include="Assets\sprite\Pause3D.png" />
+    <ImageContentTask Include="Assets\sprite\PauseBack.png" />
+    <ImageContentTask Include="Assets\sprite\PauseGameBack.png" />
+    <ImageContentTask Include="Assets\sprite\PauseRetire.png" />
+    <ImageContentTask Include="Assets\sprite\PauseSita.png" />
+    <ImageContentTask Include="Assets\sprite\PauseUe.png" />
+    <ImageContentTask Include="Assets\sprite\PauseStage.png" />
+    <ImageContentTask Include="Assets\sprite\White.png" />
   </ItemGroup>
 </Project>

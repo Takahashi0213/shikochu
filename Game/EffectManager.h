@@ -17,6 +17,7 @@ public:
 		BeamHassya, //ビーム発射
 		Gao,//がおー]
 		Dash, //ダッシュエフェクト
+		Bonus,//ギリギリボーナス
 	};
 
 	EffectManager();
@@ -36,7 +37,7 @@ public:
 private:
 
 	//エフェクトファイル名
-	wchar_t DetaBase[11][30]{
+	wchar_t DetaBase[12][30]{
 		{ L"" },//Nullなので何もない
 		{ L"effect/Item.efk" },
 		{ L"effect/spawn.efk" },
@@ -48,6 +49,7 @@ private:
 		{ L"effect/beam_hassya.efk" },
 		{ L"effect/gao.efk" },
 		{ L"effect/dash.efk" },
+		{ L"effect/Bonus.efk" },
 
 	};
 
