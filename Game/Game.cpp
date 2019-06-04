@@ -66,8 +66,8 @@ Game::~Game()
 }
 bool Game::Start()
 {
-	EnableSpecialLigRange();
-	//DisableSpecialLigRange();
+	//EnableSpecialLigRange();
+	DisableSpecialLigRange();
 
 	NewGO<Player>(0,"Bug");
 

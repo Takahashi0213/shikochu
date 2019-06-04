@@ -69,7 +69,7 @@ namespace tkEngine {
 		{
 			sizeof(WNDCLASSEX), CS_CLASSDC, MsgProc, 0L, 0L,
 			GetModuleHandle(nullptr), nullptr, nullptr, nullptr, nullptr,
-			TEXT("死虫光"), nullptr
+			TEXT("死光虫"), nullptr
 		};
 		RegisterClassEx(&wc);
 		// Create the application's window
@@ -79,7 +79,7 @@ namespace tkEngine {
 			WS_OVERLAPPED,							  // ウィンドウスタイル
 			FALSE                                     // メニューフラグ
 		);
-		m_hWnd = CreateWindow(TEXT("死虫光"), TEXT("死虫光"),
+		m_hWnd = CreateWindow(TEXT("死光虫"), TEXT("死光虫"),
 			WS_OVERLAPPEDWINDOW, 0, 0, rc.right - rc.left, rc.bottom - rc.top,
 			nullptr, nullptr, wc.hInstance, nullptr);
 

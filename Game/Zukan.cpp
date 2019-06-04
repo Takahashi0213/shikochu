@@ -50,42 +50,94 @@ bool Zukan::Start() {
 	int hoge = 0;
 	m_mo0anim[0].Load(MonsterAnime[hoge]);
 	m_mo0anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo0anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo0anim[1].SetLoopFlag(false);
+	}
 	hoge++;
 	m_mo1anim[0].Load(MonsterAnime[hoge]);
 	m_mo1anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo1anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo1anim[1].SetLoopFlag(false);
+	}
 	hoge++;
 	m_mo2anim[0].Load(MonsterAnime[hoge]);
 	m_mo2anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo2anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo2anim[1].SetLoopFlag(false);
+	}
 	hoge++;
 	m_mo3anim[0].Load(MonsterAnime[hoge]);
 	m_mo3anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo3anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo3anim[1].SetLoopFlag(false);
+	}
 	hoge++;
 	m_mo4anim[0].Load(MonsterAnime[hoge]);
 	m_mo4anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo4anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo4anim[1].SetLoopFlag(false);
+	}
 	hoge++;
 	m_mo5anim[0].Load(MonsterAnime[hoge]);
 	m_mo5anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo5anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo5anim[1].SetLoopFlag(false);
+	}
 	hoge++;
 	m_mo6anim[0].Load(MonsterAnime[hoge]);
 	m_mo6anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo6anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo6anim[1].SetLoopFlag(false);
+	}
 	hoge++;
 	m_mo7anim[0].Load(MonsterAnime[hoge]);
 	m_mo7anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo7anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo7anim[1].SetLoopFlag(false);
+	}
 	hoge++;
 	m_mo8anim[0].Load(MonsterAnime[hoge]);
 	m_mo8anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo8anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo8anim[1].SetLoopFlag(false);
+	}
 	hoge++;
 	m_mo9anim[0].Load(MonsterAnime[hoge]);
 	m_mo9anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo9anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo9anim[1].SetLoopFlag(false);
+	}
 	hoge++;
 	m_mo10anim[0].Load(MonsterAnime[hoge]);
 	m_mo10anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo10anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo10anim[1].SetLoopFlag(false);
+	}
 	hoge++;
 	m_mo11anim[0].Load(MonsterAnime[hoge]);
 	m_mo11anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo11anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo11anim[1].SetLoopFlag(false);
+	}
 	hoge++;
 	m_mo12anim[0].Load(MonsterAnime[hoge]);
 	m_mo12anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo12anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo12anim[1].SetLoopFlag(false);
+	}
 
 	//0番 背景用
 	r = NewGO<prefab::CSpriteRender>(3);
@@ -174,6 +226,19 @@ bool Zukan::Start() {
 	f->SetColor({ 0.2f,0.2f,0.2f,1.0f });
 	f->SetPivot({ 0.0f,1.0f });
 	m_fontRender.push_back(f);
+	//攻撃モーション文字 3番
+	f = NewGO<prefab::CFontRender>(10);
+	//表示
+	text[256];
+	//おわ
+	swprintf(text, L"Aボタン:こうげきモーション");
+	//はい。
+	f->SetText(text);
+	f->SetPosition({ 460.0f,-320.0f });
+	f->SetScale(0.8f);
+	f->SetColor({ 0.2f,1.0f,0.2f,1.0f });
+	f->SetPivot({ 0.5f,0.5f });
+	m_fontRender.push_back(f);
 
 	KoumokuUpdate();
 
@@ -195,6 +260,7 @@ void Zukan::Update() {
 				ss->Init(L"sound/SE_Page.wav");
 				ss->SetVolume(0.5f);
 				ss->Play(false);
+				AttackAnimeFlag = false;
 				KoumokuUpdate();
 			}
 		}
@@ -208,9 +274,42 @@ void Zukan::Update() {
 				ss->Init(L"sound/SE_Page.wav");
 				ss->SetVolume(0.5f);
 				ss->Play(false);
+				AttackAnimeFlag = false;
 				KoumokuUpdate();
 			}
 		}
+		else if (Pad(0).IsPress(enButtonLeft)) {
+			//モンスターの回転
+			CQuaternion qAddRot;
+			qAddRot.SetRotationDeg(CVector3::AxisY, 10.0f);
+			m_rotation *= qAddRot;
+			m_skinModelRender[1]->SetRotation(m_rotation);
+
+		}
+		else if (Pad(0).IsPress(enButtonRight)) {
+			//モンスターの回転
+			CQuaternion qAddRot;
+			qAddRot.SetRotationDeg(CVector3::AxisY, -10.0f);
+			m_rotation *= qAddRot;
+			m_skinModelRender[1]->SetRotation(m_rotation);
+
+		}
+
+		else if (Pad(0).IsTrigger(enButtonA)) {
+			//モンスターアニメーション
+			if (MonsterATK_Flag[SelectNow] == true && AttackAnimeFlag ==false) {//空白でないなら実行
+				prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+				ss->Init(L"sound/kettei.wav");
+				ss->SetVolume(1.0f);
+				ss->Play(false);
+
+				m_fontRender[3]->SetColor({ 1.0f,0.2f,0.2f,1.0f });
+
+				AttackAnime(1);
+				AttackAnimeFlag = true;
+			}
+		}
+
 		else if (Pad(0).IsTrigger(enButtonRB1)) {
 			prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
 			ss->Init(L"sound/heiten2.wav");
@@ -308,6 +407,16 @@ void Zukan::Update() {
 		E_MoveTimer++;
 	}
 
+	//攻撃アニメタイマー
+	if (AttackAnimeFlag ==true) {
+		bool flag = m_skinModelRender[1]->IsPlayingAnimation(); //再生中でないなら終了する
+		if (flag == false) {
+			m_fontRender[3]->SetColor({ 0.2f,1.0f,0.2f,1.0f });
+			AttackAnimeFlag = false;
+			AttackAnime(0);
+		}
+	}
+
 	//モンスターの回転
 	CQuaternion qAddRot;
 	qAddRot.SetRotationDeg(CVector3::AxisY, 1.0f);
@@ -341,79 +450,79 @@ void Zukan::KoumokuUpdate() {
 		if (SelectNow == 0) {
 			DeleteGO(m_skinModelRender[1]);
 			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
-			m_skinModelRender[1]->Init(ModelName, m_mo0anim, 1);
+			m_skinModelRender[1]->Init(ModelName, m_mo0anim, 2);
 			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
 		}
 		if (SelectNow == 1) {
 			DeleteGO(m_skinModelRender[1]);
 			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
-			m_skinModelRender[1]->Init(ModelName, m_mo1anim, 1);
+			m_skinModelRender[1]->Init(ModelName, m_mo1anim, 2);
 			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
 		}
 		if (SelectNow == 2) {
 			DeleteGO(m_skinModelRender[1]);
 			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
-			m_skinModelRender[1]->Init(ModelName, m_mo2anim, 1);
+			m_skinModelRender[1]->Init(ModelName, m_mo2anim, 2);
 			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
 		}
 		if (SelectNow == 3) {
 			DeleteGO(m_skinModelRender[1]);
 			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
-			m_skinModelRender[1]->Init(ModelName, m_mo3anim, 1);
+			m_skinModelRender[1]->Init(ModelName, m_mo3anim, 2);
 			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
 		}
 		if (SelectNow == 4) {
 			DeleteGO(m_skinModelRender[1]);
 			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
-			m_skinModelRender[1]->Init(ModelName, m_mo4anim, 1);
+			m_skinModelRender[1]->Init(ModelName, m_mo4anim, 2);
 			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
 		}
 		if (SelectNow == 5) {
 			DeleteGO(m_skinModelRender[1]);
 			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
-			m_skinModelRender[1]->Init(ModelName, m_mo5anim, 1);
+			m_skinModelRender[1]->Init(ModelName, m_mo5anim, 2);
 			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
 		}
 		if (SelectNow == 6) {
 			DeleteGO(m_skinModelRender[1]);
 			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
-			m_skinModelRender[1]->Init(ModelName, m_mo6anim, 1);
+			m_skinModelRender[1]->Init(ModelName, m_mo6anim, 2);
 			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
 		}
 		if (SelectNow == 7) {
 			DeleteGO(m_skinModelRender[1]);
 			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
-			m_skinModelRender[1]->Init(ModelName, m_mo7anim, 1);
+			m_skinModelRender[1]->Init(ModelName, m_mo7anim, 2);
 			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
 		}
 		if (SelectNow == 8) {
 			DeleteGO(m_skinModelRender[1]);
 			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
-			m_skinModelRender[1]->Init(ModelName, m_mo8anim, 1);
+			m_skinModelRender[1]->Init(ModelName, m_mo8anim, 2);
 			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
 		}
 		if (SelectNow == 9) {
 			DeleteGO(m_skinModelRender[1]);
 			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
-			m_skinModelRender[1]->Init(ModelName, m_mo9anim, 1);
+			m_skinModelRender[1]->Init(ModelName, m_mo9anim, 2);
 			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
 		}
 		if (SelectNow == 10) {
 			DeleteGO(m_skinModelRender[1]);
 			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
-			m_skinModelRender[1]->Init(ModelName, m_mo10anim, 1);
+			m_skinModelRender[1]->Init(ModelName, m_mo10anim, 2);
 			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
 		}
 		if (SelectNow == 11) {
 			DeleteGO(m_skinModelRender[1]);
 			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
-			m_skinModelRender[1]->Init(ModelName, m_mo11anim, 1);
+			m_skinModelRender[1]->Init(ModelName, m_mo11anim, 2);
 			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
 		}
 		if (SelectNow == 12) {
 			DeleteGO(m_skinModelRender[1]);
 			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
-			m_skinModelRender[1]->Init(ModelName, m_mo12anim, 1);
+			m_skinModelRender[1]->Init(ModelName, m_mo12anim, 2);
 			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
 		}
 
@@ -446,6 +555,14 @@ void Zukan::KoumokuUpdate() {
 		//はい。
 		m_fontRender[2]->SetText(ModelName);
 
+		//攻撃モーションの有無
+		if (MonsterATK_Flag[SelectNow] == true) {
+			m_fontRender[3]->SetColor({ 0.2f,1.0f,0.2f,1.0f });
+		}
+		else {
+			m_fontRender[3]->SetColor({ 0.2f,1.0f,0.2f,0.0f });
+		}
+
 	}
 	else if (flag == false) { //未登録
 
@@ -462,5 +579,11 @@ void Zukan::KoumokuUpdate() {
 		m_fontRender[2]->SetText(text);
 
 	}
+
+}
+
+void Zukan::AttackAnime(int i) {
+
+	m_skinModelRender[1]->PlayAnimation(i, 0.5f);
 
 }

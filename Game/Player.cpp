@@ -148,6 +148,11 @@ void Player::Update() {
 				Dash_Speed *= A_DashSpeed;
 				m_moveSpeed += Dash_Speed;
 
+				CVector3 E_Pos = position;
+				E_Pos.y += SpawnEffectY;
+				EffectManager * effectmanager = EffectManager::GetInstance();
+				effectmanager->EffectPlayer(EffectManager::Dash, E_Pos, DashEffectScale, true);
+
 				//ダッシュフラグセット
 				DashFlag = true;
 				if (DashTimeCount == -1) {
@@ -161,8 +166,9 @@ void Player::Update() {
 			}
 
 			//ダッシュ状態カウント
-			if (DashTimeCount >= -1) {
+			if (DashTimeCount > -1) {
 				DashTimeCount++;
+
 				if (DashTimeCount >= DashTimeMAX) { //ダッシュ状態が時間切れなら
 					DashTimeCount = -1;
 					DashFlag = false;
@@ -1275,6 +1281,9 @@ void Player::PlayerReset() {
 		//しんでしまった！
 		player_state = Estate_Death;
 		
+		DashTimeCount = -1;
+		DashFlag = false;
+		
 		//移動停止
 		m_moveSpeed = CVector3::Zero;
 
@@ -1284,6 +1293,11 @@ void Player::PlayerReset() {
 
 	if (GameData::GetInstance()->GetGameMode() == GameData::Battle2D_Mode && ResetTimer == 5) {
 		//星が増えるのは2Dモードだけ。
+		NakamaLight * nakamaLight = NakamaLight::GetInstance();
+		nakamaLight->NakamaPlus();
+	}
+	if (GameData::GetInstance()->GetGameMode() == GameData::Battle3D_Mode && ResetTimer == 5) {
+		//3Dモードなら流星ゲージ上昇
 		NakamaLight * nakamaLight = NakamaLight::GetInstance();
 		nakamaLight->NakamaPlus();
 	}

@@ -35,5 +35,23 @@ void EffectManager::EffectPlayer(Effect EF, CVector3 position, CVector3 scale) {
 	p->SetAnimation(EF_Name);
 	p->SetPosition(position);
 	p->SetScale(scale);
+	p->SetTuibiFlag(false);
+
+}
+
+//エフェクト再生くん（追尾）
+void EffectManager::EffectPlayer(Effect EF, CVector3 position, CVector3 scale, bool flag) {
+	//作成
+	EffectPlay* p = NewGO<EffectPlay>(0);
+	//名前を引っ張ってくる
+	int len = (int)wcslen(DetaBase[EF]);
+	for (int x = 0; x < len + 1; x++) {
+		EF_Name[x] = DetaBase[EF][x];
+	}
+	//設定
+	p->SetAnimation(EF_Name);
+	p->SetPosition(position);
+	p->SetScale(scale);
+	p->SetTuibiFlag(flag);
 
 }

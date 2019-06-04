@@ -170,7 +170,7 @@ void SS_001::SSAttack1() {
 	else {
 		if (MyMove.x == 0.0f) {
 			MyMove = DefPos - m_position;
-			MyMove = MyMove / ((MisairuLimit / 4) * 3);
+			MyMove = MyMove / (((float)MisairuLimit / 4.0f) * 3.0f);
 		}
 		m_position += MyMove;
 	}

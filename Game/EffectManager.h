@@ -15,7 +15,8 @@ public:
 		Bakuhatu, //どかーん
 		Beam, //ビーム準備
 		BeamHassya, //ビーム発射
-		Gao,//がおー
+		Gao,//がおー]
+		Dash, //ダッシュエフェクト
 	};
 
 	EffectManager();
@@ -25,6 +26,7 @@ public:
 	//引数2→position
 	//引数3→scale
 	void EffectPlayer(Effect EF, CVector3 position, CVector3 scale);
+	void EffectPlayer(Effect EF, CVector3 position, CVector3 scale,bool flag);
 
 	//インスタンスの取得
 	static EffectManager* EffectManager::GetInstance() {
@@ -34,7 +36,7 @@ public:
 private:
 
 	//エフェクトファイル名
-	wchar_t DetaBase[10][30]{
+	wchar_t DetaBase[11][30]{
 		{ L"" },//Nullなので何もない
 		{ L"effect/Item.efk" },
 		{ L"effect/spawn.efk" },
@@ -45,6 +47,7 @@ private:
 		{ L"effect/beam.efk" },
 		{ L"effect/beam_hassya.efk" },
 		{ L"effect/gao.efk" },
+		{ L"effect/dash.efk" },
 
 	};
 

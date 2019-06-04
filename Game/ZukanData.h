@@ -40,6 +40,41 @@ const wchar_t MonsterAnime[Monster][128]{
 
 };
 
+//攻撃アニメの有無
+const bool MonsterATK_Flag[Monster]{
+	true,
+	false,
+	false,
+	false,
+	true,
+	true,
+	true,
+	false,
+	true,
+	true,
+	false,
+	false,
+	false,
+};
+
+//攻撃アニメーション
+const wchar_t MonsterAnime_ATK[Monster][128]{
+{ L"animData/Bunattack_Z.tka" },
+{ L"" },
+{ L"" },
+{ L"" },
+{ L"animData/Sisoattack_Z.tka" },
+{ L"animData/Ekattack_Z.tka" },
+{ L"animData/P_attack.tka" },
+{ L"" },
+{ L"animData/Piro_Bigattack4.tka" },
+{ L"animData/Mori_attack.tka" },
+{ L"" },
+{ L"" },
+{ L"" },
+
+};
+
 //モンスター名
 const wchar_t MonsterName[Monster][128]{
 { L"ブンローグ" },

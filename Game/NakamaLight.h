@@ -19,6 +19,7 @@ private:
 	std::vector<prefab::CSpriteRender*> m_spriteRender;
 	prefab::CSoundSource* ss;
 	prefab::CSpriteRender* r;
+	prefab::CSpriteRender* r2;
 
 	const CVector2 P_Pos = CVector2::Zero; //基点
 	CVector2 Star_Pos = CVector2::Zero; //目標地点
@@ -31,10 +32,13 @@ private:
 	CVector4 MulColor{ 1.0f,1.0f,1.0f,1.0f };
 
 	int StarTimer = -1;
+	int StarAccTimer = -1;
+
 	const int StarLimit = 120; //星の移動速度（ゆっくり）
 	const int StarLimit_High = 24; //星の移動速度（はやく！）
 	const int StarWaitLimit = 36; //星がゆっくり動く制限時間
 	const int FinalLimit = StarWaitLimit + StarLimit_High;
 
+	const int StarAccLimit = 24; //星エフェクトが消えるまでの時間
 };
 

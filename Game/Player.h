@@ -122,7 +122,7 @@ private:
 	//Aダッシュ絡み
 	bool DashFlag = false; //ダッシュだよ
 	int DashTimeCount = -1; //ダッシュタイムを数えるよ
-	const int DashTimeMAX = 120; //ダッシュが切れるフレーム
+	const int DashTimeMAX = 60; //ダッシュが切れるフレーム
 	//リセット用
 	int ResetTimer = 0; //リセット用タイマー。そのままの意味
 	const int ResetAverage = 60; //自分がリスポーンする間隔
@@ -158,6 +158,7 @@ private:
 	int MutekiTimer = -1; //無敵時間タイマー 0以上ならカウント開始するので普段は-1
 	//エフェクト関連
 	const CVector3 SpawnEffectScale = { 40.0f,40.0f,40.0f }; //スポーンエフェクトの大きさ
+	const CVector3 DashEffectScale = { 20.0f,20.0f,20.0f }; //スポーンエフェクトの大きさ
 	const float SpawnEffectY = 50.0f;//スポーンエフェクトのY補正
 	//ネルク
 	bool bikkuriflag = false;

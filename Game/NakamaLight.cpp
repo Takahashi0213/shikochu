@@ -24,6 +24,7 @@ NakamaLight::~NakamaLight()
 bool NakamaLight::Start() {
 
 	r = NewGO<prefab::CSpriteRender>(5);
+	r2 = NewGO<prefab::CSpriteRender>(7);
 
 	return true;
 }
@@ -108,9 +109,53 @@ void NakamaLight::Update() {
 
 	}
 
+	//3Dモードかつ残り１０フレームなら…
+	if (GameData::GetInstance()->GetGameMode() == GameData::Battle3D_Mode && StarTimer >= FinalLimit-10) {
+		GameData * gamedata = GameData::GetInstance();
+		gamedata->Star_PowerChange(1);
+	}
+
+	//スターアクセ
+	if (StarAccTimer > -1 && StarAccTimer < StarAccLimit / 2) {//見える
+
+		MulAlpha += 0.1f;
+		if (MulAlpha > 1.0f) {
+			MulAlpha = 1.0f;
+		}
+		
+		MulColor = { 1.0f,1.0f,1.0f,MulAlpha };
+		r2->SetMulColor(MulColor);
+
+	}
+	else if (StarAccTimer >= StarAccLimit / 2) {//消える
+
+		MulAlpha -= 0.1f;
+		if (MulAlpha < 0.0f) {
+			MulAlpha = 0.0f;
+		}
+
+		MulColor = { 1.0f,1.0f,1.0f,MulAlpha };
+		r2->SetMulColor(MulColor);
+
+	}
+
 	if (StarTimer > -1) {
 
 		StarTimer++;
+	}
+	if (StarAccTimer > -1) {
+
+		CQuaternion RotationY;
+		RotationY.SetRotationDeg(CVector3::AxisZ, -5.0f);
+		CQuaternion m_rotation = r2->GetRotation();
+		m_rotation *= RotationY;
+		r2->SetRotation(m_rotation);
+
+		Scale.x += 0.1f;
+		Scale.y += 0.1f;
+		r2->SetScale(Scale);
+
+		StarAccTimer++;
 	}
 
 	if (StarTimer == FinalLimit) {
@@ -120,17 +165,51 @@ void NakamaLight::Update() {
 		ss->SetFrequencyRatio(1.5f);
 		ss->Play(false);
 
-		GraphicsEngine().GetPostEffect().GetDithering().AddPointLig(Star_Pos);
+		GameData * gameData = GameData::GetInstance();
+		int mode = gameData->GetGameMode();
+
+		if (mode == GameData::Battle2D_Mode) {
+			GraphicsEngine().GetPostEffect().GetDithering().AddPointLig(Star_Pos);
+		}
+
 		Scale = CVector3::Zero;
 		StarTimer = -1;
+		MulAlpha = 0.0f;
+		//
+		StarAccTimer = 0;
+		r2->Init(L"sprite/Star2.dds", 200, 200);
+		CVector3 S_pos = CVector3::One;
+		S_pos.x = Star_Pos.x;
+		if (GameData::GetInstance()->GetGameMode() == GameData::Battle3D_Mode) {
+			S_pos.x += 50.0f;
+		}
+		S_pos.y = Star_Pos.y;
+		r2->SetPosition(S_pos);
+		r2->SetScale(Scale);
+		MulColor = { 1.0f,1.0f,1.0f,MulAlpha };
+		r2->SetMulColor(MulColor);
 
+	}
+	if (StarAccTimer == StarAccLimit) {
+		StarAccTimer = -1;
+		Scale = CVector3::Zero;
+		MulAlpha = 0.0f;
 	}
 
 }
 
 void NakamaLight::NakamaPlus() {
 
-	Star_Pos = GraphicsEngine().GetPostEffect().GetDithering().GeneratePointLigPosition();
+	GameData * gameData = GameData::GetInstance();
+	int mode = gameData->GetGameMode();
+
+	if (mode == GameData::Battle2D_Mode) {
+		Star_Pos = GraphicsEngine().GetPostEffect().GetDithering().GeneratePointLigPosition();
+	}
+	else if (mode == GameData::Battle3D_Mode) {
+		Star_Pos = { -600.0f,-50.0f };
+	}
+
 	StarTimer = 0;
 
 	ss = NewGO<prefab::CSoundSource>(0);
