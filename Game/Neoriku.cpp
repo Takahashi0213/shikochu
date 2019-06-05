@@ -143,7 +143,12 @@ void Neoriku::NeoDeath() {
 
 
 void Neoriku::Update() {
-	switch (m_stete) {
+
+	GameData * gamedata = GameData::GetInstance();
+	int mode = gamedata->GetGameMode();
+	if (mode != GameData::Pause) {
+
+		switch (m_stete) {
 		case Estete_Attack://UŒ‚
 			NeoAttack();
 			break;
@@ -159,12 +164,12 @@ void Neoriku::Update() {
 		case Estete_Death2:
 			NeoDeath2();//Ž€
 			break;
-	}
+		}
 
-	if (dathflag == true) {
-		DeleteGO(this);
+		if (dathflag == true) {
+			DeleteGO(this);
+		}
 	}
-
 	//ˆÚ“®
 	m_skinModelRender->SetPosition(m_position);
 	//‰ñ“]

@@ -179,29 +179,35 @@ void Bunbogu::Update()
 	{
 
 	if (SpawnWaitTimer > SpawnMaxWait) {
-		switch (m_stete) {
-		case Estete_Attack://UŒ‚
-			EnemyAttack();
-			break;
-		case Estete_Move://ˆÚ“®
-			EnemyMove();
-			break;
-		case Estete_Follow://’Ç”ö
-			EnemyFollow();
-			break;
-		case Estete_Death:
-			EnemyDeath();//€
-			break;
-		case Estete_Death2:
-			EnemyDeath2();//€
-			break;
-		case Estete_yobi:
-			Enemyyobi();//—\”õ“®ì
-			break;
+
+		GameData * gamedata = GameData::GetInstance();
+		int mode = gamedata->GetGameMode();
+		if (mode != GameData::Pause) {
+
+			switch (m_stete) {
+			case Estete_Attack://UŒ‚
+				EnemyAttack();
+				break;
+			case Estete_Move://ˆÚ“®
+				EnemyMove();
+				break;
+			case Estete_Follow://’Ç”ö
+				EnemyFollow();
+				break;
+			case Estete_Death:
+				EnemyDeath();//€
+				break;
+			case Estete_Death2:
+				EnemyDeath2();//€
+				break;
+			case Estete_yobi:
+				Enemyyobi();//—\”õ“®ì
+				break;
+			}
+
 		}
 
 	}
-
 	SpawnWaitTimer++;
 
 	//ˆÚ“®

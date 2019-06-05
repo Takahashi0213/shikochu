@@ -44,31 +44,35 @@ bool Pairodorago::Start() {
 
 void Pairodorago::Update() {
 
-	switch (m_stete) {
-	case Estete_Move://ˆÚ“®
-		PairoMove();
-		break;
-	case Estete_Yobi1://—\”õ“®ì1
-		PairoYobi1();
-		break;
-	case Estete_Attack1://UŒ‚1
-		PairoAttack1();
-		break;
-	case Estete_Yobi2://—\”õ“®ì2
-		PairoYobi2();
-		break;
-	case Estete_Attack2://UŒ‚2
-		PairoAttack2();
-		break;
-	case Estete_Death://€Ç
-		PairoDeath();
-		break;
-	case Estete_Death2://€Ç
-		PairoDeath2();
-		break;
+	GameData * gamedata = GameData::GetInstance();
+	int mode = gamedata->GetGameMode();
+	if (mode != GameData::Pause) {
 
+		switch (m_stete) {
+		case Estete_Move://ˆÚ“®
+			PairoMove();
+			break;
+		case Estete_Yobi1://—\”õ“®ì1
+			PairoYobi1();
+			break;
+		case Estete_Attack1://UŒ‚1
+			PairoAttack1();
+			break;
+		case Estete_Yobi2://—\”õ“®ì2
+			PairoYobi2();
+			break;
+		case Estete_Attack2://UŒ‚2
+			PairoAttack2();
+			break;
+		case Estete_Death://€Ç
+			PairoDeath();
+			break;
+		case Estete_Death2://€Ç
+			PairoDeath2();
+			break;
+
+		}
 	}
-
 	//HP‚ª0‚È‚ç€‚Ê
 	if (NowHP == 0) {
 		m_stete = Estete_Death;

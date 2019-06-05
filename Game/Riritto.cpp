@@ -143,28 +143,33 @@ void Riritto::RiDeath() {
 	DeleteGO(this);
 }
 void Riritto::Update() {
-	switch (m_stete) {
-	case Estete_Attack://UŒ‚
-		RiAttack();
-		break;
-	case Estete_Yobi://—\”õ“®ì
-		RiYobi();
-		break;
-	case Estete_Move://ˆÚ“®
-		RiMove();
-		break;
-	case Estete_Death:
-	RiDeath();//Ž€
-	break;
-	case Estete_Death2:
-		RiDeath2();//Ž€
-		break;	
-	}
 
-	if (dathflag == true) {
-		DeleteGO(this);
-	}
+	GameData * gamedata = GameData::GetInstance();
+	int mode = gamedata->GetGameMode();
+	if (mode != GameData::Pause) {
 
+		switch (m_stete) {
+		case Estete_Attack://UŒ‚
+			RiAttack();
+			break;
+		case Estete_Yobi://—\”õ“®ì
+			RiYobi();
+			break;
+		case Estete_Move://ˆÚ“®
+			RiMove();
+			break;
+		case Estete_Death:
+			RiDeath();//Ž€
+			break;
+		case Estete_Death2:
+			RiDeath2();//Ž€
+			break;
+		}
+
+		if (dathflag == true) {
+			DeleteGO(this);
+		}
+	}
 	//ˆÚ“®
 	m_skinModelRender->SetPosition(m_position);
 	//‰ñ“]

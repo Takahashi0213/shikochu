@@ -2,6 +2,7 @@
 #include "Misairu.h"
 #include "Player.h"
 #include "EffectManager.h"
+#include "GameData.h"
 
 Misairu::Misairu()
 {
@@ -30,69 +31,74 @@ bool Misairu::Start() {
 
 void Misairu::Update() {
 
-	//移動して攻撃して死ぬ
+	GameData * gamedata = GameData::GetInstance();
+	int mode = gamedata->GetGameMode();
+	if (mode != GameData::Pause) {
 
-	switch (m_stete) {
-	case Estete_Move://移動
+		//移動して攻撃して死ぬ
 
-		//ムーブスピード分動く
-		m_position += moveSpeed;
+		switch (m_stete) {
+		case Estete_Move://移動
 
-		//もし移動時間リミットなら
-		if (Timer >= MoveLimit) {
-			m_stete = Estete_Attack; //攻撃！
-			Timer = 0; //タイマーを0にする
-		}
+			//ムーブスピード分動く
+			m_position += moveSpeed;
 
-		break;
-	case Estete_Attack://攻撃
-		if (Timer >= 10 && Timer < 120) {//少し待ってから移動開始
-			Player* player = FindGO<Player>("Bug");
-			int state = player->GetState();
-			if (state != Player::Estate_Death) {
-				CVector3 P_Position = player->Getm_Position();
-				CVector3 diff = P_Position - m_position;
-				atmove = diff;
-				atmove.Normalize();
-
-				CVector3 enemyForward = { 0.0f, 0.0f, 1.0f };
-
-				//　向かせたい方向のベクトルを計算する。
-				CVector3 targetVector = P_Position - m_position;
-				targetVector.Normalize();
-				CQuaternion qRot;
-				qRot.SetRotation(enemyForward, targetVector);
-				m_rotation = qRot;
+			//もし移動時間リミットなら
+			if (Timer >= MoveLimit) {
+				m_stete = Estete_Attack; //攻撃！
+				Timer = 0; //タイマーを0にする
 			}
+
+			break;
+		case Estete_Attack://攻撃
+			if (Timer >= 10 && Timer < 120) {//少し待ってから移動開始
+				Player* player = FindGO<Player>("Bug");
+				int state = player->GetState();
+				if (state != Player::Estate_Death) {
+					CVector3 P_Position = player->Getm_Position();
+					CVector3 diff = P_Position - m_position;
+					atmove = diff;
+					atmove.Normalize();
+
+					CVector3 enemyForward = { 0.0f, 0.0f, 1.0f };
+
+					//　向かせたい方向のベクトルを計算する。
+					CVector3 targetVector = P_Position - m_position;
+					targetVector.Normalize();
+					CQuaternion qRot;
+					qRot.SetRotation(enemyForward, targetVector);
+					m_rotation = qRot;
+				}
+			}
+
+			m_position += atmove * AttackMoveSpeed;
+
+			//もし攻撃時間リミットなら
+			if (Timer >= AttackLimit) {
+				m_stete = Estete_Death; //攻撃！
+				Timer = 0; //タイマーを0にする
+			}
+
+			break;
+		case Estete_Death://死ﾇ
+
+			//Effect再生
+			EffectManager * effectmanager = EffectManager::GetInstance();
+			effectmanager->EffectPlayer(EffectManager::Bakuhatu, m_position, { 30.0f,30.0f,30.0f });
+
+			DeleteGO(this);
+
+			break;
 		}
 
-		m_position += atmove * AttackMoveSpeed;
+		//移動
+		m_skinModelRender->SetPosition(m_position);
+		//回転
+		m_skinModelRender->SetRotation(m_rotation);
+		//拡大率
+		m_skinModelRender->SetScale(m_scale);
+		//タイマー加算
+		Timer++;
 
-		//もし攻撃時間リミットなら
-		if (Timer >= AttackLimit) {
-			m_stete = Estete_Death; //攻撃！
-			Timer = 0; //タイマーを0にする
-		}
-
-		break;
-	case Estete_Death://死ﾇ
-
-		//Effect再生
-		EffectManager * effectmanager = EffectManager::GetInstance();
-		effectmanager->EffectPlayer(EffectManager::Bakuhatu, m_position, { 30.0f,30.0f,30.0f });
-
-		DeleteGO(this);
-
-		break;
 	}
-
-	//移動
-	m_skinModelRender->SetPosition(m_position);
-	//回転
-	m_skinModelRender->SetRotation(m_rotation);
-	//拡大率
-	m_skinModelRender->SetScale(m_scale);
-	//タイマー加算
-	Timer++;
-
 }

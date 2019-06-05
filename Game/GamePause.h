@@ -15,6 +15,8 @@ public:
 
 private:
 
+	void CursorUpdate();
+
 	std::vector<prefab::CSpriteRender*> m_spriteRender;
 	std::vector<prefab::CFontRender*> m_fontRender;
 
@@ -39,8 +41,13 @@ private:
 	int CursorCount = 0;
 	bool CursorFlag = false;
 
+	//削除用
+	bool DeleteFlag = false; //削除演出フラグ
+	int DeleteTimer = 0;
+
 	//定数
 	const int SetWaitLimit = 60; //準備完了までの時間/操作できるようになる時間
+	const int DeleteLimit = 30; //消去にかかる時間
 
 	const float AccPos_Hosei = 300.0f; //上下枠の移動距離
 	const float StagePos_Hosei = 500.0f; //ステージ枠の移動距離

@@ -117,21 +117,25 @@ void Fairo::Faideath() {
 
 void Fairo::Update() {
 	
-	switch (m_stete) {
-	case Estete_Move://ˆÚ“®
-		Faimove();
-		break;
-	case Estete_Attack://UŒ‚
-		Faiattack();
-		break;
-	case Estete_Death://Ž€Ç
-		Faideath();
-		break;
-	case Estete_Death2://Ž€Ç
-		Faideath2();
-		break;
-	}
+	GameData * gamedata = GameData::GetInstance();
+	int mode = gamedata->GetGameMode();
+	if (mode != GameData::Pause) {
 
+		switch (m_stete) {
+		case Estete_Move://ˆÚ“®
+			Faimove();
+			break;
+		case Estete_Attack://UŒ‚
+			Faiattack();
+			break;
+		case Estete_Death://Ž€Ç
+			Faideath();
+			break;
+		case Estete_Death2://Ž€Ç
+			Faideath2();
+			break;
+		}
+	}
 	//ˆÚ“®
 	m_skinModelRender->SetPosition(m_position);
 	//‰ñ“]

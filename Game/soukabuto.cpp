@@ -101,22 +101,27 @@ void soukabuto::Soudeath() {
 	DeleteGO(this);
 }
 void soukabuto::Update() {
-	switch (m_stete) {
-	case Estete_Move://ˆÚ“®
-		Soumove();
-		break;
-	case Estete_Attack://UŒ‚1
-		Souattack();
-		break;
-	case Estete_Death://Ž€Ç
-		Soudeath();
-		break;
-	case Estete_Death2://Ž€Ç
-		Soudeath2();
-		break;
 
+	GameData * gamedata = GameData::GetInstance();
+	int mode = gamedata->GetGameMode();
+	if (mode != GameData::Pause) {
+
+		switch (m_stete) {
+		case Estete_Move://ˆÚ“®
+			Soumove();
+			break;
+		case Estete_Attack://UŒ‚1
+			Souattack();
+			break;
+		case Estete_Death://Ž€Ç
+			Soudeath();
+			break;
+		case Estete_Death2://Ž€Ç
+			Soudeath2();
+			break;
+
+		}
 	}
-
 	//ˆÚ“®
 	m_skinModelRender->SetPosition(m_position);
 	//‰ñ“]

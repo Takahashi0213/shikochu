@@ -2,6 +2,7 @@
 #include "GamePause.h"
 #include "GameData.h"
 #include "LevelData.h"
+#include "TransitionMaker.h"
 
 GamePause* GamePause::m_instance = nullptr;
 
@@ -176,7 +177,6 @@ void GamePause::Update() {
 		m_spriteRender[4]->SetMulColor(MulColor);
 		m_spriteRender[5]->SetMulColor(MulColor);
 		m_spriteRender[6]->SetMulColor({ 0.5f,0.5f,0.5f,0.5f });
-		//m_spriteRender[7]->SetMulColor(MulColor);
 		m_fontRender[0]->SetColor(MulColor);
 		m_fontRender[1]->SetColor(MulColor);
 
@@ -257,8 +257,118 @@ void GamePause::Update() {
 	}
 
 	//処理
-	if (Timer > SetWaitLimit) {//セット完了してから受け付ける
+	if (Timer > SetWaitLimit && DeleteFlag == false ) {//セット完了してから受け付ける
+		if (Pad(0).IsTrigger(enButtonA)) {//決定
+			DeleteFlag = true;
+		}
+		if (Pad(0).IsTrigger(enButtonUp) || Pad(0).IsTrigger(enButtonDown)) {//コマンド移動
+			if (CommandNow == false) {
+				CommandNow = true;
+			}
+			else if (CommandNow == true) {
+				CommandNow = false;
+			}
+			CursorUpdate();
+		}
+	}
 
+	//消去演出
+	if (DeleteFlag == true) {
+
+		if (CommandNow == false) {//バック
+			if (DeleteTimer < 12) {
+				MulColor = m_spriteRender[0]->GetMulColor();
+				MulColor.a -= 0.1f;
+				if (MulColor.a < 0.0f) {
+					MulColor.a = 0.0f;
+				}
+				m_spriteRender[0]->SetMulColor(MulColor);
+				MulColor = m_spriteRender[3]->GetMulColor();
+				MulColor.a -= 0.1f;
+				if (MulColor.a < 0.0f) {
+					MulColor.a = 0.0f;
+				}
+				m_spriteRender[3]->SetMulColor(MulColor);
+				MulColor = m_spriteRender[4]->GetMulColor();
+				MulColor.a -= 0.1f;
+				if (MulColor.a < 0.0f) {
+					MulColor.a = 0.0f;
+				}
+				m_spriteRender[4]->SetMulColor(MulColor);
+				MulColor = m_spriteRender[5]->GetMulColor();
+				MulColor.a -= 0.1f;
+				if (MulColor.a < 0.0f) {
+					MulColor.a = 0.0f;
+				}
+				m_spriteRender[5]->SetMulColor(MulColor);
+				MulColor = m_spriteRender[6]->GetMulColor();
+				MulColor.a -= 0.1f;
+				if (MulColor.a < 0.0f) {
+					MulColor.a = 0.0f;
+				}
+				m_spriteRender[6]->SetMulColor(MulColor);
+				MulColor = m_spriteRender[7]->GetMulColor();
+				MulColor.a -= 0.1f;
+				if (MulColor.a < 0.0f) {
+					MulColor.a = 0.0f;
+				}
+				m_spriteRender[7]->SetMulColor(MulColor);
+				MulAlpha -= 0.1f;
+				if (MulAlpha < 0.0f) {
+					MulAlpha = 0.0f;
+				}
+				MulColor = { 1.0f,1.0f,1.0f,MulAlpha };
+				m_fontRender[0]->SetColor(MulColor);
+				m_fontRender[1]->SetColor(MulColor);
+			}
+			if (DeleteTimer < 13) {
+				position = m_spriteRender[1]->GetPosition();
+				position.y -= 5.0f;
+				m_spriteRender[1]->SetPosition(position);
+				position = m_spriteRender[2]->GetPosition();
+				position.y += 5.0f;
+				m_spriteRender[2]->SetPosition(position);
+
+			}
+			else if (DeleteTimer < 25) {
+				position = m_spriteRender[1]->GetPosition();
+				position.y += 30.0f;
+				m_spriteRender[1]->SetPosition(position);
+				position = m_spriteRender[2]->GetPosition();
+				position.y -= 30.0f;
+				m_spriteRender[2]->SetPosition(position);
+			}
+
+			if (DeleteTimer == DeleteLimit) {
+				GameData * gamedata = GameData::GetInstance();
+				bool mode = gamedata->GetFinalMode();
+				if (mode == false) {
+					gamedata->SetGameMode(GameData::Battle2D_Mode);
+				}
+				else if (mode == true) {
+					gamedata->SetGameMode(GameData::Battle3D_Mode);
+				}
+
+				DeleteGO(this);
+			}
+
+		}
+		else if (CommandNow == true) {//リタイア
+			if (DeleteTimer == 0) {
+				TransitionMaker * tm = TransitionMaker::GetInstance();
+				tm->TransitionSetting(TransitionMaker::Fade, 12, 0, false);
+			}
+			if (DeleteTimer == DeleteLimit) {
+				TransitionMaker * tm = TransitionMaker::GetInstance();
+				tm->TransitionSetting(TransitionMaker::Fade, 12, 20, true);
+
+				GameData * gamedata = GameData::GetInstance();
+				gamedata->SetGameMode(GameData::GameEnd);
+				DeleteGO(this);
+			}
+		}
+
+		DeleteTimer++;
 	}
 
 	//カーソル上下
@@ -282,4 +392,22 @@ void GamePause::Update() {
 
 	Timer++;
 	CursorCount++;
+}
+
+void GamePause::CursorUpdate() {
+	if (CommandNow == false) {
+		m_spriteRender[7]->SetPosition({ 0.0f, -50.0f,0.0f });
+		//
+		m_spriteRender[5]->SetMulColor({ 1.0f,1.0f,1.0f,1.0f });
+		m_spriteRender[6]->SetMulColor({ 0.5f,0.5f,0.5f,0.5f });
+	}
+	else if (CommandNow == true) {
+		m_spriteRender[7]->SetPosition({ 0.0f, -150.0f,0.0f });
+		//
+		m_spriteRender[6]->SetMulColor({ 1.0f,1.0f,1.0f,1.0f });
+		m_spriteRender[5]->SetMulColor({ 0.5f,0.5f,0.5f,0.5f });
+	}
+
+	CursorFlag = false;
+	CursorCount = 0;
 }

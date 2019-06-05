@@ -117,22 +117,27 @@ void Arukasya::AruDeath() {
 }
 
 void Arukasya::Update() {
-	switch (m_stete)
-	{
-	case Estete_Attack:
-		AruAttack();
-		break;
-	case Estete_Move:
-		AruMove();
-		break;
-	case Estete_Death:
-		AruDeath();
-		break;
-	case Estete_Death2:
-		AruDeath2();
-		break;
-	}
 
+	GameData * gamedata = GameData::GetInstance();
+	int mode = gamedata->GetGameMode();
+	if (mode != GameData::Pause) {
+
+		switch (m_stete)
+		{
+		case Estete_Attack:
+			AruAttack();
+			break;
+		case Estete_Move:
+			AruMove();
+			break;
+		case Estete_Death:
+			AruDeath();
+			break;
+		case Estete_Death2:
+			AruDeath2();
+			break;
+		}
+	}
 	//ˆÚ“®
 	m_skinModelRender->SetPosition(m_position);
 	//‰ñ“]

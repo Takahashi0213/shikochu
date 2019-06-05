@@ -146,25 +146,30 @@ void Pi_rabi::PiDeath() {
 
 
 void Pi_rabi::Update() {
-	switch (m_stete)
-	{
-	case Estete_Attack:
-		Piattack();
-		break;
-	case Estete_Move:
-		PiMove();
-		break;
-	case Estete_Follow:
-		PiFollow();
-		break;
-	case Estete_Death:
-		PiDeath();
-		break;
-	case Estete_Death2:
-		PiDeath2();
-		break;
-	}
 
+	GameData * gamedata = GameData::GetInstance();
+	int mode = gamedata->GetGameMode();
+	if (mode != GameData::Pause) {
+
+		switch (m_stete)
+		{
+		case Estete_Attack:
+			Piattack();
+			break;
+		case Estete_Move:
+			PiMove();
+			break;
+		case Estete_Follow:
+			PiFollow();
+			break;
+		case Estete_Death:
+			PiDeath();
+			break;
+		case Estete_Death2:
+			PiDeath2();
+			break;
+		}
+	}
 	//ˆÚ“®
 	m_skinModelRender->SetPosition(m_position);
 	//‰ñ“]

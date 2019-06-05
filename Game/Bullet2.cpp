@@ -2,7 +2,7 @@
 #include "Bullet2.h"
 #include "Player.h"
 #include "Riritto.h"
-
+#include "GameData.h"
 
 Bullet2::Bullet2()
 {
@@ -72,28 +72,32 @@ void Bullet2::move() {
 
 void Bullet2::Update()
 {
-	//攻撃ﾀﾞﾖ
-	
-	if (random == 0) {
-		move();
+	GameData * gamedata = GameData::GetInstance();
+	int mode = gamedata->GetGameMode();
+	if (mode != GameData::Pause) {
+
+		//攻撃ﾀﾞﾖ
+
+		if (random == 0) {
+			move();
+		}
+		else {
+			follow();
+		}
+
+		//座標を伝える。
+		m_skinModelRender->SetPosition(m_position);
+
+
+		if (dathflag == true) {
+			DeleteGO(this);
+		}
+
+
+		m_timer++;
+		if (m_timer == bulletdelete) {
+			//時間がたったらインスタンスを削除する。
+			DeleteGO(this);
+		}
 	}
-	else {
-		follow();
-	}
-
-	//座標を伝える。
-	m_skinModelRender->SetPosition(m_position);
-
-
-	if (dathflag == true) {
-		DeleteGO(this);
-	}
-
-
-	m_timer++;
-	if (m_timer == bulletdelete) {
-		//時間がたったらインスタンスを削除する。
-		DeleteGO(this);
-	}
-
 }

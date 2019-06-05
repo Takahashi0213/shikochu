@@ -47,30 +47,34 @@ bool SS_001::Start() {
 
 void SS_001::Update() {
 
-	switch (m_stete) {
-	case Estete_Move://ˆÚ“®
-		SSMove();
-		break;
-	case Estete_Yobi1://—\”õ“®ì1
-		SSYobi1();
-		break;
-	case Estete_Attack1://UŒ‚1
-		SSAttack1();
-		break;
-	case Estete_Yobi2://—\”õ“®ì2
-		SSYobi2();
-		break;
-	case Estete_Attack2://UŒ‚2
-		SSAttack2();
-		break;
-	case Estete_Death://€Ç
-		SSDeath();
-		break;
-	case Estete_Death2://€Ç
-		SSDeath2();
-		break;
-	}
+	GameData * gamedata = GameData::GetInstance();
+	int mode = gamedata->GetGameMode();
+	if (mode != GameData::Pause) {
 
+		switch (m_stete) {
+		case Estete_Move://ˆÚ“®
+			SSMove();
+			break;
+		case Estete_Yobi1://—\”õ“®ì1
+			SSYobi1();
+			break;
+		case Estete_Attack1://UŒ‚1
+			SSAttack1();
+			break;
+		case Estete_Yobi2://—\”õ“®ì2
+			SSYobi2();
+			break;
+		case Estete_Attack2://UŒ‚2
+			SSAttack2();
+			break;
+		case Estete_Death://€Ç
+			SSDeath();
+			break;
+		case Estete_Death2://€Ç
+			SSDeath2();
+			break;
+		}
+	}
 	//HP‚ª0‚È‚ç€‚Ê
 	if (NowHP == 0) {
 		m_stete = Estete_Death;

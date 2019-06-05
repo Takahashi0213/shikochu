@@ -176,29 +176,35 @@ void shisokus::shisoDeath() {
 }
 
 void shisokus::Update() {
-	switch (m_stete) {
-	case Estete_Move://ˆÚ“®
-		shisoMove();
-		break;
-	case Estete_Yobi1://—\”õ“®ì1
-		shisoYobi1();
-		break;
-	case Estete_Attack1://UŒ‚1
-		shisoAttack1();
-		break;
-	case Estete_Yobi2://—\”õ“®ì2
-		shisoYobi2();
-		break;
-	case Estete_Attack2://UŒ‚2
-		shisoAttack2();
-		break;
-	case Estete_Death://€Ç
-		shisoDeath();
-		break;
-	case Estete_Death2://€Ç
-		shisoDeath2();
-		break;
 
+	GameData * gamedata = GameData::GetInstance();
+	int mode = gamedata->GetGameMode();
+	if (mode != GameData::Pause) {
+
+		switch (m_stete) {
+		case Estete_Move://ˆÚ“®
+			shisoMove();
+			break;
+		case Estete_Yobi1://—\”õ“®ì1
+			shisoYobi1();
+			break;
+		case Estete_Attack1://UŒ‚1
+			shisoAttack1();
+			break;
+		case Estete_Yobi2://—\”õ“®ì2
+			shisoYobi2();
+			break;
+		case Estete_Attack2://UŒ‚2
+			shisoAttack2();
+			break;
+		case Estete_Death://€Ç
+			shisoDeath();
+			break;
+		case Estete_Death2://€Ç
+			shisoDeath2();
+			break;
+
+		}
 	}
 	//HP‚ª0‚È‚ç€‚Ê
 	if (NowHP == 0) {

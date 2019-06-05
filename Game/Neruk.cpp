@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "shisokus.h"
 #include "NerukGenerator.h"
+#include "GameData.h"
 
 Neruk::Neruk()
 {
@@ -271,25 +272,31 @@ void Neruk::NeruDeath() {
 		DeleteGO(this);
 }
 void Neruk::Update() {
-	switch (m_stete){
-	case Neruk::Estete_Select:
-		NeruSelect();
-		break;
-	case Neruk::Estete_Move:
-		NeruMove();
-		break;
-	case Neruk::Estete_Attack:
-		NeruAttack();
-		break;
 
-	case Neruk::Estete_Death:
-		NeruDeath();
-		break;
-	}
-	shisokus* shisok = FindGO<shisokus>("shiso");
-	int s_stete = shisok->GetEState();
-	if (s_stete == shisokus::Estete_Death) {
-		m_stete = Estete_Death;
+	GameData * gamedata = GameData::GetInstance();
+	int mode = gamedata->GetGameMode();
+	if (mode != GameData::Pause) {
+
+		switch (m_stete) {
+		case Neruk::Estete_Select:
+			NeruSelect();
+			break;
+		case Neruk::Estete_Move:
+			NeruMove();
+			break;
+		case Neruk::Estete_Attack:
+			NeruAttack();
+			break;
+
+		case Neruk::Estete_Death:
+			NeruDeath();
+			break;
+		}
+		shisokus* shisok = FindGO<shisokus>("shiso");
+		int s_stete = shisok->GetEState();
+		if (s_stete == shisokus::Estete_Death) {
+			m_stete = Estete_Death;
+		}
 	}
 
 	//ˆÚ“®

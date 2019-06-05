@@ -164,27 +164,32 @@ void Ekku::Ekyobi() {
 
 }
 void Ekku::Update() {
-	switch (m_stete) {
-	case Estete_Attack://UŒ‚
-		EkAttack();
-		break;
-	case Estete_Move://ˆÚ“®
-		EkMove();
-		break;
-	case Estete_Follow://’Ç”ö
-		EkFollow();
-		break;
-	case Estete_Death:
-		EkDeath();//Ž€
-		break;
-	case Estete_Death2:
-		EkDeath2();//Ž€
-		break;
-	case Estete_Yobi:
-		Ekyobi();//—\”õ“®ì
-		break;
-	}
 
+	GameData * gamedata = GameData::GetInstance();
+	int mode = gamedata->GetGameMode();
+	if (mode != GameData::Pause) {
+
+		switch (m_stete) {
+		case Estete_Attack://UŒ‚
+			EkAttack();
+			break;
+		case Estete_Move://ˆÚ“®
+			EkMove();
+			break;
+		case Estete_Follow://’Ç”ö
+			EkFollow();
+			break;
+		case Estete_Death:
+			EkDeath();//Ž€
+			break;
+		case Estete_Death2:
+			EkDeath2();//Ž€
+			break;
+		case Estete_Yobi:
+			Ekyobi();//—\”õ“®ì
+			break;
+		}
+	}
 	//ˆÚ“®
 	m_skinModelRender->SetPosition(m_position);
 	//‰ñ“]

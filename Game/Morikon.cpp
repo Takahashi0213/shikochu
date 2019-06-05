@@ -144,24 +144,29 @@ void Morikon::Modeath() {
 	DeleteGO(this);
 }
 void Morikon::Update() {
-	switch (m_stete) {
-	case Estete_Move://ˆÚ“®
-		Momove();
-		break;
-	case Estete_Follow://’Ç”ö
-		Mofollow();
-		break;
-	case Estete_Attack://UŒ‚
-		Moattack();
-		break;
-	case Estete_Death:
-		Modeath();//Ž€
-		break;
-	case Estete_Death2:
-		Modeath2();//Ž€
-		break;
-	}
 
+	GameData * gamedata = GameData::GetInstance();
+	int mode = gamedata->GetGameMode();
+	if (mode != GameData::Pause) {
+
+		switch (m_stete) {
+		case Estete_Move://ˆÚ“®
+			Momove();
+			break;
+		case Estete_Follow://’Ç”ö
+			Mofollow();
+			break;
+		case Estete_Attack://UŒ‚
+			Moattack();
+			break;
+		case Estete_Death:
+			Modeath();//Ž€
+			break;
+		case Estete_Death2:
+			Modeath2();//Ž€
+			break;
+		}
+	}
 	//ˆÚ“®
 	m_skinModelRender->SetPosition(m_position);
 	//‰ñ“]
