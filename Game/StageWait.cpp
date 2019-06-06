@@ -34,9 +34,15 @@ void StageWait::Update() {
 			if (MulAlpha > 1.0f) {
 				MulAlpha = 1.0f;
 			}
-			MulColor = { 1.0f,1.0f,1.0f,MulAlpha };
+
+			MulColor = m_spriteRender[0]->GetMulColor();
+			MulColor.a = MulAlpha;
 			m_spriteRender[0]->SetMulColor(MulColor);
+			MulColor = m_spriteRender[1]->GetMulColor();
+			MulColor.a = MulAlpha;
 			m_spriteRender[1]->SetMulColor(MulColor);
+
+			MulColor = { 1.0f,1.0f,1.0f,MulAlpha };
 			m_spriteRender[5]->SetMulColor(MulColor);
 
 			if (Accflag == true) {
@@ -191,9 +197,13 @@ void StageWait::Update() {
 			if (MulAlphaAcc < 0.0f) {
 				MulAlphaAcc = 0.0f;
 			}
-			MulColor = { 1.0f,1.0f,1.0f,MulAlpha };
+			MulColor = m_spriteRender[0]->GetMulColor();
+			MulColor.a = MulAlpha;
 			m_spriteRender[0]->SetMulColor(MulColor);
+			MulColor = m_spriteRender[1]->GetMulColor();
+			MulColor.a = MulAlpha;
 			m_spriteRender[1]->SetMulColor(MulColor);
+			MulColor = { 1.0f,1.0f,1.0f,MulAlpha };
 			m_spriteRender[2]->SetMulColor(MulColor);
 			m_spriteRender[3]->SetMulColor(MulColor);
 			m_spriteRender[4]->SetMulColor(MulColor);
@@ -213,7 +223,8 @@ void StageWait::Update() {
 
 }
 
-void StageWait::WaitSet(int stage) {
+//int→ステージNo bool→ハードモードならtrueを入れる
+void StageWait::WaitSet(int stage,bool flag) {
 
 	//セッティング
 	//0番 左右の飾り
@@ -221,19 +232,34 @@ void StageWait::WaitSet(int stage) {
 	r->Init(L"sprite/loadingAcc.dds", 1280.0f, 720.0f);
 	r->SetPosition({ 0.0f ,0.0f,0.0f });
 	r->SetScale({ 1.0f ,1.0f,1.0f });
-	r->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
+	if (flag == false) {
+		r->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
+	}
+	else if (flag == true) {
+		r->SetMulColor({ 1.0f,0.2f,0.2f,0.0f });
+	}
 	m_spriteRender.push_back(r);
 	//1番 枠
 	r = NewGO<prefab::CSpriteRender>(16);
 	r->Init(L"sprite/loadingAcc2.dds", 1002.0f, 617.0f);
 	r->SetPosition({ 0.0f ,70.0f,0.0f });
-	r->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
+	if (flag == false) {
+		r->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
+	}
+	else if (flag == true) {
+		r->SetMulColor({ 1.0f,0.2f,0.2f,0.0f });
+	}
 	r->SetScale({ 0.0f ,0.0f,1.0f });
 	m_spriteRender.push_back(r);
 	//2番 文字1
 	int X = 0 + (stage * 3);
 	r = NewGO<prefab::CSpriteRender>(16);
-	r->Init(Message[X], 1002.0f, 617.0f);
+	if (flag == false) {
+		r->Init(Message[X], 1002.0f, 617.0f);
+	}
+	else if (flag == true) {
+		r->Init(Message_Hard[X], 1002.0f, 617.0f);
+	}
 	r->SetPosition({ 0.0f ,50.0f,0.0f });
 	r->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
 	r->SetScale({ 1.0f ,1.0f,1.0f });
@@ -241,7 +267,12 @@ void StageWait::WaitSet(int stage) {
 	X++;
 	//3番 文字2
 	r = NewGO<prefab::CSpriteRender>(16);
-	r->Init(Message[X], 1002.0f, 617.0f);
+	if (flag == false) {
+		r->Init(Message[X], 1002.0f, 617.0f);
+	}
+	else if (flag == true) {
+		r->Init(Message_Hard[X], 1002.0f, 617.0f);
+	}
 	r->SetPosition({ 0.0f ,50.0f,0.0f });
 	r->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
 	r->SetScale({ 1.0f ,1.0f,1.0f });
@@ -249,7 +280,12 @@ void StageWait::WaitSet(int stage) {
 	X++;
 	//4番 文字3
 	r = NewGO<prefab::CSpriteRender>(16);
-	r->Init(Message[X], 1002.0f, 617.0f);
+	if (flag == false) {
+		r->Init(Message[X], 1002.0f, 617.0f);
+	}
+	else if (flag == true) {
+		r->Init(Message_Hard[X], 1002.0f, 617.0f);
+	}
 	r->SetPosition({ 0.0f ,50.0f,0.0f });
 	r->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
 	r->SetScale({ 1.0f ,1.0f,1.0f });
@@ -262,10 +298,21 @@ void StageWait::WaitSet(int stage) {
 	r->SetScale({ 1.0f ,1.0f,1.0f });
 	m_spriteRender.push_back(r);
 
-	if (MessageAcc[stage] == true) {
+	if (MessageAcc[stage] == true && flag == false) {
 		//6番 メッセージアクセサリー
 		r = NewGO<prefab::CSpriteRender>(16);
 		r->Init(MessageAccName[stage], 1002.0f, 617.0f);
+		r->SetPosition({ 0.0f ,70.0f,0.0f });
+		r->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
+		r->SetScale({ 1.0f ,1.0f,1.0f });
+		m_spriteRender.push_back(r);
+
+		Accflag = true;
+	}
+	else if (MessageAcc_Hard[stage] == true && flag == true) {
+		//6番 メッセージアクセサリー
+		r = NewGO<prefab::CSpriteRender>(16);
+		r->Init(MessageAccName_Hard[stage], 1002.0f, 617.0f);
 		r->SetPosition({ 0.0f ,70.0f,0.0f });
 		r->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
 		r->SetScale({ 1.0f ,1.0f,1.0f });

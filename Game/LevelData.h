@@ -19,8 +19,26 @@ const wchar_t LevelName[12][255]{
 { L"level/level_04.tkl" },	//ステージ２
 { L"level/level_05.tkl" },
 { L"level/level_06.tkl" },
-{ L"level/level_07.tkl" },		//Boss2
-{ L"level/level_08.tkl" },		//ステージ３
+{ L"level/level_07.tkl" },	//Boss2
+{ L"level/level_08.tkl" },	//ステージ３
+{ L"level/level_09.tkl" },
+{ L"level/level_10.tkl" },
+{ L"level/level_11.tkl" },	//Boss3
+
+};
+
+//ハードモード用レベルファイル名
+//テストプレイ用レベル名→level/level_Test.tkl
+const wchar_t LevelName_Hard[12][255]{
+{ L"level/level_00.tkl" },	//ステージ１
+{ L"level/level_01.tkl" },
+{ L"level/level_02.tkl" },
+{ L"level/level_03.tkl" },	//Boss1
+{ L"level/level_04.tkl" },	//ステージ２
+{ L"level/level_05.tkl" },
+{ L"level/level_06.tkl" },
+{ L"level/level_07.tkl" },	//Boss2
+{ L"level/level_08.tkl" },	//ステージ３
 { L"level/level_09.tkl" },
 { L"level/level_10.tkl" },
 { L"level/level_11.tkl" },	//Boss3
@@ -60,7 +78,7 @@ const wchar_t BGMName[Stage][255]{
 
 //ボスBGMのファイル名
 const wchar_t BossBGMName[Stage][255]{
-	{ L"sound/seaSokus.wav" },
+{ L"sound/seaSokus.wav" },
 { L"sound/pairodorago.wav" },
 { L"sound/SS_001.wav" },
 };

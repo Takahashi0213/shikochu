@@ -6,7 +6,7 @@ public:
 	StageWait();
 	~StageWait();
 
-	void WaitSet(int stage);
+	void WaitSet(int stage, bool flag);
 	void WaitDelete();
 	void Update();
 
@@ -68,5 +68,34 @@ private:
 		{ L"sprite/Message/m_3_a.dds" }, 
 
 	};
+
+	//ここからハードモード用データ
+
+	//メッセージ*3
+	const wchar_t Message_Hard[9][255]{
+	{ L"sprite/Message/hm_1_1.dds" }, //文章画像をここに
+	{ L"sprite/Message/hm_1_2.dds" },
+	{ L"sprite/Message/hm_1_3.dds" },
+	{ L"sprite/Message/m_2_1.dds" },
+	{ L"sprite/Message/m_2_2.dds" },
+	{ L"sprite/Message/m_2_3.dds" },
+	{ L"sprite/Message/m_3_1.dds" },
+	{ L"sprite/Message/m_3_2.dds" },
+	{ L"sprite/Message/m_3_3.dds" },
+
+	};
+
+	const bool MessageAcc_Hard[3]{//メッセージアクセサリの有無
+		false,
+		false,
+		false,
+	};
+
+	const wchar_t MessageAccName_Hard[3][255]{//メッセージアクセサリの名前
+	{ L"" },
+	{ L"" },
+	{ L"" },
+	};
+
 };
 

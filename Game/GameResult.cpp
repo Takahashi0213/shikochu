@@ -584,7 +584,8 @@ void GameResult::Update() {
 			//セーブデータを設定する
 			SaveData * savedata = SaveData::GetInstance();
 			GameData * gamedata = GameData::GetInstance();
-			int stage= gamedata->GetStageNo();
+			int stage = gamedata->GetStageNo();
+			bool HardFlag = gamedata->GetHardModeFlag();
 			stage -= 1;
 			//もしハイスコアが0なら歴代クリア数を加算
 			if (savedata->GetHighScore(stage) == 0) {
@@ -593,9 +594,17 @@ void GameResult::Update() {
 				}
 			}
 			//ハイスコアならハイスコアに代入
-			if (savedata->GetHighScore(stage) < FinalScore) {
-				savedata->SetHighScore(stage, FinalScore);
+			if (HardFlag == false) {//ノーマルモード
+				if (savedata->GetHighScore(stage) < FinalScore) {
+					savedata->SetHighScore(stage, FinalScore);
+				}
 			}
+			else if (HardFlag == true) {//ハードモード
+				if (savedata->GetHighScore_Hard(stage) < FinalScore) {
+					savedata->SetHighScore_Hard(stage, FinalScore);
+				}
+			}
+
 			//モンスター登録処理
 			if (stage == 0) {
 				savedata->SetMonFlag(0);

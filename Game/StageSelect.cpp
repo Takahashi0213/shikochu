@@ -78,7 +78,7 @@ bool StageSelect::Start() {
 	postEffect::Tonemap().SetLuminance(0.42f);
 	//必要な有象無象を設定するぜ
 	//0番 上の飾り
-	r = NewGO<prefab::CSpriteRender>(10);
+	r = NewGO<prefab::CSpriteRender>(11);
 	r->Init(L"sprite/SelectDodai.dds", 1280.0f, 220.0f);
 	r->SetPosition({ 0.0f ,250.0f,0.0f });
 	m_spriteRender.push_back(r);
@@ -99,16 +99,33 @@ bool StageSelect::Start() {
 	r->SetMulColor({ 1.0f,1.0f,1.0f,1.0f });
 	m_spriteRender.push_back(r);
 	//4番 強化ボタン
-	r = NewGO<prefab::CSpriteRender>(10);
+	r = NewGO<prefab::CSpriteRender>(11);
 	r->Init(L"sprite/Kyoka.dds", 403.0f, 288.0f);
 	r->SetPosition({ 550.0f , 300.0f ,0.0f });
 	r->SetMulColor({ 1.0f,1.0f,1.0f,1.0f });
 	m_spriteRender.push_back(r);
 	//5番 図鑑ボタン
-	r = NewGO<prefab::CSpriteRender>(10);
+	r = NewGO<prefab::CSpriteRender>(11);
 	r->Init(L"sprite/Zukan.dds", 403.0f, 288.0f);
 	r->SetPosition({ -550.0f , 300.0f ,0.0f });
 	r->SetMulColor({ 1.0f,1.0f,1.0f,1.0f });
+	m_spriteRender.push_back(r);
+	//6番 ハードボタン
+	r = NewGO<prefab::CSpriteRender>(10);
+	r->Init(L"sprite/Hard.dds", 232.0f, 120.0f);
+	r->SetPosition({ 530.0f , -70.0f ,0.0f });
+	if (MAX_Stage == 1) {
+		r->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
+	}
+	else {
+		r->SetMulColor({ 1.0f,1.0f,1.0f,1.0f });
+	}
+	m_spriteRender.push_back(r);
+	//7番 ハードマーク
+	r = NewGO<prefab::CSpriteRender>(9);
+	r->Init(L"sprite/HardMark.dds", 200.0f, 200.0f);
+	r->SetPosition({ 50.0f , 100.0f ,0.0f });
+	r->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
 	m_spriteRender.push_back(r);
 
 	//虫も出る…ムシモデル… 0番
@@ -197,13 +214,26 @@ bool StageSelect::Start() {
 	f->SetColor({ 1.0f,1.0f,1.0f,1.0f });
 	f->SetPivot({ 0.5f,0.5f });
 	m_fontRender.push_back(f);
+	//お知らせ 3番
+	f = NewGO<prefab::CFontRender>(11);
+	//表示
+	text[256];
+	//おわ
+	swprintf(text, L"NORMALクリアであそべます");
+	//はい。
+	f->SetText(text);
+	f->SetPosition({ 250.0f , -290.0f });
+	f->SetScale(0.8f);
+	f->SetColor({ 1.0f,1.0f,1.0f,0.0f });
+	f->SetPivot({ 0.5f,0.5f });
+	m_fontRender.push_back(f);
 
 	return true;
 }
 
 void StageSelect::Update(){
 
-	if (SelectedFlag == true && KyokaFlag == false && ZukanFlag == false) {
+	if (SelectedFlag == true && KyokaFlag == false && ZukanFlag == false && HardChangeFlag == false) {
 
 		BMG_V -= 0.1f;
 		if (BMG_V < 0.0f) {
@@ -257,7 +287,7 @@ void StageSelect::Update(){
 		//アレ
 		if (Selected_Counter == 80) {
 			StageWait * sw = StageWait::GetInstance();
-			sw->WaitSet(SelectStageNow);
+			sw->WaitSet(SelectStageNow, HardFlag);
 		}
 		//ボタンスタンバーイ
 		if (Selected_Counter > 120) {
@@ -361,6 +391,66 @@ void StageSelect::Update(){
 
 		Selected_Counter++;
 	}
+	else if (SelectedFlag == true && HardChangeFlag == true) {//モードチェンジ
+
+		if (Selected_Counter == 0) {
+			TextUpdate();
+		}
+
+		if (HardFlag == false) {//ノーマルに
+			int Sansyo = 2;
+			for (int i = 0; i < MAX_Stage; i++) {
+				m_skinModelRender[Sansyo]->SetEmissionColor({ 0.0f,0.0f,0.0f });
+				Sansyo++;
+			}
+			postEffect::Tonemap().SetLuminance(0.4f, 0.2f);
+
+			m_spriteRender[7]->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
+			m_spriteRender[1]->Init(L"sprite/Time.dds", 400.0f*1.3, 430.0f*1.3);
+
+			CVector3 pos = m_spriteRender[6]->GetPosition();
+			if (Selected_Counter < 12) {//移動
+				pos.x += 20.0f;
+			}
+			else if (Selected_Counter < 24) {
+				pos.x -= 20.0f;
+				if (Selected_Counter == 12) {
+					m_spriteRender[6]->Init(L"sprite/Hard.dds", 232.0f, 120.0f);
+				}
+			}
+			m_spriteRender[6]->SetPosition(pos);
+
+		}
+		else {//ハードに
+			int Sansyo = 2;
+			for (int i = 0; i < MAX_Stage; i++) {
+				m_skinModelRender[Sansyo]->SetEmissionColor({ 30.0f,3.0f,3.0f });
+				Sansyo++;
+			}
+			GraphicsEngine().GetTonemap().SetLuminance(0.05f, 0.2f);
+			m_spriteRender[7]->SetMulColor({ 1.0f,1.0f,1.0f,1.0f });
+			m_spriteRender[1]->Init(L"sprite/Time_Hard.dds", 400.0f*1.3, 430.0f*1.3);
+
+			CVector3 pos = m_spriteRender[6]->GetPosition();
+			if (Selected_Counter < 12) {//移動
+				pos.x += 20.0f;
+			}
+			else if(Selected_Counter < 24) {
+				pos.x -= 20.0f;
+				if (Selected_Counter == 12) {
+					m_spriteRender[6]->Init(L"sprite/Normal.dds", 232.0f, 120.0f);
+				}
+			}
+			m_spriteRender[6]->SetPosition(pos);
+		}
+
+		if (Selected_Counter == HardChangeLimit) {
+			Selected_Counter = -1;
+			SelectedFlag = false;
+			HardChangeFlag = false;
+		}
+		Selected_Counter++;
+	}
 	else if (SelectedFlag == false) { //操作中のみ実行する
 
 		//上下移動
@@ -390,14 +480,30 @@ void StageSelect::Update(){
 
 			//これでおけ
 			if (Pad(0).IsTrigger(enButtonStart)) {
-				prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
-				ss->Init(L"sound/stageStart.wav");
-				ss->SetVolume(0.5f);
-				ss->Play(false);
 
-				SelectedFlag = true;
-				GameData * gamedata = GameData::GetInstance();
-				gamedata->SetStageNo(SelectStageNow+1); //ステージNoを決めるね
+				SaveData * savedata = SaveData::GetInstance();
+				int highscore = 0;
+				if (HardFlag == true) {
+					highscore = savedata->GetHighScore(SelectStageNow);
+				}
+				//ハードモードで挑戦できるのか
+				if (HardFlag == true && highscore == 0) {
+					prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+					ss->Init(L"sound/blip.wav");
+					ss->SetVolume(1.0f);
+					ss->Play(false);
+				}
+				else {
+					prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+					ss->Init(L"sound/stageStart.wav");
+					ss->SetVolume(0.5f);
+					ss->Play(false);
+
+					SelectedFlag = true;
+					GameData * gamedata = GameData::GetInstance();
+					gamedata->SetHardModeFlag(HardFlag); //むずかしや
+					gamedata->SetStageNo(SelectStageNow + 1); //ステージNoを決めるね
+				}
 			}
 
 			//強化画面へ…
@@ -421,6 +527,21 @@ void StageSelect::Update(){
 
 				SelectedFlag = true;
 				ZukanFlag = true;
+			}
+
+			//モード切替
+			if (Pad(0).IsTrigger(enButtonY)) {
+
+				if(MAX_Stage > 1) {//ステージを１つでもクリアしていると開放
+					if (HardFlag == false) {
+						HardFlag = true;
+					}
+					else {
+						HardFlag = false;
+					}
+					SelectedFlag = true;
+					HardChangeFlag = true;
+				}
 			}
 
 		}
@@ -458,7 +579,13 @@ void StageSelect::TextUpdate() {
 
 	SaveData * savedata = SaveData::GetInstance();
 
-	int highscore = savedata->GetHighScore(SelectStageNow);
+	int highscore = 0;
+	if (HardFlag == false) {
+		highscore = savedata->GetHighScore(SelectStageNow);
+	}
+	else if (HardFlag == true) {
+		highscore = savedata->GetHighScore_Hard(SelectStageNow);
+	}
 	//ハイスコア更新
 	wchar_t text[256];
 	//おわ
@@ -552,12 +679,27 @@ void StageSelect::BoxUpdate() {
 
 void StageSelect::STARTUpdate() {
 
-	if (TenmetuTimer == 30) {
-		m_spriteRender[3]->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
-	}else if(TenmetuTimer==60){
-		m_spriteRender[3]->SetMulColor({ 1.0f,1.0f,1.0f,1.0f });
-		TenmetuTimer = -1;
+	SaveData * savedata = SaveData::GetInstance();
+
+	int highscore = 0;
+	if (HardFlag == true) {
+		highscore = savedata->GetHighScore(SelectStageNow);
 	}
 
-	TenmetuTimer++;
+	if (HardFlag == true && highscore == 0) {
+		TenmetuTimer = 60;
+		m_spriteRender[3]->SetMulColor({ 0.5f,0.5f,0.5f,0.5f });
+		m_fontRender[3]->SetColor({ 1.0f, 1.0f, 1.0f, 1.0f });
+	}
+	else {
+		if (TenmetuTimer == 30) {
+			m_spriteRender[3]->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
+		}
+		else if (TenmetuTimer == 60) {
+			m_spriteRender[3]->SetMulColor({ 1.0f,1.0f,1.0f,1.0f });
+			m_fontRender[3]->SetColor({ 1.0f, 1.0f, 1.0f, 0.0f });
+			TenmetuTimer = -1;
+		}
+		TenmetuTimer++;
+	}
 }

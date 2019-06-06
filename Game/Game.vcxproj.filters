@@ -641,5 +641,12 @@
     <ImageContentTask Include="Assets\sprite\PauseUe.png" />
     <ImageContentTask Include="Assets\sprite\PauseStage.png" />
     <ImageContentTask Include="Assets\sprite\White.png" />
+    <ImageContentTask Include="Assets\sprite\Hard.png" />
+    <ImageContentTask Include="Assets\sprite\Normal.png" />
+    <ImageContentTask Include="Assets\sprite\HardMark.png" />
+    <ImageContentTask Include="Assets\sprite\Time_Hard.png" />
+    <ImageContentTask Include="Assets\sprite\Message\hm_1_1.png" />
+    <ImageContentTask Include="Assets\sprite\Message\hm_1_2.png" />
+    <ImageContentTask Include="Assets\sprite\Message\hm_1_3.png" />
   </ItemGroup>
 </Project>

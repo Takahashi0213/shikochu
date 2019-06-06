@@ -44,6 +44,16 @@ public:
 	return HighScore[x];
 	}
 
+	//ハード版ハイスコアを設定 (設定場所,数値)
+	void SaveData::SetHighScore_Hard(int x, int y) {
+		HighScore_Hard[x] = y;
+	}
+
+	//引数に設定した場所のハード版ハイスコアを取得
+	int SaveData::GetHighScore_Hard(int x) {
+		return HighScore_Hard[x];
+	}
+
 	//引数に設定した場所のモンスターフラグをtrueにする
 	void SaveData::SetMonFlag(int x) {
 		MonstarFlag[x] = true;
@@ -94,6 +104,13 @@ public:
 private:
 	//ハイスコア
 	int HighScore[Stage]{
+		0,
+		0,
+		0,
+	};
+
+	//ハイスコア（ハード）
+	int HighScore_Hard[Stage]{
 		0,
 		0,
 		0,

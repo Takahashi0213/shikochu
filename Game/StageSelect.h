@@ -1,4 +1,6 @@
 #pragma once
+#include "tkEngine/light/tkPointLight.h"
+
 class StageSelect : public IGameObject
 {
 	static StageSelect* m_instance;
@@ -39,6 +41,7 @@ private:
 	prefab::CSpriteRender* r;
 	prefab::CFontRender* f;
 	prefab::CSkinModelRender* e;
+	prefab::CPointLight* m_pointLig;	//点光源。
 
 	int SelectStageNow = 0; //現在選択中のステージ
 
@@ -57,6 +60,10 @@ private:
 	float RotBox = 3.0f;
 
 	float BMG_V = 2.0f;
+
+	//ハードノーマル
+	bool HardFlag = false; //ハードモードフラグ
+	bool HardChangeFlag = false; //切り替え演出フラグ
 
 	bool StartFlag = false;
 	int StartCount = 0;
@@ -80,5 +87,7 @@ private:
 	const float StageFontSize = 1.5f; //ステージ番号のフォントサイズ
 	const float StageNameFontSize = 1.0f; //ステージ名のフォントサイズ
 	const int TranLimit = 40; //トランジション待ち
+
+	const int HardChangeLimit = 40; //モード切替演出制限時間
 };
 
