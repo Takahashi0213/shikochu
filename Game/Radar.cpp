@@ -15,6 +15,7 @@
 #include "Riritto.h"
 #include "Arukasya.h"
 
+#include "Kikochu.h"
 
 Radar::Radar()
 {
@@ -212,5 +213,21 @@ void Radar::Update() {
 		return true;
 		});
 
+
+
+	//QueryGOs<Kikochu>("Kikochu", [&](Kikochu* kikochu) {
+	//	if (kikochu->IsActive() == false) {
+	//		//Active‚¶‚á‚È‚¢B
+	//		return true;
+	//	}
+	//	CVector3 player_position = player->Getm_Position();
+	//	CVector3 enemy_position = kikochu->Getm_Position();
+	//	CVector3 diff = enemy_position - player_position;
+	//	diff.Normalize();
+	//	diff *= 40.0f;
+	//	CVector3 pointPos = player_position + diff;
+	//	m_skinModelRender->UpdateInstancingData(pointPos, CQuaternion::Identity, { 0.2f, 0.2f, 0.2f });
+	//	return true;
+	//	});
 
 }

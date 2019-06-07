@@ -2,7 +2,7 @@
 
 //図鑑のデータベース
 
-const int Monster = 13; //項目数
+const int Monster = 14; //項目数
 
 //モデル
 const wchar_t MonsterModel[Monster][128]{
@@ -11,6 +11,7 @@ const wchar_t MonsterModel[Monster][128]{
 { L"modelData/soukabuto_0.cmo" },
 { L"modelData/Neruk.cmo" },
 { L"modelData/shisokus.cmo" },
+{ L"modelData/Kikochu.cmo" },
 { L"modelData/Ekku.cmo" },
 { L"modelData/Rabbit_Level_1.cmo" },
 { L"modelData/Fairo.cmo" },
@@ -29,6 +30,7 @@ const wchar_t MonsterAnime[Monster][128]{
 { L"animData/souwalk.tka" },
 { L"animData/Neruwalk.tka" },
 { L"animData/sisowalk.tka" },
+{ L"animData/KikoWalk.tka" },
 { L"animData/Ekwalk.tka" },
 { L"animData/P_idel.tka" },
 { L"animData/Faiwalk.tka" },
@@ -47,6 +49,7 @@ const bool MonsterATK_Flag[Monster]{
 	false,
 	false,
 	true,
+	false,
 	true,
 	true,
 	false,
@@ -64,6 +67,7 @@ const wchar_t MonsterAnime_ATK[Monster][128]{
 { L"" },
 { L"" },
 { L"animData/Sisoattack_Z.tka" },
+{ L"" },
 { L"animData/Ekattack_Z.tka" },
 { L"animData/P_attack.tka" },
 { L"" },
@@ -82,6 +86,7 @@ const wchar_t MonsterName[Monster][128]{
 { L"ソウカブト" },
 { L"ネルク" },
 { L"シーソークス" },
+{ L"キコウチュウ" },
 { L"エック" },
 { L"ピーラビ" },
 { L"ファイロ" },
@@ -100,6 +105,7 @@ const wchar_t Setumei[Monster][255]{
 { L"そうじがすきすぎて、\nときどき すごいいきおいで\nとっしんしてくるぞ！" },
 { L"シーソークスのこども。\nうまれるまでに\n８ねんかかるらしい。" },
 { L"ネコミミ のはえたサメ。\nかわいいといわれてグレた。\nシッポはチェーンソーだぞ。" },
+{ L"シコウチュウのしんせき。\nたおすと ボーナススコアを\nくれる いいヤツだ。" },
 { L"あやしいみためだが\nりょうりがしゅみ。\nとくいりょうりは めだまやき。" },
 { L"じつはにくしょくけいで、\nてあたりしだいに\nずつきするぞ！" },
 { L"いわをたべるドラゴン。\nダイエットのために\nとっしんする！" },
@@ -119,6 +125,7 @@ const CVector3 M_Scale[Monster]{
 	{ 2.0f,2.0f,2.0f },
 	{ 0.5f,0.5f,0.5f },
 	{ 2.0f,2.0f,2.0f },
+	{ 2.0f,2.0f,2.0f },
 	{ 30.0f,30.0f,30.0f },
 	{ 1.0f,1.0f,1.0f },
 	{ 20.0f, 20.0f, 20.0f },
@@ -136,6 +143,7 @@ const float X_Hosei[Monster]{
 { 50.0f },
 { 0.0f },
 { 0.0f },
+{ 20.0f },
 { 50.0f },
 { 20.0f },
 { 20.0f },
@@ -154,6 +162,7 @@ const float Y_Hosei[Monster]{
 	{ -60.0f },
 	{ 0.0f },
 	{ 0.0f },
+	{ -30.0f },
 	{ -50.0f },
 	{ -50.0f },
 	{ -50.0f },
@@ -170,6 +179,7 @@ const float Z_Hosei[Monster]{
 	{ 0.0f },
 { 0.0f },
 { -100.0f },
+{ 0.0f },
 { 0.0f },
 { 0.0f },
 { -100.0f },

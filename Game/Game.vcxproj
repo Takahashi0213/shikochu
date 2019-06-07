@@ -1778,6 +1778,7 @@
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="GamePause.cpp" />
     <ClCompile Include="GameResult.cpp" />
+    <ClCompile Include="Kikochu.cpp" />
     <ClCompile Include="LevelSet.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Misairu.cpp" />
@@ -1848,6 +1849,7 @@
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="GamePause.h" />
     <ClInclude Include="GameResult.h" />
+    <ClInclude Include="Kikochu.h" />
     <ClInclude Include="LevelData.h" />
     <ClInclude Include="LevelSet.h" />
     <ClInclude Include="Misairu.h" />
@@ -1895,6 +1897,7 @@
     <MeshContentTask Include="Assets\modelData\Fairo.fbx" />
     <MeshContentTask Include="Assets\modelData\hatena.FBX" />
     <MeshContentTask Include="Assets\modelData\item.FBX" />
+    <MeshContentTask Include="Assets\modelData\Kikochu.fbx" />
     <MeshContentTask Include="Assets\modelData\misairu.fbx" />
     <MeshContentTask Include="Assets\modelData\neoriku_0.FBX" />
     <MeshContentTask Include="Assets\modelData\Neruk.FBX" />
@@ -2151,6 +2154,10 @@
     <ImageContentTask Include="Assets\sprite\Message\hm_1_1.png" />
     <ImageContentTask Include="Assets\sprite\Message\hm_1_2.png" />
     <ImageContentTask Include="Assets\sprite\Message\hm_1_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\KikoIC.png" />
+    <ImageContentTask Include="Assets\sprite\KikoIC_Full.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

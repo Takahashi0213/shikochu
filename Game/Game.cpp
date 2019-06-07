@@ -17,6 +17,8 @@
 #include "GameOver.h"
 #include "GamePause.h"
 
+#include "Kikochu.h"
+
 Game* Game::m_instance = nullptr;
 
 Game::Game()
@@ -71,7 +73,8 @@ bool Game::Start()
 	DisableSpecialLigRange();
 
 	NewGO<Player>(0,"Bug");
-
+	//NewGO<Kikochu>(0);
+	
 	NewGO<GameCamera>(0,"Gamecamera");
 	NewGO<Player_Status>(0, "Status");
 	NewGO<BackGround>(0, "BackGround");

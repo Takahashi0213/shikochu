@@ -42,6 +42,15 @@ bool SS_001::Start() {
 	//	m_position //キャラクターの初期座標。
 	//);
 
+	//ハードモードならボスのHPに補正
+	GameData * gamedata = GameData::GetInstance();
+	bool HardFlag = gamedata->GetHardModeFlag();
+	if (HardFlag == true) {
+		float Hosei = gamedata->GetHardBossHosei();
+		MAXHP *= Hosei;
+		NowHP *= Hosei;
+	}
+
 	return true;
 }
 

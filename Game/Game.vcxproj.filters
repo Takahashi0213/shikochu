@@ -122,6 +122,7 @@
     <ClCompile Include="Misairu.cpp" />
     <ClCompile Include="Bullet2.cpp" />
     <ClCompile Include="GamePause.cpp" />
+    <ClCompile Include="Kikochu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -229,6 +230,7 @@
     <ClInclude Include="Misairu.h" />
     <ClInclude Include="Bullet2.h" />
     <ClInclude Include="GamePause.h" />
+    <ClInclude Include="Kikochu.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
@@ -320,6 +322,7 @@
     <MeshContentTask Include="Assets\modelData\misairu.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Kikochu.fbx" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\dummy.png">
@@ -648,5 +651,7 @@
     <ImageContentTask Include="Assets\sprite\Message\hm_1_1.png" />
     <ImageContentTask Include="Assets\sprite\Message\hm_1_2.png" />
     <ImageContentTask Include="Assets\sprite\Message\hm_1_3.png" />
+    <ImageContentTask Include="Assets\sprite\KikoIC.png" />
+    <ImageContentTask Include="Assets\sprite\KikoIC_Full.png" />
   </ItemGroup>
 </Project>

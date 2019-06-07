@@ -45,6 +45,10 @@ bool GameResult::Start() {
 	NowStage = gamedata->GetStageNo();
 	Point_Count = gamedata->GetPoint();
 	Point = Point_Count + FinalScore;
+	HardFlag = gamedata->GetHardModeFlag();
+	HardHosei = gamedata->GetHardScoreHosei();
+	KikoFlag = gamedata->GetKikoFlag();
+	KikoBonus= gamedata->GetKikoBonus();
 
 	//0番→背景
 	r = NewGO<prefab::CSpriteRender>(0);
@@ -302,10 +306,92 @@ void GameResult::Update() {
 			f->SetScale(ScoreFontSize);
 			f->SetPivot({ 1.0f,1.0f });
 			m_fontRender.push_back(f);
+
+			//ボーナス文字
+			f = NewGO<prefab::CFontRender>(1);
+			//表示
+			text[256];
+			//おわ
+			swprintf(text, L"X");
+			//はい。
+			f->SetText(text);
+			f->SetPosition({ 280.0f,-BonusMoziIdou * 3 - ScoreYHosei - 20.0f });
+			f->SetPivot({ 1.0f,1.0f });
+			f->SetColor({ 1.0f,1.0f,1.0f,0.0f });//透明に表示される
+			m_fontRender.push_back(f);
+
+			//キコウチュウ確認
+			if (KikoFlag == true) {
+				hoge += HardTimerHosei;
+				hoge2 += HardTimerHosei;
+			}
+			//ハード確認
+			if (HardFlag == true) {
+				hoge += HardTimerHosei;
+			}
+		}
+
+		//キコウチュウボーナス
+		if (KikoFlag == true && Hoge_Couneter == PhaseTimer6_Hard) {
+			wchar_t text[256];
+			swprintf(text, L"キコウチュウボーナス！");
+			m_fontRender[5]->SetText(text);
+			m_fontRender[5]->SetColor({ 1.0f,0.0f,0.0f,1.0f });
+			float score = (float)FinalScore;
+			score += KikoBonus;
+			FinalScore = (int)score;
+			Point = Point_Count + FinalScore;
+			text[256];
+			//おわ
+			swprintf(text, L"%d", FinalScore);
+			//はい。
+			m_fontRender[4]->SetText(text);
+			m_fontRender[4]->SetColor({ 1.0f,0.8f,0.1f,1.0f });
+		}
+
+		//キコウチュウ移動
+		if (KikoFlag == true && Hoge_Couneter < PhaseTimer6_Hard + 5 && Hoge_Couneter>PhaseTimer6_Hard) {
+			CVector2 pos = m_fontRender[4]->GetPosition();
+			pos.y += 5.0f;
+			m_fontRender[4]->SetPosition(pos);
+		}
+		else if (KikoFlag == true && Hoge_Couneter < PhaseTimer6_Hard + 10 && Hoge_Couneter>PhaseTimer6_Hard) {
+			CVector2 pos = m_fontRender[4]->GetPosition();
+			pos.y -= 5.0f;
+			m_fontRender[4]->SetPosition(pos);
+		}
+
+		//ハードボーナス
+		if (HardFlag == true && Hoge_Couneter == PhaseTimer6_Hard + hoge2) {
+			wchar_t text[256];
+			swprintf(text, L"ハードボーナス！");
+			m_fontRender[5]->SetText(text);
+			m_fontRender[5]->SetColor({ 1.0f,0.0f,0.0f,1.0f });
+			float score = (float)FinalScore;
+			score *= HardHosei;
+			FinalScore = (int)score;
+			Point = Point_Count + FinalScore;
+			text[256];
+			//おわ
+			swprintf(text, L"%d", FinalScore);
+			//はい。
+			m_fontRender[4]->SetText(text);
+			m_fontRender[4]->SetColor({ 1.0f,0.8f,0.1f,1.0f });
+		}
+
+		//ハード移動
+		if (HardFlag == true && Hoge_Couneter < PhaseTimer6_Hard + hoge2 + 5 && Hoge_Couneter>PhaseTimer6_Hard + hoge2) {
+			CVector2 pos = m_fontRender[4]->GetPosition();
+			pos.y += 5.0f;
+			m_fontRender[4]->SetPosition(pos);
+		}else if (HardFlag == true && Hoge_Couneter < PhaseTimer6_Hard + hoge2 + 10 && Hoge_Couneter>PhaseTimer6_Hard + hoge2) {
+			CVector2 pos = m_fontRender[4]->GetPosition();
+			pos.y -= 5.0f;
+			m_fontRender[4]->SetPosition(pos);
 		}
 
 		//刻時計が終焉と共鳴せし時、時代の遷移が訪れる（タイマーが終了時間と一致した時にフェイズを次に進めます！）
-		if (Hoge_Couneter >= PhaseTimer6) {
+		if (Hoge_Couneter >= PhaseTimer6 + hoge ) {
 			CountReset();
 			ResultTurn = scene1_Runk;
 		}
@@ -433,18 +519,18 @@ void GameResult::Update() {
 		}
 
 		//移動する
-			CVector2 pos = m_fontRender[5]->GetPosition();
-			pos.x -= (SeniMove - SeniMoveHosei);
-			if (pos.x < 0.0f) {
-				pos.x = 0.0f;
-			}
-			m_fontRender[5]->SetPosition(pos);
-			pos = m_fontRender[6]->GetPosition();
+			CVector2 pos = m_fontRender[6]->GetPosition();
 			pos.x -= (SeniMove - SeniMoveHosei);
 			if (pos.x < 0.0f) {
 				pos.x = 0.0f;
 			}
 			m_fontRender[6]->SetPosition(pos);
+			pos = m_fontRender[7]->GetPosition();
+			pos.x -= (SeniMove - SeniMoveHosei);
+			if (pos.x < 0.0f) {
+				pos.x = 0.0f;
+			}
+			m_fontRender[7]->SetPosition(pos);
 
 		//刻時計が終焉と共鳴せし時、時代の遷移が訪れる（タイマーが終了時間と一致した時にフェイズを次に進めます！）
 		if (Hoge_Couneter >= PhaseTimer9) {
@@ -457,18 +543,18 @@ void GameResult::Update() {
 	case scene2_ScoreIdou://スコアの演出
 	{
 		if (Hoge_Couneter <= 6) {//上に移動
-			CVector2 pos = m_fontRender[5]->GetPosition();
+			CVector2 pos = m_fontRender[6]->GetPosition();
 			pos.y += 5.0f;
-			m_fontRender[5]->SetPosition(pos);
+			m_fontRender[6]->SetPosition(pos);
 			HogePosition1 = 1.0f; //後で不透明度を変更する準備
 		}
 		else {//下に移動＆フェードアウト！
-			CVector2 pos = m_fontRender[5]->GetPosition();
+			CVector2 pos = m_fontRender[6]->GetPosition();
 			pos.y -= 40.0f;
-			m_fontRender[5]->SetPosition(pos);
+			m_fontRender[6]->SetPosition(pos);
 			//ここで不透明度を変更
 			HogePosition1 -= 0.15f;
-			m_fontRender[5]->SetColor({ 1.0f, 1.0f, 1.0f, HogePosition1 });
+			m_fontRender[6]->SetColor({ 1.0f, 1.0f, 1.0f, HogePosition1 });
 		}
 
 		//刻時計が終焉と共鳴せし時、時代の遷移が訪れる（タイマーが終了時間と一致した時にフェイズを次に進めます！）
@@ -501,25 +587,25 @@ void GameResult::Update() {
 			//おわ
 			swprintf(text, L"Point:%d", Point_Count);
 			//はい。
-			m_fontRender[6]->SetText(text);
+			m_fontRender[7]->SetText(text);
 		}
 		else {//終了演出
 
 			if (HogePosition1 < 5.0f) {
-				CVector2 pos = m_fontRender[6]->GetPosition();
+				CVector2 pos = m_fontRender[7]->GetPosition();
 				pos.y += 5.0f;
-				m_fontRender[6]->SetPosition(pos);
+				m_fontRender[7]->SetPosition(pos);
 			}	
 			else if (HogePosition1 < 10.0f) {
-				CVector2 pos = m_fontRender[6]->GetPosition();
+				CVector2 pos = m_fontRender[7]->GetPosition();
 				pos.y -= 5.0f;
-				m_fontRender[6]->SetPosition(pos);
-				m_fontRender[6]->SetColor({ 1.0f,0.8f,0.1f,1.0f });
+				m_fontRender[7]->SetPosition(pos);
+				m_fontRender[7]->SetColor({ 1.0f,0.8f,0.1f,1.0f });
 			}
 			else if (HogePosition1 >= 60.0f && HogePosition1 < 90.0f) {
-				CVector2 pos = m_fontRender[6]->GetPosition();
+				CVector2 pos = m_fontRender[7]->GetPosition();
 				pos.y += 6.0f;
-				m_fontRender[6]->SetPosition(pos);
+				m_fontRender[7]->SetPosition(pos);
 			}
 			else if (HogePosition1 == 90.0f) {
 				//10番→サヨナラベイベー
@@ -605,6 +691,17 @@ void GameResult::Update() {
 				}
 			}
 
+			//キコウチュウ登録処理
+			if (KikoFlag == true) {
+				savedata->SetMonFlag(5);
+				if (HardFlag == false) {
+					savedata->SetKikoFlag(stage);
+				}
+				else if (HardFlag == true) {
+					savedata->SetKikoFlag_Hard(stage);
+				}
+			}
+
 			//モンスター登録処理
 			if (stage == 0) {
 				savedata->SetMonFlag(0);
@@ -614,16 +711,16 @@ void GameResult::Update() {
 				savedata->SetMonFlag(4);
 			}
 			if (stage == 1) {
-				savedata->SetMonFlag(5);
 				savedata->SetMonFlag(6);
 				savedata->SetMonFlag(7);
 				savedata->SetMonFlag(8);
+				savedata->SetMonFlag(9);
 			}
 			if (stage == 2) {
-				savedata->SetMonFlag(9);
 				savedata->SetMonFlag(10);
 				savedata->SetMonFlag(11);
 				savedata->SetMonFlag(12);
+				savedata->SetMonFlag(13);
 			}
 
 			gamedata->SetGameMode(GameData::GameEnd);

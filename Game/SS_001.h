@@ -113,7 +113,7 @@ private:
 
 	CVector3 DefPos = CVector3::Zero;
 
-	const int MAXHP = 10000; //ç≈ëÂHP
+	int MAXHP = 10000; //ç≈ëÂHP
 	int NowHP = MAXHP; //åªç›HP
 
 	////////////////////////////////////////////////////////////

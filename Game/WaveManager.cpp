@@ -23,6 +23,7 @@
 #include "Arukasya.h"
 #include "SS_001.h"
 #include "Neruk.h"
+#include "Kikochu.h"
 
 //ギミック
 #include "StarItem.h"
@@ -245,6 +246,20 @@ void WaveManager::Update() {
 				return true;
 				});
 
+			QueryGOs<Kikochu>("Kikochu", [&](Kikochu* kikochu) {
+				//対象の所属Waveを取得
+				int wave = kikochu->GetWave();
+				if (NowWave == wave) {
+					//アクティブ化
+					kikochu->SetActiveFlag(true);
+					EffectManager * effectmanager = EffectManager::GetInstance();
+					CVector3 EF_Position = kikochu->Getm_Position();
+					EF_Position.y += 50.0f;
+					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+				}
+				return true;
+				});
+
 			//アイテム
 			QueryGOs<StarItem>("Item", [&](StarItem* staritem) {
 				//対象の所属Waveを取得
@@ -298,6 +313,7 @@ void WaveManager::AllStage(int x) {
 	GameData * gamedata = GameData::GetInstance();
 	int NowWave = gamedata->GetWave();
 	bool flag = false;
+	bool HardFlag = gamedata->GetHardModeFlag();
 
 	//基点となる変数を設定しましょい
 	//これがないとステージによって実行するWaveを切り替えられません！
@@ -325,9 +341,19 @@ void WaveManager::AllStage(int x) {
 			flag = false;
 		}
 
-		int len = (int)wcslen(LevelName[Hoge]);
-		for (int z = 0; z < len + 1; z++) {
-			LEVEL_Name[z] = LevelName[Hoge][z];
+		//ノーマルモードとハードモードで見る場所が違う
+		if (HardFlag == false) {
+			int len = (int)wcslen(LevelName[Hoge]);
+			for (int z = 0; z < len + 1; z++) {
+				LEVEL_Name[z] = LevelName[Hoge][z];
+			}
+		}
+		else if (HardFlag == true) {
+			int len = (int)wcslen(LevelName_Hard[Hoge]);
+			for (int z = 0; z < len + 1; z++) {
+				LEVEL_Name[z] = LevelName_Hard[Hoge][z];
+			}
+
 		}
 
 		levelset->LevelSetting(LEVEL_Name, flag, i);
@@ -410,6 +436,11 @@ void WaveManager::DeleteAll() {
 
 	QueryGOs<StarItem>("Item", [&](StarItem* staritem) {
 		staritem->DeleteItem2();
+		return true;
+		});
+
+	QueryGOs<Kikochu>("Kikochu", [&](Kikochu* kikochu) {
+		kikochu->SetDeath();
 		return true;
 		});
 

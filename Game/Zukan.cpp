@@ -138,6 +138,13 @@ bool Zukan::Start() {
 		m_mo12anim[1].Load(MonsterAnime_ATK[hoge]);
 		m_mo12anim[1].SetLoopFlag(false);
 	}
+	hoge++;
+	m_mo13anim[0].Load(MonsterAnime[hoge]);
+	m_mo13anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo13anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo13anim[1].SetLoopFlag(false);
+	}
 
 	//0番 背景用
 	r = NewGO<prefab::CSpriteRender>(3);
@@ -297,7 +304,9 @@ void Zukan::Update() {
 
 		else if (Pad(0).IsTrigger(enButtonA)) {
 			//モンスターアニメーション
-			if (MonsterATK_Flag[SelectNow] == true && AttackAnimeFlag ==false) {//空白でないなら実行
+			SaveData * savedata = SaveData::GetInstance();
+			bool flag = savedata->GetMonFlag(SelectNow);
+			if (MonsterATK_Flag[SelectNow] == true && AttackAnimeFlag ==false && flag == true) {//空白でないなら実行
 				prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
 				ss->Init(L"sound/kettei.wav");
 				ss->SetVolume(1.0f);
@@ -436,7 +445,7 @@ void Zukan::KoumokuUpdate() {
 
 	SaveData * savedata = SaveData::GetInstance();
 	bool flag = savedata->GetMonFlag(SelectNow);
-	//flag = true;
+	flag = true;
 	if (flag == true) { //モンスター登録済み
 
 		for (int i = 0; i < 255; i++) {
@@ -525,6 +534,12 @@ void Zukan::KoumokuUpdate() {
 			m_skinModelRender[1]->Init(ModelName, m_mo12anim, 2);
 			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
 		}
+		if (SelectNow == 13) {
+			DeleteGO(m_skinModelRender[1]);
+			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
+			m_skinModelRender[1]->Init(ModelName, m_mo13anim, 2);
+			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
+		}
 
 		m_skinModelRender[1]->SetScale(M_Scale[SelectNow]);
 		m_skinModelRender[1]->SetPosition({ 90.0f + X_Hosei[SelectNow],60.0f + Y_Hosei[SelectNow], 0.0f + Z_Hosei[SelectNow] });
@@ -577,6 +592,7 @@ void Zukan::KoumokuUpdate() {
 		text[256];
 		swprintf(text, L"");
 		m_fontRender[2]->SetText(text);
+		m_fontRender[3]->SetColor({ 0.2f,1.0f,0.2f,0.0f });
 
 	}
 

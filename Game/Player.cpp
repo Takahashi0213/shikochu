@@ -24,6 +24,7 @@
 #include "Arukasya.h"
 #include "SS_001.h"
 #include "Misairu.h"
+#include "Kikochu.h"
 
 Player* Player::m_instance = nullptr;
 
@@ -827,6 +828,54 @@ void Player::PlayerJudge() {
 					if (DashFlag == true) {//ダッシュ状態なら…
 
 						souka->SetDeath();//お前も死ね
+
+						if (Hantei == true) {
+							//ギリギリボーナスカウントを+1
+							gamedata->GiriCounter();
+							//ボーナス成立のエフェクトを表示
+							EffectManager * effectmanager = EffectManager::GetInstance();
+							effectmanager->EffectPlayer(EffectManager::Bonus, { souka_position.x,souka_position.y + SpawnEffectY,souka_position.z }, SpawnEffectScale);
+							//gamedata->TestMessage();
+						}
+					}
+
+
+				}
+			}
+		}
+		return true;
+		});
+
+	//キコウチュウとの距離を計算
+	QueryGOs<Kikochu>("Kikochu", [&](Kikochu* kikochu) {
+		if (kikochu->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 souka_position = kikochu->Getm_Position();
+		CVector3 diff = souka_position - position;
+		playerVec = diff;
+		//死んでいなければ接触判定
+		if (player_state != Estate_Death) {
+			//＊ダメージレンジは どこだ。
+			float Langth_hoge = kikochu->GetDamageLength();
+			//距離判定
+			if (diff.Length() < Langth_hoge) {
+				//もし無敵時間中でないなら
+				if (MutekiTimer == -1) {
+
+					//ギリギリボーナスが成立するか確認
+					GameData * gamedata = GameData::GetInstance();
+					bool Hantei = gamedata->GiriBonusKeisan();
+
+					//寿命をゼロに
+					if (player_state != Estate_Dash) {
+						m_Life = 0;
+					}
+
+					if (DashFlag == true) {//ダッシュ状態なら…
+
+						kikochu->SetDeath();//お前も死ね
 
 						if (Hantei == true) {
 							//ギリギリボーナスカウントを+1

@@ -108,6 +108,13 @@ private:
 	bool HogeFlag = false; //汎用フラグ
 	bool RunkFlag = false; //ランク表示用フラグ
 	bool PointFlag = false; //ポイントが上下移動する時のフラグ
+	bool HardFlag = false; //ハードモードフラグ
+
+	float HardHosei = 0.0f; //ハードモードのスコア補正
+	int hoge = 0; //フェイズ６で使います
+	int hoge2 = 0; //フェイズ６で使います
+	bool KikoFlag = false;
+	int KikoBonus = 0;
 
 	//////////////////////////////////////////定数色々///////////////////////////////////////
 	//フェイズ１ 背景表示
@@ -145,6 +152,8 @@ private:
 	const int ScoreAverage = 30; //表示されるまでの時間
 	const float ScoreFontSize = 2.0f; //スコアの文字サイズ（フェイズ９でも使用）
 	const float ScoreYHosei = 40.0f; //スコアの表示が下すぎるので上に動かす
+	const int HardTimerHosei = 80; //ハードモード時のみ時間に補正をかける
+	const int PhaseTimer6_Hard = 80; //ハードボーナスを表示するタイミング
 
 	//フェイズ７ 評価してやろう
 	const int PhaseTimer7 = 90; //動作の制限時間

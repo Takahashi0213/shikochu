@@ -127,6 +127,11 @@ bool StageSelect::Start() {
 	r->SetPosition({ 50.0f , 100.0f ,0.0f });
 	r->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
 	m_spriteRender.push_back(r);
+	//8番 キコウチュウアイコン
+	r = NewGO<prefab::CSpriteRender>(10);
+	r->Init(L"sprite/KikoIC.dds", 200.0f, 200.0f);
+	r->SetPosition({ -470.0f,-280.0f,0.0f });
+	m_spriteRender.push_back(r);
 
 	//虫も出る…ムシモデル… 0番
 	e = NewGO<prefab::CSkinModelRender>(10);
@@ -580,11 +585,16 @@ void StageSelect::TextUpdate() {
 	SaveData * savedata = SaveData::GetInstance();
 
 	int highscore = 0;
+	bool KikoFlag = false;
 	if (HardFlag == false) {
 		highscore = savedata->GetHighScore(SelectStageNow);
+		//ノーマルモードのキコウチュウフラグを確認
+		KikoFlag = savedata->GetKikoFlag(SelectStageNow);
 	}
 	else if (HardFlag == true) {
 		highscore = savedata->GetHighScore_Hard(SelectStageNow);
+		//ハードモードのキコウチュウフラグを確認
+		KikoFlag = savedata->GetKikoFlag_Hard(SelectStageNow);
 	}
 	//ハイスコア更新
 	wchar_t text[256];
@@ -612,6 +622,13 @@ void StageSelect::TextUpdate() {
 	}
 	else {
 		m_spriteRender[2]->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
+	}
+	//キコウチュウアイコン
+	if (KikoFlag == false) {
+		m_spriteRender[8]->Init(L"sprite/KikoIC.dds", 200.0f, 200.0f);
+	}
+	else if (KikoFlag == true) {
+		m_spriteRender[8]->Init(L"sprite/KikoIC_Full.dds", 200.0f, 200.0f);
 	}
 
 }

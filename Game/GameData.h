@@ -291,6 +291,28 @@ public:
 		return HardModeFlag;
 	}
 
+	//ハードボスHP補正を返す
+	float GameData::GetHardBossHosei() {
+		return Hard_BossHosei;
+	}
+	//ハードスコア補正を返す
+	float GameData::GetHardScoreHosei() {
+		return Hard_ScoreHosei;
+	}
+
+	//キコウチュウフラグをtrueに
+	void GameData::SetKikoFlag() {
+		KikoFlag = true;
+	}
+	//キコウチュウフラグを返す
+	bool GameData::GetKikoFlag() {
+		return KikoFlag;
+	}
+	//キコウチュウボーナスを返す
+	int GameData::GetKikoBonus() {
+		return KikoBonus;
+	}
+
 	//ゲームデータをリセット
 	//ステージ開始時に必ず呼び出すこと！！！！！！！！
 	void GameData::GameDataReset() {
@@ -305,6 +327,7 @@ public:
 		WaveMAX = 0;
 		LevelSetFlag = false;
 		ResultFlag = false;
+		KikoFlag = false;
 	}
 
 ///////////////////////////////////////////////////////////////////
@@ -333,6 +356,7 @@ private:
 	int WaveNow = 0; //現在Wave
 	int StageNow = 1; //現在ステージ
 	int WaveMAX = 0; //最終Wave
+	bool KikoFlag = false; //キコウチュウ撃破フラグ
 
 	//以下ポイントで強化できる部分
 	int ATK = 100; //基本攻撃力
@@ -346,5 +370,7 @@ private:
 	const int GiriBonusHosei = 200; //ギリギリで倒した敵の数*この変数→ギリギリボーナスの値
 	const int ItemBonusHosei = 10; //拾ったアイテムの数*この変数→アイテムボーナスの値
 	const int ZankiDEF_MAX = 99; //初期残機最大値
-
+	const float Hard_BossHosei = 1.5f; //ハードモードでボスのHPにかかる補正
+	const float Hard_ScoreHosei = 1.5f; //ハードモードでスコアにかかる補正
+	const int KikoBonus = 2000; //キコウチュウを倒したときにスコアに加算される数
 };

@@ -64,6 +64,23 @@ public:
 		return MonstarFlag[x];
 	}
 
+	//引数に設定した場所のキコウチュウフラグをtrueにする
+	void SaveData::SetKikoFlag(int x) {
+		KikoFlag[x] = true;
+	}
+	//引数に設定した場所のキコウチュウフラグを取得
+	bool SaveData::GetKikoFlag(int x) {
+		return KikoFlag[x];
+	}
+
+	//引数に設定した場所のキコウチュウフラグ ハードをtrueにする
+	void SaveData::SetKikoFlag_Hard(int x) {
+		KikoFlag_Hard[x] = true;
+	}
+	//引数に設定した場所のキコウチュウフラグ（ハード）を取得
+	bool SaveData::GetKikoFlag_Hard(int x) {
+		return KikoFlag_Hard[x];
+	}
 
 	//クリアしたステージを増やす
 	void SaveData::PlusClearedStage() {
@@ -114,6 +131,16 @@ private:
 		0,
 		0,
 		0,
+	};
+
+	//キコウチュウフラグ
+	bool KikoFlag[Stage]{
+		false,
+	};
+
+	//キコウチュウフラグ ハード
+	bool KikoFlag_Hard[Stage]{
+		false,
 	};
 
 	//モンスターの図鑑登録済みフラグ

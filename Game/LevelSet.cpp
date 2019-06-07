@@ -15,6 +15,7 @@
 #include "Riritto.h"
 #include "Arukasya.h"
 #include "SS_001.h"
+#include "Kikochu.h"
 
 //ÉMÉ~ÉbÉN
 #include "StarItem.h"
@@ -187,6 +188,15 @@ void LevelSet::LevelSetting(wchar_t LEVEL_Name[255],bool flag,int wave) {
 			if (flag == true) {
 				EnemyCount++;
 			}
+			return true;
+		}
+
+		if (objData.EqualObjectName(L"Kikochu")) {
+			Kikochu* kikochu = NewGO<Kikochu>(0, "Kikochu");
+			kikochu->SetPosition(objData.position);
+			kikochu->SetRotation(objData.rotation);
+			kikochu->SetActiveFlag(flag);
+			kikochu->SetWave(wave);
 			return true;
 		}
 
