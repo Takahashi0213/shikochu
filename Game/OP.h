@@ -89,10 +89,15 @@ private:
 	float MulAlpha = 0.0f;
 	CVector4 MulColor{ 1.0f,1.0f,1.0f,1.0f };
 
+	//スキップ用
+	int SkipTimer = -1; //普段は-1
+	float SkipAlpha = 1.0f;
+
 	//定数
 	const float DEF_POS = 720.0f;//デフォ用加算定数
 
 	const float TextScale = 1.3f;
+	const float SetumeiScale = 1.0f; //スキップ説明文の大きさ
 
 	const int Scene1_Limit = 180; //シーン1のタイムリミット
 	const int Scene2_Limit = 360; //シーン2のタイムリミット
@@ -100,6 +105,6 @@ private:
 	const int Scene4_Limit = 180; //シーン4のタイムリミット
 	const int Scene5_Limit = 200; //シーン5のタイムリミット
 
-
+	const int SkipMoziLimit = 120; //スキップ説明文が消えるまでの時間
 };
 

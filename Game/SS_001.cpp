@@ -47,8 +47,9 @@ bool SS_001::Start() {
 	bool HardFlag = gamedata->GetHardModeFlag();
 	if (HardFlag == true) {
 		float Hosei = gamedata->GetHardBossHosei();
-		MAXHP *= Hosei;
-		NowHP *= Hosei;
+		float MH = (int)MAXHP * Hosei;
+		MAXHP = (int)MH;
+		NowHP = (int)MH;
 	}
 
 	return true;

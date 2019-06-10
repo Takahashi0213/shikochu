@@ -29,6 +29,10 @@ private:
 
 	};
 
+	wchar_t Tutorial[1][30]{
+	{ L"modelData/Tutorial.cmo" },
+	};
+
 	//trueに設定したステージでは静的物理オブジェクトを設定する
 	bool physicsFlag[5]{
 		false,

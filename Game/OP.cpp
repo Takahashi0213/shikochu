@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "OP.h"
 #include "TransitionMaker.h"
-#include "StageSelect.h"
+#include "Tutorial.h"
 
 OP* OP::m_instance = nullptr;
 
@@ -121,6 +121,19 @@ bool OP::Start() {
 	f->SetText(text);
 	f->SetPosition({ 0.0f,-315.0f });
 	f->SetScale(TextScale);
+	f->SetColor({ 1.0f,1.0f,1.0f,0.0f });
+	f->SetPivot({ 0.5f,0.5f });
+	m_fontRender.push_back(f);
+	//スキップ 1番
+	f = NewGO<prefab::CFontRender>(11);
+	//表示
+	text[256];
+	//おわ
+	swprintf(text, L"SELECT+STARTでスキップ");
+	//はい。
+	f->SetText(text);
+	f->SetPosition({ 0.0f,330.0f });
+	f->SetScale(SetumeiScale);
 	f->SetColor({ 1.0f,1.0f,1.0f,0.0f });
 	f->SetPivot({ 0.5f,0.5f });
 	m_fontRender.push_back(f);
@@ -385,13 +398,43 @@ void OP::Update() {
 		if (Timer >= Scene5_Limit) {//時間だ
 			TransitionMaker * tm = TransitionMaker::GetInstance();
 			tm->TransitionSetting(TransitionMaker::Fade, 12, 12, true);
-			NewGO<StageSelect>(0);
+			BMG_V = 0.0f;
+			ss->SetVolume(BMG_V);
+
+			NewGO<Tutorial>(0);
 			DeleteGO(this);
 		}
 
 		break;
 	}
 
+	}
+
+	//スキップキー
+	if (Pad(0).IsTrigger(enButtonA) || Pad(0).IsTrigger(enButtonB) || Pad(0).IsTrigger(enButtonX) || Pad(0).IsTrigger(enButtonY)) {
+		SkipTimer = 0;
+		SkipAlpha = 1.0f;
+		m_fontRender[1]->SetColor({ 1.0f,1.0f,1.0f,SkipAlpha });
+	}
+	if (SkipTimer > -1) {
+
+		if (SkipTimer > SkipMoziLimit - 20) {
+			SkipAlpha -= 0.1f;
+			if (SkipAlpha < 0.0f) {
+				SkipAlpha = 0.0f;
+			}
+			m_fontRender[1]->SetColor({ 1.0f,1.0f,1.0f,SkipAlpha });
+		}
+		SkipTimer++;
+		if (SkipTimer == SkipMoziLimit) {
+			SkipTimer = -1;
+		}
+	}
+
+	//スキップ！
+	if (Pad(0).IsPress(enButtonStart) && Pad(0).IsPress(enButtonSelect) && OP_Scene != END) {
+		OP_Scene = END;
+		Timer = 170; //ギリギリまでスキップ
 	}
 
 	Bounder();

@@ -9,7 +9,7 @@
 #include "SaveData.h"
 #include "TransitionMaker.h"
 #include "OP.h"
-
+#include "Tutorial.h"
 
 
 class FadeOut : public IGameObject {
@@ -698,6 +698,7 @@ void Title::GameStart(){
 		tm->TransitionSetting(TransitionMaker::Fade, 12, 30, true);
 		NewGO<OP>(0, "OP");
 		//NewGO<StageSelect>(0);
+		//NewGO<Tutorial>(0);
 
 		DeleteGO(this);
 	}

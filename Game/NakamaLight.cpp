@@ -168,7 +168,7 @@ void NakamaLight::Update() {
 		GameData * gameData = GameData::GetInstance();
 		int mode = gameData->GetGameMode();
 
-		if (mode == GameData::Battle2D_Mode) {
+		if (mode == GameData::Battle2D_Mode || mode == GameData::Tutorial) {
 			GraphicsEngine().GetPostEffect().GetDithering().AddPointLig(Star_Pos);
 		}
 

@@ -16,6 +16,7 @@ public:
 		GameOver,
 		NotGame,
 		Pause, //ポーズ画面
+		Tutorial,//チュートリアル中
 	};
 
 	/////////////// Singleton //////////////////////////////

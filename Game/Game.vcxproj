@@ -1826,6 +1826,7 @@
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="TitleStandby.cpp" />
     <ClCompile Include="TransitionMaker.cpp" />
+    <ClCompile Include="Tutorial.cpp" />
     <ClCompile Include="UICamera.cpp" />
     <ClCompile Include="WaveEffect.cpp" />
     <ClCompile Include="WaveManager.cpp" />
@@ -1879,6 +1880,7 @@
     <ClInclude Include="Title.h" />
     <ClInclude Include="TitleStandby.h" />
     <ClInclude Include="TransitionMaker.h" />
+    <ClInclude Include="Tutorial.h" />
     <ClInclude Include="UICamera.h" />
     <ClInclude Include="WaveEffect.h" />
     <ClInclude Include="WaveManager.h" />
@@ -1916,6 +1918,7 @@
     <MeshContentTask Include="Assets\modelData\StageMini2.FBX" />
     <MeshContentTask Include="Assets\modelData\StageMini3.FBX" />
     <MeshContentTask Include="Assets\modelData\StageSelect_Back.FBX" />
+    <MeshContentTask Include="Assets\modelData\Tutorial.fbx" />
     <MeshContentTask Include="Assets\modelData\unityChan.fbx" />
     <MeshContentTask Include="Assets\modelData\Zukan_Back.FBX" />
   </ItemGroup>
@@ -2158,6 +2161,12 @@
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\KikoIC.png" />
     <ImageContentTask Include="Assets\sprite\KikoIC_Full.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\MemoWaku.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\yazirusi.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

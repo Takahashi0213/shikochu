@@ -65,7 +65,7 @@ Game::~Game()
 	NewGO<UICamera>(0, "UICamera");
 	NewGO<StageSelect>(0);
 	//ãPìxÇñﬂÇ∑ÅB
-	postEffect::Tonemap().SetLuminance(DEFAULT_LUMINANCE);
+	postEffect::Tonemap().SetLuminance(0.4);
 }
 bool Game::Start()
 {

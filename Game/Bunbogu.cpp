@@ -182,7 +182,7 @@ void Bunbogu::Update()
 
 		GameData * gamedata = GameData::GetInstance();
 		int mode = gamedata->GetGameMode();
-		if (mode != GameData::Pause) {
+		if (mode != GameData::Pause && mode != GameData::Tutorial) {
 
 			switch (m_stete) {
 			case Estete_Attack://UŒ‚

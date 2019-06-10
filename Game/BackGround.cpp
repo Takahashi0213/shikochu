@@ -23,14 +23,24 @@ BackGround::~BackGround()
 
 }
 
+//-100を引数に設定した場合チュートリアル用ステージを生成
 void BackGround::StageMaker(int ST){
 
 	m_skinModelRender = NewGO<prefab::CSkinModelRender>(0, "stage");
 
-	//名前を引っ張ってくる
-	int len = wcslen(DetaBase[ST]);
-	for (int x = 0; x < len+1; x++) {
-		ST_Name[x] = DetaBase[ST][x];
+	if (ST != -100) {
+		//名前を引っ張ってくる
+		int len = wcslen(DetaBase[ST]);
+		for (int x = 0; x < len + 1; x++) {
+			ST_Name[x] = DetaBase[ST][x];
+		}
+	}
+	else if (ST == -100) {
+		//名前を引っ張ってくる
+		int len = wcslen(Tutorial[0]);
+		for (int x = 0; x < len + 1; x++) {
+			ST_Name[x] = Tutorial[0][x];
+		}
 	}
 	//作成
 	m_skinModelRender->Init(ST_Name, nullptr, 0);

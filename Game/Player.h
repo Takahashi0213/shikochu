@@ -48,6 +48,14 @@ public:
 		return Dash_state3D;
 	}
 
+	//引数分寿命減少
+	void Player::SetLife(int x) {
+		m_Life -= x;
+		if (m_Life < 0) {
+			m_Life = 0;
+		}
+	}
+
 	//無敵時間中ならtrue、そうでなければfalseを返す
 	bool Player::MutekiChecker() {
 		//無敵時間タイマーを参照
