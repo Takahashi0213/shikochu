@@ -16,6 +16,12 @@ Bullet::~Bullet()
 
 bool Bullet::Start()
 {
+	prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+	ss->Init(L"sound/Bullet.wav", true);
+	ss->SetVolume(1.0f);
+	ss->Play(false);
+	ss->SetPosition(m_position * 0.01f);
+
 	m_skinModelRender = NewGO<prefab::CSkinModelRender>(0);
 	m_skinModelRender->Init(L"modelData/bullet.cmo");
 	

@@ -43,7 +43,8 @@ StageSelect::~StageSelect()
 }
 
 bool StageSelect::Start() {
-
+	
+	LightManager().SetAmbientLight({ 0.5f,0.5f, 0.5f });
 	{
 		FILE* fp = fopen("save.bin", "w");
 		fwrite(&savedata, sizeof(savedata), 1, fp);
@@ -238,6 +239,10 @@ bool StageSelect::Start() {
 
 void StageSelect::Update(){
 
+	resetToneMapTimer -= GameTime().GetFrameDeltaTime();
+	if (resetToneMapTimer > 0.0f) {
+		postEffect::Tonemap().Reset();
+	}
 	if (SelectedFlag == true && KyokaFlag == false && ZukanFlag == false && HardChangeFlag == false) {
 
 		BMG_V -= 0.1f;

@@ -54,6 +54,9 @@ Player::~Player()
 
 bool Player::Start() {
 
+	SoundEngine().SetListenerFront({0.0f, 0.0f, 1.0f});
+	SoundEngine().SetListenerUp({ 0.0f, 1.0f, 0.0f });
+
 	//キャラクターコントローラーを初期化。
 	m_charaCon.Init(30, 100, position);
 
@@ -532,6 +535,8 @@ void Player::Update() {
 	m_skinModelRender->SetPosition(position);
 	m_skinModelRender->SetRotation(rotation);
 	m_skinModelRender->SetScale(m_scale);
+
+	SoundEngine().SetListenerPosition(position * 0.01f);
 
 }
 

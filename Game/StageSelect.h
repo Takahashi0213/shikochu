@@ -89,5 +89,7 @@ private:
 	const int TranLimit = 40; //トランジション待ち
 
 	const int HardChangeLimit = 40; //モード切替演出制限時間
+
+	float resetToneMapTimer = 1.0f;
 };
 

@@ -637,26 +637,68 @@
     <ImageContentTask Include="Assets\sprite\Star.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
-    <ImageContentTask Include="Assets\sprite\Star2.png" />
-    <ImageContentTask Include="Assets\sprite\Pause2D.png" />
-    <ImageContentTask Include="Assets\sprite\Pause3D.png" />
-    <ImageContentTask Include="Assets\sprite\PauseBack.png" />
-    <ImageContentTask Include="Assets\sprite\PauseGameBack.png" />
-    <ImageContentTask Include="Assets\sprite\PauseRetire.png" />
-    <ImageContentTask Include="Assets\sprite\PauseSita.png" />
-    <ImageContentTask Include="Assets\sprite\PauseUe.png" />
-    <ImageContentTask Include="Assets\sprite\PauseStage.png" />
-    <ImageContentTask Include="Assets\sprite\White.png" />
-    <ImageContentTask Include="Assets\sprite\Hard.png" />
-    <ImageContentTask Include="Assets\sprite\Normal.png" />
-    <ImageContentTask Include="Assets\sprite\HardMark.png" />
-    <ImageContentTask Include="Assets\sprite\Time_Hard.png" />
-    <ImageContentTask Include="Assets\sprite\Message\hm_1_1.png" />
-    <ImageContentTask Include="Assets\sprite\Message\hm_1_2.png" />
-    <ImageContentTask Include="Assets\sprite\Message\hm_1_3.png" />
-    <ImageContentTask Include="Assets\sprite\KikoIC.png" />
-    <ImageContentTask Include="Assets\sprite\KikoIC_Full.png" />
-    <ImageContentTask Include="Assets\sprite\MemoWaku.png" />
-    <ImageContentTask Include="Assets\sprite\yazirusi.png" />
+    <ImageContentTask Include="Assets\sprite\Hard.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\HardMark.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Message\hm_1_1.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Message\hm_1_2.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Message\hm_1_3.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\KikoIC.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\KikoIC_Full.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\MemoWaku.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Normal.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Pause2D.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Pause3D.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\PauseBack.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\PauseGameBack.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\PauseRetire.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\PauseSita.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\PauseStage.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\PauseUe.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Star2.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Time_Hard.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\White.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\yazirusi.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
   </ItemGroup>
 </Project>

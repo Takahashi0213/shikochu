@@ -243,5 +243,6 @@ namespace tkEngine{
 		rc.PSUnsetShaderResource(0);
 		rc.PSUnsetShaderResource(1);
 		ge.EndGPUEvent();
+		TK_LOG("Luminamce = %f\n", m_tonemapParam.midddleGray);
 	}
 }

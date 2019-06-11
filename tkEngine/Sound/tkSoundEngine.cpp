@@ -228,12 +228,7 @@ namespace tkEngine{
 			vDelta.Subtract(m_listenerPosition, listenerPos);
 			m_fListenerAngle = float(atan2(m_listener.OrientFront.x, m_listener.OrientFront.z));
 
-			if (m_UseListenerCone == true) {
-				m_listener.pCone = (X3DAUDIO_CONE*)&Listener_DirectionalCone;
-			}
-			else {
-				m_listener.pCone = NULL;
-			}
+			m_listener.pCone = (X3DAUDIO_CONE*)&Listener_DirectionalCone;
 		}
 		float deltaTime = GameTime().GetFrameDeltaTime();
 		if (deltaTime > 0.0f) {
