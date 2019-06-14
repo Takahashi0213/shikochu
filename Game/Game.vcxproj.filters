@@ -26,6 +26,9 @@
     <Filter Include="Assets\sprite\Title">
       <UniqueIdentifier>{dd4507fd-4dc7-425b-ada8-b9f7043fad85}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Bullet">
+      <UniqueIdentifier>{73fe943f-c8e2-46f0-8d55-1b37a76f1805}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -57,7 +60,6 @@
     <ClCompile Include="shisokus.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="LevelSet.cpp" />
     <ClCompile Include="WaveManager.cpp" />
     <ClCompile Include="WaveEffect.cpp">
@@ -120,10 +122,25 @@
       <Filter>Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Misairu.cpp" />
-    <ClCompile Include="Bullet2.cpp" />
     <ClCompile Include="GamePause.cpp" />
     <ClCompile Include="Kikochu.cpp" />
     <ClCompile Include="Tutorial.cpp" />
+    <ClCompile Include="Uminoushi.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet2.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet3.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Akoyadokari.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="TutorialWait.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -157,7 +174,6 @@
     <ClInclude Include="shisokus.h">
       <Filter>Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Bullet.h" />
     <ClInclude Include="LevelSet.h" />
     <ClInclude Include="LevelData.h">
       <Filter>Resource Files</Filter>
@@ -229,10 +245,25 @@
       <Filter>Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Misairu.h" />
-    <ClInclude Include="Bullet2.h" />
     <ClInclude Include="GamePause.h" />
     <ClInclude Include="Kikochu.h" />
     <ClInclude Include="Tutorial.h" />
+    <ClInclude Include="Uminoushi.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet2.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet3.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Akoyadokari.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="TutorialWait.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
@@ -326,6 +357,12 @@
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\Kikochu.fbx" />
     <MeshContentTask Include="Assets\modelData\Tutorial.fbx" />
+    <MeshContentTask Include="Assets\modelData\umino.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Akoyadokari.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\dummy.png">
@@ -698,6 +735,18 @@
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\yazirusi.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Yes.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\question.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\No.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\icon3.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
   </ItemGroup>

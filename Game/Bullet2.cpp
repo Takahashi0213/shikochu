@@ -100,4 +100,8 @@ void Bullet2::Update()
 			DeleteGO(this);
 		}
 	}
+	if (mode == GameData::GameEnd) {
+		DeleteGO(this);
+	}
+
 }

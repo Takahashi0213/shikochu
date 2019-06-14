@@ -5,6 +5,7 @@
 #include "EffectManager.h"
 #include "Bullet.h"
 #include "Bullet2.h"
+#include "Bullet3.h"
 #include "Radar.h"
 #include "NakamaLight.h"
 
@@ -25,6 +26,8 @@
 #include "SS_001.h"
 #include "Misairu.h"
 #include "Kikochu.h"
+#include "Uminoushi.h"
+#include "Akoyadokari.h"
 
 Player* Player::m_instance = nullptr;
 
@@ -556,6 +559,9 @@ void Player::PlayerJudge() {
 		if (player_state != Estate_Death) {
 			//＊ダメージレンジは どこだ。
 			float Langth_hoge = bunbogu->GetDamageLength();
+			if (player_state == Estate_Dash) {
+				Langth_hoge *= StarRange;
+			}
 			//距離判定
 			if (diff.Length() < Langth_hoge) {
 				//もし無敵時間中でないなら
@@ -641,6 +647,31 @@ void Player::PlayerJudge() {
 		}
 		return true;
 		});
+	QueryGOs<Bullet3>("bullet3", [&](Bullet3* bullet3) {
+		CVector3 bullet_position = bullet3->Getm_Position();
+		CVector3 diff = bullet_position - position;
+		playerVec = diff;
+		//死んでいなければ接触判定
+		if (player_state != Estate_Death) {
+			//＊ダメージレンジは どこだ。
+			float Langth_hoge = bullet3->GetDamageLength();
+			//距離判定
+			if (diff.Length() < Langth_hoge) {
+				//もし無敵時間中でないなら
+				if (MutekiTimer == -1 && player_state != Estate_Dash) {
+
+					//寿命をゼロに
+					if (player_state != Estate_Dash) {
+						m_Life = 0;
+					}
+
+					bullet3->SetDeath();//お前も死ね
+
+				}
+			}
+		}
+		return true;
+		});
 
 	//ミサイルとの距離を計算
 	QueryGOs<Misairu>("Misairu", [&](Misairu* misairu) {
@@ -682,6 +713,9 @@ void Player::PlayerJudge() {
 		if (player_state != Estate_Death) {
 			//＊ダメージレンジは どこだ。
 			float Langth_hoge = neoriku->GetDamageLength();
+			if (player_state == Estate_Dash) {
+				Langth_hoge *= StarRange;
+			}
 			//距離判定
 			if (diff.Length() < Langth_hoge) {
 				//もし無敵時間中でないなら
@@ -816,6 +850,9 @@ void Player::PlayerJudge() {
 		if (player_state != Estate_Death) {
 			//＊ダメージレンジは どこだ。
 			float Langth_hoge = souka->GetDamageLength();
+			if (player_state == Estate_Dash) {
+				Langth_hoge *= StarRange;
+			}
 			//距離判定
 			if (diff.Length() < Langth_hoge) {
 				//もし無敵時間中でないなら
@@ -864,6 +901,9 @@ void Player::PlayerJudge() {
 		if (player_state != Estate_Death) {
 			//＊ダメージレンジは どこだ。
 			float Langth_hoge = kikochu->GetDamageLength();
+			if (player_state == Estate_Dash) {
+				Langth_hoge *= StarRange;
+			}
 			//距離判定
 			if (diff.Length() < Langth_hoge) {
 				//もし無敵時間中でないなら
@@ -899,6 +939,107 @@ void Player::PlayerJudge() {
 		return true;
 		});
 
+	//ウミノウシとの距離を計算
+	QueryGOs<Uminoushi>("Uminoushi", [&](Uminoushi* uminoushi) {
+		if (uminoushi->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 souka_position = uminoushi->Getm_Position();
+		CVector3 diff = souka_position - position;
+		playerVec = diff;
+		//死んでいなければ接触判定
+		if (player_state != Estate_Death) {
+			//＊ダメージレンジは どこだ。
+			float Langth_hoge = uminoushi->GetDamageLength();
+			if (player_state == Estate_Dash) {
+				Langth_hoge *= StarRange;
+			}
+			//距離判定
+			if (diff.Length() < Langth_hoge) {
+				//もし無敵時間中でないなら
+				if (MutekiTimer == -1) {
+
+					//ギリギリボーナスが成立するか確認
+					GameData * gamedata = GameData::GetInstance();
+					bool Hantei = gamedata->GiriBonusKeisan();
+
+					//寿命をゼロに
+					if (player_state != Estate_Dash) {
+						m_Life = 0;
+					}
+
+					if (DashFlag == true) {//ダッシュ状態なら…
+
+						uminoushi->SetDeath();//お前も死ね
+
+						if (Hantei == true) {
+							//ギリギリボーナスカウントを+1
+							gamedata->GiriCounter();
+							//ボーナス成立のエフェクトを表示
+							EffectManager * effectmanager = EffectManager::GetInstance();
+							effectmanager->EffectPlayer(EffectManager::Bonus, { souka_position.x,souka_position.y + SpawnEffectY,souka_position.z }, SpawnEffectScale);
+							//gamedata->TestMessage();
+						}
+					}
+
+
+				}
+			}
+		}
+		return true;
+		});
+
+	//アコヤドカリとの距離を計算
+	QueryGOs<Akoyadokari>("Akoyadokari", [&](Akoyadokari* akoyadokari) {
+		if (akoyadokari->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 enemy_position = akoyadokari->Getm_Position();
+		CVector3 diff = enemy_position - position;
+		playerVec = diff;
+		//死んでいなければ接触判定
+		if (player_state != Estate_Death) {
+			//＊ダメージレンジは どこだ。
+			float Langth_hoge = akoyadokari->GetDamageLength();
+			if (player_state == Estate_Dash) {
+				Langth_hoge *= StarRange;
+			}
+			//距離判定
+			if (diff.Length() < Langth_hoge) {
+				//もし無敵時間中でないなら
+				if (MutekiTimer == -1) {
+
+					//ギリギリボーナスが成立するか確認
+					GameData * gamedata = GameData::GetInstance();
+					bool Hantei = gamedata->GiriBonusKeisan();
+
+					//寿命をゼロに
+					if (player_state != Estate_Dash) {
+						m_Life = 0;
+					}
+
+					int EState = akoyadokari->GetEState();
+					if (EState != 0 && DashFlag == true || player_state == Estate_Dash) {//敵が攻撃中の時でない＆ダッシュ状態なら…
+
+						akoyadokari->SetDeath();//お前も死ね
+
+						if (Hantei == true) {
+							//ギリギリボーナスカウントを+1
+							gamedata->GiriCounter();
+							//ボーナス成立のエフェクトを表示
+							EffectManager * effectmanager = EffectManager::GetInstance();
+							effectmanager->EffectPlayer(EffectManager::Bonus, { enemy_position.x,enemy_position.y + SpawnEffectY,enemy_position.z }, SpawnEffectScale);
+							//gamedata->TestMessage();
+						}
+					}
+				}
+			}
+		}
+		return true;
+		});
+
 	//エックとの距離を計算
 	QueryGOs<Ekku>("Ekku", [&](Ekku* ekku) {
 		if (ekku->IsActive() == false) {
@@ -912,6 +1053,9 @@ void Player::PlayerJudge() {
 		if (player_state != Estate_Death) {
 			//＊ダメージレンジは どこだ。
 			float Langth_hoge = ekku->GetDamageLength();
+			if (player_state == Estate_Dash) {
+				Langth_hoge *= StarRange;
+			}
 			//距離判定
 			if (diff.Length() < Langth_hoge) {
 				//もし無敵時間中でないなら
@@ -959,7 +1103,10 @@ void Player::PlayerJudge() {
 		//死んでいなければ接触判定
 		if (player_state != Estate_Death) {
 			//＊ダメージレンジは どこだ。
-			float Langth_hoge = pi_rabi->GetDamageLength();
+			float Langth_hoge = pi_rabi->GetDamageLength();		
+			if (player_state == Estate_Dash) {
+				Langth_hoge *= StarRange;
+			}
 			//距離判定
 			if (diff.Length() < Langth_hoge) {
 				//もし無敵時間中でないなら
@@ -1009,6 +1156,9 @@ void Player::PlayerJudge() {
 		if (player_state != Estate_Death) {
 			//＊ダメージレンジは どこだ。
 			float Langth_hoge = fairo->GetDamageLength();
+			if (player_state == Estate_Dash) {
+				Langth_hoge *= StarRange;
+			}
 			//距離判定
 			if (diff.Length() < Langth_hoge) {
 				//もし無敵時間中でないなら
@@ -1110,6 +1260,9 @@ void Player::PlayerJudge() {
 		if (player_state != Estate_Death) {
 			//＊ダメージレンジは どこだ。
 			float Langth_hoge = morikon->GetDamageLength();
+			if (player_state == Estate_Dash) {
+				Langth_hoge *= StarRange;
+			}
 			//距離判定
 			if (diff.Length() < Langth_hoge) {
 				//もし無敵時間中でないなら
@@ -1159,6 +1312,9 @@ void Player::PlayerJudge() {
 		if (player_state != Estate_Death) {
 			//＊ダメージレンジは どこだ。
 			float Langth_hoge = riritto->GetDamageLength();
+			if (player_state == Estate_Dash) {
+				Langth_hoge *= StarRange;
+			}
 			//距離判定
 			if (diff.Length() < Langth_hoge) {
 				//もし無敵時間中でないなら
@@ -1207,6 +1363,9 @@ void Player::PlayerJudge() {
 		if (player_state != Estate_Death) {
 			//＊ダメージレンジは どこだ。
 			float Langth_hoge = arukasya->GetDamageLength();
+			if (player_state == Estate_Dash) {
+				Langth_hoge *= StarRange;
+			}
 			//距離判定
 			if (diff.Length() < Langth_hoge) {
 				//もし無敵時間中でないなら

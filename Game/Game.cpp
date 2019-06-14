@@ -17,7 +17,7 @@
 #include "GameOver.h"
 #include "GamePause.h"
 
-#include "Kikochu.h"
+#include "Akoyadokari.h"
 
 Game* Game::m_instance = nullptr;
 
@@ -73,8 +73,7 @@ bool Game::Start()
 	DisableSpecialLigRange();
 
 	NewGO<Player>(0,"Bug");
-	//NewGO<Kikochu>(0);
-	
+
 	NewGO<GameCamera>(0,"Gamecamera");
 	NewGO<Player_Status>(0, "Status");
 	NewGO<BackGround>(0, "BackGround");
@@ -114,6 +113,7 @@ bool Game::Start()
 
 void Game::Update()
 {
+
 	m_tonemapDisableTimer -= GameTime().GetFrameDeltaTime();
 	if (m_tonemapDisableTimer <= 0.0f) {
 		m_tonemapDisableTimer = 0.0f;

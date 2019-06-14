@@ -1,20 +1,21 @@
 #include "stdafx.h"
-#include "Bullet.h"
+#include "Bullet3.h"
 #include "Player.h"
-#include "Neoriku.h"
+#include "Uminoushi.h"
 #include "GameData.h"
 
-Bullet::Bullet()
+
+Bullet3::Bullet3()
 {
 }
 
 
-Bullet::~Bullet()
+Bullet3::~Bullet3()
 {
 	DeleteGO(m_skinModelRender);
 }
 
-bool Bullet::Start()
+bool Bullet3::Start()
 {
 	prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
 	ss->Init(L"sound/Bullet.wav", true);
@@ -24,8 +25,8 @@ bool Bullet::Start()
 
 	m_skinModelRender = NewGO<prefab::CSkinModelRender>(0);
 	m_skinModelRender->Init(L"modelData/bullet.cmo");
-	
-	CVector3 N_Position = m_neoriku->Getm_Position();
+
+	CVector3 N_Position = m_uminoushi->Getm_Position();
 	m_position = N_Position;
 	m_skinModelRender->SetPosition(m_position);
 	m_skinModelRender->SetScale(bulletscale);
@@ -35,33 +36,21 @@ bool Bullet::Start()
 	return true;
 }
 
-void Bullet::Update()
+void Bullet3::Update()
 {
 	GameData * gamedata = GameData::GetInstance();
 	int mode = gamedata->GetGameMode();
 	if (mode != GameData::Pause) {
 
-		//çUåÇ¿ﬁ÷
-		if (keisannflag == false) {
-			Player* player = FindGO<Player>("Bug");
-			CVector3 P_Position = player->Getm_Position();
-
-			CVector3 Ne_Position = m_neoriku->Getm_Position();
-			CVector3 diff = P_Position - Ne_Position;
-			buvec = diff;
-			buvec.Normalize();
-			keisannflag = true;
-		}
-		m_position += buvec * moveSpeed;
+		//à⁄ìÆ
+		m_position += b_move;
 
 		//ç¿ïWÇì`Ç¶ÇÈÅB
 		m_skinModelRender->SetPosition(m_position);
 
-
 		if (dathflag == true) {
 			DeleteGO(this);
 		}
-
 
 		m_timer++;
 		if (m_timer == bulletdelete) {

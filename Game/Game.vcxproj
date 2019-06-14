@@ -1762,11 +1762,13 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Akoyadokari.cpp" />
     <ClCompile Include="Arukasya.cpp" />
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="BossHPGage.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Bullet2.cpp" />
+    <ClCompile Include="Bullet3.cpp" />
     <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="EffectPlay.cpp" />
     <ClCompile Include="Bunbogu.cpp" />
@@ -1827,17 +1829,21 @@
     <ClCompile Include="TitleStandby.cpp" />
     <ClCompile Include="TransitionMaker.cpp" />
     <ClCompile Include="Tutorial.cpp" />
+    <ClCompile Include="TutorialWait.cpp" />
     <ClCompile Include="UICamera.cpp" />
+    <ClCompile Include="Uminoushi.cpp" />
     <ClCompile Include="WaveEffect.cpp" />
     <ClCompile Include="WaveManager.cpp" />
     <ClCompile Include="Zukan.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Akoyadokari.h" />
     <ClInclude Include="Arukasya.h" />
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="BossHPGage.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Bullet2.h" />
+    <ClInclude Include="Bullet3.h" />
     <ClInclude Include="DataBase.h" />
     <ClInclude Include="EffectManager.h" />
     <ClInclude Include="EffectPlay.h" />
@@ -1881,7 +1887,9 @@
     <ClInclude Include="TitleStandby.h" />
     <ClInclude Include="TransitionMaker.h" />
     <ClInclude Include="Tutorial.h" />
+    <ClInclude Include="TutorialWait.h" />
     <ClInclude Include="UICamera.h" />
+    <ClInclude Include="Uminoushi.h" />
     <ClInclude Include="WaveEffect.h" />
     <ClInclude Include="WaveManager.h" />
     <ClInclude Include="Zukan.h" />
@@ -1889,6 +1897,9 @@
     <ResourceCompile Include="Game.rc" />
   </ItemGroup>
   <ItemGroup>
+    <MeshContentTask Include="Assets\modelData\Akoyadokari.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Preview_Low|x64'">true</ExcludedFromBuild>
+    </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\Arukasya.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Preview_Low|x64'">true</ExcludedFromBuild>
     </MeshContentTask>
@@ -1969,7 +1980,10 @@
     <MeshContentTask Include="Assets\modelData\StageSelect_Back.FBX">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Preview_Low|x64'">true</ExcludedFromBuild>
     </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\Tutorial.fbx" />
+    <MeshContentTask Include="Assets\modelData\Tutorial.fbx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Preview_Low|x64'">true</ExcludedFromBuild>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\umino.fbx" />
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Preview_Low|x64'">true</ExcludedFromBuild>
     </MeshContentTask>
@@ -2468,6 +2482,22 @@
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\yazirusi.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Preview_Low|x64'">true</ExcludedFromBuild>
+    </ImageContentTask>
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\No.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Preview_Low|x64'">true</ExcludedFromBuild>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\question.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Preview_Low|x64'">true</ExcludedFromBuild>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Yes.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Preview_Low|x64'">true</ExcludedFromBuild>
+    </ImageContentTask>
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\icon3.png">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Preview_Low|x64'">true</ExcludedFromBuild>
     </ImageContentTask>
   </ItemGroup>

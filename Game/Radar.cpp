@@ -14,6 +14,8 @@
 #include "Morikon.h"
 #include "Riritto.h"
 #include "Arukasya.h"
+#include "Uminoushi.h"
+#include "Akoyadokari.h"
 
 #include "Kikochu.h"
 
@@ -213,7 +215,43 @@ void Radar::Update() {
 		return true;
 		});
 
+	//ウミノウシとの距離を計算
+	QueryGOs<Uminoushi>("Uminoushi", [&](Uminoushi* uminoushi) {
+		if (uminoushi->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 player_position = player->Getm_Position();
+		CVector3 enemy_position = uminoushi->Getm_Position();
+		CVector3 diff = enemy_position - player_position;
 
+		diff.Normalize();
+		diff *= 40.0f;
+
+		CVector3 pointPos = player_position + diff;
+
+		m_skinModelRender->UpdateInstancingData(pointPos, CQuaternion::Identity, { 0.2f, 0.2f, 0.2f });
+		return true;
+		});
+
+	//アコヤドカリとの距離を計算
+	QueryGOs<Akoyadokari>("Akoyadokari", [&](Akoyadokari* akoyadokari) {
+		if (akoyadokari->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 player_position = player->Getm_Position();
+		CVector3 enemy_position = akoyadokari->Getm_Position();
+		CVector3 diff = enemy_position - player_position;
+
+		diff.Normalize();
+		diff *= 40.0f;
+
+		CVector3 pointPos = player_position + diff;
+
+		m_skinModelRender->UpdateInstancingData(pointPos, CQuaternion::Identity, { 0.2f, 0.2f, 0.2f });
+		return true;
+		});
 
 	//QueryGOs<Kikochu>("Kikochu", [&](Kikochu* kikochu) {
 	//	if (kikochu->IsActive() == false) {

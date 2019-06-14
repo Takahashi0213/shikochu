@@ -24,6 +24,8 @@
 #include "SS_001.h"
 #include "Neruk.h"
 #include "Kikochu.h"
+#include "Uminoushi.h"
+#include "Akoyadokari.h"
 
 //ギミック
 #include "StarItem.h"
@@ -260,6 +262,36 @@ void WaveManager::Update() {
 				return true;
 				});
 
+			QueryGOs<Uminoushi>("Uminoushi", [&](Uminoushi* uminoushi) {
+				//対象の所属Waveを取得
+				int wave = uminoushi->GetWave();
+				if (NowWave == wave) {
+					//アクティブ化
+					Enemy++;
+					uminoushi->SetActiveFlag(true);
+					EffectManager * effectmanager = EffectManager::GetInstance();
+					CVector3 EF_Position = uminoushi->Getm_Position();
+					EF_Position.y += 50.0f;
+					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+				}
+				return true;
+				});
+
+			QueryGOs<Akoyadokari>("Akoyadokari", [&](Akoyadokari* akoyadokari) {
+				//対象の所属Waveを取得
+				int wave = akoyadokari->GetWave();
+				if (NowWave == wave) {
+					//アクティブ化
+					Enemy++;
+					akoyadokari->SetActiveFlag(true);
+					EffectManager * effectmanager = EffectManager::GetInstance();
+					CVector3 EF_Position = akoyadokari->Getm_Position();
+					EF_Position.y += 50.0f;
+					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+				}
+				return true;
+				});
+
 			//アイテム
 			QueryGOs<StarItem>("Item", [&](StarItem* staritem) {
 				//対象の所属Waveを取得
@@ -370,80 +402,107 @@ void WaveManager::DeleteAll() {
 	ss->SetVolume(0.0f);
 
 	QueryGOs<Bunbogu>("bun", [&](Bunbogu* bunbogu) {
+		bunbogu->SetActiveFlag(true); 
 		bunbogu->SetDeath2();
 		return true;
 		});
 
 	QueryGOs<Neoriku>("neo", [&](Neoriku* neoriku) {
+		neoriku->SetActiveFlag(true);
 		neoriku->SetDeath2();
 		return true;
 		});
 
 	QueryGOs<shisokus>("shiso", [&](shisokus* Shisokus) {
+		Shisokus->SetActiveFlag(true);
 		Shisokus->SetDeath();
 		return true;
 		});
 
 	QueryGOs<Neruk>("neru", [&](Neruk* neruk) {
+		neruk->SetActiveFlag(true);
 		neruk->SetDeath();
 		return true;
 		});
 
 	QueryGOs<soukabuto>("sou", [&](soukabuto* souka) {
+		souka->SetActiveFlag(true);
 		souka->SetDeath2();
 		return true;
 		});
 
 	QueryGOs<Ekku>("Ekku", [&](Ekku* ekku) {
+		ekku->SetActiveFlag(true);
 		ekku->SetDeath2();
 		return true;
 		});
 
 	QueryGOs<Pi_rabi>("Pi_rabi", [&](Pi_rabi* pi_rabi) {
+		pi_rabi->SetActiveFlag(true);
 		pi_rabi->SetDeath2();
 		return true;
 		});
 
 	QueryGOs<Fairo>("Fairo", [&](Fairo* fairo) {
+		fairo->SetActiveFlag(true);
 		fairo->SetDeath2();
 		return true;
 		});
 
 	QueryGOs<Pairodorago>("Pairodorago", [&](Pairodorago* pairodorago) {
+		pairodorago->SetActiveFlag(true);
 		pairodorago->SetDeath();
 		return true;
 		});
 
 	QueryGOs<Morikon>("Morikon", [&](Morikon* morikon) {
+		morikon->SetActiveFlag(true);
 		morikon->SetDeath2();
 		return true;
 		});
 
 	QueryGOs<Riritto>("Riritto", [&](Riritto* riritto) {
+		riritto->SetActiveFlag(true);
 		riritto->SetDeath2();
 		return true;
 		});
 
 	QueryGOs<Arukasya>("Arukasya", [&](Arukasya* arukasya) {
+		arukasya->SetActiveFlag(true);
 		arukasya->SetDeath2();
 		return true;
 		});
 
 	QueryGOs<SS_001>("SS_001", [&](SS_001* ss_001) {
+		ss_001->SetActiveFlag(true);
 		ss_001->SetDeath();
 		return true;
 		});
 
 	QueryGOs<StarItem>("Item", [&](StarItem* staritem) {
+		staritem->SetActiveFlag(true);
 		staritem->DeleteItem2();
 		return true;
 		});
 
 	QueryGOs<Kikochu>("Kikochu", [&](Kikochu* kikochu) {
-		kikochu->SetDeath();
+		kikochu->SetActiveFlag(true);
+		kikochu->SetDeath2();
 		return true;
 		});
 
+	QueryGOs<Uminoushi>("Uminoushi", [&](Uminoushi* uminoushi) {
+		uminoushi->SetActiveFlag(true);
+		uminoushi->SetDeath2();
+		return true;
+		});
+
+	QueryGOs<Akoyadokari>("Akoyadokari", [&](Akoyadokari* akoyadokari) {
+		akoyadokari->SetActiveFlag(true);
+		akoyadokari->SetDeath2();
+		return true;
+		});
+	
 	DeleteGOs("びっくり");
 
 }

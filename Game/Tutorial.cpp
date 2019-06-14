@@ -186,6 +186,12 @@ void Tutorial::Update() {
 		}
 		else if (PushCount == 1) {
 			if (Pad(0).IsTrigger(enButtonA)) {
+				ss = NewGO<prefab::CSoundSource>(0);
+				//SE再生
+				ss->Init(L"sound/TitleOK.wav");
+				ss->SetVolume(1.0f);
+				ss->Play(false);
+
 				text[256];
 				//おわ
 				swprintf(text, L"じゅうじキー か スライドパッド で\nいどう できます");
@@ -198,6 +204,12 @@ void Tutorial::Update() {
 		}
 		else if (PushCount == 2) {
 			if (Pad(0).IsTrigger(enButtonA)) {
+				ss = NewGO<prefab::CSoundSource>(0);
+				//SE再生
+				ss->Init(L"sound/TitleOK.wav");
+				ss->SetVolume(1.0f);
+				ss->Play(false);
+
 				PushCount++;
 			}
 
@@ -277,6 +289,12 @@ void Tutorial::Update() {
 		}
 		else if (PushCount == 1) {
 			if (Pad(0).IsTrigger(enButtonA)) {
+				ss = NewGO<prefab::CSoundSource>(0);
+				//SE再生
+				ss->Init(L"sound/TitleOK.wav");
+				ss->SetVolume(1.0f);
+				ss->Play(false);
+
 				m_spriteRender[2]->SetMulColor({ 1.0f,1.0f,1.0f,1.0f });
 
 				text[256];
@@ -290,6 +308,12 @@ void Tutorial::Update() {
 		}
 		else if (PushCount == 2) {
 			if (Pad(0).IsTrigger(enButtonA)) {
+				ss = NewGO<prefab::CSoundSource>(0);
+				//SE再生
+				ss->Init(L"sound/TitleOK.wav");
+				ss->SetVolume(1.0f);
+				ss->Play(false);
+
 				text[256];
 				//おわ
 				swprintf(text, L"じかんがたつと、どんどん\nへっていき...");
@@ -301,6 +325,12 @@ void Tutorial::Update() {
 		}
 		else if (PushCount == 3) {
 			if (Pad(0).IsTrigger(enButtonA)) {
+				ss = NewGO<prefab::CSoundSource>(0);
+				//SE再生
+				ss->Init(L"sound/TitleOK.wav");
+				ss->SetVolume(1.0f);
+				ss->Play(false);
+
 				m_spriteRender[1]->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
 				PushCount++;
 			}
@@ -326,6 +356,12 @@ void Tutorial::Update() {
 		}
 		else if (PushCount == 5) {
 			if (Pad(0).IsTrigger(enButtonA)) {
+				ss = NewGO<prefab::CSoundSource>(0);
+				//SE再生
+				ss->Init(L"sound/TitleOK.wav");
+				ss->SetVolume(1.0f);
+				ss->Play(false);
+
 				m_spriteRender[1]->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
 				PushCount++;
 			}
@@ -353,6 +389,12 @@ void Tutorial::Update() {
 		}
 		else if (PushCount == 7) {
 			if (Pad(0).IsTrigger(enButtonA)) {
+				ss = NewGO<prefab::CSoundSource>(0);
+				//SE再生
+				ss->Init(L"sound/TitleOK.wav");
+				ss->SetVolume(1.0f);
+				ss->Play(false);
+
 				//セット
 				Player * player = Player::GetInstance();
 				player->SetLife(-100);
@@ -373,6 +415,12 @@ void Tutorial::Update() {
 		}
 		else if (PushCount == 8) {
 			if (Pad(0).IsTrigger(enButtonA)) {
+				ss = NewGO<prefab::CSoundSource>(0);
+				//SE再生
+				ss->Init(L"sound/TitleOK.wav");
+				ss->SetVolume(1.0f);
+				ss->Play(false);
+
 				//ブンローグ召喚
 				Bunbogu* bun = NewGO<Bunbogu>(0, "bun");
 				bun->SetPosition({ 500.0f,0.0f,500.0f });
@@ -406,6 +454,12 @@ void Tutorial::Update() {
 		}
 		else if (PushCount == 10) {
 			if (Pad(0).IsTrigger(enButtonA)) {
+				ss = NewGO<prefab::CSoundSource>(0);
+				//SE再生
+				ss->Init(L"sound/TitleOK.wav");
+				ss->SetVolume(1.0f);
+				ss->Play(false);
+
 				text[256];
 				//おわ
 				swprintf(text, L"シコウチュウは Aボタン で\n「ダッシュ」ができます");
@@ -417,6 +471,12 @@ void Tutorial::Update() {
 		}
 		else if (PushCount == 11) {
 			if (Pad(0).IsTrigger(enButtonA)) {
+				ss = NewGO<prefab::CSoundSource>(0);
+				//SE再生
+				ss->Init(L"sound/TitleOK.wav");
+				ss->SetVolume(1.0f);
+				ss->Play(false);
+
 				text[256];
 				//おわ
 				swprintf(text, L"ダッシュしながら\nてきにたいあたりすることで\nたおすことができます");
@@ -428,6 +488,12 @@ void Tutorial::Update() {
 		}
 		else if (PushCount == 12) {
 			if (Pad(0).IsTrigger(enButtonA)) {
+				ss = NewGO<prefab::CSoundSource>(0);
+				//SE再生
+				ss->Init(L"sound/TitleOK.wav");
+				ss->SetVolume(1.0f);
+				ss->Play(false);
+
 				text[256];
 				//おわ
 				swprintf(text, L"ただし てきがこうげきしているときに\nたいあたりしてもたおせないので\nちゅういしてくださいね");
@@ -439,6 +505,12 @@ void Tutorial::Update() {
 		}
 		else if (PushCount == 13) {
 			if (Pad(0).IsTrigger(enButtonA)) {
+				ss = NewGO<prefab::CSoundSource>(0);
+				//SE再生
+				ss->Init(L"sound/TitleOK.wav");
+				ss->SetVolume(1.0f);
+				ss->Play(false);
+
 				text[256];
 				//おわ
 				swprintf(text, L"シコウチュウのまわりにある\nあかいてん はてきのほうこうを\nしめしています");
@@ -450,6 +522,12 @@ void Tutorial::Update() {
 		}
 		else if (PushCount == 14) {
 			if (Pad(0).IsTrigger(enButtonA)) {
+				ss = NewGO<prefab::CSoundSource>(0);
+				//SE再生
+				ss->Init(L"sound/TitleOK.wav");
+				ss->SetVolume(1.0f);
+				ss->Play(false);
+
 				text[256];
 				//おわ
 				swprintf(text, L"それでは、てきをたおしてみましょう！");
@@ -461,6 +539,12 @@ void Tutorial::Update() {
 		}
 		else if (PushCount == 15) {
 			if (Pad(0).IsTrigger(enButtonA)) {
+				ss = NewGO<prefab::CSoundSource>(0);
+				//SE再生
+				ss->Init(L"sound/TitleOK.wav");
+				ss->SetVolume(1.0f);
+				ss->Play(false);
+
 				PushCount++;
 				text[256];
 				//おわ
@@ -551,6 +635,12 @@ void Tutorial::Update() {
 			}
 			else if (PushCount == 1) {
 				if (Pad(0).IsTrigger(enButtonA)) {
+					ss = NewGO<prefab::CSoundSource>(0);
+					//SE再生
+					ss->Init(L"sound/TitleOK.wav");
+					ss->SetVolume(1.0f);
+					ss->Play(false);
+
 					text[256];
 					//おわ
 					swprintf(text, L"そうそう、\nすでにごぞんじかもしれませんが...");
@@ -562,6 +652,12 @@ void Tutorial::Update() {
 			}
 			else if (PushCount == 2) {
 				if (Pad(0).IsTrigger(enButtonA)) {
+					ss = NewGO<prefab::CSoundSource>(0);
+					//SE再生
+					ss->Init(L"sound/TitleOK.wav");
+					ss->SetVolume(1.0f);
+					ss->Play(false);
+
 					text[256];
 					//おわ
 					swprintf(text, L"シコウチュウ はしぬと\nほし になります");
@@ -573,6 +669,12 @@ void Tutorial::Update() {
 			}
 			else if (PushCount == 3) {
 				if (Pad(0).IsTrigger(enButtonA)) {
+					ss = NewGO<prefab::CSoundSource>(0);
+					//SE再生
+					ss->Init(L"sound/TitleOK.wav");
+					ss->SetVolume(1.0f);
+					ss->Play(false);
+
 					text[256];
 					//おわ
 					swprintf(text, L"そのほしはくらやみをてらし、\nあなたをたすけてくれるでしょう");
@@ -584,6 +686,12 @@ void Tutorial::Update() {
 			}
 			else if (PushCount == 4) {
 				if (Pad(0).IsTrigger(enButtonA)) {
+					ss = NewGO<prefab::CSoundSource>(0);
+					//SE再生
+					ss->Init(L"sound/TitleOK.wav");
+					ss->SetVolume(1.0f);
+					ss->Play(false);
+
 					text[256];
 					//おわ
 					swprintf(text, L"しんでしまったからといって\nむだになることはありません");
@@ -595,6 +703,12 @@ void Tutorial::Update() {
 			}
 			else if (PushCount == 5) {
 				if (Pad(0).IsTrigger(enButtonA)) {
+					ss = NewGO<prefab::CSoundSource>(0);
+					//SE再生
+					ss->Init(L"sound/TitleOK.wav");
+					ss->SetVolume(1.0f);
+					ss->Play(false);
+
 					//アイテム出現
 					StarItem* ITEM = NewGO<StarItem>(0, "Item");
 					ITEM->SetPosition({ 0.0f,0.0f,80.0f });
@@ -636,6 +750,12 @@ void Tutorial::Update() {
 			}
 			else if (PushCount == 7) {
 				if (Pad(0).IsTrigger(enButtonA)) {
+					ss = NewGO<prefab::CSoundSource>(0);
+					//SE再生
+					ss->Init(L"sound/TitleOK.wav");
+					ss->SetVolume(1.0f);
+					ss->Play(false);
+
 					m_spriteRender[2]->SetPosition({ -450.0f,-120.0f,0.0f });
 					m_spriteRender[2]->SetMulColor({ 1.0f,1.0f,1.0f,1.0f });
 
@@ -650,6 +770,12 @@ void Tutorial::Update() {
 			}
 			else if (PushCount == 8) {
 				if (Pad(0).IsTrigger(enButtonA)) {
+					ss = NewGO<prefab::CSoundSource>(0);
+					//SE再生
+					ss->Init(L"sound/TitleOK.wav");
+					ss->SetVolume(1.0f);
+					ss->Play(false);
+
 					text[256];
 					//おわ
 					swprintf(text, L"じかんけいかでも、\nりゅうせいゲージはじょうしょうします");
@@ -661,6 +787,12 @@ void Tutorial::Update() {
 			}
 			else if (PushCount == 9) {
 				if (Pad(0).IsTrigger(enButtonA)) {
+					ss = NewGO<prefab::CSoundSource>(0);
+					//SE再生
+					ss->Init(L"sound/TitleOK.wav");
+					ss->SetVolume(1.0f);
+					ss->Play(false);
+
 					m_spriteRender[2]->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
 
 					text[256];
@@ -674,6 +806,12 @@ void Tutorial::Update() {
 			}
 			else if (PushCount == 10) {
 				if (Pad(0).IsTrigger(enButtonA)) {
+					ss = NewGO<prefab::CSoundSource>(0);
+					//SE再生
+					ss->Init(L"sound/TitleOK.wav");
+					ss->SetVolume(1.0f);
+					ss->Play(false);
+
 					text[256];
 					//おわ
 					swprintf(text, L"さっそくひろってみましょう！");
@@ -685,6 +823,12 @@ void Tutorial::Update() {
 			}
 			else if (PushCount == 11) {
 				if (Pad(0).IsTrigger(enButtonA)) {
+					ss = NewGO<prefab::CSoundSource>(0);
+					//SE再生
+					ss->Init(L"sound/TitleOK.wav");
+					ss->SetVolume(1.0f);
+					ss->Play(false);
+
 					PushCount++;
 					text[256];
 					//おわ
@@ -789,6 +933,12 @@ void Tutorial::Update() {
 		}
 		else if (PushCount == 1) {
 			if (Pad(0).IsTrigger(enButtonA)) {
+				ss = NewGO<prefab::CSoundSource>(0);
+				//SE再生
+				ss->Init(L"sound/TitleOK.wav");
+				ss->SetVolume(1.0f);
+				ss->Play(false);
+
 				text[256];
 				//おわ
 				swprintf(text, L"たくさんのてきが かたまっている\nばしょにつかうと、\nまとめてたおせますよ！");
@@ -834,6 +984,12 @@ void Tutorial::Update() {
 		}
 		else if (PushCount == 1) {
 			if (Pad(0).IsTrigger(enButtonA)) {
+				ss = NewGO<prefab::CSoundSource>(0);
+				//SE再生
+				ss->Init(L"sound/TitleOK.wav");
+				ss->SetVolume(1.0f);
+				ss->Play(false);
+
 				text[256];
 				//おわ
 				swprintf(text, L"たくさんのせつめいがありましたが\n「ならうよりなれろ」です");
@@ -846,6 +1002,12 @@ void Tutorial::Update() {
 		}
 		else if (PushCount == 2) {
 			if (Pad(0).IsTrigger(enButtonA)) {
+				ss = NewGO<prefab::CSoundSource>(0);
+				//SE再生
+				ss->Init(L"sound/TitleOK.wav");
+				ss->SetVolume(1.0f);
+				ss->Play(false);
+
 				text[256];
 				//おわ
 				swprintf(text, L"ぜひ あなたのちからで\nシコウチュウをあたらしいせかいへ\nつれていってあげてくださいね");
@@ -858,6 +1020,12 @@ void Tutorial::Update() {
 		}
 		else if (PushCount == 3) {
 			if (Pad(0).IsTrigger(enButtonA)) {
+				ss = NewGO<prefab::CSoundSource>(0);
+				//SE再生
+				ss->Init(L"sound/TitleOK.wav");
+				ss->SetVolume(1.0f);
+				ss->Play(false);
+
 				text[256];
 				//おわ
 				swprintf(text, L"おつかれさまでした！");
@@ -870,6 +1038,12 @@ void Tutorial::Update() {
 		}
 		else if (PushCount == 4) {
 			if (Pad(0).IsTrigger(enButtonA)) {
+				ss = NewGO<prefab::CSoundSource>(0);
+				//SE再生
+				ss->Init(L"sound/TitleOK.wav");
+				ss->SetVolume(1.0f);
+				ss->Play(false);
+
 				PushCount++;
 			}
 

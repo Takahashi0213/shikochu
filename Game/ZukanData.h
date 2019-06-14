@@ -2,7 +2,7 @@
 
 //図鑑のデータベース
 
-const int Monster = 14; //項目数
+const int Monster = 16; //項目数
 
 //モデル
 const wchar_t MonsterModel[Monster][128]{
@@ -12,6 +12,8 @@ const wchar_t MonsterModel[Monster][128]{
 { L"modelData/Neruk.cmo" },
 { L"modelData/shisokus.cmo" },
 { L"modelData/Kikochu.cmo" },
+{ L"modelData/umino.cmo" },
+{ L"modelData/Akoyadokari.cmo" },
 { L"modelData/Ekku.cmo" },
 { L"modelData/Rabbit_Level_1.cmo" },
 { L"modelData/Fairo.cmo" },
@@ -31,6 +33,8 @@ const wchar_t MonsterAnime[Monster][128]{
 { L"animData/Neruwalk.tka" },
 { L"animData/sisowalk.tka" },
 { L"animData/KikoWalk.tka" },
+{ L"animData/umiWalk.tka" },
+{ L"animData/AkoWalk.tka" },
 { L"animData/Ekwalk.tka" },
 { L"animData/P_idel.tka" },
 { L"animData/Faiwalk.tka" },
@@ -50,6 +54,8 @@ const bool MonsterATK_Flag[Monster]{
 	false,
 	true,
 	false,
+	false,
+	true,
 	true,
 	true,
 	false,
@@ -68,6 +74,8 @@ const wchar_t MonsterAnime_ATK[Monster][128]{
 { L"" },
 { L"animData/Sisoattack_Z.tka" },
 { L"" },
+{ L"" },
+{ L"animData/AkoFull.tka" },
 { L"animData/Ekattack_Z.tka" },
 { L"animData/P_attack.tka" },
 { L"" },
@@ -87,6 +95,8 @@ const wchar_t MonsterName[Monster][128]{
 { L"ネルク" },
 { L"シーソークス" },
 { L"キコウチュウ" },
+{ L"ウミノウシ" },
+{ L"アコヤドカリ" },
 { L"エック" },
 { L"ピーラビ" },
 { L"ファイロ" },
@@ -106,6 +116,8 @@ const wchar_t Setumei[Monster][255]{
 { L"シーソークスのこども。\nうまれるまでに\n８ねんかかるらしい。" },
 { L"ネコミミ のはえたサメ。\nかわいいといわれてグレた。\nシッポはチェーンソーだぞ。" },
 { L"シコウチュウのしんせき。\nたおすと ボーナススコアを\nくれる いいヤツだ。" },
+{ L"うみにすむウシ。\nしぼると おいしい\nぎゅうにゅうが でてくる。" },
+{ L"カニのようなヤドカリ。\nうみのなかはヒマなので\nさいきん ボクシング をはじめた。" },
 { L"あやしいみためだが\nりょうりがしゅみ。\nとくいりょうりは めだまやき。" },
 { L"じつはにくしょくけいで、\nてあたりしだいに\nずつきするぞ！" },
 { L"いわをたべるドラゴン。\nダイエットのために\nとっしんする！" },
@@ -119,16 +131,18 @@ const wchar_t Setumei[Monster][255]{
 
 //図鑑用スケール
 const CVector3 M_Scale[Monster]{
-	{ 2.0f,2.0f,2.0f },
-	{ 2.0f,2.0f,2.0f },
-	{ 2.0f,2.0f,2.0f },
-	{ 2.0f,2.0f,2.0f },
-	{ 0.5f,0.5f,0.5f },
-	{ 2.0f,2.0f,2.0f },
-	{ 2.0f,2.0f,2.0f },
-	{ 30.0f,30.0f,30.0f },
-	{ 1.0f,1.0f,1.0f },
-	{ 20.0f, 20.0f, 20.0f },
+{ 2.0f,2.0f,2.0f },
+{ 2.0f,2.0f,2.0f },
+{ 2.0f,2.0f,2.0f },
+{ 2.0f,2.0f,2.0f },
+{ 0.5f,0.5f,0.5f },//シーソークス
+{ 2.0f,2.0f,2.0f },
+{ 1.0f,1.0f,1.0f },
+{ 2.0f,2.0f,2.0f },
+{ 2.0f,2.0f,2.0f },
+{ 30.0f,30.0f,30.0f },
+{ 1.0f,1.0f,1.0f },
+{ 20.0f, 20.0f, 20.0f },
 { 20.0f, 20.0f, 20.0f },
 { 1.0f,1.0f,1.0f },
 { 2.0f,2.0f,2.0f },
@@ -142,8 +156,10 @@ const float X_Hosei[Monster]{
 { 0.0f },
 { 50.0f },
 { 0.0f },
+{ 0.0f },//シーソークス
 { 0.0f },
-{ 20.0f },
+{ 0.0f },
+{ 0.0f },
 { 50.0f },
 { 20.0f },
 { 20.0f },
@@ -162,6 +178,8 @@ const float Y_Hosei[Monster]{
 	{ -60.0f },
 	{ 0.0f },
 	{ 0.0f },
+	{ -10.0f },
+	{ 0.0f },
 	{ -30.0f },
 	{ -50.0f },
 	{ -50.0f },
@@ -179,6 +197,8 @@ const float Z_Hosei[Monster]{
 	{ 0.0f },
 { 0.0f },
 { -100.0f },
+{ 0.0f },
+{ 0.0f },
 { 0.0f },
 { 0.0f },
 { 0.0f },

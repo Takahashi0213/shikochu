@@ -30,9 +30,9 @@ const wchar_t LevelName[12][255]{
 //ハードモード用レベルファイル名
 //テストプレイ用レベル名→level/level_Test.tkl
 const wchar_t LevelName_Hard[12][255]{
-{ L"level/level_Test.tkl" },	//ステージ１
-{ L"level/level_Test.tkl" },
-{ L"level/level_Test.tkl" },
+{ L"level/level_00_h.tkl" },	//ステージ１
+{ L"level/level_01_h.tkl" },
+{ L"level/level_02_h.tkl" },
 { L"level/level_03.tkl" },	//Boss1
 { L"level/level_Test.tkl" },	//ステージ２
 { L"level/level_Test.tkl" },

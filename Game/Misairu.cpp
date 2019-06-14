@@ -101,4 +101,8 @@ void Misairu::Update() {
 		Timer++;
 
 	}
+	if (mode == GameData::GameEnd) {
+		DeleteGO(this);
+	}
+
 }

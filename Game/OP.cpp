@@ -2,6 +2,7 @@
 #include "OP.h"
 #include "TransitionMaker.h"
 #include "Tutorial.h"
+#include "TutorialWait.h"
 
 OP* OP::m_instance = nullptr;
 
@@ -396,12 +397,10 @@ void OP::Update() {
 		}
 
 		if (Timer >= Scene5_Limit) {//ŽžŠÔ‚¾
-			TransitionMaker * tm = TransitionMaker::GetInstance();
-			tm->TransitionSetting(TransitionMaker::Fade, 12, 12, true);
 			BMG_V = 0.0f;
 			ss->SetVolume(BMG_V);
 
-			NewGO<Tutorial>(0);
+			NewGO<TutorialWait>(0);
 			DeleteGO(this);
 		}
 

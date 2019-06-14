@@ -16,6 +16,8 @@
 #include "Arukasya.h"
 #include "SS_001.h"
 #include "Kikochu.h"
+#include "Uminoushi.h"
+#include "Akoyadokari.h"
 
 //ƒMƒ~ƒbƒN
 #include "StarItem.h"
@@ -197,6 +199,30 @@ void LevelSet::LevelSetting(wchar_t LEVEL_Name[255],bool flag,int wave) {
 			kikochu->SetRotation(objData.rotation);
 			kikochu->SetActiveFlag(flag);
 			kikochu->SetWave(wave);
+			return true;
+		}
+
+		if (objData.EqualObjectName(L"umino")) {
+			Uminoushi* uminoushi = NewGO<Uminoushi>(0, "Uminoushi");
+			uminoushi->SetPosition(objData.position);
+			uminoushi->SetRotation(objData.rotation);
+			uminoushi->SetActiveFlag(flag);
+			uminoushi->SetWave(wave);
+			if (flag == true) {
+				EnemyCount++;
+			}
+			return true;
+		}
+
+		if (objData.EqualObjectName(L"Akoyadokari")) {
+			Akoyadokari* akoyadokari = NewGO<Akoyadokari>(0, "Akoyadokari");
+			akoyadokari->SetPosition(objData.position);
+			akoyadokari->SetRotation(objData.rotation);
+			akoyadokari->SetActiveFlag(flag);
+			akoyadokari->SetWave(wave);
+			if (flag == true) {
+				EnemyCount++;
+			}
 			return true;
 		}
 

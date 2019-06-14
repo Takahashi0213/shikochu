@@ -44,7 +44,7 @@ private:
 
 	int m_timer = 0;				//玉が消えるまでのタイマー。
 	bool keisannflag = false;		//ライト
-	const float bulletdelete = 120.0f; //玉を消すまでのタイマー
+	const int bulletdelete = 120; //玉を消すまでのタイマー
 	const CVector3 bulletscale = { 2.0f,2.0f,2.0f }; //玉の大きさ
 	const CVector3 bulletEmissionColor = { 0.0f,100.0f,0.0f }; //玉の色
 	const CVector3 bulletEmissionColor2 = { 100.0f,0.0f,0.0f }; //玉の色

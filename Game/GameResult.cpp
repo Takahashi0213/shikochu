@@ -709,18 +709,22 @@ void GameResult::Update() {
 				savedata->SetMonFlag(2);
 				savedata->SetMonFlag(3);
 				savedata->SetMonFlag(4);
+				if (HardFlag == true) {
+					savedata->SetMonFlag(6);
+					savedata->SetMonFlag(7);
+				}
 			}
 			if (stage == 1) {
-				savedata->SetMonFlag(6);
-				savedata->SetMonFlag(7);
 				savedata->SetMonFlag(8);
 				savedata->SetMonFlag(9);
-			}
-			if (stage == 2) {
 				savedata->SetMonFlag(10);
 				savedata->SetMonFlag(11);
+			}
+			if (stage == 2) {
 				savedata->SetMonFlag(12);
 				savedata->SetMonFlag(13);
+				savedata->SetMonFlag(14);
+				savedata->SetMonFlag(15);
 			}
 
 			gamedata->SetGameMode(GameData::GameEnd);

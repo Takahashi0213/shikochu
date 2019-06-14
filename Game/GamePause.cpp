@@ -259,9 +259,21 @@ void GamePause::Update() {
 	//処理
 	if (Timer > SetWaitLimit && DeleteFlag == false ) {//セット完了してから受け付ける
 		if (Pad(0).IsTrigger(enButtonA)) {//決定
+			ss = NewGO<prefab::CSoundSource>(0);
+			//SE再生
+			ss->Init(L"sound/kettei.wav");
+			ss->SetVolume(1.0f);
+			ss->Play(false);
+
 			DeleteFlag = true;
 		}
 		if (Pad(0).IsTrigger(enButtonUp) || Pad(0).IsTrigger(enButtonDown)) {//コマンド移動
+			ss = NewGO<prefab::CSoundSource>(0);
+			//SE再生
+			ss->Init(L"sound/select.wav");
+			ss->SetVolume(1.0f);
+			ss->Play(false);
+
 			if (CommandNow == false) {
 				CommandNow = true;
 			}

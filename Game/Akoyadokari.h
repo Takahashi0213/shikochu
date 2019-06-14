@@ -1,15 +1,15 @@
 #pragma once
-
-class Bunbogu : public IGameObject
+class Akoyadokari : public IGameObject
 {
 public:
-	Bunbogu();
-	~Bunbogu();
+	Akoyadokari();
+	~Akoyadokari();
+	bool Start();
+	void Update();
 
 	enum Estete {
 		Estete_Attack,  //攻撃
 		Estete_Move, //移動
-		Estete_Follow, //追尾
 		Estete_Death, //死
 		Estete_yobi,	//予備動作
 		Estete_Death2, //死
@@ -20,24 +20,22 @@ public:
 		enAnimationClip_attack01, //攻撃1
 		enAnimationClip_Num,  //アニメーションクリップ
 	};
-	bool Start();
-	void Update();
 
 	//ポジションを返す関数
-	CVector3 Bunbogu::Getm_Position(){
+	CVector3 Akoyadokari::Getm_Position() {
 		return m_position;
 	}
 	//ステートを返す関数
-	int Bunbogu::GetEState() {
+	int Akoyadokari::GetEState() {
 		return m_stete;
 	}
 	//自分が死ぬ関数
-	int Bunbogu::SetDeath() {
+	int Akoyadokari::SetDeath() {
 		m_stete = Estete_Death;
 		return 0;
 	}
 	//自分が死ぬ関数2
-	void Bunbogu::SetDeath2() {
+	void Akoyadokari::SetDeath2() {
 		m_stete = Estete_Death2;
 	}
 	//座標を設定。
@@ -46,7 +44,7 @@ public:
 		m_position = pos;
 	}
 	//回転を設定。
-	void SetRotation( CQuaternion rot )
+	void SetRotation(CQuaternion rot)
 	{
 		m_rotation = rot;
 	}
@@ -64,10 +62,10 @@ public:
 	}
 
 private:
+
 	//状態
 	void EnemyAttack();
 	void EnemyMove();
-	void EnemyFollow();
 	void EnemyDeath();
 	void EnemyDeath2();
 	void Enemyyobi();
@@ -80,32 +78,24 @@ private:
 
 	CVector3 moveVec = CVector3::Zero;
 	CVector3 enemyVec = CVector3::Zero;
-	CVector3 attackVec = CVector3::Zero;
 	Estete m_stete = Estete_Move; //状態
 	CCharacterController m_charaCon; //キャラコン
 
-	//移動関連
-	const float followRange = 300.0f; //追尾する距離（追尾を諦めるまでの距離）
-	const float attackRange = 120.0f; //攻撃する距離
-	const float followSpeed = 80.0f; //追尾の速度
-
-	//ランダム移動関連
-	int count = 0; //ランダム移動のタイマー
-	int random = 0; //ランダム移動の方向乱数
-	const int randomCount = 60; //ランダム移動方向切り替えタイマー
-	const float randomSpeed = 30.3f; //ランダム移動速度
+	 //移動関連
+	int movecount = 0;
+	int random = 0;
+	int timer = 0;
+	const int randomCount = 80;
+	const float randomSpeed = 80.0f;
 
 	//攻撃関連
-	int timer = 0; //攻撃のタイマー
-	const int yobiwait = 70; //予備動作の時間
-	const int attackwait = 90; //攻撃動作の時間
-	const float attackMoveRange = 120.0f; //攻撃時の前進距離と速度
-	bool keisannflag = false;		//フラグ
-	//ステータス
+	const int yobiwait = 60; //予備動作の時間
+	const int attackwait = 40; //攻撃動作の時間
+
 	const float DamageLength = 80.0f; //ダメメージを受けけるは範囲だだよ
 
 	int waveNo = 0; //自分が属するWaveの番号
-	int SpawnWaitTimer = 0;
-	const int SpawnMaxWait = 12;
+
+
 };
 
