@@ -44,14 +44,14 @@ void Misairu::Update() {
 			m_position += moveSpeed;
 
 			//もし移動時間リミットなら
-			if (Timer >= MoveLimit) {
+			if ((Timer >= MoveLimit && TeruFlag == false) || (Timer >= TeruMoveLimit && TeruFlag == true)) {
 				m_stete = Estete_Attack; //攻撃！
 				Timer = 0; //タイマーを0にする
 			}
 
 			break;
 		case Estete_Attack://攻撃
-			if (Timer >= 10 && Timer < 120) {//少し待ってから移動開始
+			if ((Timer >= 10 && Timer < TuibiLimit && TeruFlag==false)|| (Timer >= 0 && Timer < TuibiLimit_Teru && TeruFlag == true)) {//少し待ってから移動開始
 				Player* player = FindGO<Player>("Bug");
 				int state = player->GetState();
 				if (state != Player::Estate_Death) {
@@ -68,6 +68,9 @@ void Misairu::Update() {
 					CQuaternion qRot;
 					qRot.SetRotation(enemyForward, targetVector);
 					m_rotation = qRot;
+				}
+				else {
+					atmove = { 0.0f,0.0f,-1.0f };
 				}
 			}
 

@@ -51,6 +51,7 @@ public:
 	int GameData::ZankiBonusKeisan();
 	int GameData::DamageKeisan(bool dashflag);
 	void GameData::TestMessage();
+	int GameData::GetGameOverKeisan();
 
 	//残機増減
 	void GameData::SetZanki(int x) {
@@ -58,8 +59,8 @@ public:
 		if (Zanki < 0) {
 			Zanki = 0;
 		}
-		if (Zanki > DEF_Zanki) {
-			Zanki = DEF_Zanki;
+		if (Zanki > 99) {
+			Zanki = 99;
 		}
 	}
 
@@ -121,6 +122,11 @@ public:
 		if (Mode == 1) {
 			FinalMode = true;
 		}
+	}
+
+	//最終モード変更
+	void GameData::SetFinalMode(bool flag) {
+		FinalMode = flag;
 	}
 
 	//ゲームモード取得
@@ -309,33 +315,94 @@ public:
 	bool GameData::GetKikoFlag() {
 		return KikoFlag;
 	}
+
+	//リンゴボムフラグをtrueに
+	void GameData::SetBombFlag() {
+		BomFlag = true;
+	}
+	//リンゴボムフラグを返す
+	bool GameData::GetBombFlag() {
+		return BomFlag;
+	}
+
+	//電車フラグをtrueに
+	void GameData::SetDensyaFlag() {
+		DensyaFlag = true;
+	}
+	//電車フラグを返す
+	bool GameData::GetDensyaFlag() {
+		return DensyaFlag;
+	}
+
+	//ラストダメージスターダッシュフラグ（かっこいい名前）を返す
+	bool GameData::GetLastDamage_StarDashFlag() {
+		return LastDamage_StarDashFlag;
+	}
+
 	//キコウチュウボーナスを返す
 	int GameData::GetKikoBonus() {
 		return KikoBonus;
 	}
 
+	//倒した敵の数を+1する
+	void GameData::PlusGekihaEnemy() {
+		GekihaEnemy++;
+		Ruikei_GekihaEnemy++;
+	}
+	//倒した敵の数を返す
+	int GameData::GetGekihaEnemy() {
+		return GekihaEnemy;
+	}
+	//累計で倒した敵の数を返す
+	int GameData::GetRuikeiGekihaEnemy() {
+		return Ruikei_GekihaEnemy;
+	}
+
+	//流星ダッシュでトドメを刺した回数を+1する
+	void GameData::PlusLastStarDash() {
+		LastStarDash++;
+	}
+	//流星ダッシュでトドメを刺した回数を返す
+	int GameData::GetLastStarDash() {
+		return LastStarDash;
+	}
+
+	//ハードモードクリア回数を+1する
+	void GameData::HardClearPlus() {
+		HardClear++;
+	}
+	//ハードモードクリア回数を返す
+	int GameData::GetHardClear() {
+		return HardClear;
+	}
+
+	//ボスにダメージ回数を+1する
+	void GameData::PlusBossDamage() {
+		BossDamage++;
+	}
+	//ボスにダメージ回数を返す
+	int GameData::GetBossDamage() {
+		return BossDamage;
+	}
+
+	//キコウチュウ撃破回数を+1
+	void GameData::KikoGekihaPlus() {
+		KikoGekihaKazu++;
+	}
+	//キコウチュウ撃破回数を返す
+	short GameData::GetKikoGekiha() {
+		return KikoGekihaKazu;
+	}
+
 	//ゲームデータをリセット
 	//ステージ開始時に必ず呼び出すこと！！！！！！！！
-	void GameData::GameDataReset() {
-		//現在残機をデフォルト残機に設定
-		Zanki = DEF_Zanki;
-		//カウント系もろもろ0にする
-		Star_Power = 0;
-		ItemCount = 0;
-		GiriCount = 0;
-		EnemyCount = 0;
-		WaveNow = 0;	
-		WaveMAX = 0;
-		LevelSetFlag = false;
-		ResultFlag = false;
-		KikoFlag = false;
-	}
+	void GameData::GameDataReset();
 
 ///////////////////////////////////////////////////////////////////
 
 private:
 
-	int Zanki = 50; //残機
+	int Zanki = 30; //残機
 	int Star_Power = 0; //流星ダッシュ発動までのゲージ
 
 	int Point = 0; //所持ポイント
@@ -347,7 +414,8 @@ private:
 
 	bool LevelSetFlag = false; //レベルの準備できましたか
 	bool ResultFlag = false; //リザルトへの遷移
-	bool FinalMode = false; //最後は2D？3D？
+	bool FinalMode = false; //最後は2Dならfalse 3Dならtrue
+	short KikoGekihaKazu = 0; //キコウチュウ撃破回数
 
 	//ハードモード
 	bool HardModeFlag = false; //trueならハードモード！
@@ -358,10 +426,18 @@ private:
 	int StageNow = 1; //現在ステージ
 	int WaveMAX = 0; //最終Wave
 	bool KikoFlag = false; //キコウチュウ撃破フラグ
+	int GekihaEnemy = 0; //倒した敵の数
+	int Ruikei_GekihaEnemy = 0; //倒した敵の数（累計）
+	int BossDamage = 0; //ボスにダメージを与えた回数
+	bool BomFlag = false; //リンゴボム被弾フラグ
+	bool DensyaFlag = false; //電車に轢かれたフラグ
+	bool LastDamage_StarDashFlag = false; //最後のダメージで流星ダッシュ判定を行ったかどうかを示すクソ長い名前の変数！！！
+	int LastStarDash = 0; //流星ダッシュでトドメを刺した回数
+	int HardClear = 0; //ハードモードクリア回数
 
 	//以下ポイントで強化できる部分
 	int ATK = 100; //基本攻撃力
-	int DEF_Zanki = 50; //デフォルト残機
+	int DEF_Zanki = 30; //デフォルト残機
 	int DEF_Life = 100; //デフォルト寿命
 
 	//定数
@@ -369,9 +445,10 @@ private:
 	const float GiriBonus_Line = 0.5f; //ギリギリボーナスが成立するライン 最大は1.0f（100%）
 	const int MAX_ZankiBonus = 10000; //残機ボーナスの最大値
 	const int GiriBonusHosei = 200; //ギリギリで倒した敵の数*この変数→ギリギリボーナスの値
-	const int ItemBonusHosei = 10; //拾ったアイテムの数*この変数→アイテムボーナスの値
+	const int ItemBonusHosei = 50; //拾ったアイテムの数*この変数→アイテムボーナスの値
+	const int GameOverBonus = 50; //ゲームオーバーになったら、この変数*倒した敵の数のポイントがもらえる
 	const int ZankiDEF_MAX = 99; //初期残機最大値
-	const float Hard_BossHosei = 1.5f; //ハードモードでボスのHPにかかる補正
-	const float Hard_ScoreHosei = 1.5f; //ハードモードでスコアにかかる補正
+	const float Hard_BossHosei = 1.4f; //ハードモードでボスのHPにかかる補正
+	const float Hard_ScoreHosei = 2.0f; //ハードモードでスコアにかかる補正
 	const int KikoBonus = 2000; //キコウチュウを倒したときにスコアに加算される数
 };

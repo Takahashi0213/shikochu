@@ -15,10 +15,18 @@ bool EffectPlay::Start()
 {
 	//エフェクトのインスタンスの作成。
 	effect = NewGO<prefab::CEffect>(0);
+	effect->SetPostRenderFlag(m_isPost);
 	effect->Play(animation.c_str());	//再生
 	effect->SetScale(scale);
 	effect->SetPosition(position);
 
+	if (P_RotationFlag == true) {
+		Player * player = Player::GetInstance();
+		CQuaternion Rot = player->GetRotation();
+		Rot = Rot * -1.0f;
+		effect->SetRotation(Rot);
+	}
+	
 	return true;
 }
 

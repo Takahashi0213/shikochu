@@ -1,0 +1,138 @@
+#pragma once
+class Morinchu : public IGameObject
+{
+public:
+	Morinchu();
+	~Morinchu();
+	bool Start();
+	void Update();
+
+	enum Estete {
+		Estete_Move,	//移動
+		Estete_Attack1,  //攻撃1
+		Estete_Yobi1,	//予備動作1
+		Estete_Attack2,  //攻撃1
+		Estete_Death,	 //死ﾇ
+		Estete_Death2,	 //死ﾇ
+
+	};
+
+	enum EnAnimationClip {
+		enAnimationClip_move, //動作
+		enAnimationClip_yobi, //予備
+		enAnimationClip_attack, //攻撃
+		enAnimationClip_dead, //
+		enAnimationClip_yobi_L, //予備ループ
+		enAnimationClip_Num,  //アニメーションクリップ
+	};
+
+	//ポジションを返す関数
+
+	CVector3 Morinchu::Getm_Position() {
+		return m_position;
+	}
+	//ステートを返す関数
+	int Morinchu::GetEState() {
+		return m_stete;
+	}
+	//ダメージ範囲を教える関数
+	float GetDamageLength() {
+		return DamageLength;
+	}
+
+	//自分が死ぬ関数
+	int Morinchu::SetDeath() {
+		m_stete = Estete_Death2;
+		return 0;
+	}
+
+	//座標を設定。
+	void SetPosition(CVector3 pos)
+	{
+		m_position = pos;
+	}
+	//回転を設定。
+	void SetRotation(CQuaternion rot)
+	{
+		m_rotation = rot;
+	}
+
+	//引数分HPを減少させる
+	void Damage(int x) {
+		NowHP -= x;
+		if (NowHP < 0) {//負の数にならないようにしておく
+			NowHP = 0;
+		}
+	}
+
+	//現在HPを返す
+	int GetHP() {
+		return NowHP;
+	}
+
+	//最大HPを返す
+	int GetMAXHP() {
+		return MAXHP;
+	}
+
+	//所属Waveをセット
+	void SetWave(int x) {
+		waveNo = x;
+	}
+	//所属Waveを返す
+	int GetWave() {
+		return waveNo;
+	}
+
+private:
+
+	void MoriMove();
+	void MoriYobi1();
+	void MoriAttack1();
+	void MoriAttack2();
+	void MoriDeath();
+	void MoriDeath2();
+
+	CAnimationClip m_animClips[enAnimationClip_Num];
+	prefab::CSkinModelRender* m_skinModelRender = nullptr;	//スキンモデルレンダラー。
+	CVector3 m_position = CVector3::Zero; // 座標。
+	CQuaternion m_rotation = CQuaternion::Identity; //回転。
+	CVector3 m_scale = CVector3::One; // 拡大率。
+	CVector3 shisoVec;
+	prefab::CSoundSource* ss;
+
+	Estete m_stete = Estete_Move; //状態
+	CCharacterController m_charaCon; //キャラコン
+
+	const float DamageLengthDEF = 2680.0f; //ダメージレンジデフォルト！（そのまんま）
+	float DamageLength = 2680.0f; //ダメメージを受けけるは範囲だだよ
+
+	int waveNo = 0; //自分が属するWaveの番号
+
+	int MAXHP = 5500; //最大HP
+	int NowHP = MAXHP; //現在HP
+
+	 //
+
+	int MoveTimer = 0;
+	const int MoveLimit = 120;
+
+	//
+
+	int YobiTimer = 0; //予備動作タイマー
+	const int YobiLimit = 80; //予備動作制限時間
+
+	int AttackTimer = 0; //攻撃動作タイマー
+	const int AttackLimit = 40; //攻撃動作制限時間
+	const int AttackTiming = 10; //攻撃判定が発生するタイミング
+
+	const int AttackLimit2 = 120; //攻撃動作制限時間2
+	const int Attack2Ave = 30; //リンゴ生成間隔時間
+	//
+
+	int DeathTimer = 0; //HPが0になってからDeleteGOされるまでのタイマー 演出用
+	const int ToumeiTimeMAX = 240; //この時間になると透明になる
+	const int DeathTimeMAX = 360; //↑の上限
+
+
+};

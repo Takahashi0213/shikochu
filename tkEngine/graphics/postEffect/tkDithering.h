@@ -29,6 +29,14 @@ namespace tkEngine{
 		*@param[in]		rc		レンダリングコンテキスト。
 		*/
 		void Render(CRenderContext& rc, CPostEffect* postEffect);
+		/// <summary>
+		/// プレイヤーの座標を設定する。
+		/// </summary>
+		/// <param name="playerPos">プレイヤーの座標(スクリーン座標系)</param>
+		void SetPlayerPosition(CVector2 playerPos)
+		{
+			m_cbCPU.playerPos = playerPos;
+		}
 		void SetLigRange(float range, float interpolateTime)
 		{
 			if (interpolateTime < 0.001f) {
@@ -68,12 +76,14 @@ namespace tkEngine{
 		}
 		//ポイントライトの座標を生成。
 		CVector2 GeneratePointLigPosition();
+		CVector2 GeneratePointLigPosition_rand(); //ランダム用
 		//ポイントライトを追加
 		//pos ポイントライトを出したい座標。
 		void AddPointLig(CVector2 pos);
 		
 	private:
 		struct SCb {
+			CVector2 playerPos = {0.0f, 0.0f};		//プレイヤーの座標(スクリーン座標系？)
 			float ligRange = 0.8f;
 			int numPointLig = 0;	//ポイントライトの数。
 		};

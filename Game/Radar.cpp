@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Radar.h"
 #include "GameData.h"
+#include "SaveData.h"
 
 #include "Player.h"
 
@@ -16,16 +17,44 @@
 #include "Arukasya.h"
 #include "Uminoushi.h"
 #include "Akoyadokari.h"
+#include "Benite.h"
+#include "Nibo.h"
+#include "Sekuteimu.h"
+#include "Kirabi.h"
+#include "Suteira.h"
+#include "Idando.h"
+#include "Kodan.h"
+#include "Taidol.h"
+#include "Suroku.h"
+#include "Mimitto.h"
+#include "Tizutyo.h"
+#include "Kuubo.h"
+#include "Toripipi.h"
+#include "Atsukaru.h"
+#include "Metoporisu.h"
 
 #include "Kikochu.h"
 
+#include "StarItem.h"
+
+Radar* Radar::m_instance = nullptr;
+
 Radar::Radar()
 {
+	if (m_instance != nullptr) {
+		std::abort(); //すでに出ているためクラッシュ
+	}
+
+	//このインスタンスを唯一のインスタンスとして記録する
+	m_instance = this;
 }
 
 
 Radar::~Radar()
 {
+	//インスタンスが破棄されたので、nullptrを代入
+	m_instance = nullptr;
+
 	DeleteGO(m_skinModelRender);
 }
 
@@ -42,7 +71,7 @@ bool Radar::Start() {
 void Radar::Update() {
 
 	Player * player = Player::GetInstance();
-	//GameData * gamedata = GameData::GetInstance();
+	SaveData * savedata = SaveData::GetInstance();
 
 	//ブンボーグとの距離を計算
 	QueryGOs<Bunbogu>("bun", [&](Bunbogu* bunbogu) {
@@ -53,13 +82,19 @@ void Radar::Update() {
 		CVector3 player_position= player->Getm_Position();
 		CVector3 enemy_position = bunbogu->Getm_Position();
 		CVector3 diff = enemy_position - player_position;
-		
+		CVector3 RotHoge = diff;
+
 		diff.Normalize();
+
+		CVector3 RadarForward = { 0.0f, 0.0f, 1.0f };
+		CQuaternion qRot;
+		qRot.SetRotation(RadarForward, diff);
+
 		diff *= 40.0f;
 
 		CVector3 pointPos = player_position + diff;
 
-		m_skinModelRender->UpdateInstancingData(pointPos, CQuaternion::Identity, { 0.2f, 0.2f, 0.2f });
+		m_skinModelRender->UpdateInstancingData(pointPos, qRot, { 0.2f, 0.2f, 0.2f });
 		return true;
 		});
 
@@ -72,13 +107,19 @@ void Radar::Update() {
 		CVector3 player_position = player->Getm_Position();
 		CVector3 enemy_position = neoriku->Getm_Position();
 		CVector3 diff = enemy_position - player_position;
+		CVector3 RotHoge = diff;
 
 		diff.Normalize();
+
+		CVector3 RadarForward = { 0.0f, 0.0f, 1.0f };
+		CQuaternion qRot;
+		qRot.SetRotation(RadarForward, diff);
+
 		diff *= 40.0f;
 
 		CVector3 pointPos = player_position + diff;
 
-		m_skinModelRender->UpdateInstancingData(pointPos, CQuaternion::Identity, { 0.2f, 0.2f, 0.2f });
+		m_skinModelRender->UpdateInstancingData(pointPos, qRot, { 0.2f, 0.2f, 0.2f });
 		return true;
 		});
 
@@ -91,13 +132,19 @@ void Radar::Update() {
 		CVector3 player_position = player->Getm_Position();
 		CVector3 enemy_position = souka->Getm_Position();
 		CVector3 diff = enemy_position - player_position;
+		CVector3 RotHoge = diff;
 
 		diff.Normalize();
+
+		CVector3 RadarForward = { 0.0f, 0.0f, 1.0f };
+		CQuaternion qRot;
+		qRot.SetRotation(RadarForward, diff);
+
 		diff *= 40.0f;
 
 		CVector3 pointPos = player_position + diff;
 
-		m_skinModelRender->UpdateInstancingData(pointPos, CQuaternion::Identity, { 0.2f, 0.2f, 0.2f });
+		m_skinModelRender->UpdateInstancingData(pointPos, qRot, { 0.2f, 0.2f, 0.2f });
 		return true;
 		});
 
@@ -110,13 +157,19 @@ void Radar::Update() {
 		CVector3 player_position = player->Getm_Position();
 		CVector3 enemy_position = ekku->Getm_Position();
 		CVector3 diff = enemy_position - player_position;
+		CVector3 RotHoge = diff;
 
 		diff.Normalize();
+
+		CVector3 RadarForward = { 0.0f, 0.0f, 1.0f };
+		CQuaternion qRot;
+		qRot.SetRotation(RadarForward, diff);
+
 		diff *= 40.0f;
 
 		CVector3 pointPos = player_position + diff;
 
-		m_skinModelRender->UpdateInstancingData(pointPos, CQuaternion::Identity, { 0.2f, 0.2f, 0.2f });
+		m_skinModelRender->UpdateInstancingData(pointPos, qRot, { 0.2f, 0.2f, 0.2f });
 		return true;
 		});
 
@@ -129,13 +182,19 @@ void Radar::Update() {
 		CVector3 player_position = player->Getm_Position();
 		CVector3 enemy_position = pi_rabi->Getm_Position();
 		CVector3 diff = enemy_position - player_position;
+		CVector3 RotHoge = diff;
 
 		diff.Normalize();
+
+		CVector3 RadarForward = { 0.0f, 0.0f, 1.0f };
+		CQuaternion qRot;
+		qRot.SetRotation(RadarForward, diff);
+
 		diff *= 40.0f;
 
 		CVector3 pointPos = player_position + diff;
 
-		m_skinModelRender->UpdateInstancingData(pointPos, CQuaternion::Identity, { 0.2f, 0.2f, 0.2f });
+		m_skinModelRender->UpdateInstancingData(pointPos, qRot, { 0.2f, 0.2f, 0.2f });
 		return true;
 		});
 
@@ -148,13 +207,19 @@ void Radar::Update() {
 		CVector3 player_position = player->Getm_Position();
 		CVector3 enemy_position = fairo->Getm_Position();
 		CVector3 diff = enemy_position - player_position;
+		CVector3 RotHoge = diff;
 
 		diff.Normalize();
+
+		CVector3 RadarForward = { 0.0f, 0.0f, 1.0f };
+		CQuaternion qRot;
+		qRot.SetRotation(RadarForward, diff);
+
 		diff *= 40.0f;
 
 		CVector3 pointPos = player_position + diff;
 
-		m_skinModelRender->UpdateInstancingData(pointPos, CQuaternion::Identity, { 0.2f, 0.2f, 0.2f });
+		m_skinModelRender->UpdateInstancingData(pointPos, qRot, { 0.2f, 0.2f, 0.2f });
 		return true;
 		});
 
@@ -167,13 +232,19 @@ void Radar::Update() {
 		CVector3 player_position = player->Getm_Position();
 		CVector3 enemy_position = morikon->Getm_Position();
 		CVector3 diff = enemy_position - player_position;
+		CVector3 RotHoge = diff;
 
 		diff.Normalize();
+
+		CVector3 RadarForward = { 0.0f, 0.0f, 1.0f };
+		CQuaternion qRot;
+		qRot.SetRotation(RadarForward, diff);
+
 		diff *= 40.0f;
 
 		CVector3 pointPos = player_position + diff;
 
-		m_skinModelRender->UpdateInstancingData(pointPos, CQuaternion::Identity, { 0.2f, 0.2f, 0.2f });
+		m_skinModelRender->UpdateInstancingData(pointPos, qRot, { 0.2f, 0.2f, 0.2f });
 		return true;
 		});
 
@@ -186,13 +257,19 @@ void Radar::Update() {
 		CVector3 player_position = player->Getm_Position();
 		CVector3 enemy_position = riritto->Getm_Position();
 		CVector3 diff = enemy_position - player_position;
+		CVector3 RotHoge = diff;
 
 		diff.Normalize();
+
+		CVector3 RadarForward = { 0.0f, 0.0f, 1.0f };
+		CQuaternion qRot;
+		qRot.SetRotation(RadarForward, diff);
+
 		diff *= 40.0f;
 
 		CVector3 pointPos = player_position + diff;
 
-		m_skinModelRender->UpdateInstancingData(pointPos, CQuaternion::Identity, { 0.2f, 0.2f, 0.2f });
+		m_skinModelRender->UpdateInstancingData(pointPos, qRot, { 0.2f, 0.2f, 0.2f });
 		return true;
 		});
 
@@ -205,13 +282,19 @@ void Radar::Update() {
 		CVector3 player_position = player->Getm_Position();
 		CVector3 enemy_position = arukasya->Getm_Position();
 		CVector3 diff = enemy_position - player_position;
+		CVector3 RotHoge = diff;
 
 		diff.Normalize();
+
+		CVector3 RadarForward = { 0.0f, 0.0f, 1.0f };
+		CQuaternion qRot;
+		qRot.SetRotation(RadarForward, diff);
+
 		diff *= 40.0f;
 
 		CVector3 pointPos = player_position + diff;
 
-		m_skinModelRender->UpdateInstancingData(pointPos, CQuaternion::Identity, { 0.2f, 0.2f, 0.2f });
+		m_skinModelRender->UpdateInstancingData(pointPos, qRot, { 0.2f, 0.2f, 0.2f });
 		return true;
 		});
 
@@ -224,13 +307,19 @@ void Radar::Update() {
 		CVector3 player_position = player->Getm_Position();
 		CVector3 enemy_position = uminoushi->Getm_Position();
 		CVector3 diff = enemy_position - player_position;
+		CVector3 RotHoge = diff;
 
 		diff.Normalize();
+
+		CVector3 RadarForward = { 0.0f, 0.0f, 1.0f };
+		CQuaternion qRot;
+		qRot.SetRotation(RadarForward, diff);
+
 		diff *= 40.0f;
 
 		CVector3 pointPos = player_position + diff;
 
-		m_skinModelRender->UpdateInstancingData(pointPos, CQuaternion::Identity, { 0.2f, 0.2f, 0.2f });
+		m_skinModelRender->UpdateInstancingData(pointPos, qRot, { 0.2f, 0.2f, 0.2f });
 		return true;
 		});
 
@@ -243,29 +332,447 @@ void Radar::Update() {
 		CVector3 player_position = player->Getm_Position();
 		CVector3 enemy_position = akoyadokari->Getm_Position();
 		CVector3 diff = enemy_position - player_position;
+		CVector3 RotHoge = diff;
 
 		diff.Normalize();
+
+		CVector3 RadarForward = { 0.0f, 0.0f, 1.0f };
+		CQuaternion qRot;
+		qRot.SetRotation(RadarForward, diff);
+
 		diff *= 40.0f;
 
 		CVector3 pointPos = player_position + diff;
 
-		m_skinModelRender->UpdateInstancingData(pointPos, CQuaternion::Identity, { 0.2f, 0.2f, 0.2f });
+		m_skinModelRender->UpdateInstancingData(pointPos, qRot, { 0.2f, 0.2f, 0.2f });
 		return true;
 		});
 
-	//QueryGOs<Kikochu>("Kikochu", [&](Kikochu* kikochu) {
-	//	if (kikochu->IsActive() == false) {
-	//		//Activeじゃない。
-	//		return true;
-	//	}
-	//	CVector3 player_position = player->Getm_Position();
-	//	CVector3 enemy_position = kikochu->Getm_Position();
-	//	CVector3 diff = enemy_position - player_position;
-	//	diff.Normalize();
-	//	diff *= 40.0f;
-	//	CVector3 pointPos = player_position + diff;
-	//	m_skinModelRender->UpdateInstancingData(pointPos, CQuaternion::Identity, { 0.2f, 0.2f, 0.2f });
-	//	return true;
-	//	});
+	//ベニテーとの距離を計算
+	QueryGOs<Benite>("Benite", [&](Benite* benite) {
+		if (benite->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 player_position = player->Getm_Position();
+		CVector3 enemy_position = benite->Getm_Position();
+		CVector3 diff = enemy_position - player_position;
+		CVector3 RotHoge = diff;
+
+		diff.Normalize();
+
+		CVector3 RadarForward = { 0.0f, 0.0f, 1.0f };
+		CQuaternion qRot;
+		qRot.SetRotation(RadarForward, diff);
+
+		diff *= 40.0f;
+
+		CVector3 pointPos = player_position + diff;
+
+		m_skinModelRender->UpdateInstancingData(pointPos, qRot, { 0.2f, 0.2f, 0.2f });
+		return true;
+		});
+
+	//ニーボーとの距離を計算
+	QueryGOs<Nibo>("Nibo", [&](Nibo* nibo) {
+		if (nibo->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 player_position = player->Getm_Position();
+		CVector3 enemy_position = nibo->Getm_Position();
+		CVector3 diff = enemy_position - player_position;
+		CVector3 RotHoge = diff;
+
+		diff.Normalize();
+
+		CVector3 RadarForward = { 0.0f, 0.0f, 1.0f };
+		CQuaternion qRot;
+		qRot.SetRotation(RadarForward, diff);
+
+		diff *= 40.0f;
+
+		CVector3 pointPos = player_position + diff;
+
+		m_skinModelRender->UpdateInstancingData(pointPos, qRot, { 0.2f, 0.2f, 0.2f });
+		return true;
+		});
+
+	//セクティムとの距離を計算
+	QueryGOs<Sekuteimu>("Sekuteimu", [&](Sekuteimu* sekuteimu) {
+		if (sekuteimu->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 player_position = player->Getm_Position();
+		CVector3 enemy_position = sekuteimu->Getm_Position();
+		CVector3 diff = enemy_position - player_position;
+		CVector3 RotHoge = diff;
+
+		diff.Normalize();
+
+		CVector3 RadarForward = { 0.0f, 0.0f, 1.0f };
+		CQuaternion qRot;
+		qRot.SetRotation(RadarForward, diff);
+
+		diff *= 40.0f;
+
+		CVector3 pointPos = player_position + diff;
+
+		m_skinModelRender->UpdateInstancingData(pointPos, qRot, { 0.2f, 0.2f, 0.2f });
+		return true;
+		});
+
+	//キラビンとの距離を計算
+	QueryGOs<Kirabi>("Kirabi", [&](Kirabi* kirabi) {
+		if (kirabi->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 player_position = player->Getm_Position();
+		CVector3 enemy_position = kirabi->Getm_Position();
+		CVector3 diff = enemy_position - player_position;
+		CVector3 RotHoge = diff;
+
+		diff.Normalize();
+
+		CVector3 RadarForward = { 0.0f, 0.0f, 1.0f };
+		CQuaternion qRot;
+		qRot.SetRotation(RadarForward, diff);
+
+		diff *= 40.0f;
+
+		CVector3 pointPos = player_position + diff;
+
+		m_skinModelRender->UpdateInstancingData(pointPos, qRot, { 0.2f, 0.2f, 0.2f });
+		return true;
+		});
+
+	//スティラとの距離を計算
+	QueryGOs<Suteira>("Suteira", [&](Suteira* suteira) {
+		if (suteira->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 player_position = player->Getm_Position();
+		CVector3 enemy_position = suteira->Getm_Position();
+		CVector3 diff = enemy_position - player_position;
+		CVector3 RotHoge = diff;
+
+		diff.Normalize();
+
+		CVector3 RadarForward = { 0.0f, 0.0f, 1.0f };
+		CQuaternion qRot;
+		qRot.SetRotation(RadarForward, diff);
+
+		diff *= 40.0f;
+
+		CVector3 pointPos = player_position + diff;
+
+		m_skinModelRender->UpdateInstancingData(pointPos, qRot, { 0.2f, 0.2f, 0.2f });
+		return true;
+		});
+
+	//イーダンドとの距離を計算
+	QueryGOs<Idando>("Idando", [&](Idando* idando) {
+		if (idando->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 player_position = player->Getm_Position();
+		CVector3 enemy_position = idando->Getm_Position();
+		CVector3 diff = enemy_position - player_position;
+		CVector3 RotHoge = diff;
+
+		diff.Normalize();
+
+		CVector3 RadarForward = { 0.0f, 0.0f, 1.0f };
+		CQuaternion qRot;
+		qRot.SetRotation(RadarForward, diff);
+
+		diff *= 40.0f;
+
+		CVector3 pointPos = player_position + diff;
+
+		m_skinModelRender->UpdateInstancingData(pointPos, qRot, { 0.2f, 0.2f, 0.2f });
+		return true;
+		});
+
+	//コダンとの距離を計算
+	QueryGOs<Kodan>("Kodan", [&](Kodan* kodan) {
+		if (kodan->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 player_position = player->Getm_Position();
+		CVector3 enemy_position = kodan->Getm_Position();
+		CVector3 diff = enemy_position - player_position;
+		CVector3 RotHoge = diff;
+
+		diff.Normalize();
+
+		CVector3 RadarForward = { 0.0f, 0.0f, 1.0f };
+		CQuaternion qRot;
+		qRot.SetRotation(RadarForward, diff);
+
+		diff *= 40.0f;
+
+		CVector3 pointPos = player_position + diff;
+
+		m_skinModelRender->UpdateInstancingData(pointPos, qRot, { 0.2f, 0.2f, 0.2f });
+		return true;
+		});
+
+	//タイドルとの距離を計算
+	QueryGOs<Taidol>("Taidol", [&](Taidol* taidol) {
+		if (taidol->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 player_position = player->Getm_Position();
+		CVector3 enemy_position = taidol->Getm_Position();
+		CVector3 diff = enemy_position - player_position;
+		CVector3 RotHoge = diff;
+
+		diff.Normalize();
+
+		CVector3 RadarForward = { 0.0f, 0.0f, 1.0f };
+		CQuaternion qRot;
+		qRot.SetRotation(RadarForward, diff);
+
+		diff *= 40.0f;
+
+		CVector3 pointPos = player_position + diff;
+
+		m_skinModelRender->UpdateInstancingData(pointPos, qRot, { 0.2f, 0.2f, 0.2f });
+		return true;
+		});
+
+	//スロークとの距離を計算
+	QueryGOs<Suroku>("Suroku", [&](Suroku* suroku) {
+		if (suroku->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 player_position = player->Getm_Position();
+		CVector3 enemy_position = suroku->Getm_Position();
+		CVector3 diff = enemy_position - player_position;
+		CVector3 RotHoge = diff;
+
+		diff.Normalize();
+
+		CVector3 RadarForward = { 0.0f, 0.0f, 1.0f };
+		CQuaternion qRot;
+		qRot.SetRotation(RadarForward, diff);
+
+		diff *= 40.0f;
+
+		CVector3 pointPos = player_position + diff;
+
+		m_skinModelRender->UpdateInstancingData(pointPos, qRot, { 0.2f, 0.2f, 0.2f });
+		return true;
+		});
+
+	//ミミットとの距離を計算
+	QueryGOs<Mimitto>("Mimitto", [&](Mimitto* mimitto) {
+		if (mimitto->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 player_position = player->Getm_Position();
+		CVector3 enemy_position = mimitto->Getm_Position();
+		CVector3 diff = enemy_position - player_position;
+		CVector3 RotHoge = diff;
+
+		diff.Normalize();
+
+		CVector3 RadarForward = { 0.0f, 0.0f, 1.0f };
+		CQuaternion qRot;
+		qRot.SetRotation(RadarForward, diff);
+
+		diff *= 40.0f;
+
+		CVector3 pointPos = player_position + diff;
+
+		m_skinModelRender->UpdateInstancingData(pointPos, qRot, { 0.2f, 0.2f, 0.2f });
+		return true;
+		});
+
+	//チズチョウとの距離を計算
+	QueryGOs<Tizutyo>("Tizutyo", [&](Tizutyo* tizutyo) {
+		if (tizutyo->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 player_position = player->Getm_Position();
+		CVector3 enemy_position = tizutyo->Getm_Position();
+		CVector3 diff = enemy_position - player_position;
+		CVector3 RotHoge = diff;
+
+		diff.Normalize();
+
+		CVector3 RadarForward = { 0.0f, 0.0f, 1.0f };
+		CQuaternion qRot;
+		qRot.SetRotation(RadarForward, diff);
+
+		diff *= 40.0f;
+
+		CVector3 pointPos = player_position + diff;
+
+		m_skinModelRender->UpdateInstancingData(pointPos, qRot, { 0.2f, 0.2f, 0.2f });
+		return true;
+		});
+
+	//クーボとの距離を計算
+	QueryGOs<Kuubo>("Kuubo", [&](Kuubo* kuubo) {
+		if (kuubo->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 player_position = player->Getm_Position();
+		CVector3 enemy_position = kuubo->Getm_Position();
+		CVector3 diff = enemy_position - player_position;
+		CVector3 RotHoge = diff;
+
+		diff.Normalize();
+
+		CVector3 RadarForward = { 0.0f, 0.0f, 1.0f };
+		CQuaternion qRot;
+		qRot.SetRotation(RadarForward, diff);
+
+		diff *= 40.0f;
+
+		CVector3 pointPos = player_position + diff;
+
+		m_skinModelRender->UpdateInstancingData(pointPos, qRot, { 0.2f, 0.2f, 0.2f });
+		return true;
+		});
+
+	//トリピピとの距離を計算
+	QueryGOs<Toripipi>("Toripipi", [&](Toripipi* toripipi) {
+		if (toripipi->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 player_position = player->Getm_Position();
+		CVector3 enemy_position = toripipi->Getm_Position();
+		CVector3 diff = enemy_position - player_position;
+		CVector3 RotHoge = diff;
+
+		diff.Normalize();
+
+		CVector3 RadarForward = { 0.0f, 0.0f, 1.0f };
+		CQuaternion qRot;
+		qRot.SetRotation(RadarForward, diff);
+
+		diff *= 40.0f;
+
+		CVector3 pointPos = player_position + diff;
+
+		m_skinModelRender->UpdateInstancingData(pointPos, qRot, { 0.2f, 0.2f, 0.2f });
+		return true;
+		});
+
+	//アツカルとの距離を計算
+	QueryGOs<Atsukaru>("Atsukaru", [&](Atsukaru* atsukaru) {
+		if (atsukaru->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 player_position = player->Getm_Position();
+		CVector3 enemy_position = atsukaru->Getm_Position();
+		CVector3 diff = enemy_position - player_position;
+		CVector3 RotHoge = diff;
+
+		diff.Normalize();
+
+		CVector3 RadarForward = { 0.0f, 0.0f, 1.0f };
+		CQuaternion qRot;
+		qRot.SetRotation(RadarForward, diff);
+
+		diff *= 40.0f;
+
+		CVector3 pointPos = player_position + diff;
+
+		m_skinModelRender->UpdateInstancingData(pointPos, qRot, { 0.2f, 0.2f, 0.2f });
+		return true;
+		});
+
+	//メトポリスとの距離を計算
+	QueryGOs<Metoporisu>("Metoporisu", [&](Metoporisu* metoporisu) {
+		if (metoporisu->IsActive() == false) {
+			//Activeじゃない。
+			return true;
+		}
+		CVector3 player_position = player->Getm_Position();
+		CVector3 enemy_position = metoporisu->Getm_Position();
+		CVector3 diff = enemy_position - player_position;
+		CVector3 RotHoge = diff;
+
+		diff.Normalize();
+
+		CVector3 RadarForward = { 0.0f, 0.0f, 1.0f };
+		CQuaternion qRot;
+		qRot.SetRotation(RadarForward, diff);
+
+		diff *= 40.0f;
+
+		CVector3 pointPos = player_position + diff;
+
+		m_skinModelRender->UpdateInstancingData(pointPos, qRot, { 0.2f, 0.2f, 0.2f });
+		return true;
+		});
+
+	if (player->GetNowSkill() == 22) { //キコサーチ中だけ
+		QueryGOs<Kikochu>("Kikochu", [&](Kikochu* kikochu) {
+			if (kikochu->IsActive() == false) {
+				//Activeじゃない。
+				return true;
+			}
+			CVector3 player_position = player->Getm_Position();
+			CVector3 enemy_position = kikochu->Getm_Position();
+			CVector3 diff = enemy_position - player_position;
+			CVector3 RotHoge = diff;
+
+			diff.Normalize();
+
+			CVector3 RadarForward = { 0.0f, 0.0f, 1.0f };
+			CQuaternion qRot;
+			qRot.SetRotation(RadarForward, diff);
+
+			diff *= 40.0f;
+
+			CVector3 pointPos = player_position + diff;
+
+			m_skinModelRender->UpdateInstancingData(pointPos, qRot, { 0.2f, 0.2f, 0.2f });
+			return true;
+			});
+	}
+
+	if (savedata->GetSkill(false) == 23 || savedata->GetSkill(true) == 23) { //アイテムレーダー
+		QueryGOs<StarItem>("Item", [&](StarItem* staritem) {
+			if (staritem->IsActive() == false) {
+				//Activeじゃない。
+				return true;
+			}
+			CVector3 player_position = player->Getm_Position();
+			CVector3 enemy_position = staritem->Getm_Position();
+			CVector3 diff = enemy_position - player_position;
+			CVector3 RotHoge = diff;
+
+			diff.Normalize();
+
+			CVector3 RadarForward = { 0.0f, 0.0f, 1.0f };
+			CQuaternion qRot;
+			qRot.SetRotation(RadarForward, diff);
+
+			diff *= 30.0f;
+
+			CVector3 pointPos = player_position + diff;
+
+			m_skinModelRender->UpdateInstancingData(pointPos, qRot, { 0.1f, 0.1f, 0.1f });
+			return true;
+			});
+	}
 
 }

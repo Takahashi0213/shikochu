@@ -63,6 +63,14 @@ bool TutorialWait::Start() {
 	r->SetMulColor(MulColor);
 	r->SetScale({ 10.0f,10.0f,10.0f });
 	m_spriteRender.push_back(r);
+	//4番 星
+	r = NewGO<prefab::CSpriteRender>(18);
+	r->Init(L"sprite/Star2.dds", 200.0f, 200.0f);
+	r->SetPosition({ 200.0f ,-150.0f,0.0f });
+	MulColor = { 1.0f,1.0f,1.0f,1.0f };
+	r->SetMulColor(MulColor);
+	r->SetScale({ 0.0f,0.0f,0.0f });
+	m_spriteRender.push_back(r);
 
 	//ハイスコア 0番
 	f = NewGO<prefab::CFontRender>(18);
@@ -147,9 +155,11 @@ void TutorialWait::Update() {
 		if (DeleteTimer == 0) {//準備
 			if (SelectNow == true) {//Yes
 				m_spriteRender[3]->SetPosition({ -200.0f,Sentaku_Y,0.0f });
+				m_spriteRender[4]->SetPosition({ -200.0f,Sentaku_Y,0.0f });
 			}
 			else if (SelectNow == false) {//No
 				m_spriteRender[3]->SetPosition({ 200.0f,Sentaku_Y,0.0f });
+				m_spriteRender[4]->SetPosition({ 200.0f,Sentaku_Y,0.0f });
 			}
 		}
 
@@ -188,12 +198,23 @@ void TutorialWait::Update() {
 			CVector3 scl = m_spriteRender[3]->GetScale();
 			scl *= 1.1f;
 			m_spriteRender[3]->SetScale(scl);
+			scl = m_spriteRender[4]->GetScale();
+			scl.x += 0.2f;
+			scl.y += 0.2f;
+			m_spriteRender[4]->SetScale(scl);
+
 			CVector4 m_col = m_spriteRender[3]->GetMulColor();
 			m_col.a -= 0.1f;
 			if (m_col.a < 0.0f) {
 				m_col.a = 0.0f;
 			}
 			m_spriteRender[3]->SetMulColor(m_col);
+			m_col = m_spriteRender[4]->GetMulColor();
+			m_col.a -= 0.05f;
+			if (m_col.a < 0.0f) {
+				m_col.a = 0.0f;
+			}
+			m_spriteRender[4]->SetMulColor(m_col);
 
 			if (DeleteTimer > 24) {
 				//不透明度

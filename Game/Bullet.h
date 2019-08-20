@@ -39,7 +39,7 @@ private:
 	bool keisannflag = false;		//ライト
 	const int bulletdelete = 120; //玉を消すまでのタイマー
 	const CVector3 bulletscale = { 2.0f,2.0f,2.0f }; //玉の大きさ
-	const CVector3 bulletEmissionColor = { 80.0f,0.0f,200.0f }; //玉の大きさ
+	const CVector3 bulletEmissionColor = { 80.0f,0.0f,200.0f }; //玉の色
 
 	const float DamageLength = 50.0f; //ダメメージを受けけるは範囲だだよ
 	Neoriku* m_neoriku = nullptr;		//発射したやつ

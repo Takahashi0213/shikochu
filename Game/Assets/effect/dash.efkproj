@@ -6,7 +6,7 @@
       <Node>
         <CommonValues>
           <MaxGeneration>
-            <Value>12</Value>
+            <Value>100</Value>
           </MaxGeneration>
           <Life>
             <Center>24</Center>
@@ -22,18 +22,26 @@
         <LocationValues>
           <Type>2</Type>
           <Easing>
+            <Start>
+              <Z>
+                <Center>3</Center>
+                <Max>3</Max>
+                <Min>3</Min>
+              </Z>
+            </Start>
             <End>
               <X>
-                <Max>2</Max>
-                <Min>-2</Min>
+                <Max>3</Max>
+                <Min>-3</Min>
               </X>
               <Y>
-                <Max>2</Max>
-                <Min>-2</Min>
+                <Max>3</Max>
+                <Min>-3</Min>
               </Y>
               <Z>
-                <Max>2</Max>
-                <Min>-2</Min>
+                <Center>-8</Center>
+                <Max>-4</Max>
+                <Min>-12</Min>
               </Z>
             </End>
             <StartSpeed>20</StartSpeed>

@@ -5,6 +5,7 @@
 #include "NerukGenerator.h"
 #include "BossHPGage.h"
 #include "EffectManager.h"
+#include "StarComet_Inseki.h"
 
 shisokus::shisokus()
 {
@@ -218,8 +219,26 @@ void shisokus::Update() {
 	}
 	//HPが0なら死ぬ
 	if (NowHP == 0) {
+		if (gamedata->GetLastDamage_StarDashFlag() == true && m_stete != Estete_Death) { //流星ダッシュでトドメを刺した回数を増やす
+			gamedata->PlusLastStarDash();
+		}
 		m_stete = Estete_Death;
 	}
+
+	//どうも隕石です
+	QueryGOs<StarComet_Inseki>("StarComet_Inseki", [&](StarComet_Inseki* SCI) {
+		CVector3 inseki_position = SCI->Getm_Position();
+		CVector3 diff = inseki_position - m_position;
+		float Langth_hoge = SCI->GetDamageLength();
+		Langth_hoge *= 10.0f;
+		if (diff.Length() < Langth_hoge && gamedata->GetGameMode() != GameData::GameOver) { //隕石衝突
+			int Damages = gamedata->GetATK();
+			Damage(Damages); //ダメージ
+			SCI->SetDeath();//隕石も死ぬ
+		}
+		return true;
+		});
+
 	//移動
 	m_skinModelRender->SetPosition(m_position);
 	//回転

@@ -21,6 +21,7 @@ private:
 
 	void KoumokuUpdate();
 	void AttackAnime(int i);
+	void YazirusiUpdate(); //上下移動する矢印の不透明度変更
 
 	CAnimationClip m_mo0anim[2];
 	CAnimationClip m_mo1anim[2];
@@ -38,6 +39,23 @@ private:
 	CAnimationClip m_mo13anim[2];
 	CAnimationClip m_mo14anim[2];
 	CAnimationClip m_mo15anim[2];
+	CAnimationClip m_mo16anim[2];
+	CAnimationClip m_mo17anim[2];
+	CAnimationClip m_mo18anim[2];
+	CAnimationClip m_mo19anim[2];
+	CAnimationClip m_mo20anim[2];
+	CAnimationClip m_mo21anim[2];
+	CAnimationClip m_mo22anim[2];
+	CAnimationClip m_mo23anim[2];
+	CAnimationClip m_mo24anim[2];
+	CAnimationClip m_mo25anim[2];
+	CAnimationClip m_mo26anim[2];
+	CAnimationClip m_mo27anim[2];
+	CAnimationClip m_mo28anim[2];
+	CAnimationClip m_mo29anim[2];
+	CAnimationClip m_mo30anim[2];
+	CAnimationClip m_mo31anim[2];
+	CAnimationClip m_mo32anim[2];
 
 	CVector3 m_position = CVector3::Zero; // 座標。
 	CQuaternion m_rotation = CQuaternion::Identity; //回転。
@@ -77,6 +95,10 @@ private:
 
 	//定数
 	const wchar_t Reset[1] = L"";
+
+	//矢印上下
+	bool Ya_UpDownFlag = false;
+	int Ya_UpDownTimer = 0;
 
 };
 

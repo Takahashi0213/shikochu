@@ -43,7 +43,20 @@ void BackGround::StageMaker(int ST){
 		}
 	}
 	//作成
-	m_skinModelRender->Init(ST_Name, nullptr, 0);
+	if (animeFlag[ST] == true) {
+		//アニメーションセット
+		m_anim[0].Load(L"animData/Eki_Wait.tka");
+		m_anim[0].SetLoopFlag(true);
+		m_anim[1].Load(L"animData/Eki_Open.tka");
+		m_anim[1].SetLoopFlag(false);
+		m_anim[2].Load(L"animData/Eki_Close.tka");
+		m_anim[2].SetLoopFlag(false);
+
+		m_skinModelRender->Init(ST_Name, m_anim, 3);
+	}
+	else {
+		m_skinModelRender->Init(ST_Name, nullptr, 0);
+	}
 	m_skinModelRender->SetPosition(m_position);
 	m_skinModelRender->SetScale(m_scale);
 	m_skinModelRender->SetEmissionColor(StageEmission);
@@ -60,3 +73,10 @@ void BackGround::DeleteStage() {
 
 }
 
+void BackGround::PhysicsRelease() {
+	m_physicsStaticObject.SetPositionAndRotation(Re_position, CQuaternion::Identity);
+}
+
+void BackGround::PlayBG_Anime(int x) {
+	m_skinModelRender->PlayAnimation(x, 0.2f);
+}

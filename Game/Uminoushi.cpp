@@ -4,7 +4,7 @@
 #include "Bullet3.h"
 #include "GameData.h"
 #include "EffectManager.h"
-
+#include "StarComet_Inseki.h"
 
 Uminoushi::Uminoushi()
 {
@@ -57,6 +57,18 @@ void Uminoushi::Update() {
 			break;
 		}
 	}
+	//Ç«Ç§Ç‡Ë¶êŒÇ≈Ç∑
+	QueryGOs<StarComet_Inseki>("StarComet_Inseki", [&](StarComet_Inseki* SCI) {
+		CVector3 inseki_position = SCI->Getm_Position();
+		CVector3 diff = inseki_position - m_position;
+		float Langth_hoge = SCI->GetDamageLength();
+		if (diff.Length() < Langth_hoge) { //Ë¶êŒè’ìÀ
+			SetDeath();//é©ï™Ç™éÄÇ 
+			SCI->SetDeath();//Ë¶êŒÇ‡éÄÇ 
+		}
+		return true;
+		});
+
 	//à⁄ìÆ
 	m_skinModelRender->SetPosition(m_position);
 	//âÒì]
@@ -78,6 +90,10 @@ void Uminoushi::move() {
 		timer = 0;
 	}
 	else if (movecount >3) {
+		EffectManager * effectmanager = EffectManager::GetInstance();
+		CVector3 EF_Position = m_position;
+		EF_Position.y += 50.0f;
+		effectmanager->EffectPlayer_Post(EffectManager::BulletYobi, EF_Position, { 40.0f,40.0f,40.0f });
 		m_stete = Estete_Yobi; 
 		movecount = 0;
 		timer = 0;
@@ -175,10 +191,12 @@ void Uminoushi::death() {
 	EffectManager * effectmanager = EffectManager::GetInstance();
 	CVector3 EF_Position = m_position;
 	EF_Position.y += 50.0f;
-	effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+	effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f }, false, false);
 
 	GameData * gamedata = GameData::GetInstance();
 	gamedata->EnemyCounterGensyou();
+	gamedata->PlusGekihaEnemy();
+
 	DeleteGO(this);
 }
 

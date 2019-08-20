@@ -15,6 +15,11 @@ public:
 	{
 		m_position = pos;
 	}
+	//ポジションを返す関数
+	CVector3 StarItem::Getm_Position() {
+		return m_position;
+	}
+
 	//所属Waveをセット
 	void SetWave(int x) {
 		waveNo = x;
@@ -66,5 +71,6 @@ private:
 
 	int waveNo = 0; //自分が属するWaveの番号
 
+	const float RotItem = 1.0f; //回る速度や方向
 };
 

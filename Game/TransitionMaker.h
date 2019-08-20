@@ -15,8 +15,13 @@ public:
 	bool Start();
 	void Update();
 
+	//トランジションを置きます
+	//第一引数→トランジションの種類
+	//第二引数→トランジションの実行時間
+	//第三引数→トランジションが始まるまでのウェイト
+	//第四引数→falseなら表示、trueなら消去される
+	//注意！！表示と消去のトランジションの種類は同じじゃないとバグるよ
 	void TransitionSetting(Transition tran, int frame, int wait, bool flag);
-
 
 	//インスタンスの取得
 	static TransitionMaker* TransitionMaker::GetInstance() {

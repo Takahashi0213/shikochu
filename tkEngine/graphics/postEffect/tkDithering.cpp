@@ -180,6 +180,74 @@ namespace tkEngine{
 		pos.y *= GraphicsEngine().Get2DSpaceScreenHeight() * -0.5f * (16.0f/9.0f);
 		return pos;
 	}
+	CVector2 CDithering::GeneratePointLigPosition_rand()
+	{
+		CVector2 pos;
+		pos.x = Random().GetRandDouble();
+		pos.y = Random().GetRandDouble();
+		switch (rand() % 12) {
+
+		case 0:
+			//画面の右上の領域①。
+			pos.x = CMath::Lerp(pos.x, 0.4f, 0.8f);
+			pos.y = CMath::Lerp(pos.y, -0.3f, -0.6f);
+			break;
+		case 1:
+			//画面の左上の領域①。(UIが表示されているのでちょっとずらす。
+			pos.x = CMath::Lerp(pos.x, -0.3f, -0.6f);
+			pos.y = CMath::Lerp(pos.y, -0.3f, -0.6f);
+			break;
+		case 2:
+			//画面の左下の領域①。
+			pos.x = CMath::Lerp(pos.x, -0.4f, -0.8f);
+			pos.y = CMath::Lerp(pos.y, 0.3f, 0.6f);
+			break;
+		case 3:
+			//画面の右下の領域①。
+			pos.x = CMath::Lerp(pos.x, 0.4f, 0.8f);
+			pos.y = CMath::Lerp(pos.y, 0.3f, 0.6f);
+			break;
+		case 4:
+			//画面の左上の領域②。
+			pos.x = CMath::Lerp(pos.x, -0.1f, -0.4f);
+			pos.y = CMath::Lerp(pos.y, 0.1f, 0.4f);
+			break;
+		case 5:
+			//画面の右上の領域②。
+			pos.x = CMath::Lerp(pos.x, 0.1f, 0.4f);
+			pos.y = CMath::Lerp(pos.y, 0.1f, 0.4f);
+			break;
+		case 6:
+			//画面の左下の領域②。
+			pos.x = CMath::Lerp(pos.x, -0.1f, -0.4f);
+			pos.y = CMath::Lerp(pos.y, -0.1f, -0.4f);
+			break;
+		case 7:
+			//画面の右下の領域②。
+			pos.x = CMath::Lerp(pos.x, 0.1f, 0.4f);
+			pos.y = CMath::Lerp(pos.y, -0.1f, -0.4f);
+			break;
+		case 8:
+			pos.x = CMath::Lerp(pos.x, -0.4f, 0.4f);
+			pos.y = CMath::Lerp(pos.y, -0.3f, -0.6f);
+			break;
+		case 9:
+			pos.x = CMath::Lerp(pos.x, -0.4f, 0.4f);
+			pos.y = CMath::Lerp(pos.y, 0.3f, 0.6f);
+			break;
+		case 10:
+			pos.x = CMath::Lerp(pos.x, -0.3f, -0.6f);
+			pos.y = CMath::Lerp(pos.y, -0.3f, 0.3f);
+			break;
+		case 11:
+			pos.x = CMath::Lerp(pos.x, 0.3f, 0.6f);
+			pos.y = CMath::Lerp(pos.y, -0.3f, 0.3f);
+			break;
+		}
+		pos.x *= GraphicsEngine().Get2DSpaceScreenWidth() * 0.5f;
+		pos.y *= GraphicsEngine().Get2DSpaceScreenHeight() * -0.5f * (16.0f / 9.0f);
+		return pos;
+	}
 	void CDithering::AddPointLig(CVector2 pos)
 	{
 		pos.x /= GraphicsEngine().Get2DSpaceScreenWidth() * 0.5f;

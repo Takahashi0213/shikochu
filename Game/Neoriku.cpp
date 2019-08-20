@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "EffectManager.h"
+#include "StarComet_Inseki.h"
 
 Neoriku::Neoriku()
 {
@@ -59,17 +60,36 @@ void Neoriku::NeoAttack() {
 
 }
 void Neoriku::NeoYobi() {
+
+	CVector3 enemyForward = { -1.0f, 0.0f, 0.0f };
+	//移動中
+	Player * player = Player::GetInstance();
+	CVector3 P_Position = player->Getm_Position();
+	CVector3 diff = P_Position - m_position;
+	neoVec = diff;
+	//プレイヤーの向きに回転
+	diff.y = 0.0f;
+	diff.Normalize();
+	CQuaternion qRot;
+	qRot.SetRotation(enemyForward, diff);
+	m_rotation = qRot;
+	m_position = m_charaCon.Execute(moveVec);
+
 	//予備動作で色が変化すっっっるよ
 	if (colorflag == false) {
 		//明るく
 		colortimer++;
 		if (colortimer == 1) {
-			colorcount+=1.0f;
+			colorcount += 0.5f;
 			colortimer = 0;
 			if (colorcount < 30.0f) {
 				m_skinModelRender->SetEmissionColor({ 0.0f , colorcount, colorcount });
 			}
 			else {
+				EffectManager * effectmanager = EffectManager::GetInstance();
+				CVector3 EF_Position = m_position;
+				EF_Position.y += 50.0f;
+				effectmanager->EffectPlayer_Post(EffectManager::Attack, EF_Position, { 40.0f,40.0f,40.0f });
 				colorflag = true;
 			}
 		}
@@ -110,6 +130,10 @@ void Neoriku::NeoMove() {
 	}
 	timer++;
 	if (timer > random) {
+		EffectManager * effectmanager = EffectManager::GetInstance();
+		CVector3 EF_Position = m_position;
+		EF_Position.y += 50.0f;
+		effectmanager->EffectPlayer_Post(EffectManager::BulletYobi, EF_Position, { 40.0f,40.0f,40.0f });
 		bulletFlag = false;
 		colorflag = false;
 		m_stete = Estete_Yobi;
@@ -134,10 +158,11 @@ void Neoriku::NeoDeath() {
 	EffectManager * effectmanager = EffectManager::GetInstance();
 	CVector3 EF_Position = m_position;
 	EF_Position.y += 50.0f;
-	effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+	effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f }, false, false);
 
 	GameData * gamedata = GameData::GetInstance();
 	gamedata->EnemyCounterGensyou();
+	gamedata->PlusGekihaEnemy();
 	DeleteGO(this);
 }
 
@@ -170,6 +195,18 @@ void Neoriku::Update() {
 			DeleteGO(this);
 		}
 	}
+	//どうも隕石です
+	QueryGOs<StarComet_Inseki>("StarComet_Inseki", [&](StarComet_Inseki* SCI) {
+		CVector3 inseki_position = SCI->Getm_Position();
+		CVector3 diff = inseki_position - m_position;
+		float Langth_hoge = SCI->GetDamageLength();
+		if (diff.Length() < Langth_hoge) { //隕石衝突
+			SetDeath();//自分が死ぬ
+			SCI->SetDeath();//隕石も死ぬ
+		}
+		return true;
+		});
+
 	//移動
 	m_skinModelRender->SetPosition(m_position);
 	//回転

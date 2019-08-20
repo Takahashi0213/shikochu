@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "WaveManager.h"
 #include "EffectManager.h"
+#include "BackGround.h"
 
 #include "GameData.h"
 #include "LevelData.h"
@@ -26,9 +27,29 @@
 #include "Kikochu.h"
 #include "Uminoushi.h"
 #include "Akoyadokari.h"
+#include "Benite.h"
+#include "Nibo.h"
+#include "Sekuteimu.h"
+#include "Morinchu.h"
+#include "Kirabi.h"
+#include "Suteira.h"
+#include "Idando.h"
+#include "Kodan.h"
+#include "Taidol.h"
+#include "Suroku.h"
+#include "Mimitto.h"
+#include "Tizutyo.h"
+#include "Kuubo.h"
+#include "Toripipi.h"
+#include "Teruosuka.h"
+#include "Atsukaru.h"
+#include "Metoporisu.h"
 
 //ギミック
 #include "StarItem.h"
+#include "AppleBomb.h"
+#include "Train1.h"
+#include "Train2.h"
 
 #include "WaveEffect.h"
 #include "Nerubikkuri.h"
@@ -132,6 +153,66 @@ void WaveManager::Update() {
 				return true;
 				});
 
+			QueryGOs<Benite>("Benite", [&](Benite* benite) {
+				//対象の所属Waveを取得
+				int wave = benite->GetWave();
+				if (NowWave == wave) {
+					//アクティブ化
+					Enemy++;
+					benite->SetActiveFlag(true);
+					EffectManager * effectmanager = EffectManager::GetInstance();
+					CVector3 EF_Position = benite->Getm_Position();
+					EF_Position.y += 50.0f;
+					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+				}
+				return true;
+				});
+			
+			QueryGOs<Nibo>("Nibo", [&](Nibo* nibo) {
+				//対象の所属Waveを取得
+				int wave = nibo->GetWave();
+				if (NowWave == wave) {
+					//アクティブ化
+					Enemy++;
+					nibo->SetActiveFlag(true);
+					EffectManager * effectmanager = EffectManager::GetInstance();
+					CVector3 EF_Position = nibo->Getm_Position();
+					EF_Position.y += 50.0f;
+					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+				}
+				return true;
+				});
+
+			QueryGOs<Sekuteimu>("Sekuteimu", [&](Sekuteimu* sekuteimu) {
+				//対象の所属Waveを取得
+				int wave = sekuteimu->GetWave();
+				if (NowWave == wave) {
+					//アクティブ化
+					Enemy++;
+					sekuteimu->SetActiveFlag(true);
+					EffectManager * effectmanager = EffectManager::GetInstance();
+					CVector3 EF_Position = sekuteimu->Getm_Position();
+					EF_Position.y += 50.0f;
+					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+				}
+				return true;
+				});
+
+			QueryGOs<Morinchu>("Morinchu", [&](Morinchu* morinchu) {
+				//対象の所属Waveを取得
+				int wave = morinchu->GetWave();
+				if (NowWave == wave) {
+					//アクティブ化
+					Enemy++;
+					morinchu->SetActiveFlag(true);
+					EffectManager * effectmanager = EffectManager::GetInstance();
+					CVector3 EF_Position = morinchu->Getm_Position();
+					EF_Position.y += 50.0f;
+					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+				}
+				return true;
+				});
+
 			QueryGOs<Ekku>("Ekku", [&](Ekku* ekku) {
 				//対象の所属Waveを取得
 				int wave = ekku->GetWave();
@@ -188,6 +269,36 @@ void WaveManager::Update() {
 				return true;
 				});
 
+			QueryGOs<Idando>("Idando", [&](Idando* idando) {
+				//対象の所属Waveを取得
+				int wave = idando->GetWave();
+				if (NowWave == wave) {
+					//アクティブ化
+					Enemy++;
+					idando->SetActiveFlag(true);
+					EffectManager * effectmanager = EffectManager::GetInstance();
+					CVector3 EF_Position = idando->Getm_Position();
+					EF_Position.y += 50.0f;
+					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+				}
+				return true;
+				});
+
+			QueryGOs<Kodan>("Kodan", [&](Kodan* kodan) {
+				//対象の所属Waveを取得
+				int wave = kodan->GetWave();
+				if (NowWave == wave) {
+					//アクティブ化
+					Enemy++;
+					kodan->SetActiveFlag(true);
+					EffectManager * effectmanager = EffectManager::GetInstance();
+					CVector3 EF_Position = kodan->Getm_Position();
+					EF_Position.y += 50.0f;
+					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+				}
+				return true;
+				});
+
 			QueryGOs<Morikon>("Morikon", [&](Morikon* morikon) {
 				//対象の所属Waveを取得
 				int wave = morikon->GetWave();
@@ -233,6 +344,21 @@ void WaveManager::Update() {
 				return true;
 				});
 
+			QueryGOs<Suroku>("Suroku", [&](Suroku* suroku) {
+				//対象の所属Waveを取得
+				int wave = suroku->GetWave();
+				if (NowWave == wave) {
+					//アクティブ化
+					Enemy++;
+					suroku->SetActiveFlag(true);
+					EffectManager * effectmanager = EffectManager::GetInstance();
+					CVector3 EF_Position = suroku->Getm_Position();
+					EF_Position.y += 50.0f;
+					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+				}
+				return true;
+				});
+
 			QueryGOs<SS_001>("SS_001", [&](SS_001* ss_001) {
 				//対象の所属Waveを取得
 				int wave = ss_001->GetWave();
@@ -258,6 +384,9 @@ void WaveManager::Update() {
 					CVector3 EF_Position = kikochu->Getm_Position();
 					EF_Position.y += 50.0f;
 					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+				}
+				else if (NowWave - 1 == wave) {
+					kikochu->SetDeath2();
 				}
 				return true;
 				});
@@ -292,6 +421,156 @@ void WaveManager::Update() {
 				return true;
 				});
 
+			QueryGOs<Kirabi>("Kirabi", [&](Kirabi* kirabi) {
+				//対象の所属Waveを取得
+				int wave = kirabi->GetWave();
+				if (NowWave == wave) {
+					//アクティブ化
+					Enemy++;
+					kirabi->SetActiveFlag(true);
+					EffectManager * effectmanager = EffectManager::GetInstance();
+					CVector3 EF_Position = kirabi->Getm_Position();
+					EF_Position.y += 50.0f;
+					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+				}
+				return true;
+				});
+
+			QueryGOs<Suteira>("Suteira", [&](Suteira* suteira) {
+				//対象の所属Waveを取得
+				int wave = suteira->GetWave();
+				if (NowWave == wave) {
+					//アクティブ化
+					Enemy++;
+					suteira->SetActiveFlag(true);
+					EffectManager * effectmanager = EffectManager::GetInstance();
+					CVector3 EF_Position = suteira->Getm_Position();
+					EF_Position.y += 50.0f;
+					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+				}
+				return true;
+				});
+
+			QueryGOs<Taidol>("Taidol", [&](Taidol* taidol) {
+				//対象の所属Waveを取得
+				int wave = taidol->GetWave();
+				if (NowWave == wave) {
+					//アクティブ化
+					Enemy++;
+					taidol->SetActiveFlag(true);
+					EffectManager * effectmanager = EffectManager::GetInstance();
+					CVector3 EF_Position = taidol->Getm_Position();
+					EF_Position.y += 50.0f;
+					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+				}
+				return true;
+				});
+
+			QueryGOs<Mimitto>("Mimitto", [&](Mimitto* mimitto) {
+				//対象の所属Waveを取得
+				int wave = mimitto->GetWave();
+				if (NowWave == wave) {
+					//アクティブ化
+					Enemy++;
+					mimitto->SetActiveFlag(true);
+					EffectManager * effectmanager = EffectManager::GetInstance();
+					CVector3 EF_Position = mimitto->Getm_Position();
+					EF_Position.y += 50.0f;
+					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+				}
+				return true;
+				});
+
+			QueryGOs<Tizutyo>("Tizutyo", [&](Tizutyo* tizutyo) {
+				//対象の所属Waveを取得
+				int wave = tizutyo->GetWave();
+				if (NowWave == wave) {
+					//アクティブ化
+					Enemy++;
+					tizutyo->SetActiveFlag(true);
+					EffectManager * effectmanager = EffectManager::GetInstance();
+					CVector3 EF_Position = tizutyo->Getm_Position();
+					EF_Position.y += 50.0f;
+					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+				}
+				return true;
+				});
+
+			QueryGOs<Kuubo>("Kuubo", [&](Kuubo* kuubo) {
+				//対象の所属Waveを取得
+				int wave = kuubo->GetWave();
+				if (NowWave == wave) {
+					//アクティブ化
+					Enemy++;
+					kuubo->SetActiveFlag(true);
+					EffectManager * effectmanager = EffectManager::GetInstance();
+					CVector3 EF_Position = kuubo->Getm_Position();
+					EF_Position.y += 50.0f;
+					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+				}
+				return true;
+				});
+
+			QueryGOs<Toripipi>("Toripipi", [&](Toripipi* toripipi) {
+				//対象の所属Waveを取得
+				int wave = toripipi->GetWave();
+				if (NowWave == wave) {
+					//アクティブ化
+					Enemy++;
+					toripipi->SetActiveFlag(true);
+					EffectManager * effectmanager = EffectManager::GetInstance();
+					CVector3 EF_Position = toripipi->Getm_Position();
+					EF_Position.y += 50.0f;
+					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+				}
+				return true;
+				});
+
+			QueryGOs<Teruosuka>("Teruosuka", [&](Teruosuka* teruosuka) {
+				//対象の所属Waveを取得
+				int wave = teruosuka->GetWave();
+				if (NowWave == wave) {
+					//アクティブ化
+					Enemy++;
+					teruosuka->SetActiveFlag(true);
+					EffectManager * effectmanager = EffectManager::GetInstance();
+					CVector3 EF_Position = teruosuka->Getm_Position();
+					EF_Position.y += 50.0f;
+					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+				}
+				return true;
+				});
+
+			QueryGOs<Atsukaru>("Atsukaru", [&](Atsukaru* atsukaru) {
+				//対象の所属Waveを取得
+				int wave = atsukaru->GetWave();
+				if (NowWave == wave) {
+					//アクティブ化
+					Enemy++;
+					atsukaru->SetActiveFlag(true);
+					EffectManager * effectmanager = EffectManager::GetInstance();
+					CVector3 EF_Position = atsukaru->Getm_Position();
+					EF_Position.y += 50.0f;
+					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+				}
+				return true;
+				});
+
+			QueryGOs<Metoporisu>("Metoporisu", [&](Metoporisu* metoporisu) {
+				//対象の所属Waveを取得
+				int wave = metoporisu->GetWave();
+				if (NowWave == wave) {
+					//アクティブ化
+					Enemy++;
+					metoporisu->SetActiveFlag(true);
+					EffectManager * effectmanager = EffectManager::GetInstance();
+					CVector3 EF_Position = metoporisu->Getm_Position();
+					EF_Position.y += 50.0f;
+					effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+				}
+				return true;
+				});
+
 			//アイテム
 			QueryGOs<StarItem>("Item", [&](StarItem* staritem) {
 				//対象の所属Waveを取得
@@ -302,6 +581,20 @@ void WaveManager::Update() {
 				}
 				else if (NowWave-1 == wave) {
 					staritem->DeleteItem();
+				}
+				return true;
+				});
+
+			//ギミック
+			QueryGOs<AppleBomb>("AppleBomb", [&](AppleBomb* apleBomb) {
+				//対象の所属Waveを取得
+				int wave = apleBomb->GetWave();
+				if (NowWave == wave) {
+					//アクティブ化
+					apleBomb->SetActiveFlag(true);
+				}
+				else if (NowWave - 1 == wave) {
+					apleBomb->SetDeath();
 				}
 				return true;
 				});
@@ -318,12 +611,18 @@ void WaveManager::Update() {
 				for (int z = 0; z < len + 1; z++) {
 					BOSS_Name[z] = BossName[stage][z];
 				}
+				//もしステージ2なら当たり判定をあの世行き
+				if (stage == 1) {
+					BackGround * background = BackGround::GetInstance();
+					background->PhysicsRelease();
+				}
 				//ポイントライトを消す。
 				GraphicsEngine().GetPostEffect().GetDithering().DisablePointLig(0.5f);
 				NewGO<Nerubikkuri>(0, "びっくり");
 				BossHPGage * bossHPgage = BossHPGage::GetInstance();
 				bossHPgage->SetBossName(BOSS_Name);
 				gamedata->SwapGameMode();
+				gamedata->SetFinalMode(true);
 			}
 
 		}
@@ -388,6 +687,7 @@ void WaveManager::AllStage(int x) {
 
 		}
 
+		//レベル読み込み
 		levelset->LevelSetting(LEVEL_Name, flag, i);
 		Hoge++;
 	}
@@ -421,13 +721,37 @@ void WaveManager::DeleteAll() {
 
 	QueryGOs<Neruk>("neru", [&](Neruk* neruk) {
 		neruk->SetActiveFlag(true);
-		neruk->SetDeath();
+		neruk->SetDeath2();
 		return true;
 		});
 
 	QueryGOs<soukabuto>("sou", [&](soukabuto* souka) {
 		souka->SetActiveFlag(true);
 		souka->SetDeath2();
+		return true;
+		});
+
+	QueryGOs<Benite>("Benite", [&](Benite* benite) {
+		benite->SetActiveFlag(true);
+		benite->SetDeath2();
+		return true;
+		});
+
+	QueryGOs<Nibo>("Nibo", [&](Nibo* nibo) {
+		nibo->SetActiveFlag(true);
+		nibo->SetDeath2();
+		return true;
+		});
+
+	QueryGOs<Sekuteimu>("Sekuteimu", [&](Sekuteimu* sekuteimu) {
+		sekuteimu->SetActiveFlag(true);
+		sekuteimu->SetDeath2();
+		return true;
+		});
+
+	QueryGOs<Morinchu>("Morinchu", [&](Morinchu* morinchu) {
+		morinchu->SetActiveFlag(true);
+		morinchu->SetDeath();
 		return true;
 		});
 
@@ -484,6 +808,11 @@ void WaveManager::DeleteAll() {
 		staritem->DeleteItem2();
 		return true;
 		});
+	QueryGOs<AppleBomb>("AppleBomb", [&](AppleBomb* appleBomb) {
+		appleBomb->SetActiveFlag(true);
+		appleBomb->SetDeath2();
+		return true;
+		});
 
 	QueryGOs<Kikochu>("Kikochu", [&](Kikochu* kikochu) {
 		kikochu->SetActiveFlag(true);
@@ -503,6 +832,95 @@ void WaveManager::DeleteAll() {
 		return true;
 		});
 	
+	QueryGOs<Kirabi>("Kirabi", [&](Kirabi* kirabi) {
+		kirabi->SetActiveFlag(true);
+		kirabi->SetDeath2();
+		return true;
+		});
+
+	QueryGOs<Suteira>("Suteira", [&](Suteira* suteira) {
+		suteira->SetActiveFlag(true);
+		suteira->SetDeath2();
+		return true;
+		});
+
+	QueryGOs<Idando>("Idando", [&](Idando* idando) {
+		idando->SetActiveFlag(true);
+		idando->SetDeath2();
+		return true;
+		});
+
+	QueryGOs<Kodan>("Kodan", [&](Kodan* kodan) {
+		kodan->SetActiveFlag(true);
+		kodan->SetDeath2();
+		return true;
+		});
+
+	QueryGOs<Taidol>("Taidol", [&](Taidol* taidol) {
+		taidol->SetActiveFlag(true);
+		taidol->SetDeath2();
+		return true;
+		});
+
+	QueryGOs<Suroku>("Suroku", [&](Suroku* suroku) {
+		suroku->SetActiveFlag(true);
+		suroku->SetDeath2();
+		return true;
+		});
+
+	QueryGOs<Mimitto>("Mimitto", [&](Mimitto* mimitto) {
+		mimitto->SetActiveFlag(true);
+		mimitto->SetDeath2();
+		return true;
+		});
+
+	QueryGOs<Tizutyo>("Tizutyo", [&](Tizutyo* tizutyo) {
+		tizutyo->SetActiveFlag(true);
+		tizutyo->SetDeath2();
+		return true;
+		});
+
+	QueryGOs<Kuubo>("Kuubo", [&](Kuubo* kuubo) {
+		kuubo->SetActiveFlag(true);
+		kuubo->SetDeath2();
+		return true;
+		});
+
+	QueryGOs<Teruosuka>("Teruosuka", [&](Teruosuka* teruosuka) {
+		teruosuka->SetActiveFlag(true);
+		teruosuka->SetDeath();
+		return true;
+		});
+
+	QueryGOs<Toripipi>("Toripipi", [&](Toripipi* toripipi) {
+		toripipi->SetActiveFlag(true);
+		toripipi->SetDeath2();
+		return true;
+		});
+
+	QueryGOs<Atsukaru>("Atsukaru", [&](Atsukaru* atsukaru) {
+		atsukaru->SetActiveFlag(true);
+		atsukaru->SetDeath2();
+		return true;
+		});
+
+	QueryGOs<Metoporisu>("Metoporisu", [&](Metoporisu* metoporisu) {
+		metoporisu->SetActiveFlag(true);
+		metoporisu->SetDeath2();
+		return true;
+		});
+
+	QueryGOs<Train1>("Train1", [&](Train1* train1) {
+		train1->SetActiveFlag(true);
+		train1->DeleteNow();
+		return true;
+		});
+	QueryGOs<Train2>("Train2", [&](Train2* train2) {
+		train2->SetActiveFlag(true);
+		train2->DeleteNow();
+		return true;
+		});
+
 	DeleteGOs("びっくり");
 
 }

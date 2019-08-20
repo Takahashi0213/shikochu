@@ -15,9 +15,14 @@ public:
 		Bakuhatu, //どかーん
 		Beam, //ビーム準備
 		BeamHassya, //ビーム発射
-		Gao,//がおー]
+		Gao,//がおー
 		Dash, //ダッシュエフェクト
 		Bonus,//ギリギリボーナス
+		Dash2, //ダッシュエフェクト
+		StarDash, //流星ダッシュ
+		BulletYobi,//弾発射準備
+		Attack,//攻撃！
+		StaCome, //隕石発射
 	};
 
 	EffectManager();
@@ -27,7 +32,10 @@ public:
 	//引数2→position
 	//引数3→scale
 	void EffectPlayer(Effect EF, CVector3 position, CVector3 scale);
-	void EffectPlayer(Effect EF, CVector3 position, CVector3 scale,bool flag);
+	void EffectPlayer(Effect EF, CVector3 position, CVector3 scale, bool flag);
+	void EffectPlayer(Effect EF, CVector3 position, CVector3 scale, bool flag, bool flag2);
+	void EffectPlayer_Post(Effect EF, CVector3 position, CVector3 scale);
+	void EffectPlayer_Post(Effect EF, CVector3 position, CVector3 scale, bool flag);
 
 	//インスタンスの取得
 	static EffectManager* EffectManager::GetInstance() {
@@ -37,7 +45,7 @@ public:
 private:
 
 	//エフェクトファイル名
-	wchar_t DetaBase[12][30]{
+	wchar_t DetaBase[17][30]{
 		{ L"" },//Nullなので何もない
 		{ L"effect/Item.efk" },
 		{ L"effect/spawn.efk" },
@@ -50,6 +58,11 @@ private:
 		{ L"effect/gao.efk" },
 		{ L"effect/dash.efk" },
 		{ L"effect/Bonus.efk" },
+		{ L"effect/dash2.efk" },
+		{ L"effect/starDash.efk" },
+		{ L"effect/bulletYobi.efk" },
+		{ L"effect/attack.efk" },
+		{ L"effect/StaCome.efk" },
 
 	};
 

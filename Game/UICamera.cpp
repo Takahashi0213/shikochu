@@ -32,9 +32,9 @@ bool UICamera::Start(){
 	cameraTarget.z = 0.0f;
 
 	//視点をカメラに伝える
-	cameraPos.x = 0.0f;
-	cameraPos.y = 50.0f;
-	cameraPos.z = 180.0f;
+	cameraPos.x = CameraDefPos.x;
+	cameraPos.y = CameraDefPos.y;
+	cameraPos.z = CameraDefPos.z;
 
 	//注視点をカメラに伝える
 	MainCamera().SetTarget(cameraTarget);
@@ -54,17 +54,17 @@ void UICamera::Update() {
 	cameraTarget.y = 0.0f;
 	cameraTarget.z = 0.0f;
 
-	if(C_Flag==false){
+	if(C_Flag==false){//通常画面
 		//視点をカメラに伝える
-		cameraPos.x = 0.0f;
-		cameraPos.y = 50.0f;
-		cameraPos.z = 180.0f;
+		cameraPos.x = CameraDefPos.x;
+		cameraPos.y = CameraDefPos.y;
+		cameraPos.z = CameraDefPos.z;
 	}
-	else {
+	else {//図鑑だ！！！
 		//視点をカメラに伝える
-		cameraPos.x = 0.0f;
-		cameraPos.y = 150.0f;
-		cameraPos.z = 180.0f;
+		cameraPos.x = CameraDefPosC.x;
+		cameraPos.y = CameraDefPosC.y;
+		cameraPos.z = CameraDefPosC.z;
 	}
 
 	//注視点をカメラに伝える

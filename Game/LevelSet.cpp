@@ -18,9 +18,27 @@
 #include "Kikochu.h"
 #include "Uminoushi.h"
 #include "Akoyadokari.h"
+#include "Benite.h"
+#include "Nibo.h"
+#include "Sekuteimu.h"
+#include "Morinchu.h"
+#include "Kirabi.h"
+#include "Suteira.h"
+#include "Idando.h"
+#include "Kodan.h"
+#include "Taidol.h"
+#include "Suroku.h"
+#include "Mimitto.h"
+#include "Tizutyo.h"
+#include "Kuubo.h"
+#include "Toripipi.h"
+#include "Teruosuka.h"
+#include "Atsukaru.h"
+#include "Metoporisu.h"
 
 //ÉMÉ~ÉbÉN
 #include "StarItem.h"
+#include "AppleBomb.h"
 
 LevelSet* LevelSet::m_instance = nullptr;
 
@@ -97,6 +115,66 @@ void LevelSet::LevelSetting(wchar_t LEVEL_Name[255],bool flag,int wave) {
 			return true;
 		}
 
+		if (objData.EqualObjectName(L"Benite")) {
+			Benite* benite = NewGO<Benite>(0, "Benite");
+			benite->SetPosition(objData.position);
+			benite->SetRotation(objData.rotation);
+			benite->SetActiveFlag(flag);
+			benite->SetWave(wave);
+			if (flag == true) {
+				EnemyCount++;
+			}
+			return true;
+		}
+
+		if (objData.EqualObjectName(L"Nibo")) {
+			Nibo* nibo = NewGO<Nibo>(0, "Nibo");
+			nibo->SetPosition(objData.position);
+			nibo->SetRotation(objData.rotation);
+			nibo->SetActiveFlag(flag);
+			nibo->SetWave(wave);
+			if (flag == true) {
+				EnemyCount++;
+			}
+			return true;
+		}
+
+		if (objData.EqualObjectName(L"Sekuteia")) {
+			Sekuteimu* sekuteimu = NewGO<Sekuteimu>(0, "Sekuteimu");
+			sekuteimu->SetPosition(objData.position);
+			sekuteimu->SetRotation(objData.rotation);
+			sekuteimu->SetActiveFlag(flag);
+			sekuteimu->SetWave(wave);
+			if (flag == true) {
+				EnemyCount++;
+			}
+			return true;
+		}
+
+		if (objData.EqualObjectName(L"Suteira")) {
+			Suteira* suteira = NewGO<Suteira>(0, "Suteira");
+			suteira->SetPosition(objData.position);
+			suteira->SetRotation(objData.rotation);
+			suteira->SetActiveFlag(flag);
+			suteira->SetWave(wave);
+			if (flag == true) {
+				EnemyCount++;
+			}
+			return true;
+		}
+
+		if (objData.EqualObjectName(L"kyozin")) {
+			Morinchu* morinchu = NewGO<Morinchu>(0, "Morinchu");
+			morinchu->SetPosition(objData.position);
+			morinchu->SetRotation(objData.rotation);
+			morinchu->SetActiveFlag(flag);
+			morinchu->SetWave(wave);
+			if (flag == true) {
+				EnemyCount++;
+			}
+			return true;
+		}
+
 		if (objData.EqualObjectName(L"Ekku")) {
 			Ekku* ekku = NewGO<Ekku>(0, "Ekku");
 			ekku->SetPosition(objData.position);
@@ -139,6 +217,42 @@ void LevelSet::LevelSetting(wchar_t LEVEL_Name[255],bool flag,int wave) {
 			pairodorago->SetRotation(objData.rotation);
 			pairodorago->SetActiveFlag(flag);
 			pairodorago->SetWave(wave);
+			if (flag == true) {
+				EnemyCount++;
+			}
+			return true;
+		}
+
+		if (objData.EqualObjectName(L"Idando")) {
+			Idando* idando = NewGO<Idando>(0, "Idando");
+			idando->SetPosition(objData.position);
+			idando->SetRotation(objData.rotation);
+			idando->SetActiveFlag(flag);
+			idando->SetWave(wave);
+			if (flag == true) {
+				EnemyCount++;
+			}
+			return true;
+		}
+
+		if (objData.EqualObjectName(L"Kodan")) {
+			Kodan* kodan = NewGO<Kodan>(0, "Kodan");
+			kodan->SetPosition(objData.position);
+			kodan->SetRotation(objData.rotation);
+			kodan->SetActiveFlag(flag);
+			kodan->SetWave(wave);
+			if (flag == true) {
+				EnemyCount++;
+			}
+			return true;
+		}
+
+		if (objData.EqualObjectName(L"Taidol")) {
+			Taidol* taidol = NewGO<Taidol>(0, "Taidol");
+			taidol->SetPosition(objData.position);
+			taidol->SetRotation(objData.rotation);
+			taidol->SetActiveFlag(flag);
+			taidol->SetWave(wave);
 			if (flag == true) {
 				EnemyCount++;
 			}
@@ -226,6 +340,114 @@ void LevelSet::LevelSetting(wchar_t LEVEL_Name[255],bool flag,int wave) {
 			return true;
 		}
 
+		if (objData.EqualObjectName(L"Kirabin")) {
+			Kirabi* kirabi = NewGO<Kirabi>(0, "Kirabi");
+			kirabi->SetPosition(objData.position);
+			kirabi->SetRotation(objData.rotation);
+			kirabi->SetActiveFlag(flag);
+			kirabi->SetWave(wave);
+			if (flag == true) {
+				EnemyCount++;
+			}
+			return true;
+		}
+
+		if (objData.EqualObjectName(L"Suroku")) {
+			Suroku* suroku = NewGO<Suroku>(0, "Suroku");
+			suroku->SetPosition(objData.position);
+			suroku->SetRotation(objData.rotation);
+			suroku->SetActiveFlag(flag);
+			suroku->SetWave(wave);
+			if (flag == true) {
+				EnemyCount++;
+			}
+			return true;
+		}
+
+		if (objData.EqualObjectName(L"Mimitto")) {
+			Mimitto* mimitto = NewGO<Mimitto>(0, "Mimitto");
+			mimitto->SetPosition(objData.position);
+			mimitto->SetRotation(objData.rotation);
+			mimitto->SetActiveFlag(flag);
+			mimitto->SetWave(wave);
+			if (flag == true) {
+				EnemyCount++;
+			}
+			return true;
+		}
+
+		if (objData.EqualObjectName(L"Tizutyo")) {
+			Tizutyo* tizutyo = NewGO<Tizutyo>(0, "Tizutyo");
+			tizutyo->SetPosition(objData.position);
+			tizutyo->SetRotation(objData.rotation);
+			tizutyo->SetActiveFlag(flag);
+			tizutyo->SetWave(wave);
+			if (flag == true) {
+				EnemyCount++;
+			}
+			return true;
+		}
+		
+		if (objData.EqualObjectName(L"Kuubo")) {
+			Kuubo* kuubo = NewGO<Kuubo>(0, "Kuubo");
+			kuubo->SetPosition(objData.position);
+			kuubo->SetRotation(objData.rotation);
+			kuubo->SetActiveFlag(flag);
+			kuubo->SetWave(wave);
+			if (flag == true) {
+				EnemyCount++;
+			}
+			return true;
+		}
+
+		if (objData.EqualObjectName(L"toripp")) {
+			Toripipi* toripipi = NewGO<Toripipi>(0, "Toripipi");
+			toripipi->SetPosition(objData.position);
+			toripipi->SetRotation(objData.rotation);
+			toripipi->SetActiveFlag(flag);
+			toripipi->SetWave(wave);
+			if (flag == true) {
+				EnemyCount++;
+			}
+			return true;
+		}
+
+		if (objData.EqualObjectName(L"Teruosuka")) {
+			Teruosuka* teruosuka = NewGO<Teruosuka>(0, "Teruosuka");
+			teruosuka->SetPosition(objData.position);
+			teruosuka->SetRotation(objData.rotation);
+			teruosuka->SetActiveFlag(flag);
+			teruosuka->SetWave(wave);
+			if (flag == true) {
+				EnemyCount++;
+			}
+			return true;
+		}
+
+		if (objData.EqualObjectName(L"Atsukaru")) {
+			Atsukaru* atsukaru = NewGO<Atsukaru>(0, "Atsukaru");
+			atsukaru->SetPosition(objData.position);
+			atsukaru->SetRotation(objData.rotation);
+			atsukaru->SetActiveFlag(flag);
+			atsukaru->SetWave(wave);
+			if (flag == true) {
+				EnemyCount++;
+			}
+			return true;
+		}
+
+		if (objData.EqualObjectName(L"Metoporisu")) {
+			Metoporisu* metoporisu = NewGO<Metoporisu>(0, "Metoporisu");
+			metoporisu->SetPosition(objData.position);
+			metoporisu->SetRotation(objData.rotation);
+			metoporisu->SetActiveFlag(flag);
+			metoporisu->SetWave(wave);
+			if (flag == true) {
+				EnemyCount++;
+			}
+			return true;
+		}
+
 		/////////////////////////////////////////////////
 		if (objData.EqualObjectName(L"item")) {
 			StarItem* ITEM = NewGO<StarItem>(0, "Item");
@@ -234,6 +456,17 @@ void LevelSet::LevelSetting(wchar_t LEVEL_Name[255],bool flag,int wave) {
 			ITEM->SetWave(wave);
 			return true;
 		}
+
+		////////////////////////////////////////////////
+
+		if (objData.EqualObjectName(L"Apple")) {
+			AppleBomb* appleBomb = NewGO<AppleBomb>(0, "AppleBomb");
+			appleBomb->SetPosition(objData.position);
+			appleBomb->SetActiveFlag(flag);
+			appleBomb->SetWave(wave);
+			return true;
+		}
+
 		return false;
 		});
 

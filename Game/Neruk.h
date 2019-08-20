@@ -10,6 +10,7 @@ public:
 		Estete_Move,//移動
 		Estete_Attack,//移動
 		Estete_Death,	//死
+		Estete_Death2,	//死
 	};
 	enum EnAnimationClip {
 		enAnimationClip_move, //動作
@@ -18,24 +19,6 @@ public:
 
 	bool Start();
 	void Update();
-
-	void position1();
-	void position2();
-	void position3();
-	void position4();
-	void position5();
-	void position6();
-
-
-	void Movetype1();
-	void Movetype2();
-	void Movetype3();
-
-	void NeruSelect();
-	void NeruMove();
-	void NeruAttack();
-	void NeruDeath();
-
 
 	//ポジションを返す関数
 	CVector3 Neruk::Getm_Position() {
@@ -50,6 +33,12 @@ public:
 		m_stete = Estete_Death;
 		return 0;
 	}
+	//自分が死ぬ関数2
+	int Neruk::SetDeath2() {
+		m_stete = Estete_Death2;
+		return 0;
+	}
+
 	//ダメージ範囲を教える関数
 	float GetDamageLength() {
 		return DamageLength;
@@ -62,6 +51,19 @@ public:
 	}
 
 private:
+	void position1();
+	void position2();
+	void position3();
+	void position4();
+	void position5();
+	void position6();
+
+	void NeruSelect();
+	void NeruMove();
+	void NeruAttack();
+	void NeruDeath();
+	void NeruDeath2();
+
 	prefab::CSkinModelRender* m_skinModelRender = nullptr;
 	CVector3 m_position = CVector3::Zero;
 	CQuaternion m_rotation = CQuaternion::Identity; //回転。
@@ -113,6 +115,7 @@ private:
 	//移動関連
 	int waittimer = 0;
 	int timer = 0;
+	const float GameOverMove = 30.0f;
 
 	//movetype1
 	const float up = 60.f;

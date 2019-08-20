@@ -4,6 +4,7 @@
 #include "DataBase.h"
 #include "SaveData.h"
 #include "TransitionMaker.h"
+#include "SkillData.h"
 
 GameResult* GameResult::m_instance = nullptr;
 
@@ -22,6 +23,12 @@ GameResult::~GameResult()
 {
 	DeleteAllSpriteRender();
 	DeleteAllFontRender();
+	for (int i = 0; i < m_spriteRender_skill.size(); i++) {
+		DeleteGO(m_spriteRender_skill[i]);
+	}
+	for (int i = 0; i < m_fontRender_skill.size(); i++) {
+		DeleteGO(m_fontRender_skill[i]);
+	}
 
 	//インスタンスが破棄されたので、nullptrを代入
 	m_instance = nullptr;
@@ -38,6 +45,7 @@ bool GameResult::Start() {
 
 	//変数の準備
 	GameData * gamedata = GameData::GetInstance();
+	SaveData * savedata = SaveData::GetInstance();
 	ZankiBonus = gamedata->ZankiBonusKeisan();
 	GiriBonus = gamedata->GetGiriCountKeisan();
 	ItemBonus = gamedata->GetItemCountKeisan();
@@ -49,6 +57,10 @@ bool GameResult::Start() {
 	HardHosei = gamedata->GetHardScoreHosei();
 	KikoFlag = gamedata->GetKikoFlag();
 	KikoBonus= gamedata->GetKikoBonus();
+	if (savedata->GetSkill(false) == 19 || savedata->GetSkill(true) == 19 || savedata->GetSkill(false) == 20 || savedata->GetSkill(true) == 20 || savedata->GetSkill(false) == 21 || savedata->GetSkill(true) == 21) {
+		SkillFlag = true;
+	}
+	SkillGetSetup(); //スキルの判定
 
 	//0番→背景
 	r = NewGO<prefab::CSpriteRender>(0);
@@ -324,15 +336,27 @@ void GameResult::Update() {
 			if (KikoFlag == true) {
 				hoge += HardTimerHosei;
 				hoge2 += HardTimerHosei;
+				hoge3 += HardTimerHosei;
 			}
 			//ハード確認
 			if (HardFlag == true) {
 				hoge += HardTimerHosei;
+				hoge3 += HardTimerHosei;
 			}
+			//スキル確認
+			if (SkillFlag == true) {
+				hoge += HardTimerHosei;
+			}
+
 		}
 
 		//キコウチュウボーナス
 		if (KikoFlag == true && Hoge_Couneter == PhaseTimer6_Hard) {
+			prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+			ss->Init(L"sound/kettei.wav");
+			ss->SetVolume(0.5f);
+			ss->Play(false);
+
 			wchar_t text[256];
 			swprintf(text, L"キコウチュウボーナス！");
 			m_fontRender[5]->SetText(text);
@@ -363,6 +387,11 @@ void GameResult::Update() {
 
 		//ハードボーナス
 		if (HardFlag == true && Hoge_Couneter == PhaseTimer6_Hard + hoge2) {
+			prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+			ss->Init(L"sound/kettei.wav");
+			ss->SetVolume(0.5f);
+			ss->Play(false);
+
 			wchar_t text[256];
 			swprintf(text, L"ハードボーナス！");
 			m_fontRender[5]->SetText(text);
@@ -390,6 +419,51 @@ void GameResult::Update() {
 			m_fontRender[4]->SetPosition(pos);
 		}
 
+		//スキルボーナス
+		if (SkillFlag == true && Hoge_Couneter == PhaseTimer6_Hard + hoge3) {
+			prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+			ss->Init(L"sound/kettei.wav");
+			ss->SetVolume(0.5f);
+			ss->Play(false);
+
+			wchar_t text[256];
+			swprintf(text, L"スキルボーナス！");
+			m_fontRender[5]->SetText(text);
+			m_fontRender[5]->SetColor({ 1.0f,0.0f,0.0f,1.0f });
+			float score = (float)FinalScore;
+			//計算
+			SaveData * savedata = SaveData::GetInstance();
+			if (savedata->GetSkill(false) == 19 || savedata->GetSkill(true) == 19) {
+				score *= 1.5f;
+			}			
+			if (savedata->GetSkill(false) == 20 || savedata->GetSkill(true) == 20) {
+				score *= 1.5f;
+			}
+			if (savedata->GetSkill(false) == 21 || savedata->GetSkill(true) == 21) {
+				score *= 2.0f;
+			}
+			FinalScore = (int)score;
+			Point = Point_Count + FinalScore;
+			text[256];
+			//おわ
+			swprintf(text, L"%d", FinalScore);
+			//はい。
+			m_fontRender[4]->SetText(text);
+			m_fontRender[4]->SetColor({ 1.0f,0.8f,0.1f,1.0f });
+		}
+
+		//スキル移動
+		if (SkillFlag == true && Hoge_Couneter < PhaseTimer6_Hard + hoge3 + 5 && Hoge_Couneter>PhaseTimer6_Hard + hoge3) {
+			CVector2 pos = m_fontRender[4]->GetPosition();
+			pos.y += 5.0f;
+			m_fontRender[4]->SetPosition(pos);
+		}
+		else if (SkillFlag == true && Hoge_Couneter < PhaseTimer6_Hard + hoge3 + 10 && Hoge_Couneter>PhaseTimer6_Hard + hoge3) {
+			CVector2 pos = m_fontRender[4]->GetPosition();
+			pos.y -= 5.0f;
+			m_fontRender[4]->SetPosition(pos);
+		}
+
 		//刻時計が終焉と共鳴せし時、時代の遷移が訪れる（タイマーが終了時間と一致した時にフェイズを次に進めます！）
 		if (Hoge_Couneter >= PhaseTimer6 + hoge ) {
 			CountReset();
@@ -404,26 +478,52 @@ void GameResult::Update() {
 
 			//9番→ランク
 			r = NewGO<prefab::CSpriteRender>(1);
-			if (FinalScore >= ScoreData[NowStage][3]) {
-				//Sランク
-				r->Init(L"sprite/S_Runk.dds", 256.0f, 256.0f);
-			}
-			else if (FinalScore >= ScoreData[NowStage][2]) {
-				//Aランク
-				r->Init(L"sprite/A_Runk.dds", 256.0f, 256.0f);
-			}
-			else if (FinalScore >= ScoreData[NowStage][1]) {
-				//Bランク
-				r->Init(L"sprite/B_Runk.dds", 256.0f, 256.0f);
-			}
-			else if (FinalScore >= ScoreData[NowStage][0]) {
-				//Cランク
-				r->Init(L"sprite/C_Runk.dds", 256.0f, 256.0f);
+
+			if (HardFlag == false) {
+				if (FinalScore >= ScoreData[NowStage][3]) {
+					//Sランク
+					r->Init(L"sprite/S_Runk.dds", 256.0f, 256.0f);
+				}
+				else if (FinalScore >= ScoreData[NowStage][2]) {
+					//Aランク
+					r->Init(L"sprite/A_Runk.dds", 256.0f, 256.0f);
+				}
+				else if (FinalScore >= ScoreData[NowStage][1]) {
+					//Bランク
+					r->Init(L"sprite/B_Runk.dds", 256.0f, 256.0f);
+				}
+				else if (FinalScore >= ScoreData[NowStage][0]) {
+					//Cランク
+					r->Init(L"sprite/C_Runk.dds", 256.0f, 256.0f);
+				}
+				else {
+					//Dランク
+					r->Init(L"sprite/D_Runk.dds", 256.0f, 256.0f);
+				}
 			}
 			else {
-				//Dランク
-				r->Init(L"sprite/D_Runk.dds", 256.0f, 256.0f);
+				if (FinalScore >= (ScoreData[NowStage][3]*2)) {
+					//Sランク
+					r->Init(L"sprite/S_Runk.dds", 256.0f, 256.0f);
+				}
+				else if (FinalScore >= (ScoreData[NowStage][2]*2)) {
+					//Aランク
+					r->Init(L"sprite/A_Runk.dds", 256.0f, 256.0f);
+				}
+				else if (FinalScore >= (ScoreData[NowStage][1]*2)) {
+					//Bランク
+					r->Init(L"sprite/B_Runk.dds", 256.0f, 256.0f);
+				}
+				else if (FinalScore >= (ScoreData[NowStage][0]*2)) {
+					//Cランク
+					r->Init(L"sprite/C_Runk.dds", 256.0f, 256.0f);
+				}
+				else {
+					//Dランク
+					r->Init(L"sprite/D_Runk.dds", 256.0f, 256.0f);
+				}
 			}
+
 			//ココカラファイン
 			r->SetPosition(RunkPos);
 			HogePosition2 = 0.0f;
@@ -607,28 +707,66 @@ void GameResult::Update() {
 				pos.y += 6.0f;
 				m_fontRender[7]->SetPosition(pos);
 			}
-			else if (HogePosition1 == 90.0f) {
-				//10番→サヨナラベイベー
-				r = NewGO<prefab::CSpriteRender>(2);
-				r->Init(L"sprite/GoodBye.dds", 325.0f, 114.0f);
-				MulColor = { 1.0f,1.0f,1.0f,0.0f };
-				r->SetMulColor(MulColor);
-				r->SetPosition({ 0.0f ,-200.0f,0.0f });
-				r->SetScale(CVector3::One);
-				m_spriteRender.push_back(r);
-			}
+			else if (HogePosition1 == 90.0f) { //ここで一度ストップ！
+				//スキル取得処理
+
+				if (SkillGetFlag[CheckSkillNow] == true) { //取得フラグがオンです
+					if (Skill_EffectNow == false) { //エフェクト実行中でない
+						Skill_EffectNow = true;
+					}
+					else {
+						if (Skill_EffectEnd == false) {
+							SkillGet(CheckSkillNow); //エフェクト実行中
+						}
+						else { //エフェクトが終了した
+							Skill_EffectNow = false;
+							Skill_EffectEnd = false;
+							CheckSkillNow++;
+						}
+					}
+				}
+				else { //確認位置を加算
+					CheckSkillNow++;
+				}
+
+
+				if (CheckSkillNow == 24) { //確認終了
+					//10番→サヨナラベイベー
+					r = NewGO<prefab::CSpriteRender>(2);
+					r->Init(L"sprite/GoodBye.dds", 325.0f, 114.0f);
+					MulColor = { 1.0f,1.0f,1.0f,0.0f };
+					r->SetMulColor(MulColor);
+					r->SetPosition({ 0.0f ,-200.0f,0.0f });
+					r->SetScale(CVector3::One);
+					m_spriteRender.push_back(r);
+
+					HogePosition1 += 1.0f;//これで停止タイム終了
+				}
+				}
 			else if (HogePosition1 >= 91.0f && HogePosition1 < 120.0f) {
 				//フェード
 				MulAlpha += 0.05f;
 				MulColor = { 1.0f,1.0f,1.0f,MulAlpha };
 				m_spriteRender[10]->SetMulColor(MulColor);
 				m_spriteRender[10]->SetScale(CVector3::One);
+
+				CVector4 Hoge_Pos;
+				for (int pos = 2; pos < 9; pos++) {
+					Hoge_Pos = m_fontRender_skill[pos]->GetColor();
+					Hoge_Pos.a -= 0.1f;
+					if (Hoge_Pos.a < 0.0f) {
+						Hoge_Pos.a = 0.0f;
+					}
+					m_fontRender_skill[pos]->SetColor(Hoge_Pos);
+				}
 			}
 			else if (HogePosition1 >= 120.0f) {//全て終わったのだよ、全て
 				OK_Flag = true;
 			}
 
-			HogePosition1 += 1.0f;//ここではカウンタ扱い
+			if (HogePosition1 != 90.0f) {
+				HogePosition1 += 1.0f;//ここではカウンタ扱い
+			}
 
 		}
 
@@ -662,7 +800,7 @@ void GameResult::Update() {
 	//最終処理
 	if (FinalFlag == true) {
 
-		if (FinalCount > DeleteTime) {
+		if (FinalCount >= DeleteTime) {
 
 			TransitionMaker * tm = TransitionMaker::GetInstance();
 			tm->TransitionSetting(TransitionMaker::Fade, 60, 30, true);
@@ -671,11 +809,10 @@ void GameResult::Update() {
 			SaveData * savedata = SaveData::GetInstance();
 			GameData * gamedata = GameData::GetInstance();
 			int stage = gamedata->GetStageNo();
-			bool HardFlag = gamedata->GetHardModeFlag();
 			stage -= 1;
 			//もしハイスコアが0なら歴代クリア数を加算
 			if (savedata->GetHighScore(stage) == 0) {
-				if (stage < 2) {
+				if (stage < 4) {
 					savedata->PlusClearedStage();
 				}
 			}
@@ -719,12 +856,42 @@ void GameResult::Update() {
 				savedata->SetMonFlag(9);
 				savedata->SetMonFlag(10);
 				savedata->SetMonFlag(11);
+				if (HardFlag == true) {
+					savedata->SetMonFlag(12);
+					savedata->SetMonFlag(13);
+				}
 			}
 			if (stage == 2) {
-				savedata->SetMonFlag(12);
-				savedata->SetMonFlag(13);
 				savedata->SetMonFlag(14);
 				savedata->SetMonFlag(15);
+				savedata->SetMonFlag(16);
+				savedata->SetMonFlag(17);
+				if (HardFlag == true) {
+					savedata->SetMonFlag(18);
+					savedata->SetMonFlag(19);
+				}
+			}
+			if (stage == 3) {
+				savedata->SetMonFlag(20);
+				savedata->SetMonFlag(21);
+				savedata->SetMonFlag(22);
+				savedata->SetMonFlag(23);
+				if (HardFlag == true) {
+					savedata->SetMonFlag(24);
+					savedata->SetMonFlag(25);
+					savedata->SetMonFlag(26);
+				}
+
+			}
+			if (stage == 4) {
+				savedata->SetMonFlag(27);
+				savedata->SetMonFlag(28);
+				savedata->SetMonFlag(29);
+				savedata->SetMonFlag(30);
+				if (HardFlag == true) {
+					savedata->SetMonFlag(31);
+					savedata->SetMonFlag(32);
+				}
 			}
 
 			gamedata->SetGameMode(GameData::GameEnd);
@@ -781,4 +948,649 @@ void GameResult::Update() {
 
 }
 
+void GameResult::SkillGetSetup() {
 
+	//すたんばーい
+	GameData * gamedata = GameData::GetInstance();
+	SaveData * savedata = SaveData::GetInstance();
+	short SetSkillPosition = 1; //スキルフラグを設定する場所
+	int stage = gamedata->GetStageNo();
+	stage -= 1;
+	//最終スコアは結局前もって計算ですかい
+	int Setup_FinalScore = FinalScore;
+	//計算
+	if (KikoFlag == true) { //キコウチュウ
+		float score = (float)Setup_FinalScore;
+		score += KikoBonus;
+		Setup_FinalScore = (int)score;
+	}
+	if (HardFlag == true) { //ハード
+		float score = (float)Setup_FinalScore;
+		score *= HardHosei;
+		Setup_FinalScore = (int)score;
+		gamedata->HardClearPlus(); //ハードモードクリア回数を加算
+	}
+	//スキル
+	float score = (float)Setup_FinalScore;
+	if (savedata->GetSkill(false) == 19 || savedata->GetSkill(true) == 19) {
+		score *= 1.5f;
+	}
+	if (savedata->GetSkill(false) == 20 || savedata->GetSkill(true) == 20) {
+		score *= 1.5f;
+	}
+	if (savedata->GetSkill(false) == 21 || savedata->GetSkill(true) == 21) {
+		score *= 2.0f;
+	}
+	Setup_FinalScore = (int)score;
+
+	//キコウチュウ撃破回数
+	if (KikoFlag == true) {
+		//まだ倒してない場所なら倒した数を増やす
+		if (HardFlag == false && savedata->GetKikoFlag(stage) == false) { //ノーマル
+			gamedata->KikoGekihaPlus();
+		}
+		else if (HardFlag == true && savedata->GetKikoFlag_Hard(stage) == false) { //ハード
+			gamedata->KikoGekihaPlus();
+		}
+	}
+
+	////////////////////////////////////////////////////////////
+
+	//こんぺいとうダッシュ取得フラグ
+	if (savedata->SkillGetFlag_Get(SetSkillPosition) == false ) {
+		if (stage == 0) { //シーソークスを倒した
+			SkillGetFlag[SetSkillPosition] = true; //フラグオン
+		}
+	}
+	SetSkillPosition++;
+	//すいせいダッシュ取得フラグ
+	if (savedata->SkillGetFlag_Get(SetSkillPosition) == false) {
+		if (stage == 0 && HardFlag==true && Setup_FinalScore >= (ScoreData[NowStage][3]*2)) { //海ハードでSランク
+			SkillGetFlag[SetSkillPosition] = true; //フラグオン
+		}
+	}
+	SetSkillPosition++;
+	//スタードロップ取得フラグ
+	if (savedata->SkillGetFlag_Get(SetSkillPosition) == false) {
+		if (gamedata->GetKikoGekiha()==1) { //キコウチュウ撃破回数1
+			SkillGetFlag[SetSkillPosition] = true; //フラグオン
+		}
+	}
+	SetSkillPosition++;
+	//カガヤキノウミ取得フラグ
+	if (savedata->SkillGetFlag_Get(SetSkillPosition) == false) {
+		if (gamedata->GetKikoGekiha() == 3) { //キコウチュウ撃破回数3
+			SkillGetFlag[SetSkillPosition] = true; //フラグオン
+		}
+	}
+	SetSkillPosition++;
+	//スターフィーバー取得フラグ
+	if (savedata->SkillGetFlag_Get(SetSkillPosition) == false) {
+		if (gamedata->GetKikoGekiha() == 5) { //キコウチュウ撃破回数5
+			SkillGetFlag[SetSkillPosition] = true; //フラグオン
+		}
+	}
+	SetSkillPosition++;
+	//ミルキーウェイ取得フラグ
+	if (savedata->SkillGetFlag_Get(SetSkillPosition) == false) {
+		if (gamedata->GetKikoGekiha() == 10) { //キコウチュウ撃破回数10
+			SkillGetFlag[SetSkillPosition] = true; //フラグオン
+		}
+	}
+	SetSkillPosition++;
+	//ゾンビタイム取得フラグ
+	if (savedata->SkillGetFlag_Get(SetSkillPosition) == false) {
+		if (stage == 3 && gamedata->GetItemCount() >= 15 ) { //遺跡でアイテム15個以上
+			SkillGetFlag[SetSkillPosition] = true; //フラグオン
+		}
+	}
+	SetSkillPosition++;
+	//ナガレボシ取得フラグ
+	if (savedata->SkillGetFlag_Get(SetSkillPosition) == false) {
+		if (stage == 1 && Setup_FinalScore >= ScoreData[NowStage][3]) { //森でSランク
+			SkillGetFlag[SetSkillPosition] = true; //フラグオン
+		}
+	}
+	SetSkillPosition++;
+	//ソウルフレア取得フラグ
+	if (savedata->SkillGetFlag_Get(SetSkillPosition) == false) {
+		if (stage == 1 && gamedata->GetBombFlag() == false) { //爆弾に当たらずクリア
+			SkillGetFlag[SetSkillPosition] = true; //フラグオン
+		}
+	}
+	SetSkillPosition++;
+	//コメットキャノン取得フラグ
+	if (savedata->SkillGetFlag_Get(SetSkillPosition) == false) {
+		if (stage == 2 && gamedata->GetDensyaFlag() == false) { //電車に当たらずクリア
+			SkillGetFlag[SetSkillPosition] = true; //フラグオン
+		}
+	}
+	SetSkillPosition++;
+	//せいめいりょく取得フラグ
+	if (savedata->SkillGetFlag_Get(SetSkillPosition) == false) {
+		if (stage == 2 && HardFlag == true && Setup_FinalScore >= (ScoreData[NowStage][3]*2)) { //駅ハードでSランク
+			SkillGetFlag[SetSkillPosition] = true; //フラグオン
+		}
+	}
+	SetSkillPosition++;
+	//アタックアップ取得フラグ
+	if (savedata->SkillGetFlag_Get(SetSkillPosition) == false) {
+		if (gamedata->GetRuikeiGekihaEnemy() >= 10) { //累計敵撃破10
+			SkillGetFlag[SetSkillPosition] = true; //フラグオン
+		}
+	}
+	SetSkillPosition++;
+	//ムテキノバシ取得フラグ
+	if (savedata->SkillGetFlag_Get(SetSkillPosition) == false) {
+		if (gamedata->GetRuikeiGekihaEnemy() >= 30) { //累計敵撃破30
+			SkillGetFlag[SetSkillPosition] = true; //フラグオン
+		}
+	}
+	SetSkillPosition++;
+	//アイテムブースト取得フラグ
+	if (savedata->SkillGetFlag_Get(SetSkillPosition) == false) {
+		if (gamedata->GetRuikeiGekihaEnemy() >= 50) { //累計敵撃破50
+			SkillGetFlag[SetSkillPosition] = true; //フラグオン
+		}
+	}
+	SetSkillPosition++;
+	//セツヤク取得フラグ
+	if (savedata->SkillGetFlag_Get(SetSkillPosition) == false) {
+		if (gamedata->GetRuikeiGekihaEnemy() >= 70) { //累計敵撃破70
+			SkillGetFlag[SetSkillPosition] = true; //フラグオン
+		}
+	}
+	SetSkillPosition++;
+	//イノチカンゲン取得フラグ
+	if (savedata->SkillGetFlag_Get(SetSkillPosition) == false) {
+		if (gamedata->GetRuikeiGekihaEnemy() >= 100) { //累計敵撃破100
+			SkillGetFlag[SetSkillPosition] = true; //フラグオン
+		}
+	}
+	SetSkillPosition++;
+	//ハガネノカラダ取得フラグ
+	if (savedata->SkillGetFlag_Get(SetSkillPosition) == false) {
+		if (gamedata->GetRuikeiGekihaEnemy() >= 150) { //累計敵撃破150
+			SkillGetFlag[SetSkillPosition] = true; //フラグオン
+		}
+	}
+	SetSkillPosition++;
+	//カミカゼバトル取得フラグ
+	if (savedata->SkillGetFlag_Get(SetSkillPosition) == false) {
+		if (gamedata->GetLastStarDash() >= 5) { //流星ダッシュでトドメを刺した回数5回
+			SkillGetFlag[SetSkillPosition] = true; //フラグオン
+		}
+	}
+	SetSkillPosition++;
+	//アクム取得フラグ
+	if (savedata->SkillGetFlag_Get(SetSkillPosition) == false) {
+		if (gamedata->GetHardClear() >= 1) { //ハードモードクリア回数1
+			SkillGetFlag[SetSkillPosition] = true; //フラグオン
+		}
+	}
+	SetSkillPosition++;
+	//キョウフ取得フラグ
+	if (savedata->SkillGetFlag_Get(SetSkillPosition) == false) {
+		if (gamedata->GetHardClear() >= 3) { //ハードモードクリア回数3
+			SkillGetFlag[SetSkillPosition] = true; //フラグオン
+		}
+	}
+	SetSkillPosition++;
+	//ナミダ取得フラグ
+	if (savedata->SkillGetFlag_Get(SetSkillPosition) == false) {
+		if (gamedata->GetHardClear() >= 5) { //ハードモードクリア回数5
+			SkillGetFlag[SetSkillPosition] = true; //フラグオン
+		}
+	}
+	SetSkillPosition++;
+	//キコサーチ取得フラグ
+	if (savedata->SkillGetFlag_Get(SetSkillPosition) == false) {
+		if (stage == 4 && HardFlag == true && Setup_FinalScore >= (ScoreData[NowStage][3]*2)) { //異空間ハードSランク
+			SkillGetFlag[SetSkillPosition] = true; //フラグオン
+		}
+	}
+	SetSkillPosition++;
+
+	//取得画像を準備！
+
+	//0番→背景
+	r_skill = NewGO<prefab::CSpriteRender>(8);
+	r_skill->Init(L"sprite/Skill.dds", 660.0f, 200.0f);
+	r_skill->SetPosition({ 0.0f + SkillX_Hosei,-220.0f,0.0f });
+	r_skill->SetMulColor({ 1.0f,1.0f,1.0f,1.0f });
+	m_spriteRender_skill.push_back(r_skill);
+
+	//1番→アイコン
+	r_skill = NewGO<prefab::CSpriteRender>(8);
+	r_skill->Init(L"sprite/skillicon_0.dds", 150.0f, 100.0f);
+	r_skill->SetPosition({ -200.0f + SkillX_Hosei,-220.0f,0.0f });
+	r_skill->SetMulColor({ 1.0f,1.0f,1.0f,1.0f });
+	m_spriteRender_skill.push_back(r_skill);
+
+	//2番→アイコン枠
+	r_skill = NewGO<prefab::CSpriteRender>(9);
+	r_skill->Init(L"sprite/skilliconWaku.dds", 150.0f, 100.0f);
+	r_skill->SetPosition({ -200.0f + SkillX_Hosei,-220.0f,0.0f });
+	r_skill->SetMulColor({ 1.0f,1.0f,1.0f,1.0f });
+	m_spriteRender_skill.push_back(r_skill);
+
+	//0番→スキル名
+	f_skill = NewGO<prefab::CFontRender>(9);
+	//表示
+	wchar_t text[256];
+	//おわ
+	swprintf(text, L"テストメッセージ");
+	//はい。
+	f_skill->SetText(text);
+	f_skill->SetPosition({ -100.0f + SkillX_Hosei,-172.0f });
+	f_skill->SetScale(0.8f);
+	f_skill->SetColor({ 1.0f,1.0f,1.0f,1.0f });
+	f_skill->SetPivot({ 0.0f,1.0f });
+	m_fontRender_skill.push_back(f_skill);
+
+	//1番→説明文
+	f_skill = NewGO<prefab::CFontRender>(9);
+	//表示
+	text[256];
+	//おわ
+	swprintf(text, L"ほげほげほげほげ\nもげもげもげろんぼょ");
+	//はい。
+	f_skill->SetText(text);
+	f_skill->SetPosition({ -100.0f + SkillX_Hosei,-215.0f });
+	f_skill->SetScale(0.5f);
+	f_skill->SetColor({ 1.0f,1.0f,1.0f,1.0f });
+	f_skill->SetPivot({ 0.0f,1.0f });
+	m_fontRender_skill.push_back(f_skill);
+
+	//2番→ス
+	f_skill = NewGO<prefab::CFontRender>(9);
+	//表示
+	text[256];
+	//おわ
+	swprintf(text, L"ス");
+	//はい。
+	f_skill->SetText(text);
+	f_skill->SetPosition({ -180.0f,-90.0f });
+	f_skill->SetScale(1.2f);
+	f_skill->SetColor({ 1.0f,1.0f,0.2f,0.0f });
+	f_skill->SetPivot({ 0.0f,1.0f });
+	m_fontRender_skill.push_back(f_skill);
+
+	//3番→キ
+	f_skill = NewGO<prefab::CFontRender>(9);
+	//表示
+	text[256];
+	//おわ
+	swprintf(text, L"　キ");
+	//はい。
+	f_skill->SetText(text);
+	f_skill->SetPosition({ -180.0f,-90.0f });
+	f_skill->SetScale(1.2f);
+	f_skill->SetColor({ 1.0f,1.0f,0.2f,0.0f });
+	f_skill->SetPivot({ 0.0f,1.0f });
+	m_fontRender_skill.push_back(f_skill);
+
+	//4番→ル
+	f_skill = NewGO<prefab::CFontRender>(9);
+	//表示
+	text[256];
+	//おわ
+	swprintf(text, L"　　ル");
+	//はい。
+	f_skill->SetText(text);
+	f_skill->SetPosition({ -180.0f,-90.0f });
+	f_skill->SetScale(1.2f);
+	f_skill->SetColor({ 1.0f,1.0f,0.2f,0.0f });
+	f_skill->SetPivot({ 0.0f,1.0f });
+	m_fontRender_skill.push_back(f_skill);
+
+	//5番→ゲ
+	f_skill = NewGO<prefab::CFontRender>(9);
+	//表示
+	text[256];
+	//おわ
+	swprintf(text, L"　　　ゲ");
+	//はい。
+	f_skill->SetText(text);
+	f_skill->SetPosition({ -180.0f,-90.0f });
+	f_skill->SetScale(1.2f);
+	f_skill->SetColor({ 1.0f,1.0f,0.2f,0.0f });
+	f_skill->SetPivot({ 0.0f,1.0f });
+	m_fontRender_skill.push_back(f_skill);
+
+	//6番→ッ
+	f_skill = NewGO<prefab::CFontRender>(9);
+	//表示
+	text[256];
+	//おわ
+	swprintf(text, L"　　　　ッ");
+	//はい。
+	f_skill->SetText(text);
+	f_skill->SetPosition({ -180.0f,-90.0f });
+	f_skill->SetScale(1.2f);
+	f_skill->SetColor({ 1.0f,1.0f,0.2f,0.0f });
+	f_skill->SetPivot({ 0.0f,1.0f });
+	m_fontRender_skill.push_back(f_skill);
+
+	//7番→ト
+	f_skill = NewGO<prefab::CFontRender>(9);
+	//表示
+	text[256];
+	//おわ
+	swprintf(text, L"　　　　　ト");
+	//はい。
+	f_skill->SetText(text);
+	f_skill->SetPosition({ -180.0f,-90.0f });
+	f_skill->SetScale(1.2f);
+	f_skill->SetColor({ 1.0f,1.0f,0.2f,0.0f });
+	f_skill->SetPivot({ 0.0f,1.0f });
+	m_fontRender_skill.push_back(f_skill);
+
+	//8番→！
+	f_skill = NewGO<prefab::CFontRender>(9);
+	//表示
+	text[256];
+	//おわ
+	swprintf(text, L"　　　　　　！");
+	//はい。
+	f_skill->SetText(text);
+	f_skill->SetPosition({ -180.0f,-90.0f });
+	f_skill->SetScale(1.2f);
+	f_skill->SetColor({ 1.0f,1.0f,0.2f,0.0f });
+	f_skill->SetPivot({ 0.0f,1.0f });
+	m_fontRender_skill.push_back(f_skill);
+
+}
+
+void GameResult::SkillGet(short SetPos) {
+
+	if (SkillTimer == 0) {
+		//取得画像を引数のスキル仕様に変更！
+		wchar_t text[256];
+
+		//アイコン
+		for (int i = 0; i < 256; i++) { //リセット
+			text[i] = Reset[0];
+		}
+		int len = (int)wcslen(Skill_Data[SetPos].SkillIcon);
+		for (int z = 0; z < len + 1; z++) { //名前の取得
+			text[z] = Skill_Data[SetPos].SkillIcon[z];
+		}
+		m_spriteRender_skill[1]->Init(text, 150.0f, 100.0f);
+
+		//名前の取得
+		for (int i = 0; i < 256; i++) { //リセット
+			text[i] = Reset[0];
+		}
+		len = (int)wcslen(Skill_Data[SetPos].SkillName);
+		for (int z = 0; z < len + 1; z++) { //名前の取得
+			text[z] = Skill_Data[SetPos].SkillName[z];
+		}
+		swprintf(text, text);
+		//はい。
+		m_fontRender_skill[0]->SetText(text);
+
+		//説明文の取得
+		for (int i = 0; i < 256; i++) { //リセット
+			text[i] = Reset[0];
+		}
+		len = (int)wcslen(Skill_Data[SetPos].SkillSetumei);
+		for (int z = 0; z < len + 1; z++) { //名前の取得
+			text[z] = Skill_Data[SetPos].SkillSetumei[z];
+		}
+		swprintf(text, text);
+		//はい。
+		m_fontRender_skill[1]->SetText(text);
+
+	}
+
+	//登場移動
+	if (SkillTimer < SkillMoveSpeed + SkillMoveWait) { //移動
+
+		CVector3 Hoge_Pos;
+		CVector2 Hoge_Pos2;
+		CVector4 Hoge_Pos3;
+
+		if (SkillTimer < SkillMoveSpeed) {
+
+			float MoveSpeed = SkillX_Hosei / (float)SkillMoveSpeed; //移動距離を計算
+
+			Hoge_Pos = m_spriteRender_skill[0]->GetPosition();
+			Hoge_Pos.x -= MoveSpeed;
+			m_spriteRender_skill[0]->SetPosition(Hoge_Pos);
+			Hoge_Pos = m_spriteRender_skill[1]->GetPosition();
+			Hoge_Pos.x -= MoveSpeed;
+			m_spriteRender_skill[1]->SetPosition(Hoge_Pos);
+			Hoge_Pos = m_spriteRender_skill[2]->GetPosition();
+			Hoge_Pos.x -= MoveSpeed;
+			m_spriteRender_skill[2]->SetPosition(Hoge_Pos);
+			Hoge_Pos2 = m_fontRender_skill[0]->GetPosition();
+			Hoge_Pos2.x -= MoveSpeed;
+			m_fontRender_skill[0]->SetPosition(Hoge_Pos2);
+			Hoge_Pos2 = m_fontRender_skill[1]->GetPosition();
+			Hoge_Pos2.x -= MoveSpeed;
+			m_fontRender_skill[1]->SetPosition(Hoge_Pos2);
+
+			//スキルゲットの文字…（もうちょっと頭いい方法なかったんですか？）
+			Hoge_Pos3 = m_fontRender_skill[2]->GetColor();
+			Hoge_Pos3.a += 0.1f;
+			if (Hoge_Pos3.a > 1.0f) {
+				Hoge_Pos3.a = 1.0f;
+			}
+			m_fontRender_skill[2]->SetColor(Hoge_Pos3);
+
+			Hoge_Pos3 = m_fontRender_skill[3]->GetColor();
+			Hoge_Pos3.a += 0.1f;
+			if (Hoge_Pos3.a > 1.0f) {
+				Hoge_Pos3.a = 1.0f;
+			}
+			m_fontRender_skill[3]->SetColor(Hoge_Pos3);
+
+			Hoge_Pos3 = m_fontRender_skill[4]->GetColor();
+			Hoge_Pos3.a += 0.1f;
+			if (Hoge_Pos3.a > 1.0f) {
+				Hoge_Pos3.a = 1.0f;
+			}
+			m_fontRender_skill[4]->SetColor(Hoge_Pos3);
+
+			Hoge_Pos3 = m_fontRender_skill[5]->GetColor();
+			Hoge_Pos3.a += 0.1f;
+			if (Hoge_Pos3.a > 1.0f) {
+				Hoge_Pos3.a = 1.0f;
+			}
+			m_fontRender_skill[5]->SetColor(Hoge_Pos3);
+
+			Hoge_Pos3 = m_fontRender_skill[6]->GetColor();
+			Hoge_Pos3.a += 0.1f;
+			if (Hoge_Pos3.a > 1.0f) {
+				Hoge_Pos3.a = 1.0f;
+			}
+			m_fontRender_skill[6]->SetColor(Hoge_Pos3);
+
+			Hoge_Pos3 = m_fontRender_skill[7]->GetColor();
+			Hoge_Pos3.a += 0.1f;
+			if (Hoge_Pos3.a > 1.0f) {
+				Hoge_Pos3.a = 1.0f;
+			}
+			m_fontRender_skill[7]->SetColor(Hoge_Pos3);
+
+			Hoge_Pos3 = m_fontRender_skill[8]->GetColor();
+			Hoge_Pos3.a += 0.1f;
+			if (Hoge_Pos3.a > 1.0f) {
+				Hoge_Pos3.a = 1.0f;
+			}
+			m_fontRender_skill[8]->SetColor(Hoge_Pos3);
+
+		}
+
+		//移動
+		if (SkillMove == false) {
+			if (SkillTimer == 3 + SkillMoveWait) {
+				Hoge_Pos2 = m_fontRender_skill[2]->GetPosition();
+				Hoge_Pos2.y -= 7.5f;
+				m_fontRender_skill[2]->SetPosition(Hoge_Pos2);
+			}
+			if (SkillTimer == 4 + SkillMoveWait) {
+				Hoge_Pos2 = m_fontRender_skill[2]->GetPosition();
+				Hoge_Pos2.y -= 7.5f;
+				m_fontRender_skill[2]->SetPosition(Hoge_Pos2);
+			}
+			if (SkillTimer == 5 + SkillMoveWait) {
+				Hoge_Pos2 = m_fontRender_skill[2]->GetPosition();
+				Hoge_Pos2.y += 7.5f;
+				m_fontRender_skill[2]->SetPosition(Hoge_Pos2);
+
+				Hoge_Pos2 = m_fontRender_skill[3]->GetPosition();
+				Hoge_Pos2.y -= 7.5f;
+				m_fontRender_skill[3]->SetPosition(Hoge_Pos2);
+			}
+			if (SkillTimer == 6 + SkillMoveWait) {
+				Hoge_Pos2 = m_fontRender_skill[2]->GetPosition();
+				Hoge_Pos2.y += 7.5f;
+				m_fontRender_skill[2]->SetPosition(Hoge_Pos2);
+
+				Hoge_Pos2 = m_fontRender_skill[3]->GetPosition();
+				Hoge_Pos2.y -= 7.5f;
+				m_fontRender_skill[3]->SetPosition(Hoge_Pos2);
+			}
+			if (SkillTimer == 7 + SkillMoveWait) {
+				Hoge_Pos2 = m_fontRender_skill[3]->GetPosition();
+				Hoge_Pos2.y += 7.5f;
+				m_fontRender_skill[3]->SetPosition(Hoge_Pos2);
+
+				Hoge_Pos2 = m_fontRender_skill[4]->GetPosition();
+				Hoge_Pos2.y -= 7.5f;
+				m_fontRender_skill[4]->SetPosition(Hoge_Pos2);
+
+			}
+			if (SkillTimer == 8 + SkillMoveWait) {
+				Hoge_Pos2 = m_fontRender_skill[3]->GetPosition();
+				Hoge_Pos2.y += 7.5f;
+				m_fontRender_skill[3]->SetPosition(Hoge_Pos2);
+
+				Hoge_Pos2 = m_fontRender_skill[4]->GetPosition();
+				Hoge_Pos2.y -= 7.5f;
+				m_fontRender_skill[4]->SetPosition(Hoge_Pos2);
+			}
+			if (SkillTimer == 9 + SkillMoveWait) {
+				Hoge_Pos2 = m_fontRender_skill[4]->GetPosition();
+				Hoge_Pos2.y += 7.5f;
+				m_fontRender_skill[4]->SetPosition(Hoge_Pos2);
+
+				Hoge_Pos2 = m_fontRender_skill[5]->GetPosition();
+				Hoge_Pos2.y -= 7.5f;
+				m_fontRender_skill[5]->SetPosition(Hoge_Pos2);
+			}
+			if (SkillTimer == 10 + SkillMoveWait) {
+				Hoge_Pos2 = m_fontRender_skill[4]->GetPosition();
+				Hoge_Pos2.y += 7.5f;
+				m_fontRender_skill[4]->SetPosition(Hoge_Pos2);
+
+				Hoge_Pos2 = m_fontRender_skill[5]->GetPosition();
+				Hoge_Pos2.y -= 7.5f;
+				m_fontRender_skill[5]->SetPosition(Hoge_Pos2);
+			}
+			if (SkillTimer == 11 + SkillMoveWait) {
+				Hoge_Pos2 = m_fontRender_skill[5]->GetPosition();
+				Hoge_Pos2.y += 7.5f;
+				m_fontRender_skill[5]->SetPosition(Hoge_Pos2);
+
+				Hoge_Pos2 = m_fontRender_skill[6]->GetPosition();
+				Hoge_Pos2.y -= 7.5f;
+				m_fontRender_skill[6]->SetPosition(Hoge_Pos2);
+
+			}
+			if (SkillTimer == 12 + SkillMoveWait) {
+				Hoge_Pos2 = m_fontRender_skill[5]->GetPosition();
+				Hoge_Pos2.y += 7.5f;
+				m_fontRender_skill[5]->SetPosition(Hoge_Pos2);
+
+				Hoge_Pos2 = m_fontRender_skill[6]->GetPosition();
+				Hoge_Pos2.y -= 7.5f;
+				m_fontRender_skill[6]->SetPosition(Hoge_Pos2);
+
+			}
+			if (SkillTimer == 13 + SkillMoveWait) {
+				Hoge_Pos2 = m_fontRender_skill[6]->GetPosition();
+				Hoge_Pos2.y += 7.5f;
+				m_fontRender_skill[6]->SetPosition(Hoge_Pos2);
+
+				Hoge_Pos2 = m_fontRender_skill[7]->GetPosition();
+				Hoge_Pos2.y -= 7.5f;
+				m_fontRender_skill[7]->SetPosition(Hoge_Pos2);
+
+			}
+			if (SkillTimer == 14 + SkillMoveWait) {
+				Hoge_Pos2 = m_fontRender_skill[6]->GetPosition();
+				Hoge_Pos2.y += 7.5f;
+				m_fontRender_skill[6]->SetPosition(Hoge_Pos2);
+
+				Hoge_Pos2 = m_fontRender_skill[7]->GetPosition();
+				Hoge_Pos2.y -= 7.5f;
+				m_fontRender_skill[7]->SetPosition(Hoge_Pos2);
+
+			}
+			if (SkillTimer == 15 + SkillMoveWait) {
+				Hoge_Pos2 = m_fontRender_skill[7]->GetPosition();
+				Hoge_Pos2.y += 7.5f;
+				m_fontRender_skill[7]->SetPosition(Hoge_Pos2);
+
+				Hoge_Pos2 = m_fontRender_skill[8]->GetPosition();
+				Hoge_Pos2.y -= 7.5f;
+				m_fontRender_skill[8]->SetPosition(Hoge_Pos2);
+
+			}
+			if (SkillTimer == 16 + SkillMoveWait) {
+				Hoge_Pos2 = m_fontRender_skill[7]->GetPosition();
+				Hoge_Pos2.y += 7.5f;
+				m_fontRender_skill[7]->SetPosition(Hoge_Pos2);
+
+				Hoge_Pos2 = m_fontRender_skill[8]->GetPosition();
+				Hoge_Pos2.y -= 7.5f;
+				m_fontRender_skill[8]->SetPosition(Hoge_Pos2);
+
+			}
+			if (SkillTimer == 17 + SkillMoveWait) {
+				Hoge_Pos2 = m_fontRender_skill[8]->GetPosition();
+				Hoge_Pos2.y += 7.5f;
+				m_fontRender_skill[8]->SetPosition(Hoge_Pos2);
+			}
+			if (SkillTimer == 18 + SkillMoveWait) {
+				Hoge_Pos2 = m_fontRender_skill[8]->GetPosition();
+				Hoge_Pos2.y += 7.5f;
+				m_fontRender_skill[8]->SetPosition(Hoge_Pos2);
+
+				prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+				ss->Init(L"sound/skillget.wav");
+				ss->SetVolume(1.0f);
+				ss->Play(false);
+
+			}
+		}
+
+		SkillTimer++;
+	}
+	else { //決定待ち
+		if (SkillMove == false) {
+			if (Pad(0).IsTrigger(enButtonA)) {
+				SkillMove = true;
+				SkillTimer = 0;
+				SaveData * savedata = SaveData::GetInstance();
+				savedata->SkillGetFlag_Set(SetPos);
+			}
+		}
+		else { //終了
+			SkillMove = false;
+			SkillTimer = 0;
+			Skill_EffectEnd = true;
+			//ポジションを戻す
+			m_spriteRender_skill[0]->SetPosition({ 0.0f + SkillX_Hosei,-220.0f,0.0f });
+			m_spriteRender_skill[1]->SetPosition({ -200.0f + SkillX_Hosei,-220.0f,0.0f });
+			m_spriteRender_skill[2]->SetPosition({ -200.0f + SkillX_Hosei,-220.0f,0.0f });
+			m_fontRender_skill[0]->SetPosition({ -100.0f + SkillX_Hosei,-172.0f });
+			m_fontRender_skill[1]->SetPosition({ -100.0f + SkillX_Hosei,-215.0f });
+		}
+	}
+
+
+}

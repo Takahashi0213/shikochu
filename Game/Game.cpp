@@ -16,8 +16,10 @@
 #include "StageSelect.h"
 #include "GameOver.h"
 #include "GamePause.h"
+#include "StageGimmick.h"
+#include "GameSupport.h"
 
-#include "Akoyadokari.h"
+#include "Metoporisu.h"
 
 Game* Game::m_instance = nullptr;
 
@@ -39,6 +41,7 @@ Game::~Game()
 	GameData * gamedata = GameData::GetInstance();
 	bool F_mode = gamedata->GetFinalMode();
 
+	//もし最後のモードが3Dだったらゲージを消しておく
 	if (F_mode == true) {
 		DeleteGOs("BossHPGage");
 	}
@@ -50,6 +53,8 @@ Game::~Game()
 	DeleteGOs("BackGround");
 	DeleteGOs("Player_Status");
 	DeleteGOs("LevelSet");
+	DeleteGOs("StageGimmick");
+	DeleteGOs("GameSupport");
 	DeleteGOs("Sky");
 	DeleteGOs("L_Light");
 
@@ -69,27 +74,34 @@ Game::~Game()
 }
 bool Game::Start()
 {
-	//EnableSpecialLigRange();
-	DisableSpecialLigRange();
+	EnableSpecialLigRange();
+	//DisableSpecialLigRange();
 
 	NewGO<Player>(0,"Bug");
+	//NewGO<Metoporisu>(0, "Metoporisu");
 
 	NewGO<GameCamera>(0,"Gamecamera");
 	NewGO<Player_Status>(0, "Status");
 	NewGO<BackGround>(0, "BackGround");
 	NewGO<WaveManager>(0, "WaveManager");
 	NewGO<LevelSet>(0, "LevelSet");
+	NewGO<StageGimmick>(0, "StageGimmick");
+	NewGO<GameSupport>(0, "GameSupport");
 
+	//ゲームモードの設定
 	GameData * gamedata = GameData::GetInstance();
 	gamedata->SetGameMode(GameData::Battle2D_Mode);
+	//記録用変数のリセット
 	gamedata->GameDataReset();
+	//ステージ番号の取得
 	int stageNo = gamedata->GetStageNo();
-	stageNo--;
+	stageNo--; //1減らさないとずれます
 
 	//背景を表示
 	BackGround * background = BackGround::GetInstance();
 	background->StageMaker(stageNo);
 
+	//空を表示
 	prefab::CSky* sky = NewGO<prefab::CSky>(0, "Sky");
 	sky->SetScale({ 20000.0f, 20000.0f, 20000.0f });
 	sky->SetEmissionColor({6.1f, 6.1f, 8.1f});

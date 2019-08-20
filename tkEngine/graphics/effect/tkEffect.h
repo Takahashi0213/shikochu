@@ -48,13 +48,18 @@ namespace tkEngine{
 			 */
 			bool IsPlay() const
 			{
-				return GraphicsEngine().GetEffectEngine().GetEffekseerManager().GetShown(m_handle);
+				return GraphicsEngine().GetEffectEngine().GetEffekseerManager(m_isPost).GetShown(m_handle);
 			}
 			/*!
 			 *@brief	更新。
 			 */
 			void Update() override;
+			void SetPostRenderFlag(bool isPost)
+			{
+				m_isPost = isPost;
+			}
 		private:
+			bool m_isPost = false;
 			Effekseer::Effect*	m_effect = nullptr;
 			Effekseer::Handle	m_handle = -1;
 			CVector3 m_position = CVector3::Zero;			//!<座標。

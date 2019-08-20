@@ -12,6 +12,7 @@
 #include "StageSelect.h"
 #include "StarItem.h"
 #include "TransitionMaker.h"
+#include "EffectManager.h"
 
 Tutorial* Tutorial::m_instance = nullptr;
 
@@ -210,6 +211,8 @@ void Tutorial::Update() {
 				ss->SetVolume(1.0f);
 				ss->Play(false);
 
+				m_spriteRender[1]->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
+
 				PushCount++;
 			}
 
@@ -234,7 +237,6 @@ void Tutorial::Update() {
 			}
 		}
 		else if (PushCount == 4) {//終了処理
-			m_spriteRender[1]->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
 			m_spriteRender[0]->SetPosition({ 0.0f ,M_PosY - M_YHosei,0.0f });
 			m_fontRender[0]->SetPosition({ -300.0f,M_PosY2 - M_YHosei });
 			m_fontRender[1]->SetColor({ 1.0f,1.0f,1.0f,1.0f });
@@ -255,7 +257,7 @@ void Tutorial::Update() {
 	{
 		GameData * gamedata = GameData::GetInstance();
 		int zanki = gamedata->GetZanki();
-		if (zanki == 49) {
+		if (zanki == 29) {
 			gamedata->SetGameMode(GameData::Tutorial);
 			Tutorialscene = scene2;
 			m_fontRender[1]->SetColor({ 1.0f,1.0f,1.0f,0.0f });
@@ -513,7 +515,7 @@ void Tutorial::Update() {
 
 				text[256];
 				//おわ
-				swprintf(text, L"シコウチュウのまわりにある\nあかいてん はてきのほうこうを\nしめしています");
+				swprintf(text, L"シコウチュウのまわりにある\nやじるし はてきのほうこうを\nしめしています");
 				//はい。
 				m_fontRender[0]->SetText(text);
 
@@ -544,6 +546,7 @@ void Tutorial::Update() {
 				ss->Init(L"sound/TitleOK.wav");
 				ss->SetVolume(1.0f);
 				ss->Play(false);
+				m_spriteRender[1]->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
 
 				PushCount++;
 				text[256];
@@ -574,7 +577,6 @@ void Tutorial::Update() {
 			}
 		}
 		else if (PushCount == 17) {//終了処理
-			m_spriteRender[1]->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
 			m_spriteRender[0]->SetPosition({ 0.0f ,M_PosY - M_YHosei,0.0f });
 			m_fontRender[0]->SetPosition({ -300.0f,M_PosY2 - M_YHosei });
 			m_fontRender[1]->SetColor({ 1.0f,1.0f,1.0f,1.0f });
@@ -710,16 +712,25 @@ void Tutorial::Update() {
 					ss->Play(false);
 
 					//アイテム出現
+					EffectManager * effectmanager = EffectManager::GetInstance();
+
 					StarItem* ITEM = NewGO<StarItem>(0, "Item");
 					ITEM->SetPosition({ 0.0f,0.0f,80.0f });
+					//Effect再生
+					effectmanager->EffectPlayer_Post(EffectManager::ItemSpawn, { 0.0f,0.0f,80.0f }, EffectScale);
 					ITEM = NewGO<StarItem>(0, "Item");
 					ITEM->SetPosition({ 120.0f,0.0f,120.0f });
+					effectmanager->EffectPlayer(EffectManager::ItemSpawn, { 120.0f,0.0f,120.0f }, EffectScale);
 					ITEM = NewGO<StarItem>(0, "Item");
 					ITEM->SetPosition({ -120.0f,0.0f,120.0f });
+					effectmanager->EffectPlayer(EffectManager::ItemSpawn, { -120.0f,0.0f,120.0f }, EffectScale);
 					ITEM = NewGO<StarItem>(0, "Item");
 					ITEM->SetPosition({ 120.0f,0.0f,-120.0f });
+					effectmanager->EffectPlayer(EffectManager::ItemSpawn, { 120.0f,0.0f,-120.0f }, EffectScale);
 					ITEM = NewGO<StarItem>(0, "Item");
 					ITEM->SetPosition({ -120.0f,0.0f,-120.0f });
+					effectmanager->EffectPlayer(EffectManager::ItemSpawn, { -120.0f,0.0f,-120.0f }, EffectScale);
+
 					m_spriteRender[2]->SetPosition({ 100.0f,150.0f,0.0f });
 					m_spriteRender[2]->SetMulColor({ 1.0f,1.0f,1.0f,1.0f });
 
@@ -829,6 +840,8 @@ void Tutorial::Update() {
 					ss->SetVolume(1.0f);
 					ss->Play(false);
 
+					m_spriteRender[1]->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
+
 					PushCount++;
 					text[256];
 					//おわ
@@ -858,7 +871,6 @@ void Tutorial::Update() {
 				}
 			}
 			else if (PushCount == 13) {//終了処理
-				m_spriteRender[1]->SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
 				m_spriteRender[0]->SetPosition({ 0.0f ,M_PosY - M_YHosei,0.0f });
 				m_fontRender[0]->SetPosition({ -300.0f,M_PosY2 - M_YHosei });
 				m_fontRender[1]->SetColor({ 1.0f,1.0f,1.0f,1.0f });

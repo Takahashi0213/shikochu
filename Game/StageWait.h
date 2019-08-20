@@ -43,10 +43,16 @@ private:
 	float JumpSclY = 0.0f;
 
 	//メッセージ*3
-	const wchar_t Message[9][255]{
+	const wchar_t Message[16][255]{
 	{ L"sprite/Message/m_1_1.dds" }, //文章画像をここに
 	{ L"sprite/Message/m_1_2.dds" },
 	{ L"sprite/Message/m_1_3.dds" },
+	{ L"sprite/Message/m_4_1.dds" },
+	{ L"sprite/Message/m_4_2.dds" },
+	{ L"sprite/Message/m_4_3.dds" },
+	{ L"sprite/Message/m_5_1.dds" },
+	{ L"sprite/Message/m_5_2.dds" },
+	{ L"sprite/Message/m_5_3.dds" },
 	{ L"sprite/Message/m_2_1.dds" },
 	{ L"sprite/Message/m_2_2.dds" },
 	{ L"sprite/Message/m_2_3.dds" },
@@ -56,45 +62,59 @@ private:
 
 	};
 
-	const bool MessageAcc[3]{//メッセージアクセサリの有無
+	const bool MessageAcc[5]{//メッセージアクセサリの有無
+		false,
+		false,
 		false,
 		false,
 		true,
 	};
 
-	const wchar_t MessageAccName[3][255]{//メッセージアクセサリの名前
+	const wchar_t MessageAccName[5][255]{//メッセージアクセサリの名前
 		{ L"" }, 
-		{ L"" }, 
-		{ L"sprite/Message/m_3_a.dds" }, 
+		{ L"" },
+	{ L"" },
+	{ L"" },
+	{ L"sprite/Message/m_3_a.dds" },
 
 	};
 
 	//ここからハードモード用データ
 
 	//メッセージ*3
-	const wchar_t Message_Hard[9][255]{
+	const wchar_t Message_Hard[16][255]{
 	{ L"sprite/Message/hm_1_1.dds" }, //文章画像をここに
 	{ L"sprite/Message/hm_1_2.dds" },
 	{ L"sprite/Message/hm_1_3.dds" },
-	{ L"sprite/Message/m_2_1.dds" },
-	{ L"sprite/Message/m_2_2.dds" },
-	{ L"sprite/Message/m_2_3.dds" },
-	{ L"sprite/Message/m_3_1.dds" },
-	{ L"sprite/Message/m_3_2.dds" },
-	{ L"sprite/Message/m_3_3.dds" },
+	{ L"sprite/Message/hm_2_1.dds" }, //文章画像をここに
+	{ L"sprite/Message/hm_2_2.dds" },
+	{ L"sprite/Message/hm_2_3.dds" },
+	{ L"sprite/Message/hm_5_1.dds" }, //文章画像をここに
+	{ L"sprite/Message/hm_5_2.dds" },
+	{ L"sprite/Message/hm_5_3.dds" },
+	{ L"sprite/Message/hm_3_1.dds" }, //文章画像をここに
+	{ L"sprite/Message/hm_3_2.dds" },
+	{ L"sprite/Message/hm_3_3.dds" },
+	{ L"sprite/Message/hm_4_1.dds" }, //文章画像をここに
+	{ L"sprite/Message/hm_4_2.dds" },
+	{ L"sprite/Message/hm_4_3.dds" },
 
 	};
 
-	const bool MessageAcc_Hard[3]{//メッセージアクセサリの有無
+	const bool MessageAcc_Hard[5]{//メッセージアクセサリの有無
 		false,
 		false,
+		true,
 		false,
+		true,
 	};
 
-	const wchar_t MessageAccName_Hard[3][255]{//メッセージアクセサリの名前
+	const wchar_t MessageAccName_Hard[5][255]{//メッセージアクセサリの名前
 	{ L"" },
 	{ L"" },
+	{ L"sprite/Message/hm_5_a.dds" },
 	{ L"" },
+	{ L"sprite/Message/hm_4_a.dds" },
 	};
 
 };

@@ -64,6 +64,11 @@ namespace tkEngine{
 		m_dof.Render(rc, this);
 		m_fxaa.Render(rc, this);
 		m_dithering.Render(rc, this);
+
+		//エフェクトを描画
+		GraphicsEngine().GetEffectEngine().PostRender(rc, this);
+
+
 		//
 		GraphicsEngine().EndPostEffect(rc);
 	}

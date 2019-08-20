@@ -2,6 +2,7 @@
 #include "Kikochu.h"
 #include "GameData.h"
 #include "EffectManager.h"
+#include "StarComet_Inseki.h"
 
 Kikochu::Kikochu()
 {
@@ -52,6 +53,19 @@ void Kikochu::Update() {
 			break;
 		}
 	}
+
+	//どうも隕石です
+	QueryGOs<StarComet_Inseki>("StarComet_Inseki", [&](StarComet_Inseki* SCI) {
+		CVector3 inseki_position = SCI->Getm_Position();
+		CVector3 diff = inseki_position - m_position;
+		float Langth_hoge = SCI->GetDamageLength();
+		if (diff.Length() < Langth_hoge) { //隕石衝突
+			SetDeath();//自分が死ぬ
+			SCI->SetDeath();//隕石も死ぬ
+		}
+		return true;
+		});
+
 	//移動
 	m_skinModelRender->SetPosition(m_position);
 	//回転
@@ -74,10 +88,9 @@ void Kikochu::Move() {
 		timer = 0;
 	}
 
-	if (EF_timer == Ef_Limit) {
+	if (EF_timer == Ef_Limit) { //光エフェクトを表示する
 		EffectManager * effectmanager = EffectManager::GetInstance();
 		CVector3 ef_position = m_position;
-		ef_position.z += 200.0f;
 		effectmanager->EffectPlayer(EffectManager::star, ef_position, SpawnEffectScale / 2);
 		effectmanager->EffectPlayer(EffectManager::star, ef_position, SpawnEffectScale / 2);
 		effectmanager->EffectPlayer(EffectManager::star, ef_position, SpawnEffectScale / 2);
@@ -99,7 +112,7 @@ void Kikochu::Death() {
 	EffectManager * effectmanager = EffectManager::GetInstance();
 	CVector3 EF_Position = m_position;
 	EF_Position.y += 50.0f;
-	effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+	effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f }, false, false);
 
 	//キコウチュウフラグをオンに
 	GameData * gamedata = GameData::GetInstance();

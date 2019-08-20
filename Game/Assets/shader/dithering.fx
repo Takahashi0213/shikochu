@@ -30,6 +30,7 @@ static const int pattern[] = {
 
 cbuffer cbParam : register( b0 )
 {
+	float2 playerPos;
 	float ligRange;
 	int numPointLig;
 };
@@ -68,8 +69,9 @@ float4 PSMain( PSInput In ) : SV_Target0
 	
 	
 	//’†S‚©‚çŒõ‚é‚â‚ÂB
-	
-	float b = max( 0.0f, ligRange - length( pos ) ) / ligRange;
+	float2 playerPosHosei = playerPos;
+	playerPosHosei.y *= -asspect;
+	float b = max( 0.0f, ligRange - length( pos - playerPosHosei) ) / ligRange;
 	t += pow( b, 4.0f);
 
 	t = min(1.0f, t);

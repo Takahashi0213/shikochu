@@ -285,7 +285,7 @@ void Title::minimusi() {
 		timer = 0;
 	}
 	m_spriteRender[22]->SetPosition({ -550.0f,minipos.y,0.0f });
-	
+
 }
 void Title::minimove() {
 	CVector3 getpos = m_spriteRender[22]->GetPosition();
@@ -297,13 +297,64 @@ void Title::minimove() {
 	}
 	ss->SetVolume(BGM_V);
 
+	CVector3 scl = m_spriteRender[22]->GetScale();
+
 	if (movetimer < 10.0f) {
 		getpos.x -= 10.0f;
+		scl.y -= 0.04f;
 		m_spriteRender[22]->SetPosition({ getpos.x,	minipos.y,0.0f });
+		m_spriteRender[22]->SetScale(scl);
+
+		//選択中のものに応じて不透明度変更
+		if (m_stete == NewGame) {
+			CVector4 coler = m_spriteRender[20]->GetMulColor();
+			coler.a -= 0.1f;
+			if (coler.a < 0.0f) {
+				coler.a = 0.0f;
+			}
+			m_spriteRender[20]->SetMulColor(coler);
+			coler = m_spriteRender[21]->GetMulColor();
+			coler.a -= 0.1f;
+			if (coler.a < 0.0f) {
+				coler.a = 0.0f;
+			}
+			m_spriteRender[21]->SetMulColor(coler);
+		}
+		else if (m_stete == LoadGame) {
+			CVector4 coler = m_spriteRender[19]->GetMulColor();
+			coler.a -= 0.1f;
+			if (coler.a < 0.0f) {
+				coler.a = 0.0f;
+			}
+			m_spriteRender[19]->SetMulColor(coler);
+			coler = m_spriteRender[21]->GetMulColor();
+			coler.a -= 0.1f;
+			if (coler.a < 0.0f) {
+				coler.a = 0.0f;
+			}
+			m_spriteRender[21]->SetMulColor(coler);
+		}
+		else if (m_stete == Exit) {
+			CVector4 coler = m_spriteRender[19]->GetMulColor();
+			coler.a -= 0.1f;
+			if (coler.a < 0.0f) {
+				coler.a = 0.0f;
+			}
+			m_spriteRender[19]->SetMulColor(coler);
+			coler = m_spriteRender[20]->GetMulColor();
+			coler.a -= 0.1f;
+			if (coler.a < 0.0f) {
+				coler.a = 0.0f;
+			}
+			m_spriteRender[20]->SetMulColor(coler);
+		}
+
 	}
 	else if (movetimer < 40.0f) {
 		getpos.x += 50.0f;
+		scl.y += 0.03f;
 		m_spriteRender[22]->SetPosition({ getpos.x,	minipos.y,0.0f });
+		m_spriteRender[22]->SetScale(scl);
 	}
 	else if (movetimer < 60.0f) {
 		getpos.x = getpos.x;
@@ -313,6 +364,7 @@ void Title::minimove() {
 	else {
 		minimoveflag = true;
 	}
+
 }
 void Title::NewMove() {
 	switch (m_new) {
@@ -772,24 +824,31 @@ void Title::GameEnd() {
 
 }
 void Title::Update() {
+
 	switch (m_stete) {
 	case Title::NewGame:
 		GameStart();	//初めから
-		m_spriteRender[19]->SetMulColor({ 1.0f,1.0f,1.0f,1.0f });
-		m_spriteRender[20]->SetMulColor({ 1.0f,1.0f,1.0f,0.5f });
-		m_spriteRender[21]->SetMulColor({ 1.0f,1.0f,1.0f,0.5f });
+		if (miniflag == false) {
+			m_spriteRender[19]->SetMulColor({ 1.0f,1.0f,1.0f,1.0f });
+			m_spriteRender[20]->SetMulColor({ 1.0f,1.0f,1.0f,0.5f });
+			m_spriteRender[21]->SetMulColor({ 1.0f,1.0f,1.0f,0.5f });
+		}
 		break;
 	case Title::LoadGame:
 		GameMore();		//続きから
-		m_spriteRender[19]->SetMulColor({ 1.0f,1.0f,1.0f,0.5f });
-		m_spriteRender[20]->SetMulColor({ 1.0f,1.0f,1.0f,1.0f });
-		m_spriteRender[21]->SetMulColor({ 1.0f,1.0f,1.0f,0.5f });
+		if (miniflag == false) {
+			m_spriteRender[19]->SetMulColor({ 1.0f,1.0f,1.0f,0.5f });
+			m_spriteRender[20]->SetMulColor({ 1.0f,1.0f,1.0f,1.0f });
+			m_spriteRender[21]->SetMulColor({ 1.0f,1.0f,1.0f,0.5f });
+		}
 		break;
 	case Title::Exit:
 		GameEnd();		//バイバイ
-		m_spriteRender[19]->SetMulColor({ 1.0f,1.0f,1.0f,0.5f });
-		m_spriteRender[20]->SetMulColor({ 1.0f,1.0f,1.0f,0.5f });
-		m_spriteRender[21]->SetMulColor({ 1.0f,1.0f,1.0f,1.0f });
+		if (miniflag == false) {
+			m_spriteRender[19]->SetMulColor({ 1.0f,1.0f,1.0f,0.5f });
+			m_spriteRender[20]->SetMulColor({ 1.0f,1.0f,1.0f,0.5f });
+			m_spriteRender[21]->SetMulColor({ 1.0f,1.0f,1.0f,1.0f });
+		}
 		break;
 
 	}
@@ -799,4 +858,5 @@ void Title::Update() {
 	if (miniflag == false) {
 		minimusi();
 	}
+
 }

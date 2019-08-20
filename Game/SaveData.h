@@ -77,9 +77,19 @@ public:
 	void SaveData::SetKikoFlag_Hard(int x) {
 		KikoFlag_Hard[x] = true;
 	}
+
 	//引数に設定した場所のキコウチュウフラグ（ハード）を取得
 	bool SaveData::GetKikoFlag_Hard(int x) {
 		return KikoFlag_Hard[x];
+	}
+
+	//引数に設定した場所のサポートチュートリアルフラグをtrueにする
+	void SaveData::SetSupportFlag(int x) {
+		SupportFlag[x] = true;
+	}
+	//引数に設定した場所のサポートチュートリアルフラグを取得
+	bool SaveData::GetSupportFlag(int x) {
+		return SupportFlag[x];
 	}
 
 	//クリアしたステージを増やす
@@ -118,9 +128,42 @@ public:
 		Life_Upgrade++;
 	}
 
+	//引数位置のスキル取得フラグをtrueにする
+	void SaveData::SkillGetFlag_Set(int x) {
+		SkillGetFlag[x] = true;
+	}
+	//引数位置のスキル取得フラグを取得する
+	bool SaveData::SkillGetFlag_Get(int x) {
+		return SkillGetFlag[x];
+	}
+
+	//第一引数→変更するスキル場所(false→Y、true→X）
+	//第二引数→セットするスキルNo（-1なら無）
+	//スキルを設定する
+	void SaveData::SkillSetting(bool YorX, int skill) {
+		if (YorX == false) { //Yボタンにセット
+			SkillSet[0] = skill;
+		}
+		else { //Xボタンにセット
+			SkillSet[1] = skill;
+		}
+	}
+	//第一引数→変更するスキル場所(false→Y、true→X）
+	//設定されているスキルNoを返す
+	int SaveData::GetSkill(bool YorX) {
+		if (YorX == false) { //Yボタン
+			return SkillSet[0];
+		}
+		else { //Xボタン
+			return SkillSet[1];
+		}
+	}
+	
 private:
 	//ハイスコア
 	int HighScore[Stage]{
+		0,
+		0,
 		0,
 		0,
 		0,
@@ -128,6 +171,8 @@ private:
 
 	//ハイスコア（ハード）
 	int HighScore_Hard[Stage]{
+		0,
+		0,
 		0,
 		0,
 		0,
@@ -146,10 +191,6 @@ private:
 	//モンスターの図鑑登録済みフラグ
 	bool MonstarFlag[Monster]{
 		false,
-		false,
-		false,
-		false,
-		false,
 	};
 
 	int Zanki_Upgrade = 0; //残機強化回数
@@ -158,5 +199,25 @@ private:
 
 	//クリアしたステージ
 	int ClearedStage = 0;
+
+	//サポートチュートリアルフラグ
+	bool SupportFlag[4]{
+		false, //敵を4体倒したら削除
+		false, //りゅうせいダッシュを使用したら削除
+		false, //ボスにダメージを与えたら削除
+		false, //ボスに3回ダメージを与えたら削除
+	};
+
+	int SkillSet[2]{//セット中のスキルデータ（-1なら無し）
+		0, //Yボタン
+		-1, //Xボタン
+	};
+
+	//スキル入手フラグ
+	bool SkillGetFlag[24]{
+		true,
+		false,
+	};
+
 };
 

@@ -1,8 +1,29 @@
 #include "stdafx.h"
 #include "GameData.h"
+#include "SaveData.h"
 #include "Player.h"
 
 GameData* GameData::m_instance = nullptr;
+
+void GameData::GameDataReset() {
+	//現在残機をデフォルト残機に設定
+	Zanki = DEF_Zanki;
+	//カウント系もろもろ0にする
+	Star_Power = 0;
+	ItemCount = 0;
+	GiriCount = 0;
+	EnemyCount = 0;
+	WaveNow = 0;
+	WaveMAX = 0;
+	GekihaEnemy = 0;
+	LevelSetFlag = false;
+	ResultFlag = false;
+	KikoFlag = false;
+	BossDamage = 0;
+	BomFlag = false;
+	DensyaFlag = false;
+	LastDamage_StarDashFlag = false;
+}
 
 //x=0で割合を、x=1で減少値を返す
 float GameData::GetLifePercent(int x) {
@@ -50,6 +71,9 @@ int GameData::ZankiBonusKeisan() {
 //現在寿命と攻撃力からダメージを計算して返す 引数には流星ダッシュ中ならtrueを、それ以外ならfalseを入れること！！！！！！！！！
 int GameData::DamageKeisan(bool dashflag) {
 
+	SaveData * savedata = SaveData::GetInstance();
+	LastDamage_StarDashFlag = false;
+
 	float m_Life = GetLifePercent(0);
 	//
 	m_Life = 1.0f + ((1.0f - m_Life)*5.0f); //これが攻撃倍率
@@ -62,10 +86,32 @@ int GameData::DamageKeisan(bool dashflag) {
 	}
 
 	if (dashflag == true) {//流星ダッシュ中ならダメージアップ！
+		LastDamage_StarDashFlag = true;
+		damage *= 3;
+	}
+
+	if (savedata->GetSkill(false) == 12 || savedata->GetSkill(true) == 12) { //アタックアップ！
+		damage = (int)((float)damage * 1.2f);
+	}
+
+	if (savedata->GetSkill(false) == 17 || savedata->GetSkill(true) == 17) { //カミカゼバトル
 		damage *= 3;
 	}
 
 	return damage;
+}
+
+//ゲームオーバー用 もらえるポイントを取得
+int GameData::GetGameOverKeisan() {
+	int x = GekihaEnemy * GameOverBonus;
+	x += GetGiriCountKeisan();
+	x += GetItemCountKeisan();
+
+	if (KikoFlag == true) {
+		x += KikoBonus;
+	}
+
+	return x;
 }
 
 void GameData::TestMessage() {

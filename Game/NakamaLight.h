@@ -7,7 +7,7 @@ public:
 	~NakamaLight();
 	bool Start();
 	void Update();
-	void NakamaPlus(); //実行されたら仲間の光！
+	void NakamaPlus(bool randomFlag,bool SoundFlag); //実行されたら仲間の光！
 
 	//インスタンスの取得
 	static NakamaLight* NakamaLight::GetInstance() {
@@ -33,6 +33,7 @@ private:
 
 	int StarTimer = -1;
 	int StarAccTimer = -1;
+	bool OnryouMiniFlag = false; //音量を小さくするフラグ（一度にたくさん星を生成するときオン）
 
 	const int StarLimit = 120; //星の移動速度（ゆっくり）
 	const int StarLimit_High = 24; //星の移動速度（はやく！）

@@ -6,9 +6,12 @@ NakamaLight* NakamaLight::m_instance = nullptr;
 
 NakamaLight::NakamaLight()
 {
-	if (m_instance != nullptr) {
-		std::abort(); //すでに出ているためクラッシュ
-	}
+	//if (m_instance != nullptr) {
+	//	std::abort(); //すでに出ているためクラッシュ
+	//}
+
+	r = NewGO<prefab::CSpriteRender>(5);
+	r2 = NewGO<prefab::CSpriteRender>(7);
 
 	//このインスタンスを唯一のインスタンスとして記録する
 	m_instance = this;
@@ -23,8 +26,6 @@ NakamaLight::~NakamaLight()
 
 bool NakamaLight::Start() {
 
-	r = NewGO<prefab::CSpriteRender>(5);
-	r2 = NewGO<prefab::CSpriteRender>(7);
 
 	return true;
 }
@@ -65,7 +66,12 @@ void NakamaLight::Update() {
 	if (StarTimer == StarWaitLimit) { //ハイスピード準備
 		ss = NewGO<prefab::CSoundSource>(0);
 		ss->Init(L"sound/star_02.wav");
-		ss->SetVolume(0.3f);
+		if (OnryouMiniFlag == false) {
+			ss->SetVolume(0.3f);
+		}
+		else {
+			ss->SetVolume(0.1f);
+		}
 		ss->Play(false);
 
 		CVector3 m_pos = r->GetPosition();
@@ -161,7 +167,12 @@ void NakamaLight::Update() {
 	if (StarTimer == FinalLimit) {
 		ss = NewGO<prefab::CSoundSource>(0);
 		ss->Init(L"sound/star_03.wav");
-		ss->SetVolume(1.0f);
+		if (OnryouMiniFlag == false) {
+			ss->SetVolume(1.0f);
+		}
+		else {
+			ss->SetVolume(0.2f);
+		}
 		ss->SetFrequencyRatio(1.5f);
 		ss->Play(false);
 
@@ -194,17 +205,26 @@ void NakamaLight::Update() {
 		StarAccTimer = -1;
 		Scale = CVector3::Zero;
 		MulAlpha = 0.0f;
+		DeleteGO(this);
 	}
 
 }
 
-void NakamaLight::NakamaPlus() {
+//第一引数にtrueを入れると星が飛ぶ位置が完全ランダムになる
+//第二引数にtrueを入れるとSE音量が小さくなる（一度にたくさん星を生成するときtrueにしてね）
+void NakamaLight::NakamaPlus(bool randomFlag, bool SoundFlag) {
 
 	GameData * gameData = GameData::GetInstance();
 	int mode = gameData->GetGameMode();
+	OnryouMiniFlag = SoundFlag;
 
 	if (mode == GameData::Battle2D_Mode) {
-		Star_Pos = GraphicsEngine().GetPostEffect().GetDithering().GeneratePointLigPosition();
+		if (randomFlag == false) { //死んだときの
+			Star_Pos = GraphicsEngine().GetPostEffect().GetDithering().GeneratePointLigPosition();
+		}
+		else { //適当な位置に飛ばすよ
+			Star_Pos = GraphicsEngine().GetPostEffect().GetDithering().GeneratePointLigPosition_rand();
+		}
 	}
 	else if (mode == GameData::Battle3D_Mode) {
 		Star_Pos = { -600.0f,-50.0f };
@@ -214,10 +234,16 @@ void NakamaLight::NakamaPlus() {
 
 	ss = NewGO<prefab::CSoundSource>(0);
 	ss->Init(L"sound/star_01.wav");
-	ss->SetVolume(0.5f);
+	if (OnryouMiniFlag == false) {
+		ss->SetVolume(0.5f);
+	}
+	else {
+		ss->SetVolume(0.2f);
+	}
 	ss->SetFrequencyRatio(2.0f);
 	ss->Play(false);
 
+	//r = NewGO<prefab::CSpriteRender>(5);
 	r->Init(L"sprite/Star.dds", 200, 200);
 	r->SetPosition({ P_Pos.x,P_Pos.y,0.0f });
 	r->SetScale(Scale);
@@ -225,4 +251,3 @@ void NakamaLight::NakamaPlus() {
 	r->SetMulColor(MulColor);
 
 }
-

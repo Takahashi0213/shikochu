@@ -109,7 +109,7 @@ private:
 
 	int waveNo = 0; //©•ª‚ª‘®‚·‚éWave‚Ì”Ô†
 
-	int MAXHP = 7000; //Å‘åHP
+	int MAXHP = 10000; //Å‘åHP
 	int NowHP = MAXHP; //Œ»İHP
 
 	//

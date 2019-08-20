@@ -31,26 +31,36 @@ namespace tkEngine{
 		/*!
 		 *@brief	描画。
 		 */
-		void Render(CRenderContext& rc, CPostEffect* ps);
+		void Render(CRenderContext& rc, CPostEffect* ps)
+		{
+			InternalRender(rc, ps, m_manager);
+		}
+		void PostRender(CRenderContext& rc, CPostEffect* ps)
+		{
+			InternalRender(rc, ps, m_postManager);
+		}
 		/*!
 		 *@brief	Effekseerのエフェクトを作成。
 		 */
-		Effekseer::Effect* CreateEffekseerEffect(const wchar_t* filePath);
+		Effekseer::Effect* CreateEffekseerEffect(const wchar_t* filePath, bool isPost);
 		/*!
 		 *@brief	Effekseerのエフェクトを再生。
 		 */
-		Effekseer::Handle Play(Effekseer::Effect* effect);
+		Effekseer::Handle Play(Effekseer::Effect* effect, bool isPost);
 		/*!
 		 *@brief	Effekseerマネージャの取得。
 		 */
-		Effekseer::Manager& GetEffekseerManager()
+		Effekseer::Manager& GetEffekseerManager(bool isPost)
 		{
+			if (isPost) {
+				return *m_postManager;
+			}
 			return *m_manager;
 		}
 		/*!
 		 *@brief	Effekseerのエフェクトの停止。
 		 */
-		void Stop(Effekseer::Handle handle);
+		void Stop(Effekseer::Handle handle, bool isPost);
 		/*!
 		 *@brief	リソースマネージャを取得。
 		 */
@@ -59,8 +69,11 @@ namespace tkEngine{
 			return m_resourcetManager;
 		}
 	private:
+		void InternalRender(CRenderContext& rc, CPostEffect* ps, Effekseer::Manager* manager );
+	private:
 		CEffectResourceManager m_resourcetManager;	//リソースマネージャ。
 		Effekseer::Manager*	m_manager= nullptr;
+		Effekseer::Manager* m_postManager = nullptr;
 		EffekseerRenderer::Renderer*	m_renderer = nullptr;
 		CRenderTarget m_addEffectBuffer;
 		std::vector<int>	m_renderFlags;

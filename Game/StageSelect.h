@@ -9,6 +9,8 @@ public:
 		enAnimationClip_motion1, //動く1
 		enAnimationClip_motion2, //動く2
 		enAnimationClip_motion3, //動く3
+		enAnimationClip_motion4, //動く4
+		enAnimationClip_motion5, //動く5
 		enAnimationClip_Num,  //アニメーションクリップ
 	};
 

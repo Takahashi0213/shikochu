@@ -9,6 +9,7 @@
 #include "StageWait.h"
 #include "PlayerUpgrade.h"
 #include "Zukan.h"
+#include "RockGenerator.h"
 
 StageSelect* StageSelect::m_instance = nullptr;
 SaveData savedata;
@@ -60,6 +61,7 @@ bool StageSelect::Start() {
 	//準備
 	DisableSpecialLigRange();
 	NewGO<StageWait>(0,"stagewait");
+	NewGO<RockGenerator>(0, "RockGenerator");
 	GameData * gamedata = GameData::GetInstance();
 	SelectStageNow = gamedata->GetStageNo(); //ステージNoを取得するぜ
 	SelectStageNow -= 1;
@@ -70,10 +72,14 @@ bool StageSelect::Start() {
 	//アニメーションクリップをロードとループフラグ。
 	m_animClips[enAnimationClip_motion1].Load(L"animData/StageMini1.tka");
 	m_animClips[enAnimationClip_motion1].SetLoopFlag(true);
-	m_animClips[enAnimationClip_motion2].Load(L"animData/StageMini2.tka");
+	m_animClips[enAnimationClip_motion2].Load(L"animData/StageMini4.tka");
 	m_animClips[enAnimationClip_motion2].SetLoopFlag(true);
-	m_animClips[enAnimationClip_motion3].Load(L"animData/StageMini3.tka");
+	m_animClips[enAnimationClip_motion3].Load(L"animData/StageMini5.tka");
 	m_animClips[enAnimationClip_motion3].SetLoopFlag(true);
+	m_animClips[enAnimationClip_motion4].Load(L"animData/StageMini2.tka");
+	m_animClips[enAnimationClip_motion4].SetLoopFlag(true);
+	m_animClips[enAnimationClip_motion5].Load(L"animData/StageMini3.tka");
+	m_animClips[enAnimationClip_motion5].SetLoopFlag(true);
 
 	//輝度を変更する。
 	postEffect::Tonemap().SetLuminance(0.42f);
@@ -243,7 +249,8 @@ void StageSelect::Update(){
 	if (resetToneMapTimer > 0.0f) {
 		postEffect::Tonemap().Reset();
 	}
-	if (SelectedFlag == true && KyokaFlag == false && ZukanFlag == false && HardChangeFlag == false) {
+
+	if (SelectedFlag == true && KyokaFlag == false && ZukanFlag == false && HardChangeFlag == false) { //ステージ決定演出
 
 		BMG_V -= 0.1f;
 		if (BMG_V < 0.0f) {
@@ -258,14 +265,14 @@ void StageSelect::Update(){
 			m_skinModelRender[x]->SetRotation(m_rotation);
 			m_skinModelRender[x]->SetPosition({ -100.0f,-100.0f,0.0f });
 		}
-		else if (Selected_Counter == 14) {
+		else if (Selected_Counter == 14) { //ちょっとゆっくり
 			int x = 2 + SelectStageNow;
 			RotBox += 0.2f;
 			m_rotation.SetRotation(CVector3::AxisY, RotBox);
 			m_skinModelRender[x]->SetRotation(m_rotation);
 			m_skinModelRender[x]->SetPosition({ -100.0f,-100.0f,0.0f });
 		}
-		else {
+		else { //かなりゆっくり
 			int x = 2 + SelectStageNow;
 			RotBox += 0.01f;
 			m_rotation.SetRotation(CVector3::AxisY, RotBox);
@@ -294,7 +301,7 @@ void StageSelect::Update(){
 			TransitionMaker * tm = TransitionMaker::GetInstance();
 			tm->TransitionSetting(TransitionMaker::Toziru, 12, 0, false);
 		}
-		//アレ
+		//ブツを表示するぜ
 		if (Selected_Counter == 80) {
 			StageWait * sw = StageWait::GetInstance();
 			sw->WaitSet(SelectStageNow, HardFlag);
@@ -309,13 +316,26 @@ void StageSelect::Update(){
 					tm->TransitionSetting(TransitionMaker::Toziru, 12, 30, true);
 					StartFlag = true;
 				}
+				if (SelectStageNow == 2 && HardFlag == true) { //隠しスキル
+					SaveData * savedata = SaveData::GetInstance();
+					if (savedata->SkillGetFlag_Get(23) == false) { //未所持で
+						if (Pad(0).IsTrigger(enButtonLB1) && Pad(0).IsTrigger(enButtonRB1) && Pad(0).IsTrigger(enButtonStart)) {
+							prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
+							ss->Init(L"sound/skillget.wav");
+							ss->SetVolume(1.0f);
+							ss->Play(false);
+							savedata->SkillGetFlag_Set(23);
+						}
+					}
+				}
 			}
 		}
 
+		//準備ができたら色々設置
 		if (StartFlag == true) {
 			if (StartCount == 30) {
-				//れっつご
 				NewGO<Game>(0, "Game");
+				DeleteGOs("RockGenerator");
 				DeleteGOs("UICamera");
 				DeleteGOs("stagewait");
 				DeleteGO(this);
@@ -348,14 +368,15 @@ void StageSelect::Update(){
 
 			}
 		}
-		else if (Selected_Counter == 25) {
+		else if (Selected_Counter == 25) { //トランジション閉じる
 			TransitionMaker * tm = TransitionMaker::GetInstance();
 			tm->TransitionSetting(TransitionMaker::Toziru, 12, 0, false);
 		}
-		else if (Selected_Counter == 40) {
+		else if (Selected_Counter == 40) { //トランジション開く
 			TransitionMaker * tm = TransitionMaker::GetInstance();
 			tm->TransitionSetting(TransitionMaker::Toziru, 12, 10, true);
 			NewGO<PlayerUpgrade>(0);
+			DeleteGOs("RockGenerator");
 			DeleteGOs("stagewait");
 			DeleteGO(this);
 		}
@@ -385,16 +406,17 @@ void StageSelect::Update(){
 
 			}
 		}
-		else if (Selected_Counter == 25) {
+		else if (Selected_Counter == 25) { //トランジション閉じる
 			TransitionMaker * tm = TransitionMaker::GetInstance();
 			tm->TransitionSetting(TransitionMaker::Toziru, 12, 0, false);
 		}
-		else if (Selected_Counter == 40) {
+		else if (Selected_Counter == 40) { //トランジション開く
 			TransitionMaker * tm = TransitionMaker::GetInstance();
 			tm->TransitionSetting(TransitionMaker::Toziru, 12, 10, true);
 			UICamera * UIcamera = UICamera::GetInstance();
 			UIcamera->CameraFlag(true);
 			NewGO<Zukan>(0);
+			DeleteGOs("RockGenerator");
 			DeleteGOs("stagewait");
 			DeleteGO(this);
 		}
@@ -524,6 +546,9 @@ void StageSelect::Update(){
 				ss->SetVolume(1.0f);
 				ss->Play(false);
 
+				GameData * gamedata = GameData::GetInstance();
+				gamedata->SetStageNo(SelectStageNow + 1); //ステージNoを決めるね
+
 				SelectedFlag = true;
 				KyokaFlag = true;
 			}
@@ -534,6 +559,9 @@ void StageSelect::Update(){
 				ss->Init(L"sound/kettei.wav");
 				ss->SetVolume(1.0f);
 				ss->Play(false);
+
+				GameData * gamedata = GameData::GetInstance();
+				gamedata->SetStageNo(SelectStageNow + 1); //ステージNoを決めるね
 
 				SelectedFlag = true;
 				ZukanFlag = true;
@@ -699,6 +727,7 @@ void StageSelect::BoxUpdate() {
 
 }
 
+//スタートボタンを点滅させたり、挑戦不能ならその旨の文章を表示する
 void StageSelect::STARTUpdate() {
 
 	SaveData * savedata = SaveData::GetInstance();

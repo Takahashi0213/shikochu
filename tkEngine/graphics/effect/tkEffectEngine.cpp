@@ -21,6 +21,10 @@ namespace tkEngine {
 			m_manager->Destroy();
 			m_manager = nullptr;
 		}
+		if (m_postManager != nullptr) {
+			m_postManager->Destroy();
+			m_postManager = nullptr;
+		}
 		if (m_renderer != nullptr) {
 			m_renderer->Destroy();
 			m_renderer = nullptr;
@@ -42,6 +46,7 @@ namespace tkEngine {
 			2000);
 		//エフェクトマネージャを初期化。
 		m_manager = Effekseer::Manager::Create(10000);
+		m_postManager = Effekseer::Manager::Create(10000);
 
 		// 描画用インスタンスから描画機能を設定
 		m_manager->SetSpriteRenderer(m_renderer->CreateSpriteRenderer());
@@ -54,6 +59,18 @@ namespace tkEngine {
 		// 独自拡張可能、現在はファイルから読み込んでいる。
 		m_manager->SetTextureLoader(m_renderer->CreateTextureLoader());
 		m_manager->SetModelLoader(m_renderer->CreateModelLoader());
+
+		// 描画用インスタンスから描画機能を設定
+		m_postManager->SetSpriteRenderer(m_renderer->CreateSpriteRenderer());
+		m_postManager->SetRibbonRenderer(m_renderer->CreateRibbonRenderer());
+		m_postManager->SetRingRenderer(m_renderer->CreateRingRenderer());
+		m_postManager->SetTrackRenderer(m_renderer->CreateTrackRenderer());
+		m_postManager->SetModelRenderer(m_renderer->CreateModelRenderer());
+
+		// 描画用インスタンスからテクスチャの読込機能を設定
+		// 独自拡張可能、現在はファイルから読み込んでいる。
+		m_postManager->SetTextureLoader(m_renderer->CreateTextureLoader());
+		m_postManager->SetModelLoader(m_renderer->CreateModelLoader());
 
 		CGraphicsEngine& ge = GraphicsEngine();
 		//加算もの書き込み用のレンダリングターゲットの作成。
@@ -94,17 +111,28 @@ namespace tkEngine {
 
 	}
 	
-	Effekseer::Effect* CEffectEngine::CreateEffekseerEffect(const wchar_t* filePath)
+	Effekseer::Effect* CEffectEngine::CreateEffekseerEffect(const wchar_t* filePath, bool isPost)
 	{
+		if (isPost) {
+			return Effekseer::Effect::Create(m_postManager, (const EFK_CHAR*)filePath);
+		}
 		return Effekseer::Effect::Create(m_manager, (const EFK_CHAR*)filePath);
 	}
-	Effekseer::Handle CEffectEngine::Play(Effekseer::Effect* effect )
+	Effekseer::Handle CEffectEngine::Play(Effekseer::Effect* effect, bool isPost)
 	{
+		if (isPost) {
+			return m_postManager->Play(effect, 0, 0, 0);
+		}
 		return m_manager->Play(effect, 0, 0, 0);
 	}
-	void CEffectEngine::Stop(Effekseer::Handle handle)
+	void CEffectEngine::Stop(Effekseer::Handle handle, bool isPost)
 	{
-		m_manager->StopEffect(handle);
+		if(isPost){
+			m_postManager->StopEffect(handle);
+		}
+		else {
+			m_manager->StopEffect(handle);
+		}
 	}
 	void CEffectEngine::Update()
 	{
@@ -113,8 +141,9 @@ namespace tkEngine {
 		m_renderer->SetProjectionMatrix(MainCamera().GetProjectionMatrix());
 
 		m_manager->Update(GameTime().GetFrameDeltaTime() / (1.0f / 60.0f));
+		m_postManager->Update(GameTime().GetFrameDeltaTime() / (1.0f / 60.0f));
 	}
-	void CEffectEngine::Render(CRenderContext& rc, CPostEffect* ps)
+	void CEffectEngine::InternalRender(CRenderContext& rc, CPostEffect* ps, Effekseer::Manager* manager)
 	{
 		BeginGPUEvent(L"enRenderStep_RenderEffect");
 		//レンダリングステップを3Dモデルの描画に。
@@ -127,7 +156,7 @@ namespace tkEngine {
 
 		using namespace Effekseer;
 		auto nodeCount = 0;
-		m_manager->QueryNode([&](EffectNode* node) {
+		manager->QueryNode([&](EffectNode* node) {
 			EffectBasicRenderParameter param = node->GetBasicRenderParameter();
 			m_renderFlags[nodeCount] = node->GetRenderFlag();	//元々の描画フラグをバックアップする。
 			nodeCount++;
@@ -136,7 +165,7 @@ namespace tkEngine {
 		{
 			//加算物以外は通常レンダリング。
 			nodeCount = 0;
-			m_manager->QueryNode([&](EffectNode* node) {
+			manager->QueryNode([&](EffectNode* node) {
 				EffectBasicRenderParameter param = node->GetBasicRenderParameter();
 				if (param.AlphaBlend == AlphaBlendType::Add) {
 					//加算物は描画しない。
@@ -145,13 +174,13 @@ namespace tkEngine {
 			});
 
 			m_renderer->BeginRendering();
-			m_manager->Draw();
+			manager->Draw();
 			m_renderer->EndRendering();
 		}
 		{
 			//続いて加算物。
 			nodeCount = 0;
-			m_manager->QueryNode([&](EffectNode* node) {
+			manager->QueryNode([&](EffectNode* node) {
 				EffectBasicRenderParameter param = node->GetBasicRenderParameter();
 				if (param.AlphaBlend == AlphaBlendType::Add) {
 					//加算物の描画フラグを戻す。
@@ -178,7 +207,7 @@ namespace tkEngine {
 
 			//加算物を描画する。
 			m_renderer->BeginRendering();
-			m_manager->Draw();
+			manager->Draw();
 			m_renderer->EndRendering();
 
 			//レンダリングターゲットを差し戻す。
@@ -215,7 +244,7 @@ namespace tkEngine {
 
 		//ノードの描画フラグを全部戻す。
 		nodeCount = 0;
-		m_manager->QueryNode([&](EffectNode* node) {
+		manager->QueryNode([&](EffectNode* node) {
 			node->SetRenderFlag(m_renderFlags[nodeCount]);
 			nodeCount++;
 		});

@@ -138,6 +138,13 @@ namespace prefab {
 		{
 			return m_position;
 		}
+		/*!
+		* @brief	F‚ğæ“¾B
+		*/
+		const CVector4& GetColor() const
+		{
+			return m_color;
+		}
 	private:
 		void PostRender(CRenderContext& rc);
 	private:

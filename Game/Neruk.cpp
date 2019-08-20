@@ -4,6 +4,7 @@
 #include "shisokus.h"
 #include "NerukGenerator.h"
 #include "GameData.h"
+#include "StarComet_Inseki.h"
 
 Neruk::Neruk()
 {
@@ -181,8 +182,10 @@ void Neruk::position6() {
 
 
 void Neruk::NeruAttack() {
+	GameData * gamedata = GameData::GetInstance();
 	Player* player = FindGO<Player>("Bug");
 	int D_stete = player->GetState();
+
 	if (D_stete != Player::Estate_Death) {
 
 		if (attackflag == false) {
@@ -194,6 +197,18 @@ void Neruk::NeruAttack() {
 		}
 		if (deathtimer > deathwait) {
 			m_position += atmove * attackmove;
+		}
+		deathtimer++;
+		if (deathtimer > deathattack) {
+			DeleteGO(this);
+		}
+	}
+	else if(gamedata->GetGameMode()==GameData::GameOver){
+
+		attackflag = true;
+
+		if (deathtimer > deathwait) {
+			m_position.z -= GameOverMove;
 		}
 		deathtimer++;
 		if (deathtimer > deathattack) {
@@ -271,6 +286,12 @@ void Neruk::NeruDeath() {
 
 		DeleteGO(this);
 }
+
+void Neruk::NeruDeath2() {
+
+	DeleteGO(this);
+}
+
 void Neruk::Update() {
 
 	GameData * gamedata = GameData::GetInstance();
@@ -290,14 +311,30 @@ void Neruk::Update() {
 
 		case Neruk::Estete_Death:
 			NeruDeath();
+			break;		
+		case Neruk::Estete_Death2:
+			NeruDeath2();
 			break;
+
 		}
 		shisokus* shisok = FindGO<shisokus>("shiso");
 		int s_stete = shisok->GetEState();
 		if (s_stete == shisokus::Estete_Death) {
-			m_stete = Estete_Death;
+			m_stete = Estete_Death2;
 		}
 	}
+
+	//Ç«Ç§Ç‡Ë¶êŒÇ≈Ç∑
+	QueryGOs<StarComet_Inseki>("StarComet_Inseki", [&](StarComet_Inseki* SCI) {
+		CVector3 inseki_position = SCI->Getm_Position();
+		CVector3 diff = inseki_position - m_position;
+		float Langth_hoge = SCI->GetDamageLength();
+		if (diff.Length() < Langth_hoge) { //Ë¶êŒè’ìÀ
+			SetDeath();//é©ï™Ç™éÄÇ 
+			SCI->SetDeath();//Ë¶êŒÇ‡éÄÇ 
+		}
+		return true;
+		});
 
 	//à⁄ìÆ
 	m_skinModelRender->SetPosition(m_position);

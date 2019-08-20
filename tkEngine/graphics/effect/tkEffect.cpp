@@ -19,7 +19,7 @@ namespace tkEngine {
 		void CEffect::Release()
 		{
 			if (m_handle != -1) {
-				GraphicsEngine().GetEffectEngine().Stop(m_handle);
+				GraphicsEngine().GetEffectEngine().Stop(m_handle, m_isPost);
 				m_handle = -1;
 			}
 		}
@@ -31,13 +31,13 @@ namespace tkEngine {
 			m_effect = ee.GetResourceManager().GetResource(nameKey);
 			if (m_effect == nullptr) {
 				//未登録。
-				m_effect = ee.CreateEffekseerEffect(filePath);
+				m_effect = ee.CreateEffekseerEffect(filePath, m_isPost);
 				if (m_effect == nullptr) {
 					TK_WARNING_MESSAGE_BOX("エフェクトのロードに失敗しました。%ls", filePath);
 				}
 				ee.GetResourceManager().RegistResource(nameKey, m_effect);
 			}
-			m_handle = GraphicsEngine().GetEffectEngine().Play(m_effect);
+			m_handle = GraphicsEngine().GetEffectEngine().Play(m_effect, m_isPost);
 		}
 		void CEffect::Update()
 		{
@@ -47,7 +47,7 @@ namespace tkEngine {
 			mScale.MakeScaling(m_scale);
 			mBase = mScale * mRot;
 			mBase = mBase * mTrans;
-			GraphicsEngine().GetEffectEngine().GetEffekseerManager().SetBaseMatrix(m_handle, mBase);
+			GraphicsEngine().GetEffectEngine().GetEffekseerManager(m_isPost).SetBaseMatrix(m_handle, mBase);
 			if (IsPlay() == false) {
 				//再生完了したら終わる。
 				DeleteGO(this);

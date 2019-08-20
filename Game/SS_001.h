@@ -82,6 +82,11 @@ public:
 		return waveNo;
 	}
 
+	//ビームの範囲を返す
+	float GetBeamRange() {
+		return BeamRange;
+	}
+
 private:
 
 	/*
@@ -113,7 +118,7 @@ private:
 
 	CVector3 DefPos = CVector3::Zero;
 
-	int MAXHP = 10000; //最大HP
+	int MAXHP = 13000; //最大HP
 	int NowHP = MAXHP; //現在HP
 
 	////////////////////////////////////////////////////////////
@@ -134,6 +139,7 @@ private:
 	const int BeamYobiLimit = 80; //ビーム準備制限時間
 	int BeamTimer = 0; //ビーム発射中タイマー
 	const int BeamLimit = 100; //ビーム制限時間
+	const float BeamRange = 150.0f; //ビーム範囲
 
 	//
 

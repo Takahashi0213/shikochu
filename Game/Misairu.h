@@ -19,9 +19,15 @@ public:
 	}
 
 	//フラグの管理
+	void Misairu::SetTeruFlag() {
+		TeruFlag = true;
+	}
+
+	//フラグの管理
 	void Misairu::SettingFlag() {
 		SetFlag = true;
 	}
+
 	bool Misairu::GetFlag() {
 		return SetFlag;
 	}
@@ -64,13 +70,18 @@ private:
 
 	CVector3 atmove = CVector3::Zero;
 	bool SetFlag = false;
+	bool TeruFlag = false;
 
 	//タイマー
 	int Timer = 0;
 	//
 	const int MoveLimit = 120; //移動の制限時間
 	const int AttackLimit = 300; //攻撃の制限時間
+	const int TeruMoveLimit = 60; //ティルオスカモードの移動の制限時間
 	//
 	const float AttackMoveSpeed = 30.0f; //攻撃の移動速度
+	const int TuibiLimit = 120; //移動の制限時間
+	const int TuibiLimit_Teru = 5; //移動の制限時間_Teru
+
 };
 

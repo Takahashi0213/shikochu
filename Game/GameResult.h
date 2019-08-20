@@ -20,7 +20,7 @@ private:
 	}
 
 	//MulAlpha変数をいい感じにします
-	void MulPuls() {
+	void GameResult::MulPuls() {
 		MulAlpha += 0.05f;
 		if (MulAlpha > 1.0f) {
 			MulAlpha = 1.0f;
@@ -40,6 +40,12 @@ private:
 			DeleteGO(m_fontRender[i]);
 		}
 	}
+
+	//スキル獲得準備
+	void SkillGetSetup();
+	//スキル獲得演出
+	//第一引数に獲得したスキルNo
+	void SkillGet(short SetPos);
 
 	enum resultscene {
 		scene1,
@@ -61,12 +67,16 @@ private:
 
 	std::vector<prefab::CSpriteRender*> m_spriteRender;
 	std::vector<prefab::CFontRender*> m_fontRender;
+	std::vector<prefab::CSpriteRender*> m_spriteRender_skill;
+	std::vector<prefab::CFontRender*> m_fontRender_skill;
 
 	resultscene ResultScene = scene1;		 //状態
 	resultturn ResultTurn = scene1_Background;		 //状態
 
 	prefab::CSpriteRender* r;
 	prefab::CFontRender* f;
+	prefab::CSpriteRender* r_skill;
+	prefab::CFontRender* f_skill;
 	prefab::CSoundSource* ss;
 	float BMG_V = 2.0f;
 
@@ -113,9 +123,21 @@ private:
 	float HardHosei = 0.0f; //ハードモードのスコア補正
 	int hoge = 0; //フェイズ６で使います
 	int hoge2 = 0; //フェイズ６で使います
+	int hoge3 = 0; //フェイズ６で使います
 	bool KikoFlag = false;
 	int KikoBonus = 0;
+	bool SkillFlag = false;
 
+	//スキル取得用
+	bool SkillGetFlag[24]{ //trueなら最後に取得演出！
+		false,
+	};	
+	bool Skill_EffectNow = false; //スキル取得演出ちう
+	bool Skill_EffectEnd = false; //1エフェクトが終わったらtrue
+	short CheckSkillNow = 0; //今確認中のスキルNo
+	short SkillTimer = 0; //スキル移動タイマー
+	bool SkillMove = false; //スキル移動状態フラグ
+	
 	//////////////////////////////////////////定数色々///////////////////////////////////////
 	//フェイズ１ 背景表示
 	const int PhaseTimer1 = 40; //動作の制限時間
@@ -176,7 +198,13 @@ private:
 
 	//フェイズ１１ これでほんとうにサヨナラ
 	const int ScoreKasan = 100; //1フレームで加算される数
-	const int DeleteTime = 60; //終了演出の時間
+	const int DeleteTime = 80; //終了演出の時間
+
+	//スキルゲット
+	const float SkillX_Hosei = 2000.0f; //スキルゲットウィンドウの初期位置X補正
+	const int SkillMoveSpeed = 20; //スキル枠の移動速度
+	const int SkillMoveWait = 20; //スキル枠の移動ウェイト
+	const wchar_t Reset[1] = L"";
 
 };
 

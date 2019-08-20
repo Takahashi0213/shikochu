@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "GameData.h"
 #include "EffectManager.h"
+#include "SaveData.h"
 
 StarItem::StarItem()
 {
@@ -50,7 +51,7 @@ void StarItem::Update() {
 		CVector3 diff = player_position - m_position;
 		itemVec = diff;
 		//距離が一定以下なら自死
-		if (diff.Length() < GetRange) {
+		if (diff.Length() < GetRange && player->GetNowSkill() == -1 ) {
 			prefab::CSoundSource* ss = NewGO<prefab::CSoundSource>(0);
 			ss->Init(L"sound/Item.wav");
 			ss->SetVolume(1.0f);
@@ -58,7 +59,7 @@ void StarItem::Update() {
 
 			//Effect再生
 			EffectManager * effectmanager = EffectManager::GetInstance();
-			effectmanager->EffectPlayer(EffectManager::ItemGet, m_position, EffectScale);
+			effectmanager->EffectPlayer(EffectManager::ItemGet, m_position, EffectScale, false, false);
 			//アイテムカウント増加
 			GameData * gamedata = GameData::GetInstance();
 			gamedata->ItemCounter();
@@ -69,7 +70,15 @@ void StarItem::Update() {
 	else if(m_stete== Estete_Death){
 		//消滅中
 		GameData * gamedata = GameData::GetInstance();
-		gamedata->Star_PowerChange(2);
+		SaveData * savedata = SaveData::GetInstance();
+
+		if (savedata->GetSkill(false) == 14 || savedata->GetSkill(true) == 14) { //アイテムブースト
+			gamedata->Star_PowerChange(3);
+		}
+		else {
+			gamedata->Star_PowerChange(2);
+		}
+
 		m_scale -= {0.1f, 0.1f, 0.1f};//小さくなる
 		itemTimer--;
 		if (itemTimer <= 0) {//タイマーが0でインスタンスを削除
@@ -93,7 +102,7 @@ void StarItem::Update() {
 	}
 
 	CQuaternion RotationY;
-	RotationY.SetRotationDeg(CVector3::AxisY, -1.0f);
+	RotationY.SetRotationDeg(CVector3::AxisY, RotItem);
 	//回転を加算する。
 	m_rotation *= RotationY;
 	//回転を設定する。

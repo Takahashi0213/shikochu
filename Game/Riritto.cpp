@@ -4,7 +4,7 @@
 #include "Player.h"
 #include "Bullet2.h"
 #include "EffectManager.h"
-
+#include "StarComet_Inseki.h"
 
 Riritto::Riritto()
 {
@@ -113,6 +113,10 @@ void Riritto::RiMove() {
 	}
 	timer++;
 	if (timer > random) {
+		EffectManager * effectmanager = EffectManager::GetInstance();
+		CVector3 EF_Position = m_position;
+		EF_Position.y += 50.0f;
+		effectmanager->EffectPlayer_Post(EffectManager::BulletYobi, EF_Position, { 40.0f,40.0f,40.0f });
 		bulletFlag = false;
 		colorflag = false;
 		m_stete = Estete_Yobi;
@@ -136,10 +140,12 @@ void Riritto::RiDeath() {
 	EffectManager * effectmanager = EffectManager::GetInstance();
 	CVector3 EF_Position = m_position;
 	EF_Position.y += 50.0f;
-	effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+	effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f }, false, false);
 
 	GameData * gamedata = GameData::GetInstance();
 	gamedata->EnemyCounterGensyou();
+	gamedata->PlusGekihaEnemy();
+
 	DeleteGO(this);
 }
 void Riritto::Update() {
@@ -170,6 +176,19 @@ void Riritto::Update() {
 			DeleteGO(this);
 		}
 	}
+
+	//Ç«Ç§Ç‡Ë¶êŒÇ≈Ç∑
+	QueryGOs<StarComet_Inseki>("StarComet_Inseki", [&](StarComet_Inseki* SCI) {
+		CVector3 inseki_position = SCI->Getm_Position();
+		CVector3 diff = inseki_position - m_position;
+		float Langth_hoge = SCI->GetDamageLength();
+		if (diff.Length() < Langth_hoge) { //Ë¶êŒè’ìÀ
+			SetDeath();//é©ï™Ç™éÄÇ 
+			SCI->SetDeath();//Ë¶êŒÇ‡éÄÇ 
+		}
+		return true;
+		});
+
 	//à⁄ìÆ
 	m_skinModelRender->SetPosition(m_position);
 	//âÒì]

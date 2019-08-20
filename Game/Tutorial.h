@@ -52,6 +52,7 @@ private:
 	const float M_PosY = 800.0f;
 	const float M_PosY2 = 880.0f;
 	const float M_YHosei = 30.0f;
+	const CVector3 EffectScale = { 30.0f,30.0f,30.0f }; //エフェクトの大きさ
 
 };
 

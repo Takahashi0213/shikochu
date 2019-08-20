@@ -29,12 +29,17 @@
     <Filter Include="Bullet">
       <UniqueIdentifier>{73fe943f-c8e2-46f0-8d55-1b37a76f1805}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Train">
+      <UniqueIdentifier>{5c18d09b-2963-40c3-9522-7d7cec9edcb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameStart">
+      <UniqueIdentifier>{8618bb11-824c-4d29-a9df-b804562ecaab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Title.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="Player_Status.cpp" />
@@ -94,9 +99,7 @@
     <ClCompile Include="Zukan.cpp">
       <Filter>STAGE_SELECT</Filter>
     </ClCompile>
-    <ClCompile Include="OP.cpp" />
     <ClCompile Include="Nerubikkuri.cpp" />
-    <ClCompile Include="TitleStandby.cpp" />
     <ClCompile Include="Arukasya.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
@@ -121,10 +124,7 @@
     <ClCompile Include="SS_001.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Misairu.cpp" />
     <ClCompile Include="GamePause.cpp" />
-    <ClCompile Include="Kikochu.cpp" />
-    <ClCompile Include="Tutorial.cpp" />
     <ClCompile Include="Uminoushi.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
@@ -140,7 +140,109 @@
     <ClCompile Include="Akoyadokari.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="TutorialWait.cpp" />
+    <ClCompile Include="Morinchu.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Benite.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Misairu.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Kikochu.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Nibo.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="AppleBomb.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Kirabi.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Suteira.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Idando.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Kodan.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Taidol.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Suroku.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet4.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Mimitto.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="StageGimmick.cpp" />
+    <ClCompile Include="Train1.cpp">
+      <Filter>Train</Filter>
+    </ClCompile>
+    <ClCompile Include="Train2.cpp">
+      <Filter>Train</Filter>
+    </ClCompile>
+    <ClCompile Include="OP.cpp">
+      <Filter>GameStart</Filter>
+    </ClCompile>
+    <ClCompile Include="Tutorial.cpp">
+      <Filter>GameStart</Filter>
+    </ClCompile>
+    <ClCompile Include="TutorialWait.cpp">
+      <Filter>GameStart</Filter>
+    </ClCompile>
+    <ClCompile Include="Sekuteimu.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="RockGenerator.cpp">
+      <Filter>STAGE_SELECT</Filter>
+    </ClCompile>
+    <ClCompile Include="Rock.cpp">
+      <Filter>STAGE_SELECT</Filter>
+    </ClCompile>
+    <ClCompile Include="Tizutyo.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet5.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Kuubo.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Teruosuka.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Toripipi.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Atsukaru.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Metoporisu.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet6.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSupport.cpp" />
+    <ClCompile Include="Title.cpp">
+      <Filter>GameStart</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleStandby.cpp">
+      <Filter>GameStart</Filter>
+    </ClCompile>
+    <ClCompile Include="ED.cpp">
+      <Filter>GameStart</Filter>
+    </ClCompile>
+    <ClCompile Include="StarComet.cpp" />
+    <ClCompile Include="StarComet_Inseki.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -148,7 +250,6 @@
     </CLInclude>
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="Title.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameData.h">
@@ -217,9 +318,7 @@
     <ClInclude Include="ZukanData.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="OP.h" />
     <ClInclude Include="Nerubikkuri.h" />
-    <ClInclude Include="TitleStandby.h" />
     <ClInclude Include="SS_001.h">
       <Filter>Enemy</Filter>
     </ClInclude>
@@ -244,10 +343,7 @@
     <ClInclude Include="Riritto.h">
       <Filter>Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Misairu.h" />
     <ClInclude Include="GamePause.h" />
-    <ClInclude Include="Kikochu.h" />
-    <ClInclude Include="Tutorial.h" />
     <ClInclude Include="Uminoushi.h">
       <Filter>Enemy</Filter>
     </ClInclude>
@@ -263,7 +359,112 @@
     <ClInclude Include="Akoyadokari.h">
       <Filter>Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="TutorialWait.h" />
+    <ClInclude Include="Morinchu.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Benite.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Misairu.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Kikochu.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Nibo.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="AppleBomb.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Kirabi.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Suteira.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Idando.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Kodan.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Taidol.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Suroku.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet4.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Mimitto.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="StageGimmick.h" />
+    <ClInclude Include="Train1.h">
+      <Filter>Train</Filter>
+    </ClInclude>
+    <ClInclude Include="Train2.h">
+      <Filter>Train</Filter>
+    </ClInclude>
+    <ClInclude Include="OP.h">
+      <Filter>GameStart</Filter>
+    </ClInclude>
+    <ClInclude Include="Tutorial.h">
+      <Filter>GameStart</Filter>
+    </ClInclude>
+    <ClInclude Include="Sekuteimu.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="TutorialWait.h">
+      <Filter>GameStart</Filter>
+    </ClInclude>
+    <ClInclude Include="RockGenerator.h">
+      <Filter>STAGE_SELECT</Filter>
+    </ClInclude>
+    <ClInclude Include="Rock.h">
+      <Filter>STAGE_SELECT</Filter>
+    </ClInclude>
+    <ClInclude Include="Tizutyo.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet5.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Kuubo.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Teruosuka.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Toripipi.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Atsukaru.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Metoporisu.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet6.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSupport.h" />
+    <ClInclude Include="Title.h">
+      <Filter>GameStart</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleStandby.h">
+      <Filter>GameStart</Filter>
+    </ClInclude>
+    <ClInclude Include="ED.h">
+      <Filter>GameStart</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillData.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StarComet.h" />
+    <ClInclude Include="StarComet_Inseki.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
@@ -290,9 +491,6 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\bullet.FBX">
-      <Filter>Assets\modelData</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\pointa.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\shisokus.FBX">
@@ -355,12 +553,97 @@
     <MeshContentTask Include="Assets\modelData\misairu.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\Kikochu.fbx" />
-    <MeshContentTask Include="Assets\modelData\Tutorial.fbx" />
     <MeshContentTask Include="Assets\modelData\umino.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\Akoyadokari.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\StageMini4.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\kyozin.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\forest.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Benite.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Nibo.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Sekuteia.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Tutorial.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Kikochu.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Apple.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Suteira.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Kirabin.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Idando.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Kodan.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Taidol.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Suroku.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Mimitto.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Metolo.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Train_1.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Train_2.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\StageMini5.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Rock1.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Rock2.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Tizutyo.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Kuubo.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Teruosuka.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Metoporisu.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Atsukaru.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\toripp.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\pointa.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>
@@ -747,6 +1030,214 @@
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\icon3.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Message\m_4_1.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Message\m_4_2.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Message\m_4_3.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Message\hm_2_1.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Message\hm_2_2.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Message\hm_2_3.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Message\hm_3_1.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Message\hm_3_2.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Message\hm_3_3.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Message\hm_4_a.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Message\hm_4_3.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Message\hm_4_2.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Message\hm_4_1.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Message\m_5_1.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Message\m_5_2.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Message\m_5_3.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\bikkuri_Ya.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Up.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Down.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\zatsudan.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Message\hm_5_1.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Message\hm_5_2.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Message\hm_5_3.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Message\hm_5_a.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\LifeBar_white.png" />
+    <ImageContentTask Include="Assets\sprite\kyokamigi.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillwaku_Blue.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillwaku_Red.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillwakuUnder_Null.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillwakuUnder_X.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillwakuUnder_Y.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skilliconWaku.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillicon_23.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillicon_22.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillicon_21.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillicon_20.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillicon_19.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillicon_18.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillicon_17.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillicon_16.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillicon_15.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillicon_12.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillicon_13.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillicon_14.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillicon_11.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillicon_10.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillicon_9.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillicon_8.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillicon_7.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillicon_6.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillicon_5.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillicon_4.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillicon_3.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillicon_2.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillicon_1.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillicon_0.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\kyokahidari.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\SkillX.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\SkillY.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillwaku_Gray.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skilliconWakuX.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skilliconWakuY.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Blue.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Yellow.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillicon_X.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillicon_Y.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillicon_X2.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillicon_Y2.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\skillicon_24.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Skill.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
   </ItemGroup>

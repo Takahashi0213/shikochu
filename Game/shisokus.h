@@ -28,14 +28,6 @@ public:
 	bool Start();
 	void Update();
 
-	void shisoMove();
-	void shisoYobi1();
-	void shisoAttack1();
-	void shisoYobi2();
-	void shisoAttack2();
-	void shisoDeath();
-	void shisoDeath2();
-
 	//ポジションを返す関数
 
 	CVector3 shisokus::Getm_Position() {
@@ -95,6 +87,14 @@ public:
 	}
 
 private:
+	void shisoMove();
+	void shisoYobi1();
+	void shisoAttack1();
+	void shisoYobi2();
+	void shisoAttack2();
+	void shisoDeath();
+	void shisoDeath2();
+
 	CAnimationClip m_animClips[enAnimationClip_Num];
 	prefab::CSkinModelRender* m_skinModelRender = nullptr;	//スキンモデルレンダラー。
 	CVector3 m_position = CVector3::Zero; // 座標。
@@ -115,7 +115,7 @@ private:
 	//予備動作関連
 	bool keisanflag = false;
 	int yobitimer = 0;
-	const float yobiwait = 50.0f;
+	const float yobiwait = 60.0f;
 	//攻撃関連
 	int attacktimer = 0;
 
@@ -127,7 +127,7 @@ private:
 
 	int waveNo = 0; //自分が属するWaveの番号
 
-	int MAXHP = 4000; //最大HP
+	int MAXHP = 3500; //最大HP
 	int NowHP = MAXHP; //現在HP
 
 };

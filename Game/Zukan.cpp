@@ -159,6 +159,125 @@ bool Zukan::Start() {
 		m_mo15anim[1].Load(MonsterAnime_ATK[hoge]);
 		m_mo15anim[1].SetLoopFlag(false);
 	}
+	hoge++;
+	m_mo16anim[0].Load(MonsterAnime[hoge]);
+	m_mo16anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo16anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo16anim[1].SetLoopFlag(false);
+	}
+	hoge++;
+	m_mo17anim[0].Load(MonsterAnime[hoge]);
+	m_mo17anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo17anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo17anim[1].SetLoopFlag(false);
+	}
+	hoge++;
+	m_mo18anim[0].Load(MonsterAnime[hoge]);
+	m_mo18anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo18anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo18anim[1].SetLoopFlag(false);
+	}
+	hoge++;
+	m_mo19anim[0].Load(MonsterAnime[hoge]);
+	m_mo19anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo19anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo19anim[1].SetLoopFlag(false);
+	}
+	hoge++;
+	m_mo20anim[0].Load(MonsterAnime[hoge]);
+	m_mo20anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo20anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo20anim[1].SetLoopFlag(false);
+	}
+	hoge++;
+	m_mo21anim[0].Load(MonsterAnime[hoge]);
+	m_mo21anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo21anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo21anim[1].SetLoopFlag(false);
+	}
+	hoge++;
+	m_mo22anim[0].Load(MonsterAnime[hoge]);
+	m_mo22anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo22anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo22anim[1].SetLoopFlag(false);
+	}
+	hoge++;
+	m_mo23anim[0].Load(MonsterAnime[hoge]);
+	m_mo23anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo23anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo23anim[1].SetLoopFlag(false);
+	}
+	hoge++;
+	m_mo24anim[0].Load(MonsterAnime[hoge]);
+	m_mo24anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo24anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo24anim[1].SetLoopFlag(false);
+	}
+	hoge++;
+	m_mo25anim[0].Load(MonsterAnime[hoge]);
+	m_mo25anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo25anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo25anim[1].SetLoopFlag(false);
+	}
+	hoge++;
+	m_mo26anim[0].Load(MonsterAnime[hoge]);
+	m_mo26anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo26anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo26anim[1].SetLoopFlag(false);
+	}
+	hoge++;
+	m_mo27anim[0].Load(MonsterAnime[hoge]);
+	m_mo27anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo27anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo27anim[1].SetLoopFlag(false);
+	}
+	hoge++;
+	m_mo28anim[0].Load(MonsterAnime[hoge]);
+	m_mo28anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo28anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo28anim[1].SetLoopFlag(false);
+	}
+	hoge++;
+	m_mo29anim[0].Load(MonsterAnime[hoge]);
+	m_mo29anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo29anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo29anim[1].SetLoopFlag(false);
+	}
+	hoge++;
+	m_mo30anim[0].Load(MonsterAnime[hoge]);
+	m_mo30anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo30anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo30anim[1].SetLoopFlag(false);
+	}
+	hoge++;
+	m_mo31anim[0].Load(MonsterAnime[hoge]);
+	m_mo31anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo31anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo31anim[1].SetLoopFlag(false);
+	}
+	hoge++;
+	m_mo32anim[0].Load(MonsterAnime[hoge]);
+	m_mo32anim[0].SetLoopFlag(true);
+	if (MonsterATK_Flag[hoge] == true) {
+		m_mo32anim[1].Load(MonsterAnime_ATK[hoge]);
+		m_mo32anim[1].SetLoopFlag(false);
+	}
 
 	//0番 背景用
 	r = NewGO<prefab::CSpriteRender>(3);
@@ -188,6 +307,16 @@ bool Zukan::Start() {
 	MulAlpha2 = 0.0f;
 	MulColor = { 1.0f,1.0f,1.0f,MulAlpha2 };
 	r->SetMulColor(MulColor);
+	m_spriteRender.push_back(r);
+	//5番 Up
+	r = NewGO<prefab::CSpriteRender>(5);
+	r->Init(L"sprite/Up.dds", 50.0f, 50.0f);
+	r->SetPosition({ -220.0f ,310.0f,0.0f });
+	m_spriteRender.push_back(r);
+	//6番 Down
+	r = NewGO<prefab::CSpriteRender>(5);
+	r->Init(L"sprite/Down.dds", 50.0f, 50.0f);
+	r->SetPosition({ -220.0f ,-90.0f,0.0f });
 	m_spriteRender.push_back(r);
 
 	//背景 0番
@@ -271,7 +400,7 @@ void Zukan::Update() {
 
 	if (DeleteFlag == false) {
 
-		if (Pad(0).IsTrigger(enButtonUp)) {
+		if (Pad(0).IsTrigger(enButtonUp) && AttackAnimeFlag==false) {
 			SelectNow--;
 			if (SelectNow == -1) {
 				SelectNow = 0;
@@ -282,10 +411,11 @@ void Zukan::Update() {
 				ss->SetVolume(0.5f);
 				ss->Play(false);
 				AttackAnimeFlag = false;
+				m_fontRender[3]->SetColor({ 0.2f,1.0f,0.2f,1.0f });
 				KoumokuUpdate();
 			}
 		}
-		else if (Pad(0).IsTrigger(enButtonDown)) {
+		else if (Pad(0).IsTrigger(enButtonDown) && AttackAnimeFlag == false) {
 			SelectNow++;
 			if (SelectNow >= Monster) {
 				SelectNow = Monster - 1;
@@ -296,6 +426,7 @@ void Zukan::Update() {
 				ss->SetVolume(0.5f);
 				ss->Play(false);
 				AttackAnimeFlag = false;
+				m_fontRender[3]->SetColor({ 0.2f,1.0f,0.2f,1.0f });
 				KoumokuUpdate();
 			}
 		}
@@ -445,11 +576,40 @@ void Zukan::Update() {
 	qAddRot.SetRotationDeg(CVector3::AxisY, 1.0f);
 	m_rotation *= qAddRot;
 	m_skinModelRender[1]->SetRotation(m_rotation);
+	
+	//矢印上下
+	CVector3 Ya_pos = m_spriteRender[5]->GetPosition();
+	if (Ya_UpDownFlag == false) {
+		Ya_pos.y += 0.2f;
+		m_spriteRender[5]->SetPosition(Ya_pos);
+		Ya_pos = m_spriteRender[6]->GetPosition();
+		Ya_pos.y -= 0.2f;
+		m_spriteRender[6]->SetPosition(Ya_pos);
+	}
+	else {
+		Ya_pos.y -= 0.2f;
+		m_spriteRender[5]->SetPosition(Ya_pos);
+		Ya_pos = m_spriteRender[6]->GetPosition();
+		Ya_pos.y += 0.2f;
+		m_spriteRender[6]->SetPosition(Ya_pos);
+	}
+	if (Ya_UpDownTimer == 30) {
+		Ya_UpDownFlag = true;
+	}
+	else if (Ya_UpDownTimer == 60) {
+		Ya_UpDownTimer = -1;
+		Ya_UpDownFlag = false;
+	}
+
+	Ya_UpDownTimer++;
 
 }
 
 //実行すると現在選択位置の内容に画面が更新されるぞ
 void Zukan::KoumokuUpdate() {
+
+	//上下矢印の更新
+	YazirusiUpdate();
 
 	//表示
 	wchar_t text[256];
@@ -566,6 +726,108 @@ void Zukan::KoumokuUpdate() {
 			m_skinModelRender[1]->Init(ModelName, m_mo15anim, 2);
 			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
 		}
+		if (SelectNow == 16) {
+			DeleteGO(m_skinModelRender[1]);
+			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
+			m_skinModelRender[1]->Init(ModelName, m_mo16anim, 2);
+			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
+		}
+		if (SelectNow == 17) {
+			DeleteGO(m_skinModelRender[1]);
+			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
+			m_skinModelRender[1]->Init(ModelName, m_mo17anim, 2);
+			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
+		}
+		if (SelectNow == 18) {
+			DeleteGO(m_skinModelRender[1]);
+			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
+			m_skinModelRender[1]->Init(ModelName, m_mo18anim, 2);
+			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
+		}
+		if (SelectNow == 19) {
+			DeleteGO(m_skinModelRender[1]);
+			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
+			m_skinModelRender[1]->Init(ModelName, m_mo19anim, 2);
+			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
+		}
+		if (SelectNow == 20) {
+			DeleteGO(m_skinModelRender[1]);
+			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
+			m_skinModelRender[1]->Init(ModelName, m_mo20anim, 2);
+			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
+		}
+		if (SelectNow == 21) {
+			DeleteGO(m_skinModelRender[1]);
+			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
+			m_skinModelRender[1]->Init(ModelName, m_mo21anim, 2);
+			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
+		}
+		if (SelectNow == 22) {
+			DeleteGO(m_skinModelRender[1]);
+			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
+			m_skinModelRender[1]->Init(ModelName, m_mo22anim, 2);
+			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
+		}
+		if (SelectNow == 23) {
+			DeleteGO(m_skinModelRender[1]);
+			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
+			m_skinModelRender[1]->Init(ModelName, m_mo23anim, 2);
+			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
+		}
+		if (SelectNow == 24) {
+			DeleteGO(m_skinModelRender[1]);
+			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
+			m_skinModelRender[1]->Init(ModelName, m_mo24anim, 2);
+			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
+		}
+		if (SelectNow == 25) {
+			DeleteGO(m_skinModelRender[1]);
+			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
+			m_skinModelRender[1]->Init(ModelName, m_mo25anim, 2);
+			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
+		}
+		if (SelectNow == 26) {
+			DeleteGO(m_skinModelRender[1]);
+			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
+			m_skinModelRender[1]->Init(ModelName, m_mo26anim, 2);
+			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
+		}
+		if (SelectNow == 27) {
+			DeleteGO(m_skinModelRender[1]);
+			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
+			m_skinModelRender[1]->Init(ModelName, m_mo27anim, 2);
+			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
+		}
+		if (SelectNow == 28) {
+			DeleteGO(m_skinModelRender[1]);
+			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
+			m_skinModelRender[1]->Init(ModelName, m_mo28anim, 2);
+			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
+		}
+		if (SelectNow == 29) {
+			DeleteGO(m_skinModelRender[1]);
+			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
+			m_skinModelRender[1]->Init(ModelName, m_mo29anim, 2);
+			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
+		}
+		if (SelectNow == 30) {
+			DeleteGO(m_skinModelRender[1]);
+			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
+			m_skinModelRender[1]->Init(ModelName, m_mo30anim, 2);
+			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
+		}
+		if (SelectNow == 32) {
+			DeleteGO(m_skinModelRender[1]);
+			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
+			m_skinModelRender[1]->Init(ModelName, m_mo32anim, 2);
+			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
+		}
+		if (SelectNow == 31) {
+			DeleteGO(m_skinModelRender[1]);
+			m_skinModelRender[1] = NewGO<prefab::CSkinModelRender>(0);
+			m_skinModelRender[1]->Init(ModelName, m_mo31anim, 2);
+			m_skinModelRender[1]->PlayAnimation(enAnimationClip_Num);
+		}
 
 		m_skinModelRender[1]->SetScale(M_Scale[SelectNow]);
 		m_skinModelRender[1]->SetPosition({ 90.0f + X_Hosei[SelectNow],60.0f + Y_Hosei[SelectNow], 0.0f + Z_Hosei[SelectNow] });
@@ -627,5 +889,24 @@ void Zukan::KoumokuUpdate() {
 void Zukan::AttackAnime(int i) {
 
 	m_skinModelRender[1]->PlayAnimation(i, 0.5f);
+
+}
+
+void Zukan::YazirusiUpdate() {
+
+	//もしコマンドが一番上なら上矢印を描画しない
+	if (SelectNow == 0) {
+		m_spriteRender[5]->SetActiveFlag(false);
+	}
+	else {
+		m_spriteRender[5]->SetActiveFlag(true);
+	}
+	//もしコマンドが一番下なら下矢印を描画しない
+	if (SelectNow == Monster - 1) {
+		m_spriteRender[6]->SetActiveFlag(false);
+	}
+	else {
+		m_spriteRender[6]->SetActiveFlag(true);
+	}
 
 }

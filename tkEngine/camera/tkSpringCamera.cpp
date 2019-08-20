@@ -15,7 +15,7 @@ namespace tkEngine {
 		{
 			float deltaTime = GameTime().GetFrameDeltaTime();
 
-			float dampingRate = 0.2f;
+			float dampingRate = 10.0f;
 			float distance;
 			distance = positionTarget - positionNow;
 			if (fabsf(distance) < FLT_EPSILON) {

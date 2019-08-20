@@ -4,8 +4,10 @@
 
 //ボスデータ
 #include "shisokus.h"
+#include "Morinchu.h"
 #include "Pairodorago.h"
 #include "SS_001.h"
+#include "Teruosuka.h"
 
 BossHPGage* BossHPGage::m_instance = nullptr;
 
@@ -180,13 +182,29 @@ void BossHPGage::Update() {
 		}
 		if (stage == 1 && mode == GameData::Battle3D_Mode) {
 			//ゲージの拡大率を計算
+			Morinchu * morinchu = FindGO<Morinchu>("Morinchu");
+			int NowHP = morinchu->GetHP();
+			int MAXHP = morinchu->GetMAXHP();
+			float BarX = (float)NowHP / (float)MAXHP;
+			BarScale = { BarX,1.0f,1.0f };
+		}
+		if (stage == 2 && mode == GameData::Battle3D_Mode) {
+			//ゲージの拡大率を計算
+			Teruosuka * teruosuka = FindGO<Teruosuka>("Teruosuka");
+			int NowHP = teruosuka->GetHP();
+			int MAXHP = teruosuka->GetMAXHP();
+			float BarX = (float)NowHP / (float)MAXHP;
+			BarScale = { BarX,1.0f,1.0f };
+		}
+		if (stage == 3 && mode == GameData::Battle3D_Mode) {
+			//ゲージの拡大率を計算
 			Pairodorago * pairodorago = FindGO<Pairodorago>("Pairodorago");
 			int NowHP = pairodorago->GetHP();
 			int MAXHP = pairodorago->GetMAXHP();
 			float BarX = (float)NowHP / (float)MAXHP;
 			BarScale = { BarX,1.0f,1.0f };
 		}
-		if (stage == 2 && mode == GameData::Battle3D_Mode) {
+		if (stage == 4 && mode == GameData::Battle3D_Mode) {
 			//ゲージの拡大率を計算
 			SS_001 * ss_001 = FindGO<SS_001>("SS_001");
 			int NowHP = ss_001->GetHP();

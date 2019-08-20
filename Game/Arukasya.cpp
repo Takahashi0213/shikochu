@@ -3,6 +3,7 @@
 #include "Arukasya.h"
 #include "EffectManager.h"
 #include "GameData.h"
+#include "StarComet_Inseki.h"
 
 Arukasya::Arukasya()
 {
@@ -108,10 +109,11 @@ void Arukasya::AruDeath() {
 	EffectManager * effectmanager = EffectManager::GetInstance();
 	CVector3 EF_Position = m_position;
 	EF_Position.y += 50.0f;
-	effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f });
+	effectmanager->EffectPlayer(EffectManager::enemySpawn, EF_Position, { 50.0f,50.0f,50.0f }, false, false);
 
 	GameData * gamedata = GameData::GetInstance();
 	gamedata->EnemyCounterGensyou();
+	gamedata->PlusGekihaEnemy();
 	DeleteGO(this);
 
 }
@@ -138,6 +140,19 @@ void Arukasya::Update() {
 			break;
 		}
 	}
+
+	//Ç«Ç§Ç‡Ë¶êŒÇ≈Ç∑
+	QueryGOs<StarComet_Inseki>("StarComet_Inseki", [&](StarComet_Inseki* SCI) {
+		CVector3 inseki_position = SCI->Getm_Position();
+		CVector3 diff = inseki_position - m_position;
+		float Langth_hoge = SCI->GetDamageLength();
+		if (diff.Length() < Langth_hoge) { //Ë¶êŒè’ìÀ
+			SetDeath();//é©ï™Ç™éÄÇ 
+			SCI->SetDeath();//Ë¶êŒÇ‡éÄÇ 
+		}
+		return true;
+		});
+
 	//à⁄ìÆ
 	m_skinModelRender->SetPosition(m_position);
 	//âÒì]
